@@ -1,12 +1,32 @@
-image: node: 10.6.0
+image: node:latest
+
+stages:
+  - install-dependencies
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+install-dependencies:
+  stage: install-dependencies
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm run build
 
 pages:
   stage: deploy
   script:
-  - npm install
-  - npm run build
-  - rm -rf public
-  - mv build public
+    - rm -rf public
+    - mv build public
   artifacts:
     paths:
     - public
