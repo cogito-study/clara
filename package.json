@@ -1,6 +1,6 @@
 {
   "name": "cogito-frontend",
-  "homepage": "https://cogit-dev.gitlab.io/frontend",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
