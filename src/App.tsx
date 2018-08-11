@@ -1,56 +1,38 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
+import { Provider, Heading, Button } from 'rebass';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { client } from './client';
+import { theme } from './theme';
 import { ExchangeRates } from './ExchangeRates';
-import logo from './logo.svg';
 
-const AppContainer = styled.div`
-  text-align: center;
-`;
-
-const spin = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
-
-const Header = styled.header`
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+const NavLink = styled(Link)`
   color: white;
-`;
-
-const Logo = styled.img`
-  animation: ${spin} infinite 20s linear;
-  height: 80px;
-`;
-
-const Title = styled.h1`
-  font-size: 1.5em;
-`;
-
-const Intro = styled.p`
-  font-size: large;
+  text-decoration: none;
 `;
 
 class App extends React.Component {
   public render() {
     return (
       <ApolloProvider client={client}>
-        <AppContainer>
-          <Header>
-            <Logo src={logo} alt="logo" />
-            <Title>Welcome to React with TypeScript!</Title>
-          </Header>
+        <Router>
+          <Provider theme={theme}>
+            <Button m={1}>
+              <NavLink to="/rates/eur">EUR Rates</NavLink>
+            </Button>
+            <Button m={1}>
+              <NavLink to="/rates/usd">USD Rates</NavLink>
+            </Button>
+            <Button m={1}>
+              <NavLink to="">Home</NavLink>
+            </Button>
 
-          <Intro>
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-          </Intro>
-
-          <ExchangeRates />
-        </AppContainer>
+            <Route exact path="/" render={() => <Heading>Hello Typescript Rebass</Heading>} />
+            <Route path="/rates/:currency" component={ExchangeRates} />
+          </Provider>
+        </Router>
       </ApolloProvider>
     );
   }

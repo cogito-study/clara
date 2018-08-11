@@ -44,7 +44,8 @@
       "allow-leading-underscore"
     ],
     // tslint-react
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false
   },
   "linterOptions": {
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
