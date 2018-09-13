@@ -4,15 +4,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.12",
-    "react": "^16.4.1",
-    "react-apollo": "^2.1.9",
-    "react-dom": "^16.4.1",
+    "apollo-boost": "^0.1.16",
+    "graphql": "^14.0.2",
+    "npm": "^6.4.1",
+    "react": "^16.5.0",
+    "react-apollo": "^2.1.11",
+    "react-dom": "^16.5.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts-ts": "^2.16.0",
-    "rebass": "^2.1.0",
-    "styled-components": "^3.4.2",
-    "graphql": "^0.13.2"
+    "react-scripts-ts": "^2.17.0",
+    "rebass": "^3.0.0-4",
+    "styled-components": "^3.4.6"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -25,14 +26,15 @@
     "@types/grid-styled": "^4.2.1",
     "@types/jest": "^23.3.0",
     "@types/node": "^10.5.3",
-    "@types/prop-types": "^15.5.4",
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
+    "@types/prop-types": "^15.5.5",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
     "@types/react-router-dom": "^4.3.0",
-    "@types/rebass": "^0.2.23",
-    "@types/styled-system": "^3.0.1",
-    "prettier": "^1.14.0",
-    "tslint-config-prettier": "^1.14.0",
-    "typescript": "^2.9.2"
+    "@types/styled-system": "^3.0.4",
+    "grid-styled": "^5.0.2",
+    "prettier": "^1.14.2",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.0.1"
   }
 }

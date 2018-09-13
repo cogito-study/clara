@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router-dom';
-import { Heading, Label } from 'rebass';
+import { Heading, Text } from 'rebass';
 import { Flex, Box } from 'grid-styled';
 
-import { Money } from './money';
+import { Money } from '../types/Money';
 
+// TODO: Temporary component to represent currencies. Need to be removed and the folder as well
 export const ExchangeRates: React.SFC<RouteComponentProps<{ currency: string }>> = (props) => {
   const currencyCode = props.match.params.currency.toUpperCase();
 
@@ -25,10 +26,10 @@ export const ExchangeRates: React.SFC<RouteComponentProps<{ currency: string }>>
   const renderList = (rates: Money[]): React.ReactNode =>
     rates.map(({ currency, rate }: Money) => (
       <Box key={currency} width={1 / 3}>
-        <Label m={1} fontSize={3}>
+        <Text m={1} fontSize={3}>
           <b>{currency} </b> 📈 {rate}
           {currencyCode}
-        </Label>
+        </Text>
       </Box>
     ));
 

@@ -6,7 +6,7 @@
   ],
   "rules": {
     "arrow-parens": false,
-    "arrow-return-shorthand": [false],
+    "arrow-return-shorthand": [true],
     "comment-format": [true, "check-space"],
     "import-blacklist": [true, "rxjs"],
     "interface-over-type-literal": false,
@@ -19,7 +19,7 @@
     "no-console": false,
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-invalid-this": [true, "check-function-in-method"],
-    "no-null-keyword": false,
+    "no-null-keyword": true,
     "no-require-imports": false,
     "no-submodule-imports": [true, "@src", "rxjs"],
     "no-this-assignment": [true, {
