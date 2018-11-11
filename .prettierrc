@@ -6,6 +6,5 @@
   "bracketSpacing": true,
   "arrowParens": "always",
   "trailingComma": "all",
-  "jsxBracketSameLine": false,
-  "parser": "typescript"
+  "jsxBracketSameLine": false
 }
