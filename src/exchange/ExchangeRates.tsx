@@ -1,42 +1,41 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router-dom';
-import { Heading, Text } from 'rebass';
-import { Flex, Box } from 'grid-styled';
+import { Box, Heading } from 'grommet';
 
 import { Money } from '../types/Money';
+import { ExchangeCard } from './ExchangeCard';
 
-// TODO: Temporary component to represent currencies. Need to be removed and the folder as well
-export const ExchangeRates: React.SFC<RouteComponentProps<{ currency: string }>> = (props) => {
+type Props = {
+  currency: string;
+};
+
+export const ExchangeRates: FunctionComponent<RouteComponentProps<Props>> = (props) => {
   const currencyCode = props.match.params.currency.toUpperCase();
 
-  const renderError: React.ReactNode = (
-    <Heading fontSize={3} color="red">
-      Error :(
-    </Heading>
-  );
+  const renderError = <Heading level="2">Error :(</Heading>;
+  const renderLoading = <Heading level="2">Loading..</Heading>;
 
-  const renderLoading: React.ReactNode = (
-    <Heading fontSize={3} color="green">
-      Loading..
-    </Heading>
+  const renderList = (rates: Money[]): React.ReactNode => (
+    <Box
+      pad="small"
+      gap="medium"
+      justify="center"
+      alignContent="between"
+      direction="row-responsive"
+      fill="vertical"
+      wrap
+    >
+      {rates.map(({ currency, rate }: Money) => (
+        <ExchangeCard key={currency} currency={currency} rate={rate} baseCurrency={currencyCode} />
+      ))}
+    </Box>
   );
-
-  const renderList = (rates: Money[]): React.ReactNode =>
-    rates.map(({ currency, rate }: Money) => (
-      <Box key={currency} width={1 / 3}>
-        <Text m={1} fontSize={3}>
-          <b>{currency} </b> 📈 {rate}
-          {currencyCode}
-        </Text>
-      </Box>
-    ));
 
   return (
-    <Flex flexDirection="column">
-      <Query
-        query={gql`
+    <Query
+      query={gql`
           {
             rates(currency: "${currencyCode}") {
               currency
@@ -44,19 +43,18 @@ export const ExchangeRates: React.SFC<RouteComponentProps<{ currency: string }>>
             }
           }
         `}
-      >
-        {({ loading, error, data }) => {
-          if (loading) {
-            return renderLoading;
-          }
+    >
+      {({ loading, error, data }) => {
+        if (loading) {
+          return renderLoading;
+        }
 
-          if (error) {
-            return renderError;
-          }
+        if (error) {
+          return renderError;
+        }
 
-          return renderList(data.rates);
-        }}
-      </Query>
-    </Flex>
+        return renderList(data.rates);
+      }}
+    </Query>
   );
 };
