@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "about": "RÓLUNK",
+    "why": "MIÉRT MI?",
+    "partners": "PARTNEREK",
+    "contact": "KAPCSOLAT"
+  },
+  "home": {
+    "motto": {
+      "part1": "Az oktatás velünk nem csak intézmény, hanem ",
+      "span": "közösség ",
+      "part2": "is",
+      "width": "779px"
+    },
+    "card": {
+      "title": "Belépés",
+      "placeholder": "Hamarosan... ;)",
+      "passwordTitle": "Írd be a jelszavad",
+      "passwordForgot": "Elfelejtetted a jelszavad?"
+    },
+    "subtitle": "Tudás és inspiráció egy helyen, Cogito.",
+    "button": "Iratkozz fel!"
+  },
+  "about": {
+    "section1": {
+      "title": "Tanulj hatékonyan, megbízható forrásokból",
+      "content": "Készítsd el naprakész jegyzeteidet társaiddal közösen, amiket aztán tanáraid lektorálhatnak."
+    },
+    "section2": {
+      "title": "Kövesd tanáraidat és inspirálódj minden nap",
+      "content": "Ne maradj le többé a szakmai tartalmakról. Kövesd tanáraidat akik életszerű helyzeteket, esettanulmányokat, a szakmához kapcsolódó érdekes cikkeket osztanak meg veled. Lehetőség nyílik számodra közelebb kerülni oktatóidhoz és a jövőbeli szakmádhoz is."
+    }
+  },
+  "why": {
+    "title": "Miért a Cogito?",
+    "content": "Unod már, hogy állandóan Google Driveokban keresel jegyzeteket? Végigpörgetted már az összes Facebook csoportot a vizsga előtt? Felejtsd el többé ezeket és találd meg a tantárgyaid lektorált forrásait itt a Cogiton. Tudás és inspiráció egy helyen."
+  },
+  "partners": {
+    "title": "Partnereink"
+  },
+  "contact": {
+    "title": "Kapcsolat",
+    "students": {
+      "title": "Hallgatóknak",
+      "content": "Egyetemed a Cogito rendszerét használja? Lépj be egyszerűen! Még nincs az intézményedben bevezetve a termékünk? Iratkozz fel a többiek mellé, és egyetemed garantáltan a terjeszkedési listánk elejére kerül!"
+    },
+    "subscribe": {
+      "emailtitle": "Email címed",
+      "unititle": "Egyetem, ahol tanulsz",
+      "email": "szeretek@tanulni.hu",
+      "university": "Imádott egyetemem neve",
+      "button": "Iratkozz fel!",
+      "reassure": "Köszönjük szépen!"
+    },
+    "universities": {
+      "title": "Egyetemeknek",
+      "content": "Amennyiben egyetemi oktatóként vagy döntéshozóként egy olyan, designjában és szemléletében fiatalos terméket keres, amellyel minőségi online oktatást folytathat, a Cogito a megfelelő termék Önnek és Intézményének. A munkát megosztva a közösség erejével levesszük az oktatók válláról a terheket megkönnyítve a munkájukat. Ha Ön is egyetemének innovátora szeretne lenni, keressen fel minket és első intézményeink között részesül kedvezményes árban!",
+      "button": "Keressen fel!"
+    },
+    "footer": {
+      "email": "contact@cogito.study",
+      "terms": "Használati feltételek",
+      "privacy": "Adatvédelmi irányelvek"
+    }
+  }
+}

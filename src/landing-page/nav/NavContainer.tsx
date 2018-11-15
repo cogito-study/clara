@@ -7,7 +7,7 @@ import { NavLink } from './NavLink';
 import { NavLogo } from './NavLogo';
 import { NavToolbar } from './NavToolbar';
 import { scrollOptions } from '../../constants/scrollOptions';
-import { Language } from '../../types/language';
+import { Language, english, hungarian } from '../../types/language';
 
 import i18n from '../../services/localization/i18n';
 
@@ -15,18 +15,18 @@ const { scroller } = Scroll;
 
 export class NavContainer extends Component<{}, { anotherLanguage: Language }> {
   state = {
-    anotherLanguage: Language.HUN,
+    anotherLanguage: hungarian,
   };
 
   componentDidMount() {
-    i18n.changeLanguage(Language.ENG);
+    i18n.changeLanguage(english.id);
   }
 
   changeLanguage = () => {
     const { anotherLanguage } = this.state;
-    anotherLanguage === Language.HUN
-      ? (i18n.changeLanguage(Language.HUN), this.setState({ anotherLanguage: Language.ENG }))
-      : (i18n.changeLanguage(Language.ENG), this.setState({ anotherLanguage: Language.HUN }));
+    anotherLanguage === hungarian
+      ? (i18n.changeLanguage(hungarian.id), this.setState({ anotherLanguage: english }))
+      : (i18n.changeLanguage(english.id), this.setState({ anotherLanguage: hungarian }));
   };
 
   scrollToSection = (section: string) => {
@@ -46,7 +46,7 @@ export class NavContainer extends Component<{}, { anotherLanguage: Language }> {
           <NavLink onClick={() => this.scrollToSection('Partners')}>{i18n.t('nav.partners')}</NavLink>
           <NavLink onClick={() => this.scrollToSection('Contact')}>{i18n.t('nav.contact')}</NavLink>
 
-          <NavButton onClick={this.changeLanguage}>{this.state.anotherLanguage}</NavButton>
+          <NavButton onClick={this.changeLanguage}>{this.state.anotherLanguage.name}</NavButton>
         </NavToolbar>
       </Fixed>
     );
