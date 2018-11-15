@@ -15,7 +15,7 @@ import StudentIcon from '../img/student_icon.svg';
 
 const API_URL = 'https://peaceful-mesa-85182.herokuapp.com/register/';
 
-class Contact extends Component<{}, { subscribed: boolean }> {
+export class ContactSection extends Component<{}, { subscribed: boolean }> {
   state = { subscribed: false };
 
   submitEmail = (event) => {
@@ -218,5 +218,3 @@ class Contact extends Component<{}, { subscribed: boolean }> {
     );
   }
 }
-
-export { Contact };
