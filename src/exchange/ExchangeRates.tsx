@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router-dom';
 import { Box, Heading } from 'grommet';
 
-import { Money } from '../types/Money';
+import { Money } from '../types/money';
 import { ExchangeCard } from './ExchangeCard';
 
 type Props = {

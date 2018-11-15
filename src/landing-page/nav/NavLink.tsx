@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { NavLink as RebassNavLink } from 'rebass';
 
-import { color } from '../../styles';
+import { color } from '../styles';
 
 interface Props {
   onClick: () => void;

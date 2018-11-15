@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Image, NavLink } from 'rebass';
 
-import { color } from '../../styles';
-import logo from '../../img/logo.svg';
+import { color } from '../styles';
+import logo from '../../assets/images/logo.svg';
 
 interface Props {
   onClick: () => void;

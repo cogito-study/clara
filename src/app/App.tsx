@@ -8,6 +8,7 @@ import { client } from '../services/client';
 import { theme } from '../ui-kit/theme/theme';
 import { PATH } from '../constants/path';
 import { ExchangeRates } from '../exchange/ExchangeRates';
+import LandingPage from '../landing-page/LandingPage';
 
 const NavLink = styled(Link)`
   color: white;
@@ -28,9 +29,13 @@ export const App = () => (
           <Button primary>
             <NavLink to={PATH.ROOT}>Home</NavLink>
           </Button>
+          <Button primary>
+            <NavLink to={PATH.LANDING}>Landing</NavLink>
+          </Button>
 
           <Route exact path={PATH.ROOT} render={() => <Heading>Hello Typescript Grommet</Heading>} />
           <Route path={PATH.CURRENCY_PARAM} component={ExchangeRates} />
+          <Route path={PATH.LANDING} component={LandingPage} />
         </>
       </Router>
     </Grommet>

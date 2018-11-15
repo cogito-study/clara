@@ -8,7 +8,7 @@ import { color, Header3, Header2, Header1 } from '../styles';
 import { ContactCard } from '../contact/ContactCard';
 import { scrollOptions } from '../../constants/scrollOptions';
 import i18n from '../../services/localization/i18n';
-import downArrow from '../img/down.svg';
+import downArrow from '../../assets/images/down.svg';
 
 const { scroller } = Scroll;
 
@@ -19,7 +19,7 @@ export const HomeSection = () => (
       className="Home"
       css={['background: linear-gradient(309.89deg, #4787D3 10.57%, #67BCFB 105.29%);']}
     >
-      <Parallax blur={0} bgImage={require('../img/homeBackground.svg')} strength={800}>
+      <Parallax blur={0} bgImage={require('../../assets/images/homeBackground.svg')} strength={800}>
         <Banner p={0} width="100%" bg="transparent">
           <Flex
             width={['100%', '100%', '100%', '75%', '65%']}

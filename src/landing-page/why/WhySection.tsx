@@ -4,8 +4,8 @@ import { Flex, Image } from 'rebass';
 import { color, Paragraph, Header1 } from '../styles';
 import { ContactCard } from '../contact/ContactCard';
 import i18n from '../../services/localization/i18n';
-import iphoneMockupEn from '../img/iphoneMockup(EN).png';
-import iphoneMockupHun from '../img/iphoneMockup(HUN).png';
+import iphoneMockupEn from '../../assets/images/iphoneMockup(EN).png';
+import iphoneMockupHun from '../../assets/images/iphoneMockup(HUN).png';
 
 export const WhySection = () => (
   <Flex justifyContent="center" alignItems="center" pt={['20px', '40px', '60px', '140px', '150px']} name="Why">

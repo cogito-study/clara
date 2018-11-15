@@ -3,10 +3,10 @@ import { Flex, Image } from 'rebass';
 
 import { Paragraph, Header1, color, gradientText } from '../styles';
 import i18n from '../../services/localization/i18n';
-import NotesViewHun from '../img/NotesView(HUN).png';
-import NotesViewEN from '../img/NotesView(EN).png';
-import SubjectNewsHun from '../img/SubjectNews(HUN).png';
-import SubjectNewsEn from '../img/SubjectNews(EN).png';
+import NotesViewHun from '../../assets/images/NotesView(HUN).png';
+import NotesViewEN from '../../assets/images/NotesView(EN).png';
+import SubjectNewsHun from '../../assets/images/SubjectNews(HUN).png';
+import SubjectNewsEn from '../../assets/images/SubjectNews(EN).png';
 
 export const AboutSection = () => (
   <Flex flexDirection="column" pt={60} name="About">

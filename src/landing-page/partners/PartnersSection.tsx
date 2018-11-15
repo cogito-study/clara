@@ -2,9 +2,9 @@ import React from 'react';
 import { Flex, Image, Link } from 'rebass';
 
 import { color, Header1 } from '../styles';
-import startitkhwhite from '../img/startitkhwhite.svg';
-import designterminal from '../img/designterminal.svg';
-import inputprogram from '../img/inputprogram.png';
+import startitkhwhite from '../../assets/images/startitkhwhite.svg';
+import designterminal from '../../assets/images/designterminal.svg';
+import inputprogram from '../../assets/images/inputprogram.png';
 import i18n from '../../services/localization/i18n';
 
 export const PartnersSection = () => (

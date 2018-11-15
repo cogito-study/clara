@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Flex, Image, Toolbar, Absolute } from 'rebass';
 
 import { color, Paragraph, Header2, Header1, Header3, gradientText } from '../styles';
-import { SubscribeButton, SubscribeInput } from '../subscribe/';
+import { SubscribeButton, SubscribeInput } from '../subscribe';
 import { ContactCard } from './ContactCard';
 import { SocialImage } from './SocialImage';
 import i18n from '../../services/localization/i18n';
 
-import facebook from '../img/facebook.svg';
-import twitter from '../img/twitter.svg';
-import instagram from '../img/instagram.svg';
-import UniversityIcon from '../img/university_icon.svg';
-import StudentIcon from '../img/student_icon.svg';
+import facebook from '../../assets/images/facebook.svg';
+import twitter from '../../assets/images/twitter.svg';
+import instagram from '../../assets/images/instagram.svg';
+import UniversityIcon from '../../assets/images/university_icon.svg';
+import StudentIcon from '../../assets/images/student_icon.svg';
 
 const API_URL = 'https://peaceful-mesa-85182.herokuapp.com/register/';
 
