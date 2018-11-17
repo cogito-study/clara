@@ -2,7 +2,6 @@ image: node:latest
 
 stages:
   - build
-  - test
   - deploy
 
 cache:
@@ -15,12 +14,6 @@ build:
     - yarn install
     - yarn build
 
-test:
-  stage: test
-  script:
-    - yarn install
-    - yarn test
-
 development-deploy:
   stage: deploy
   script:
@@ -29,4 +22,14 @@ development-deploy:
   dependencies:
     - build
   only:
-    - development
+    - merge-requests
+
+production-deploy:
+  stage: deploy
+  script:
+    - yarn add netlify-cli
+    - yarn run netlify deploy -s 6d1690b5-0776-413f-8788-6f9b9a4ad2a1 -p build -t $NETLIFY_ACCESS_TOKEN --prod
+  dependencies:
+    - build
+  only:
+    - master
