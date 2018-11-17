@@ -1,21 +1,32 @@
 image: node:latest
 
 stages:
+  - build
+  - test
   - deploy
 
 cache:
   paths:
     - node_modules/
 
-pages:
+build:
+  stage: build
+  script:
+    - yarn install
+    - yarn build
+
+test:
+  stage: test
+  script:
+    - yarn install
+    - yarn test
+
+development-deploy:
   stage: deploy
   script:
-    - npm install
-    - npm run build
-    - rm -rf public
-    - mv build public
-  artifacts:
-    paths:
-    - public
+    - yarn add netlify-cli
+    - yarn run netlify deploy -s 6d1690b5-0776-413f-8788-6f9b9a4ad2a1 -p build -t $NETLIFY_ACCESS_TOKEN
+  dependencies:
+    - build
   only:
-  - development
+    - development
