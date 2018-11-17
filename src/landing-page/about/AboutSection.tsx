@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex, Image } from 'rebass';
 
 import { Paragraph, Header1, color, gradientText } from '../styles';
+
 import i18n from '../../services/localization/i18n';
 import NotesViewHun from '../../assets/images/NotesView(HUN).png';
 import NotesViewEN from '../../assets/images/NotesView(EN).png';
