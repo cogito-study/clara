@@ -24,7 +24,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "_build": "sh -ac '. .env.${REACT_APP_ENVIRONMENT}; react-scripts build'",
+    "build:staging": "REACT_APP_ENVIRONMENT=staging yarn _build",
+    "build:production": "REACT_APP_ENVIRONMENT=production yarn _build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
