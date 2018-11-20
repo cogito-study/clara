@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2164.6 1901.1" style="enable-background:new 0 0 2164.6 1901.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:#4D86C6;}
+	.st2{fill:url(#XMLID_4_);}
+</style>
+<pattern  x="542.4" y="466.7" width="48" height="48" patternUnits="userSpaceOnUse" id="New_Pattern_2" viewBox="0 -48 48 48" style="overflow:visible;">
+	<g id="XMLID_15_">
+		<polygon id="XMLID_67_" class="st0" points="0,-48 48,-48 48,0 0,0 		"/>
+		<path id="XMLID_66_" class="st1" d="M10-40c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2S10-41.1,10-40z"/>
+		<path id="XMLID_55_" class="st1" d="M10-24c0,1.1-0.9,2-2,2s-2-0.9-2-2c0-1.1,0.9-2,2-2S10-25.1,10-24z"/>
+		<path id="XMLID_54_" class="st1" d="M26-24c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2C25.1-26,26-25.1,26-24z"/>
+		<path id="XMLID_43_" class="st1" d="M42-24c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2C41.1-26,42-25.1,42-24z"/>
+		<path id="XMLID_42_" class="st1" d="M10-8c0,1.1-0.9,2-2,2S6-6.9,6-8s0.9-2,2-2S10-9.1,10-8z"/>
+		<path id="XMLID_41_" class="st1" d="M26-8c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2s0.9-2,2-2C25.1-10,26-9.1,26-8z"/>
+		<path id="XMLID_40_" class="st1" d="M42-8c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2s0.9-2,2-2C41.1-10,42-9.1,42-8z"/>
+		<path id="XMLID_39_" class="st1" d="M26-40c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2s0.9-2,2-2C25.1-42,26-41.1,26-40z"/>
+		<path id="XMLID_38_" class="st1" d="M42-40c0,1.1-0.9,2-2,2s-2-0.9-2-2s0.9-2,2-2S42-41.1,42-40z"/>
+	</g>
+</pattern>
+<pattern  id="XMLID_4_" xlink:href="#New_Pattern_2" patternTransform="matrix(0.9859 0 0 0.9859 -245.1365 44.5704)">
+</pattern>
+<rect id="XMLID_1_" x="229.7" y="418.7" class="st2" width="1705.1" height="1063.7"/>
+</svg>

@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "about": "ABOUT",
+    "features": "FEATURES",
+    "why": "WHY COGITO?",
+    "partners": "PARTNERS",
+    "contact": "CONTACT"
+  },
+  "home": {
+    "motto": {
+      "part1": "Making education a ",
+      "span": "community ",
+      "part2": "not just an institute",
+      "width": "729px"
+    },
+    "card": {
+      "title": "Login",
+      "placeholder": "Coming soon...",
+      "passwordTitle": "Enter your password",
+      "passwordForgot": "Forgot your password?"
+    },
+    "subtitle": "Your social platform for perfect notes and inspiration.",
+    "button": "Subscribe!"
+  },
+  "about": {
+    "section1": {
+      "title": "Learn fast from trusted resources",
+      "content": "Each student contributing with their piece of knowledge can collaboratively create up-to-date notes for studying, that get validated by their professors after."
+    },
+    "section2": {
+      "title": "Connect with your professors and get inspiration every day",
+      "content": "Students and teachers won’t miss the professional content anymore. They can see and post real life cases, case studies, interesting articles in their field of study, and students can also connect to each other, their professors and future profession."
+    }
+  },
+  "why": {
+    "title": "Why Cogito?",
+    "content": "With Cogito you don't have to look for notes in Google Drives, scroll hundreds of pages in private Facebook groups, buy expensive online courses and outdated books. You'll find the sources and inspiration you're looking for right here!",
+    "image": ""
+  },
+  "partners": {
+    "title": "Our partners"
+  },
+  "contact": {
+    "title": "Contact us",
+    "students": {
+      "title": "For \n students",
+      "content": "If the university you're studying at is enrolled in our program, then we have good news, You are too! If not then you should register so your university will be somewhere on the top of our expansion list."
+    },
+    "subscribe": {
+      "emailtitle": "Enter your email address",
+      "unititle": "Enter your university's name",
+      "email": "ilovelearning@somuch.com",
+      "university": "My so beloved university",
+      "button": "Subscribe",
+      "reassure": "Thank You!"
+    },
+    "universities": {
+      "title": "For universities",
+      "content": "This won’t be your regular learning management system. Splitting the work to the community will reduce and ease the work of professors. If You want to be an innovator with reaching students and organizing your courses in an easier way contact us. Our first partner universities will get a discounted price.",
+      "button": "Contact us!"
+    },
+    "footer": {
+      "email": "contact@cogito.study",
+      "terms": "Terms of use",
+      "privacy": "Privacy policy"
+    }
+  }
+}

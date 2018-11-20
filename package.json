@@ -1,23 +1,61 @@
 {
   "name": "cogito-frontend",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts-ts": "2.16.0"
+    "apollo-boost": "^0.1.20",
+    "build-create-react-app-netlify": "^1.1.2",
+    "graphql": "^14.0.2",
+    "grommet": "^2.0.1",
+    "grommet-icons": "^3.2.0",
+    "i18next": "^12.0.0",
+    "i18next-browser-languagedetector": "^2.2.4",
+    "i18next-xhr-backend": "^1.5.1",
+    "npm": "^6.4.1",
+    "polished": "^2.3.0",
+    "react": "^16.6.1",
+    "react-apollo": "^2.2.4",
+    "react-dom": "^16.6.1",
+    "react-i18next": "^8.3.8",
+    "react-parallax": "^2.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.1",
+    "styled-components": "^4.0.3"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:production": "sh -ac '. .env.production; react-scripts build'",
+    "build:staging": "sh -ac '. .env.staging; react-scripts build'",
+    "build:netlify": "build-create-react-app-netlify",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.0",
-    "@types/node": "^10.5.3",
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
-    "typescript": "^2.9.2"
-  }
+    "@types/i18next": "^11.9.3",
+    "@types/i18next-browser-languagedetector": "^2.0.1",
+    "@types/i18next-xhr-backend": "^1.4.1",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.5",
+    "@types/prop-types": "^15.5.6",
+    "@types/react": "^16.7.3",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.1.0",
+    "prettier": "^1.15.2",
+    "react-scroll": "^1.7.10",
+    "rebass": "2.3.4",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.1.6"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
