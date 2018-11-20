@@ -10,8 +10,17 @@ import { CONFIG } from '../environment/config';
 import LandingPage from '../landing-page/LandingPage';
 
 export const App = () => {
-  console.log('environment', CONFIG.ENVIRONMENT);
-  console.log('api url', CONFIG.API_URL);
+  console.log('ENVIRONMENT', CONFIG.ENVIRONMENT);
+  console.log('API_URL', CONFIG.API_URL);
+  console.log('REPOSITORY_URL', CONFIG.REPOSITORY_URL);
+  console.log('BRANCH', CONFIG.BRANCH);
+  console.log('PULL_REQUEST', CONFIG.PULL_REQUEST);
+  console.log('HEAD', CONFIG.HEAD);
+  console.log('COMMIT_REF', CONFIG.COMMIT_REF);
+  console.log('CONTEXT', CONFIG.CONTEXT);
+  console.log('URL', CONFIG.URL);
+  console.log('DEPLOY_URL', CONFIG.DEPLOY_URL);
+  console.log('DEPLOY_PRIME_URL', CONFIG.DEPLOY_PRIME_URL);
 
   return (
     <ApolloProvider client={client}>

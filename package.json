@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.1.20",
+    "build-create-react-app-netlify": "^1.1.2",
     "graphql": "^14.0.2",
     "grommet": "^2.0.1",
     "grommet-icons": "^3.2.0",
@@ -25,6 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "_build": "sh -ac '. .env.${REACT_APP_ENVIRONMENT}; react-scripts build'",
+    "build:netlify": "build-create-react-app-netlify",
     "build:staging": "REACT_APP_ENVIRONMENT=staging yarn _build",
     "build:production": "REACT_APP_ENVIRONMENT=production yarn _build",
     "test": "react-scripts test",

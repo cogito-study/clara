@@ -1928,6 +1928,10 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
+build-create-react-app-netlify@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/build-create-react-app-netlify/-/build-create-react-app-netlify-1.1.2.tgz#19c4db573e1c933277fb73ebc9f84366c5960099"
+
 builtin-modules@^1.0.0, builtin-modules@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
