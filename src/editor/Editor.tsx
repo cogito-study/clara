@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
+
+import CollapseOnEscape from 'slate-collapse-on-escape';
+
 import { isKeyHotkey } from 'is-hotkey';
 import styled from 'styled-components';
 
@@ -180,6 +183,8 @@ export default class CogitoEditor extends React.Component {
     }
   };
 
+  plugins = [CollapseOnEscape()];
+
   render() {
     return (
       <div>
@@ -208,6 +213,7 @@ export default class CogitoEditor extends React.Component {
           renderNode={this.renderNode}
           renderMark={this.renderMark}
           onChange={this.onChange}
+          plugins={this.plugins}
         />
       </div>
     );
