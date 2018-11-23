@@ -13,6 +13,8 @@ import testValue from './testValue.json';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
 
+import { undo, redo, History } from './History';
+
 const Image = styled.img`
   display: block;
   max-height: 300px;
@@ -33,8 +35,6 @@ const Flex = styled.div`
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
-const undoHotkey = isKeyHotkey('mod+z');
-const redoHotkey = isKeyHotkey('mod+shift+z');
 
 interface EditorState {
   value: Value;
@@ -152,14 +152,6 @@ export default class CogitoEditor extends React.Component {
       mark = MarkType.ITALIC;
     } else if (isUnderlinedHotkey(event)) {
       mark = MarkType.UNDERLINED;
-    } else if (undoHotkey(event)) {
-      event.preventDefault();
-      this.undo();
-      return true;
-    } else if (redoHotkey(event)) {
-      event.preventDefault();
-      this.redo();
-      return true;
     } else {
       return next();
     }
@@ -170,14 +162,6 @@ export default class CogitoEditor extends React.Component {
 
   onChange = ({ value }) => {
     this.setState({ value });
-  };
-
-  undo = () => {
-    this.editor.undo();
-  };
-
-  redo = () => {
-    this.editor.redo();
   };
 
   hasMark = (type: MarkType) => {
@@ -306,6 +290,7 @@ export default class CogitoEditor extends React.Component {
   };
 
   plugins = [
+    History(),
     CollapseOnEscape(),
     PasteLinkify({
       isActiveQuery: this.isLinkActive,
@@ -315,11 +300,12 @@ export default class CogitoEditor extends React.Component {
   ];
 
   render() {
+    const { editor } = this;
     return (
       <div style={{ margin: '40px' }}>
         <Flex>
-          <PrototypeButton onMouseDown={() => this.undo()}>Undo</PrototypeButton>
-          <PrototypeButton onMouseDown={() => this.redo()}>Redo</PrototypeButton>
+          <PrototypeButton onMouseDown={() => undo(editor)}>Undo</PrototypeButton>
+          <PrototypeButton onMouseDown={() => redo(editor)}>Redo</PrototypeButton>
         </Flex>
         <Flex>
           {this.renderMarkButton(MarkType.BOLD)}
