@@ -1,3 +1,4 @@
+import React from 'react';
 import NodeType from './NodeType';
 
 const isLinkActive = (value) => {
@@ -52,5 +53,35 @@ const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor) => {
       .command(wrapLink, href);
   }
 };
+
+export default function Links() {
+  return {
+    renderNode: (props, _, next) => {
+      const {
+        attributes,
+        node: { type, data },
+        children,
+      } = props;
+      if (type === NodeType.Link) {
+        const href = data.get('href');
+        return (
+          <a
+            onClick={(e: KeyboardEvent) => {
+              if (e.metaKey) {
+                e.stopPropagation();
+                window.open(href, '_blank');
+              }
+            }}
+            href={href}
+            {...attributes}
+          >
+            {children}
+          </a>
+        );
+      }
+      return next();
+    },
+  };
+}
 
 export { isLinkActive, wrapLink, unwrapLink, onClickLink };
