@@ -11,7 +11,7 @@ const redo = (editor) => {
   editor.redo();
 };
 
-export function History() {
+export default function History() {
   return {
     onKeyDown(event: KeyboardEvent, editor, next: Function) {
       if (undoHotkey(event)) {

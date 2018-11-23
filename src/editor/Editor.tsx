@@ -13,7 +13,8 @@ import testValue from './testValue.json';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
 
-import { undo, redo, History } from './History';
+import History, { undo, redo } from './History';
+import { isLinkActive, wrapLink, unwrapLink } from './Links';
 
 const Image = styled.img`
   display: block;
@@ -174,25 +175,6 @@ export default class CogitoEditor extends React.Component {
     return value.blocks.some((node) => node.type == type);
   };
 
-  isLinkActive = () => {
-    const { value } = this.state;
-    return value.inlines.some((inline) => inline.type == 'link');
-  };
-
-  wrapLink = (_, href: string) => {
-    const { editor } = this;
-    editor.wrapInline({
-      type: NodeType.Link,
-      data: { href },
-    });
-
-    editor.moveToEnd();
-  };
-
-  unwrapLink = () => {
-    this.editor.unwrapInline('link');
-  };
-
   onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
     event.preventDefault();
     this.editor.toggleMark(type);
@@ -249,10 +231,10 @@ export default class CogitoEditor extends React.Component {
 
     const { editor } = this;
     const { value } = editor;
-    const hasLinks = this.isLinkActive();
+    const hasLinks = isLinkActive(value);
 
     if (hasLinks) {
-      editor.command(this.unwrapLink);
+      editor.command(unwrapLink);
     } else if (value.selection.isExpanded) {
       const href = window.prompt('Enter the URL of the link:');
 
@@ -260,7 +242,7 @@ export default class CogitoEditor extends React.Component {
         return;
       }
 
-      editor.command(this.wrapLink, href);
+      editor.command(wrapLink, href);
     } else {
       const href = window.prompt('Enter the URL of the link:');
 
@@ -277,7 +259,7 @@ export default class CogitoEditor extends React.Component {
       editor
         .insertText(text)
         .moveFocusBackward(text.length)
-        .command(this.wrapLink, href);
+        .command(wrapLink, href);
     }
   };
 
@@ -293,9 +275,9 @@ export default class CogitoEditor extends React.Component {
     History(),
     CollapseOnEscape(),
     PasteLinkify({
-      isActiveQuery: this.isLinkActive,
-      wrapCommand: this.wrapLink,
-      unwrapCommand: this.unwrapLink,
+      isActiveQuery: () => isLinkActive(this.state.value),
+      wrapCommand: wrapLink,
+      unwrapCommand: unwrapLink,
     }),
   ];
 
