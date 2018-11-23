@@ -13,6 +13,12 @@ import testValue from './testValue.json';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
 
+const Image = styled.img`
+  display: block;
+  max-height: 300px;
+  max-width: auto;
+`;
+
 const PrototypeButton = styled.button`
   border: 2px solid black;
   color: black;
@@ -33,6 +39,24 @@ const redoHotkey = isKeyHotkey('mod+shift+z');
 interface EditorState {
   value: Value;
 }
+
+function insertImage(editor, src, target) {
+  if (target) {
+    editor.select(target);
+  }
+  editor.insertBlock({
+    type: NodeType.Image,
+    data: { src },
+  });
+}
+
+const schema = {
+  blocks: {
+    image: {
+      isVoid: true,
+    },
+  },
+};
 
 export default class CogitoEditor extends React.Component {
   editor!: Editor;
@@ -59,12 +83,13 @@ export default class CogitoEditor extends React.Component {
         return <li {...attributes}>{children}</li>;
       case NodeType.NumberedList:
         return <ol {...attributes}>{children}</ol>;
+      case NodeType.Image:
+        return <Image src={node.data.get('src')} {...attributes} />;
       case NodeType.Link: {
         const { data } = node;
         const href = data.get('href');
         return (
           <a
-            {...attributes}
             onClick={(e: KeyboardEvent) => {
               if (e.metaKey) {
                 e.stopPropagation();
@@ -72,6 +97,7 @@ export default class CogitoEditor extends React.Component {
               }
             }}
             href={href}
+            {...attributes}
           >
             {children}
           </a>
@@ -92,6 +118,18 @@ export default class CogitoEditor extends React.Component {
         return <em {...attributes}>{children}</em>;
       case MarkType.UNDERLINED:
         return <u {...attributes}>{children}</u>;
+      case 'add-snippet':
+        return (
+          <span style={{ borderBottom: '2px solid green' }} {...attributes}>
+            {children}
+          </span>
+        );
+      case 'remove-snippet':
+        return (
+          <span style={{ borderBottom: '2px solid red' }} {...attributes}>
+            {children}
+          </span>
+        );
       default:
         return next();
     }
@@ -100,6 +138,7 @@ export default class CogitoEditor extends React.Component {
   renderMarkButton = (type: MarkType) => {
     return <PrototypeButton onMouseDown={(e) => this.onClickMark(e, type)}>{type}</PrototypeButton>;
   };
+
   renderBlockButton = (type: NodeType) => {
     return <PrototypeButton onMouseDown={(e) => this.onClickBlock(e, type)}>{type}</PrototypeButton>;
   };
@@ -158,9 +197,8 @@ export default class CogitoEditor extends React.Component {
 
   wrapLink = (_, href: string) => {
     const { editor } = this;
-    console.log(href);
     editor.wrapInline({
-      type: 'link',
+      type: NodeType.Link,
       data: { href },
     });
 
@@ -259,18 +297,26 @@ export default class CogitoEditor extends React.Component {
     }
   };
 
+  onClickImage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const src = window.prompt('Enter the URL of the image:');
+    if (!src) return;
+    this.editor.command(insertImage, src);
+    return true;
+  };
+
   plugins = [
     CollapseOnEscape(),
     PasteLinkify({
       isActiveQuery: this.isLinkActive,
-      wrapCommand: (url: string) => this.wrapLink(this.editor, url),
+      wrapCommand: this.wrapLink,
       unwrapCommand: this.unwrapLink,
     }),
   ];
 
   render() {
     return (
-      <div>
+      <div style={{ margin: '40px' }}>
         <Flex>
           <PrototypeButton onMouseDown={() => this.undo()}>Undo</PrototypeButton>
           <PrototypeButton onMouseDown={() => this.redo()}>Redo</PrototypeButton>
@@ -279,26 +325,33 @@ export default class CogitoEditor extends React.Component {
           {this.renderMarkButton(MarkType.BOLD)}
           {this.renderMarkButton(MarkType.ITALIC)}
           {this.renderMarkButton(MarkType.UNDERLINED)}
-          <PrototypeButton onMouseDown={(e) => this.onClickLink(e)}>Link</PrototypeButton>
+          <PrototypeButton onMouseDown={this.onClickLink}>Link</PrototypeButton>
         </Flex>
         <Flex>
           {this.renderBlockButton(NodeType.NumberedList)}
           {this.renderBlockButton(NodeType.BulletedList)}
           {this.renderBlockButton(NodeType.Title)}
           {this.renderBlockButton(NodeType.Subtitle)}
+          <PrototypeButton onMouseDown={this.onClickImage}>Image</PrototypeButton>
         </Flex>
-        <Editor
-          spellCheck
-          autoFocus
-          placeholder="Enter some text..."
-          ref={this.ref}
-          value={this.state.value}
-          onKeyDown={this.onKeyDown}
-          renderNode={this.renderNode}
-          renderMark={this.renderMark}
-          onChange={this.onChange}
-          plugins={this.plugins}
-        />
+        <Flex>
+          <Editor
+            spellCheck
+            autoFocus
+            placeholder="Enter some text..."
+            ref={this.ref}
+            value={this.state.value}
+            onKeyDown={this.onKeyDown}
+            renderNode={this.renderNode}
+            renderMark={this.renderMark}
+            onChange={this.onChange}
+            plugins={this.plugins}
+            schema={schema}
+          />
+          <pre style={{ width: '50%', wordWrap: 'break-word' }}>
+            {JSON.stringify(this.state.value.toJSON(), null, 2)}
+          </pre>
+        </Flex>
       </div>
     );
   }

@@ -6,6 +6,7 @@ enum NodeType {
   ListItem = 'list-item',
   NumberedList = 'numbered-list',
   Link = 'link',
+  Image = 'image',
 }
 
 export default NodeType;

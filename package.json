@@ -28,8 +28,10 @@
     "styled-components": "^4.1.2",
     "slate": "^0.44.6",
     "slate-collapse-on-escape": "^0.8.1",
+    "slate-drop-or-paste-images": "^0.9.1",
+    "slate-paste-linkify": "^0.7.0",
     "slate-react": "^0.21.12",
-    "slate-paste-linkify": "^0.7.0"
+    "slate-soft-break": "^0.9.0",
   },
   "scripts": {
     "start": "react-scripts start",
