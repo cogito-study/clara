@@ -5,6 +5,7 @@ enum NodeType {
   Subtitle = 'heading-two',
   ListItem = 'list-item',
   NumberedList = 'numbered-list',
+  Link = 'link',
 }
 
 export default NodeType;

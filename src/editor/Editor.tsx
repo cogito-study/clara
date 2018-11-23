@@ -4,6 +4,7 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
+import PasteLinkify from 'slate-paste-linkify';
 
 import { isKeyHotkey } from 'is-hotkey';
 import styled from 'styled-components';
@@ -58,6 +59,22 @@ export default class CogitoEditor extends React.Component {
         return <li {...attributes}>{children}</li>;
       case NodeType.NumberedList:
         return <ol {...attributes}>{children}</ol>;
+      case NodeType.Link: {
+        const { data } = node;
+        const href = data.get('href');
+        return (
+          <a
+            {...attributes}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(href, '_blank');
+            }}
+            href={href}
+          >
+            {children}
+          </a>
+        );
+      }
       default:
         return next();
     }
@@ -132,6 +149,26 @@ export default class CogitoEditor extends React.Component {
     return value.blocks.some((node) => node.type == type);
   };
 
+  isLinkActive = () => {
+    const { value } = this.state;
+    return value.inlines.some((inline) => inline.type == 'link');
+  };
+
+  wrapLink = (_, href: string) => {
+    const { editor } = this;
+    console.log(href);
+    editor.wrapInline({
+      type: 'link',
+      data: { href },
+    });
+
+    editor.moveToEnd();
+  };
+
+  unwrapLink = () => {
+    this.editor.unwrapInline('link');
+  };
+
   onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
     event.preventDefault();
     this.editor.toggleMark(type);
@@ -183,7 +220,44 @@ export default class CogitoEditor extends React.Component {
     }
   };
 
-  plugins = [CollapseOnEscape()];
+  onClickLink = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const { editor } = this;
+    const { value } = editor;
+    const hasLinks = this.isLinkActive();
+
+    if (hasLinks) {
+      editor.command(this.unwrapLink);
+    } else if (value.selection.isExpanded) {
+      const href = window.prompt('Enter the URL of the link:');
+
+      if (href === null) {
+        return;
+      }
+
+      editor.command(this.wrapLink, href);
+    } else {
+      const href = window.prompt('Enter the URL of the link:');
+
+      if (href === null) {
+        return;
+      }
+
+      const text = window.prompt('Enter the text for the link:');
+
+      if (text === null) {
+        return;
+      }
+
+      editor
+        .insertText(text)
+        .moveFocusBackward(text.length)
+        .command(this.wrapLink, href);
+    }
+  };
+
+  plugins = [CollapseOnEscape(), PasteLinkify()];
 
   render() {
     return (
@@ -196,6 +270,7 @@ export default class CogitoEditor extends React.Component {
           {this.renderMarkButton(MarkType.BOLD)}
           {this.renderMarkButton(MarkType.ITALIC)}
           {this.renderMarkButton(MarkType.UNDERLINED)}
+          <PrototypeButton onMouseDown={(e) => this.onClickLink(e)}>Link</PrototypeButton>
         </Flex>
         <Flex>
           {this.renderBlockButton(NodeType.NumberedList)}
