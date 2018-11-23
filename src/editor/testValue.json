@@ -1,43 +1,53 @@
 {
+  "object": "value",
   "document": {
+    "object": "document",
+    "data": {},
     "nodes": [
       {
         "object": "block",
         "type": "paragraph",
+        "data": {},
         "nodes": [
           {
             "object": "text",
             "leaves": [
               {
-                "text": "This is editable "
+                "object": "leaf",
+                "text": "This is editable ",
+                "marks": []
               },
               {
+                "object": "leaf",
                 "text": "rich",
                 "marks": [
                   {
-                    "type": "bold"
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
                   }
                 ]
               },
               {
-                "text": " text, "
+                "object": "leaf",
+                "text": " text, ",
+                "marks": []
               },
               {
+                "object": "leaf",
                 "text": "much",
                 "marks": [
                   {
-                    "type": "italic"
+                    "object": "mark",
+                    "type": "italic",
+                    "data": {}
                   }
                 ]
               },
               {
-                "text": " better than a "
-              },
-              {
-                "text": "textarea"
-              },
-              {
-                "text": "!"
+                "object": "leaf",
+                "text": " better than a textarea!",
+                "marks": []
               }
             ]
           }
@@ -46,23 +56,31 @@
       {
         "object": "block",
         "type": "paragraph",
+        "data": {},
         "nodes": [
           {
             "object": "text",
             "leaves": [
               {
-                "text": "Since it's rich text, you can do things like turn a selection of text "
+                "object": "leaf",
+                "text": "Since it's rich text, you can do things like turn a selection of text ",
+                "marks": []
               },
               {
+                "object": "leaf",
                 "text": "bold",
                 "marks": [
                   {
-                    "type": "bold"
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
                   }
                 ]
               },
               {
-                "text": ", or add a semantically rendered block quote in the middle of the page, like this:"
+                "object": "leaf",
+                "text": ", or add a semantically rendered block quote in the middle of the page, like this:",
+                "marks": []
               }
             ]
           }
@@ -71,12 +89,44 @@
       {
         "object": "block",
         "type": "paragraph",
+        "data": {},
         "nodes": [
           {
             "object": "text",
             "leaves": [
               {
-                "text": "A wise quote."
+                "object": "leaf",
+                "text": "A wise quote. ",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "object": "inline",
+            "type": "link",
+            "data": {
+              "href": "https://www.reddit.com/r/swimsuit/top/?sort=top&t=day"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "Sexy Swimsuit Girls!",
+                    "marks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
               }
             ]
           }
@@ -85,12 +135,15 @@
       {
         "object": "block",
         "type": "paragraph",
+        "data": {},
         "nodes": [
           {
             "object": "text",
             "leaves": [
               {
-                "text": "Try it out for yourself!"
+                "object": "leaf",
+                "text": "Try it out for yourself!",
+                "marks": []
               }
             ]
           }

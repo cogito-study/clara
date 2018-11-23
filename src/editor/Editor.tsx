@@ -227,6 +227,7 @@ export default class CogitoEditor extends React.Component {
         <Editor
           spellCheck
           autoFocus
+          readOnly
           placeholder="Enter some text..."
           ref={this.ref}
           value={this.state.value}

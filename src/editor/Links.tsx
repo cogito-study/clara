@@ -65,16 +65,7 @@ export default function Links() {
       if (type === NodeType.Link) {
         const href = data.get('href');
         return (
-          <a
-            onClick={(e: KeyboardEvent) => {
-              if (e.metaKey) {
-                e.stopPropagation();
-                window.open(href, '_blank');
-              }
-            }}
-            href={href}
-            {...attributes}
-          >
+          <a href={href} {...attributes}>
             {children}
           </a>
         );
