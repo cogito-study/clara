@@ -14,12 +14,18 @@ export const theme = {
   },
   button: {
     border: {
-      radius: '6px',
+      radius: '20px',
+    },
+    padding: {
+      vertical: '12px',
+      horizontal: '24px',
     },
     primary: {
       color: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
     },
     extend: (props) => `
+      color: white;
+      border: 0px;
       text-transform: uppercase;
       font-weight: 600;
     `,
