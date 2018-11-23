@@ -65,9 +65,11 @@ export default class CogitoEditor extends React.Component {
         return (
           <a
             {...attributes}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.open(href, '_blank');
+            onClick={(e: KeyboardEvent) => {
+              if (e.metaKey) {
+                e.stopPropagation();
+                window.open(href, '_blank');
+              }
             }}
             href={href}
           >
@@ -257,7 +259,14 @@ export default class CogitoEditor extends React.Component {
     }
   };
 
-  plugins = [CollapseOnEscape(), PasteLinkify()];
+  plugins = [
+    CollapseOnEscape(),
+    PasteLinkify({
+      isActiveQuery: this.isLinkActive,
+      wrapCommand: (url: string) => this.wrapLink(this.editor, url),
+      unwrapCommand: this.unwrapLink,
+    }),
+  ];
 
   render() {
     return (
