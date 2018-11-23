@@ -17,4 +17,40 @@ const unwrapLink = (editor) => {
   editor.unwrapInline(NodeType.Link);
 };
 
-export { isLinkActive, wrapLink, unwrapLink };
+const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor) => {
+  event.preventDefault();
+
+  const { value } = editor;
+  const hasLinks = isLinkActive(value);
+
+  if (hasLinks) {
+    editor.command(unwrapLink);
+  } else if (value.selection.isExpanded) {
+    const href = window.prompt('Enter the URL of the link:');
+
+    if (href === null) {
+      return;
+    }
+
+    editor.command(wrapLink, href);
+  } else {
+    const href = window.prompt('Enter the URL of the link:');
+
+    if (href === null) {
+      return;
+    }
+
+    const text = window.prompt('Enter the text for the link:');
+
+    if (text === null) {
+      return;
+    }
+
+    editor
+      .insertText(text)
+      .moveFocusBackward(text.length)
+      .command(wrapLink, href);
+  }
+};
+
+export { isLinkActive, wrapLink, unwrapLink, onClickLink };

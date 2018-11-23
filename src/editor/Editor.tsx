@@ -14,13 +14,8 @@ import NodeType from './NodeType';
 import MarkType from './MarkType';
 
 import History, { undo, redo } from './History';
-import { isLinkActive, wrapLink, unwrapLink } from './Links';
-
-const Image = styled.img`
-  display: block;
-  max-height: 300px;
-  max-width: auto;
-`;
+import { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
+import { Image, onClickImage } from './Images';
 
 const PrototypeButton = styled.button`
   border: 2px solid black;
@@ -39,16 +34,6 @@ const isUnderlinedHotkey = isKeyHotkey('mod+u');
 
 interface EditorState {
   value: Value;
-}
-
-function insertImage(editor, src, target) {
-  if (target) {
-    editor.select(target);
-  }
-  editor.insertBlock({
-    type: NodeType.Image,
-    data: { src },
-  });
 }
 
 const schema = {
@@ -226,51 +211,6 @@ export default class CogitoEditor extends React.Component {
     }
   };
 
-  onClickLink = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    const { editor } = this;
-    const { value } = editor;
-    const hasLinks = isLinkActive(value);
-
-    if (hasLinks) {
-      editor.command(unwrapLink);
-    } else if (value.selection.isExpanded) {
-      const href = window.prompt('Enter the URL of the link:');
-
-      if (href === null) {
-        return;
-      }
-
-      editor.command(wrapLink, href);
-    } else {
-      const href = window.prompt('Enter the URL of the link:');
-
-      if (href === null) {
-        return;
-      }
-
-      const text = window.prompt('Enter the text for the link:');
-
-      if (text === null) {
-        return;
-      }
-
-      editor
-        .insertText(text)
-        .moveFocusBackward(text.length)
-        .command(wrapLink, href);
-    }
-  };
-
-  onClickImage = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const src = window.prompt('Enter the URL of the image:');
-    if (!src) return;
-    this.editor.command(insertImage, src);
-    return true;
-  };
-
   plugins = [
     History(),
     CollapseOnEscape(),
@@ -293,33 +233,29 @@ export default class CogitoEditor extends React.Component {
           {this.renderMarkButton(MarkType.BOLD)}
           {this.renderMarkButton(MarkType.ITALIC)}
           {this.renderMarkButton(MarkType.UNDERLINED)}
-          <PrototypeButton onMouseDown={this.onClickLink}>Link</PrototypeButton>
+          <PrototypeButton onMouseDown={(e) => onClickLink(e, editor)}>Link</PrototypeButton>
         </Flex>
         <Flex>
           {this.renderBlockButton(NodeType.NumberedList)}
           {this.renderBlockButton(NodeType.BulletedList)}
           {this.renderBlockButton(NodeType.Title)}
           {this.renderBlockButton(NodeType.Subtitle)}
-          <PrototypeButton onMouseDown={this.onClickImage}>Image</PrototypeButton>
+          <PrototypeButton onMouseDown={(e) => onClickImage(e, editor)}>Image</PrototypeButton>
         </Flex>
-        <Flex>
-          <Editor
-            spellCheck
-            autoFocus
-            placeholder="Enter some text..."
-            ref={this.ref}
-            value={this.state.value}
-            onKeyDown={this.onKeyDown}
-            renderNode={this.renderNode}
-            renderMark={this.renderMark}
-            onChange={this.onChange}
-            plugins={this.plugins}
-            schema={schema}
-          />
-          <pre style={{ width: '50%', wordWrap: 'break-word' }}>
-            {JSON.stringify(this.state.value.toJSON(), null, 2)}
-          </pre>
-        </Flex>
+        <Editor
+          spellCheck
+          autoFocus
+          placeholder="Enter some text..."
+          ref={this.ref}
+          value={this.state.value}
+          onKeyDown={this.onKeyDown}
+          renderNode={this.renderNode}
+          renderMark={this.renderMark}
+          onChange={this.onChange}
+          plugins={this.plugins}
+          schema={schema}
+        />
+        <pre style={{ width: '50%', wordWrap: 'break-word' }}>{JSON.stringify(this.state.value.toJSON(), null, 2)}</pre>
       </div>
     );
   }
