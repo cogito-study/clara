@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import NodeType from './NodeType';
@@ -26,4 +27,16 @@ const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor) => {
   return true;
 };
 
-export { Image, insertImage, onClickImage };
+export default function Images() {
+  return {
+    renderNode: (props, _, next) => {
+      const { attributes, node } = props;
+      if (node.type === NodeType.Image) {
+        return <Image src={node.data.get('src')} {...attributes} />;
+      }
+      return next();
+    },
+  };
+}
+
+export { onClickImage };

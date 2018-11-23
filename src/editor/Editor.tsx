@@ -15,7 +15,7 @@ import MarkType from './MarkType';
 
 import History, { undo, redo } from './History';
 import { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
-import { Image, onClickImage } from './Images';
+import Images, { onClickImage } from './Images';
 
 const PrototypeButton = styled.button`
   border: 2px solid black;
@@ -69,8 +69,6 @@ export default class CogitoEditor extends React.Component {
         return <li {...attributes}>{children}</li>;
       case NodeType.NumberedList:
         return <ol {...attributes}>{children}</ol>;
-      case NodeType.Image:
-        return <Image src={node.data.get('src')} {...attributes} />;
       case NodeType.Link: {
         const { data } = node;
         const href = data.get('href');
@@ -213,6 +211,7 @@ export default class CogitoEditor extends React.Component {
 
   plugins = [
     History(),
+    Images(),
     CollapseOnEscape(),
     PasteLinkify({
       isActiveQuery: () => isLinkActive(this.state.value),
