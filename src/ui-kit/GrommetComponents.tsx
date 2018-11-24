@@ -3,8 +3,8 @@ import { Box, Button } from 'grommet';
 
 export const GrommetComponents = () => {
   return (
-    <Box>
-      <Button primary label="Add" onClick={() => {}} />
+    <Box align="center" gap="small">
+      <Button primary label="Main Button" onClick={() => {}} />
     </Box>
   );
 };

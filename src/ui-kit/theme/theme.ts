@@ -17,17 +17,24 @@ export const theme = {
       radius: '20px',
     },
     padding: {
-      vertical: '12px',
-      horizontal: '24px',
+      vertical: '14px',
+      horizontal: '30px',
     },
     primary: {
-      color: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
+      color: 'linear-gradient(103.39deg, #67BCFB -13.85%, #4787D3 113.18%)',
     },
     extend: (props) => `
       color: white;
       border: 0px;
+      box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);      
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: bold;
+      transition: all 0.1s ease-in-out;      
+
+      &:hover {
+        transform: scale(1.05);     
+        box-shadow: 0px 10.2643px 20.5286px rgba(71, 135, 211, 0.3);      
+      }
     `,
   },
 };
