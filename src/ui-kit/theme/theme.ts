@@ -24,7 +24,7 @@ export const theme = {
       color: 'linear-gradient(103.39deg, #67BCFB -13.85%, #4787D3 113.18%)',
     },
     extend: (props) => `
-      color: white;
+    color: white;    
       border: 0px;
       box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);      
       text-transform: uppercase;
