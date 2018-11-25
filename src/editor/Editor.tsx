@@ -15,7 +15,7 @@ import History, { undo, redo } from './History';
 import Links, { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
 import Images, { onClickImage } from './Images';
 import RichText, { hasBlock } from './RichText';
-import Comments, { addComment } from './Comments';
+import Comments from './Comments';
 
 // testing
 interface Comment {
@@ -50,10 +50,10 @@ export default class CogitoEditor extends React.Component {
   };
 
   createComment = () => {
-    const id = 1;
-    const text = prompt('Comment text');
     const { comments } = this.state;
-    this.setState({ comments: [...comments, { text, id }] });
+    const id = Date.now();
+    const text = prompt('Comment text');
+    this.setState({ comments: [...comments, { text, id }] }, () => this.editor.addMark(MarkType.COMMENT).moveToEnd());
     return id;
   };
 
@@ -162,8 +162,6 @@ export default class CogitoEditor extends React.Component {
           <PrototypeButton
             onMouseDown={(e) => {
               e.preventDefault();
-              const id = Date.now();
-              editor.command(addComment, id);
               this.createComment();
             }}
           >

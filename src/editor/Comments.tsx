@@ -9,7 +9,7 @@ const addComment = (editor, id) => {
   editor.addMark({ type: MarkType.COMMENT, data: { id } });
 };
 
-export default function Comments(createCommentCallback: () => number) {
+export default function Comments(createComment: () => void) {
   return {
     renderMark: (props, _, next: Function) => {
       const {
@@ -17,10 +17,9 @@ export default function Comments(createCommentCallback: () => number) {
         children,
         mark: { type },
       } = props;
-      alert(`type: ${type}`);
       if (type === MarkType.COMMENT) {
         return (
-          <span style={{ backgroundColor: '#4787D3' }} {...attributes}>
+          <span style={{ backgroundColor: '#4787D3', color: 'white' }} {...attributes}>
             {children}
           </span>
         );
@@ -29,9 +28,8 @@ export default function Comments(createCommentCallback: () => number) {
     },
     onKeyDown: (event: KeyboardEvent, editor, next) => {
       if (addCommentShortCut(event)) {
-        event.preventDefault();
-        const id = createCommentCallback();
-        return editor.command(addComment, id);
+        createComment();
+        return true;
       }
       return next();
     },
