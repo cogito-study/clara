@@ -15,9 +15,17 @@ import History, { undo, redo } from './History';
 import Links, { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
 import Images, { onClickImage } from './Images';
 import RichText, { hasBlock } from './RichText';
+import Comments, { addComment } from './Comments';
 
+// testing
+interface Comment {
+  id: number;
+  text: string;
+}
 interface EditorState {
   value: Value;
+  readonly: boolean;
+  comments: Comment[];
 }
 
 const schema = {
@@ -37,6 +45,16 @@ export default class CogitoEditor extends React.Component {
 
   state: EditorState = {
     value: Value.fromJSON(testValue),
+    readonly: false,
+    comments: [],
+  };
+
+  createComment = () => {
+    const id = 1;
+    const text = prompt('Comment text');
+    const { comments } = this.state;
+    this.setState({ comments: [...comments, { text, id }] });
+    return id;
   };
 
   onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
@@ -106,6 +124,7 @@ export default class CogitoEditor extends React.Component {
     History(),
     Images(),
     Links(),
+    Comments(this.createComment),
     RichText(),
     CollapseOnEscape(),
     PasteLinkify({
@@ -116,7 +135,10 @@ export default class CogitoEditor extends React.Component {
   ];
 
   render() {
-    const { editor } = this;
+    const {
+      editor,
+      state: { readonly, comments },
+    } = this;
     return (
       <div style={{ margin: '40px' }}>
         <Flex>
@@ -136,17 +158,38 @@ export default class CogitoEditor extends React.Component {
           {this.renderBlockButton(NodeType.Subtitle)}
           <PrototypeButton onMouseDown={(e) => onClickImage(e, editor)}>Image</PrototypeButton>
         </Flex>
+        <Flex>
+          <PrototypeButton
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const id = Date.now();
+              editor.command(addComment, id);
+              this.createComment();
+            }}
+          >
+            Comment
+          </PrototypeButton>
+        </Flex>
         <Editor
           spellCheck
           autoFocus
-          readOnly
+          readOnly={readonly}
           placeholder="Enter some text..."
           ref={this.ref}
+          onChange={this.onChange}
           value={this.state.value}
           plugins={this.plugins}
           schema={schema}
+          role={'editor'}
         />
-        <pre style={{ width: '50%', wordWrap: 'break-word' }}>{JSON.stringify(this.state.value.toJSON(), null, 2)}</pre>
+        <hr />
+        <div>
+          {comments.map((c) => (
+            <p key={c.id}>
+              <em>{c.text}</em>
+            </p>
+          ))}
+        </div>
       </div>
     );
   }

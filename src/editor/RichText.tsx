@@ -35,6 +35,8 @@ export default function RichText() {
           return <li {...attributes}>{children}</li>;
         case NodeType.NumberedList:
           return <ol {...attributes}>{children}</ol>;
+        case NodeType.Paragraph:
+          return <p style={{ margin: '10px 0px 10px 0px' }}>{children}</p>;
         default:
           return next();
       }
@@ -50,13 +52,13 @@ export default function RichText() {
           return <em {...attributes}>{children}</em>;
         case MarkType.UNDERLINED:
           return <u {...attributes}>{children}</u>;
-        case 'add-snippet':
+        case MarkType.ADD_SNIPPET:
           return (
             <span style={{ borderBottom: '2px solid green' }} {...attributes}>
               {children}
             </span>
           );
-        case 'remove-snippet':
+        case MarkType.REMOVE_SNIPPET:
           return (
             <span style={{ borderBottom: '2px solid red' }} {...attributes}>
               {children}
@@ -69,19 +71,22 @@ export default function RichText() {
 
     onKeyDown: (event: KeyboardEvent, editor: Editor, next: Function) => {
       let mark: MarkType;
-
+      const { key } = event;
       if (isBoldHotkey(event)) {
         mark = MarkType.BOLD;
       } else if (isItalicHotkey(event)) {
         mark = MarkType.ITALIC;
       } else if (isUnderlinedHotkey(event)) {
         mark = MarkType.UNDERLINED;
+      } else if (key === 'Enter') {
+        event.preventDefault();
+        return editor.insertText('\n');
       } else {
         return next();
       }
 
       event.preventDefault();
-      editor.toggleMark(mark);
+      editor.toggleMark({ type: mark });
     },
   };
 }
