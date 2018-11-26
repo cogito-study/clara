@@ -15,6 +15,7 @@ export const theme = {
   button: {
     border: {
       radius: '20px',
+      width: '0px',
     },
     padding: {
       vertical: '14px',
@@ -24,17 +25,26 @@ export const theme = {
       color: 'linear-gradient(103.39deg, #67BCFB -13.85%, #4787D3 113.18%)',
     },
     extend: (props) => `
-    color: white;    
-      border: 0px;
-      box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);      
+      color: white;
+      box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);
       text-transform: uppercase;
       font-weight: bold;
-      transition: all 0.1s ease-in-out;      
+      transition: all 0.1s ease-in-out;
 
       &:hover {
-        transform: scale(1.05);     
-        box-shadow: 0px 10.2643px 20.5286px rgba(71, 135, 211, 0.3);      
+        transform: scale(1.05);
+        box-shadow: 0px 10.2643px 20.5286px rgba(71, 135, 211, 0.3);
       }
     `,
+  },
+  formField: {
+    border: {
+      position: 'outer',
+      side: 'all',
+      size: 'small',
+      color: 'red',
+      // if you want to remove the inner border uncomment the lines below
+      // color: 'transparent',
+    },
   },
 };

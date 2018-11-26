@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Grommet } from 'grommet';
 
 import { client } from '../services/client';
-import { theme } from '../ui-kit/theme/theme';
+import { theme } from '../ui/theme/theme';
 import { PATH } from '../constants/path';
 import { CONFIG } from '../environment/config';
-import GrommetComponents from '../ui-kit/GrommetComponents';
+import GrommetComponents from '../ui/GrommetComponents';
 
 export const App = () => {
   console.log('ENVIRONMENT', CONFIG.ENVIRONMENT);
