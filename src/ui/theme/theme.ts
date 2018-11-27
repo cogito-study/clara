@@ -10,6 +10,7 @@ export const theme = {
     },
     font: {
       family: 'Montserrat',
+      size: '16px',
     },
   },
   button: {
@@ -38,13 +39,9 @@ export const theme = {
     `,
   },
   formField: {
-    border: {
-      position: 'outer',
-      side: 'all',
-      size: 'small',
-      color: 'red',
-      // if you want to remove the inner border uncomment the lines below
-      // color: 'transparent',
+    border: false,
+    font: {
+      size: '16px',
     },
   },
 };

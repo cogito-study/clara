@@ -6,7 +6,7 @@ export const GrommetComponents = () => {
   return (
     <Box align="center" gap="medium" fill="true">
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
-      <FormField flex="grow" basis="1" label="Email" htmlFor="email-input">
+      <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" size="medium" />
       </FormField>
     </Box>
