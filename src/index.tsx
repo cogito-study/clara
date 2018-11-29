@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { App } from './app/App';
-import { CONFIG } from './environment/config';
+import { config } from './environment/config';
 
 // Allow only error log messages in production mode
 // tslint:disable-next-line
 const empty = () => {};
-if (CONFIG.ENVIRONMENT === 'production') {
+if (config.environment === 'production') {
   console.log = empty;
   console.info = empty;
   console.debug = empty;
