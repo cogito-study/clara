@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Editor } from 'slate-react';
-import { Value } from 'slate';
+import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
@@ -9,7 +9,7 @@ import PasteLinkify from 'slate-paste-linkify';
 import testValue from './testValue.json';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
-import { PrototypeButton, Flex } from './ProtoComponents';
+import { PrototypeButton, Flex, HoverContainer } from './ProtoComponents';
 
 import History, { undo, redo } from './History';
 import Links, { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
@@ -21,10 +21,18 @@ import Comments from './Comments';
 interface Comment {
   id: number;
   text: string;
+  range: Range;
+}
+
+interface CommentButtonState {
+  shown: boolean;
+  top: number;
+  left: number;
 }
 interface EditorState {
   value: Value;
   readonly: boolean;
+  commentButtonState: CommentButtonState;
   comments: Comment[];
 }
 
@@ -38,22 +46,52 @@ const schema = {
 
 export default class CogitoEditor extends React.Component {
   editor!: Editor;
+  commentButton!: HTMLButtonElement;
 
-  ref = (editor) => {
+  editorRef = (editor) => {
     this.editor = editor;
+  };
+
+  commentButtonRef = (commentButton) => {
+    this.commentButton = commentButton;
   };
 
   state: EditorState = {
     value: Value.fromJSON(testValue),
     readonly: false,
     comments: [],
+    commentButtonState: { shown: false, left: 0, top: 0 },
+  };
+
+  updateMenu = (value) => {
+    const { commentButtonState } = this.state;
+    const { fragment, selection } = value;
+
+    if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
+      this.setState({ commentButtonState: { ...commentButtonState, shown: false } });
+    } else {
+      const native = window.getSelection();
+      const range = native.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+
+      this.setState({
+        commentButtonState: {
+          top: rect.top + window.pageYOffset - this.commentButton.offsetHeight,
+          left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
+          shown: true,
+        },
+      });
+    }
   };
 
   createComment = () => {
     const { comments } = this.state;
     const id = Date.now();
     const text = prompt('Comment text');
-    this.setState({ comments: [...comments, { text, id }] }, () => this.editor.addMark(MarkType.COMMENT).moveToEnd());
+    const range = Range.createProperties(this.editor.value.selection);
+    this.setState({ comments: [...comments, { text, id, range }] }, () => {
+      this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).moveToEnd();
+    });
     return id;
   };
 
@@ -117,6 +155,7 @@ export default class CogitoEditor extends React.Component {
   };
 
   onChange = ({ value }) => {
+    this.updateMenu(value);
     this.setState({ value });
   };
 
@@ -134,10 +173,32 @@ export default class CogitoEditor extends React.Component {
     }),
   ];
 
+  renderEditor = (_props, _editor, next) => {
+    const children = next();
+    const {
+      commentButtonState: { shown, left, top },
+    } = this.state;
+    return (
+      <React.Fragment>
+        {children}
+        <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={left} top={top}>
+          <PrototypeButton
+            onMouseDown={(e) => {
+              e.preventDefault();
+              this.createComment();
+            }}
+          >
+            Comment
+          </PrototypeButton>
+        </HoverContainer>
+      </React.Fragment>
+    );
+  };
+
   render() {
     const {
       editor,
-      state: { readonly, comments },
+      state: { readonly, value },
     } = this;
     return (
       <div style={{ margin: '40px' }}>
@@ -158,35 +219,29 @@ export default class CogitoEditor extends React.Component {
           {this.renderBlockButton(NodeType.Subtitle)}
           <PrototypeButton onMouseDown={(e) => onClickImage(e, editor)}>Image</PrototypeButton>
         </Flex>
-        <Flex>
-          <PrototypeButton
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.createComment();
-            }}
-          >
-            Comment
-          </PrototypeButton>
-        </Flex>
         <Editor
           spellCheck
           autoFocus
           readOnly={readonly}
           placeholder="Enter some text..."
-          ref={this.ref}
+          ref={this.editorRef}
           onChange={this.onChange}
           value={this.state.value}
           plugins={this.plugins}
           schema={schema}
+          renderEditor={this.renderEditor}
           role={'editor'}
         />
         <hr />
         <div>
-          {comments.map((c) => (
-            <p key={c.id}>
-              <em>{c.text}</em>
-            </p>
-          ))}
+          {value.marks.map(
+            (mark) =>
+              mark.type === MarkType.COMMENT && (
+                <p key={mark.data.get('id')}>
+                  <em>{mark.data.get('id')}</em>
+                </p>
+              ),
+          )}
         </div>
       </div>
     );
