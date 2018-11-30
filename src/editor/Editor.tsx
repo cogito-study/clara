@@ -29,10 +29,17 @@ interface CommentButtonState {
   top: number;
   left: number;
 }
+
+interface CommentBoxState {
+  selectedComments: Comment[];
+  top: number;
+  left: number;
+}
 interface EditorState {
   value: Value;
   readonly: boolean;
   commentButtonState: CommentButtonState;
+  commentBoxState: CommentBoxState;
   comments: Comment[];
 }
 
@@ -46,7 +53,8 @@ const schema = {
 
 export default class CogitoEditor extends React.Component {
   editor!: Editor;
-  commentButton!: HTMLButtonElement;
+  commentButton!: HTMLElement;
+  commentBox!: HTMLElement;
 
   editorRef = (editor) => {
     this.editor = editor;
@@ -56,27 +64,49 @@ export default class CogitoEditor extends React.Component {
     this.commentButton = commentButton;
   };
 
+  commentBoxRef = (commentBox) => {
+    this.commentBox = commentBox;
+  };
+
   state: EditorState = {
     value: Value.fromJSON(testValue),
     readonly: false,
     comments: [],
-    commentButtonState: { shown: false, left: 0, top: 0 },
+    commentButtonState: { shown: false, left: -10000, top: -10000 },
+    commentBoxState: { selectedComments: [], left: -10000, top: -10000 },
   };
 
-  updateMenu = (value) => {
-    const { commentButtonState } = this.state;
-    const { fragment, selection } = value;
+  updateComments = (value) => {
+    const { comments } = this.state;
+    const { fragment, selection, marks } = value;
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
-      this.setState({ commentButtonState: { ...commentButtonState, shown: false } });
+      this.setState({
+        commentButtonState: { left: -10000, top: -10000, shown: false },
+        commentBoxState: { left: -10000, top: -10000, selectedComments: [] },
+      });
     } else {
       const native = window.getSelection();
       const range = native.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
+      const commentsUnderSelection = marks.filter((mark) => mark.type === MarkType.COMMENT);
+
+      if (marks.size > 0) {
+        const selectedMarkIds = commentsUnderSelection.map((mark) => mark.data.get('id')).toArray();
+        const selectedComments = comments.filter((comment) => selectedMarkIds.includes(comment.id));
+        this.setState({
+          commentBoxState: {
+            selectedComments,
+            top: rect.bottom,
+            left: rect.left + window.pageXOffset - this.commentBox.offsetWidth / 2 + rect.width / 2,
+          },
+        });
+      }
+
       this.setState({
         commentButtonState: {
-          top: rect.top + window.pageYOffset - this.commentButton.offsetHeight,
+          top: rect.top + window.pageYOffset - 30,
           left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
           shown: true,
         },
@@ -90,7 +120,7 @@ export default class CogitoEditor extends React.Component {
     const text = prompt('Comment text');
     const range = Range.createProperties(this.editor.value.selection);
     this.setState({ comments: [...comments, { text, id, range }] }, () => {
-      this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).moveToEnd();
+      this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).blur();
     });
     return id;
   };
@@ -155,7 +185,7 @@ export default class CogitoEditor extends React.Component {
   };
 
   onChange = ({ value }) => {
-    this.updateMenu(value);
+    this.updateComments(value);
     this.setState({ value });
   };
 
@@ -175,13 +205,15 @@ export default class CogitoEditor extends React.Component {
 
   renderEditor = (_props, _editor, next) => {
     const children = next();
+
     const {
-      commentButtonState: { shown, left, top },
+      commentButtonState: { shown, left: buttonLeft, top: buttonTop },
+      commentBoxState: { selectedComments, left: commentsLeft, top: commentsTop },
     } = this.state;
     return (
       <React.Fragment>
         {children}
-        <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={left} top={top}>
+        <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
           <PrototypeButton
             onMouseDown={(e) => {
               e.preventDefault();
@@ -190,6 +222,16 @@ export default class CogitoEditor extends React.Component {
           >
             Comment
           </PrototypeButton>
+        </HoverContainer>
+        <HoverContainer
+          shown={selectedComments.length > 0}
+          innerRef={this.commentBoxRef}
+          left={commentsLeft}
+          top={commentsTop}
+        >
+          {selectedComments.map((comment) => (
+            <p>{comment.text}</p>
+          ))}
         </HoverContainer>
       </React.Fragment>
     );
