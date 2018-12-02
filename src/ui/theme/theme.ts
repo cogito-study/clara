@@ -8,6 +8,11 @@ export const theme = {
       grey: '#595959',
       lightGrey: '#9C9C9C',
     },
+    control: {
+      border: {
+        radius: '24px',
+      },
+    },
     font: {
       family: 'Montserrat',
       size: '16px',

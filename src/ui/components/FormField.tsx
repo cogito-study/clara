@@ -6,7 +6,7 @@ const FormFieldWrapper: FunctionComponent<FormFieldProps & BoxProps> = (props) =
     direction="row"
     width="medium"
     round="20px"
-    pad="small"
+    pad="5px"
     align="center"
     border={{
       side: 'all',
