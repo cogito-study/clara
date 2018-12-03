@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Box, Button, TextInput, Grid } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard } from './components';
+import { FormField, Footer, NoteCard, InfoCard, RegistrationCard } from './components';
+const registrationCardName = 'Körmendy Bertalan';
+const registrationCardEmail = 'berci.kormendy@cogito.study';
 const noteCardTitle = 'Origin of heart murmurs. Diastolic murmurs.';
 const noteCardAbstract =
   'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok, Lyell szindróma)!';
@@ -12,11 +14,12 @@ const infoCardContent =
 
 export const GrommetComponents = () => {
   return (
-    <Box align="center" gap="medium" fill="true" background="#FBFDFF">
+    <Box align="center" gap="large" background="#FBFDFF">
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" size="medium" />
       </FormField>
+      <RegistrationCard name={registrationCardName} email={registrationCardEmail} />
       <Grid
         columns={{
           count: 3,
