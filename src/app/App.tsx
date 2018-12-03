@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Grommet } from 'grommet';
 
 import { client } from '../services/client';
-import { theme } from '../ui-kit/theme/theme';
+import { theme } from '../ui/theme/theme';
 import { PATH } from '../constants/path';
 import { CONFIG } from '../environment/config';
-import LandingPage from '../landing-page/LandingPage';
+import GrommetComponents from '../ui/GrommetComponents';
 
 export const App = () => {
   console.log('ENVIRONMENT', CONFIG.ENVIRONMENT);
@@ -26,7 +26,7 @@ export const App = () => {
     <ApolloProvider client={client}>
       <Grommet theme={theme}>
         <Router>
-          <Route exact path={PATH.ROOT} component={LandingPage} />
+          <Route exact path={PATH.ROOT} component={GrommetComponents} />
         </Router>
       </Grommet>
     </ApolloProvider>

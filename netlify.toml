@@ -2,7 +2,6 @@
 # unless otherwise overridden by more specific contexts.
 [build]
 publish = "build"
-command = "yarn build:netlify"
 
 # Production context: all deploys from the Production branch set in your site's
 # deploy settings will inherit these settings.
