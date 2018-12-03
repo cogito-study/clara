@@ -43,6 +43,11 @@ export const theme = {
       }
     `,
   },
+  paragraph: {
+    extend: (props) => `
+    max-width: 2000px;
+    `,
+  },
   formField: {
     border: false,
     font: {

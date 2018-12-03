@@ -1,32 +1,36 @@
 import React, { FunctionComponent } from 'react';
-import { Box, BoxProps, Text } from 'grommet';
+import { Box, BoxProps, Heading, Paragraph } from 'grommet';
 
-interface NoteCardProps {
-  title?: string;
-  abstract?: string;
-  date?: Date;
-  likes?: number;
+interface Props {
+  number: number;
+  title: string;
+  abstract: string;
+  date?: string;
 }
 
-const NoteCard: FunctionComponent<BoxProps & NoteCardProps> = (props) => (
-  <Box width="medium" pad="none" background="primary" round="small" {...props}>
-    <Box
-      pad={{
-        top: 'medium',
-        bottom: 'medium',
-        horizontal: 'medium',
-        vertical: 'medium',
-        left: 'medium',
-        right: 'medium',
-      }}
-      background="lightGrey"
-      round="none"
-      margin={{ top: 'large', bottom: 'none', horizontal: 'none', vertical: 'none', left: 'none', right: 'none' }}
-      wrap={true}
-    >
-      <Text size="xlarge">{props.title}</Text>
-      <Text size="medium">{props.abstract}</Text>
-      <Text size="small">{props.date}</Text>
+const NoteCard: FunctionComponent<BoxProps & Props> = (props) => (
+  <Box width="medium" pad="none" background="primary" round="small" {...props} elevation="small">
+    <Box align="end">
+      <Heading
+        level={'2'}
+        margin={{
+          top: 'none',
+          bottom: 'none',
+          horizontal: 'none',
+          vertical: 'none',
+          left: 'none',
+          right: 'medium',
+        }}
+      >
+        {props.number}
+      </Heading>
+    </Box>
+    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="xsmall">
+      <Heading level="3" margin="small">
+        {props.title}
+      </Heading>
+      <Paragraph margin="small">{props.abstract}</Paragraph>
+      {props.date && <Paragraph margin="small">{props.date}</Paragraph>}
     </Box>
   </Box>
 );
