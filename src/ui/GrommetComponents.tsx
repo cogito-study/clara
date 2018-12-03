@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Box, Button, TextInput, Grid } from 'grommet';
 import { FormField, Footer, NoteCard, InfoCard, RegistrationCard } from './components';
+
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
 const noteCardTitle = 'Origin of heart murmurs. Diastolic murmurs.';

@@ -7,21 +7,8 @@ interface Props {
   content: string;
 }
 
-const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
-  <Box
-    pad={{
-      top: 'medium',
-      bottom: 'medium',
-      horizontal: 'medium',
-      vertical: 'medium',
-      left: 'medium',
-      right: 'medium',
-    }}
-    background="light"
-    round="xsmall"
-    elevation="small"
-    width="large"
-  >
+export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
+  <Box pad="medium" background="light" round="xsmall" elevation="small" width="large">
     <Heading level="3" margin="xsmall">
       {props.title}
     </Heading>
@@ -33,5 +20,3 @@ const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
     <Paragraph margin="xsmall">{props.content}</Paragraph>
   </Box>
 );
-
-export { InfoCard };
