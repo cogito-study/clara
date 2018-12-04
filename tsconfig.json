@@ -11,13 +11,12 @@
     ],
     "sourceMap": true,
     "allowJs": true,
-    "jsx": "preserve",
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
@@ -27,7 +26,12 @@
     "strict": true,
     "resolveJsonModule": true,
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "allowUnreachableCode": false,
+    "downlevelIteration": true,
+    "jsx": "preserve",
+    "noFallthroughCasesInSwitch": true,
+    "pretty": true
   },
   "exclude": [
     "node_modules",

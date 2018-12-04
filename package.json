@@ -48,6 +48,7 @@
     "react-scroll": "^1.7.10",
     "rebass": "2.3.4",
     "tslint": "^5.11.0",
+    "tslint-config-palmerhq": "^1.0.2",
     "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.1.6"
