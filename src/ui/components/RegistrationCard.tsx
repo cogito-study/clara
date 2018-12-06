@@ -16,10 +16,10 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = (props) => (
       {props.email}
     </Heading>
     <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-      <TextInput plain id="password" placeholder="pw" size="medium" />
+      <TextInput plain id="password" placeholder="pw" />
     </FormField>
     <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-      <TextInput plain id="password-chack" placeholder="pwcheck" size="medium" />
+      <TextInput plain id="password-chack" placeholder="pwcheck" />
     </FormField>
     <Button primary label="Registration" onClick={() => alert('Rakatintottal a gombra!')} />
   </Box>

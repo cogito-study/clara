@@ -18,7 +18,7 @@ export const GrommetComponents = () => {
     <Box align="center" gap="large" background="#FBFDFF">
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-        <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" size="medium" />
+        <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
       </FormField>
       <RegistrationCard name={registrationCardName} email={registrationCardEmail} />
       <Grid
