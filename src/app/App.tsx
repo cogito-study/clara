@@ -1,34 +1,39 @@
-import * as React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Grommet } from 'grommet';
+import React, { lazy, Suspense } from 'react';
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Grommet, Box } from 'grommet';
 
-import { client } from '../services/client';
+import { routePath } from '../constants/routePath';
 import { theme } from '../ui/theme/theme';
-import { PATH } from '../constants/path';
-import { CONFIG } from '../environment/config';
-import GrommetComponents from '../ui/GrommetComponents';
+import { LoadingPage } from '../pages/LoadingPage';
 
-export const App = () => {
-  console.log('ENVIRONMENT', CONFIG.ENVIRONMENT);
-  console.log('API_URL', CONFIG.API_URL);
-  console.log('REPOSITORY_URL', CONFIG.REPOSITORY_URL);
-  console.log('BRANCH', CONFIG.BRANCH);
-  console.log('PULL_REQUEST', CONFIG.PULL_REQUEST);
-  console.log('HEAD', CONFIG.HEAD);
-  console.log('COMMIT_REF', CONFIG.COMMIT_REF);
-  console.log('CONTEXT', CONFIG.CONTEXT);
-  console.log('URL', CONFIG.URL);
-  console.log('DEPLOY_URL', CONFIG.DEPLOY_URL);
-  console.log('DEPLOY_PRIME_URL', CONFIG.DEPLOY_PRIME_URL);
+const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+const SubjectPage = lazy(() => import('../pages/SubjectPage'));
+const NotePage = lazy(() => import('../pages/NotePage'));
+// const LandingPage = lazy(() => import('../landing-page/LandingPage')); // TODO: Substitute to real landing page
+const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
-  return (
-    <ApolloProvider client={client}>
-      <Grommet theme={theme}>
-        <Router>
-          <Route exact path={PATH.ROOT} component={GrommetComponents} />
-        </Router>
-      </Grommet>
-    </ApolloProvider>
-  );
-};
+export const App = () => (
+  <Grommet theme={theme}>
+    <BrowserRouter>
+      <Suspense fallback={<LoadingPage />}>
+        <Box background="primary" flex="grow" direction="row" justify="between" align="center" wrap>
+          <Link to={routePath.root}>Landing Page</Link>
+          <Link to={routePath.components}>Components</Link>
+          <Link to={routePath.subjectInfo}>Subject Info</Link>
+          <Link to={routePath.subjectNotes}>Subject Note List</Link>
+          <Link to={routePath.register}>Register</Link>
+          <Link to={`${routePath.register}/asd`}>Register asd</Link>
+          <Link to={`${routePath.subjectNotes}/12`}>12. Note</Link>
+          <Link to={`${routePath.subjectNotes}/5`}>5. Note</Link>
+        </Box>
+        <Switch>
+          <Route exact path={routePath.root} component={(props) => <div {...props}>Landing Page helye</div>} />
+          <Route exact path={routePath.subjectNoteWithParams} component={(props) => <NotePage {...props} />} />
+          <Route path={routePath.register} component={(props) => <RegisterPage {...props} />} />
+          <Route path={routePath.subject} component={(props) => <SubjectPage {...props} />} />
+          <Route path={routePath.components} component={(props) => <GrommetComponents {...props} />} />
+        </Switch>
+      </Suspense>
+    </BrowserRouter>
+  </Grommet>
+);

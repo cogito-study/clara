@@ -1,1 +1,4 @@
-export const scrollOptions = { duration: 500, smooth: true };
+export const scrollOptions = {
+  duration: 500,
+  smooth: true,
+};
