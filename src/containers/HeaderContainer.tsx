@@ -5,6 +5,6 @@ import { Header } from '../ui/components/Header';
 
 export const HeaderContainer = () => (
   <Box fill="horizontal" background="gradient" align="center" justify="center">
-    <Header />
+    <Header title="Érsebészet" userName="Sue Snyder" onLogout={() => alert('Kijelentkezve')} />
   </Box>
 );
