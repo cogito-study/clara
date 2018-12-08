@@ -27,6 +27,7 @@
     "build:staging": "env-cmd .env.staging npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "postinstall": "patch-package",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.3.1",
     "@types/styled-components": "^4.1.2",
+    "patch-package": "^5.1.1",
     "prettier": "^1.15.3",
     "react-scroll": "^1.7.10",
     "rebass": "2.3.4",
