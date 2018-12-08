@@ -1,10 +1,12 @@
+# https://github.com/grommet/grommet/issues/2538
+
 patch-package
 --- a/node_modules/grommet/components/Select/index.d.ts
 +++ b/node_modules/grommet/components/Select/index.d.ts
 @@ -1,19 +1,35 @@
 -import * as React from "react";
 +import * as React from 'react';
- 
+
  export interface SelectProps {
    a11yTitle?: string;
 -  alignSelf?: "start" | "center" | "end" | "stretch";
@@ -58,4 +60,4 @@ patch-package
 +  valueKey?: string | ((...args: any[]) => any);
    emptySearchMessage?: string;
  }
- 
+
