@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Box, Tabs, Tab } from 'grommet';
+import { Tabs, Tab } from 'grommet';
 import { RouteComponentProps, withRouter, Route } from 'react-router-dom';
 
 import { routePath } from '../constants/routePath';
@@ -18,10 +18,7 @@ const subjectTabs: SubjectTab[] = [
 ];
 
 const SubjectTabs: FunctionComponent<RouteComponentProps> = ({ history, location }) => {
-  const onActiveTab = (index: number) => {
-    console.log(index);
-    history.push(subjectTabs[index].path);
-  };
+  const onActiveTab = (index: number) => history.push(subjectTabs[index].path);
 
   const findActiveIndex = (): number => subjectTabs.findIndex((tab) => tab.path === location.pathname);
 
@@ -33,11 +30,9 @@ const SubjectTabs: FunctionComponent<RouteComponentProps> = ({ history, location
     ));
 
   return (
-    <Box fill="horizontal" background="gradient" align="center" justify="center">
-      <Tabs flex onActive={onActiveTab} activeIndex={findActiveIndex()}>
-        {renderTabs()}
-      </Tabs>
-    </Box>
+    <Tabs flex justify="center" onActive={onActiveTab} activeIndex={findActiveIndex()}>
+      {renderTabs()}
+    </Tabs>
   );
 };
 
