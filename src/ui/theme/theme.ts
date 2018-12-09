@@ -8,6 +8,7 @@ export const theme = {
       dark: '#101010',
       grey: '#595959',
       lightGrey: '#9C9C9C',
+      transparent: 'rgba(0, 0, 0, 0.0);',
     },
     control: {
       border: {
@@ -54,5 +55,33 @@ export const theme = {
     font: {
       size: '16px',
     },
+  },
+  tab: {
+    color: 'light',
+    font: {
+      size: 'medium',
+    },
+    active: {
+      color: 'light',
+    },
+    hover: {
+      color: 'light',
+    },
+    border: {
+      active: {
+        color: 'light',
+      },
+      color: 'transparent',
+      hover: {
+        color: 'transparent',
+      },
+    },
+  },
+  tabs: {
+    background: 'transparent',
+    header: {
+      background: 'gradient',
+    },
+    gap: 'small',
   },
 };
