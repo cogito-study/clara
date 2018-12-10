@@ -1,25 +1,54 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ChangeEvent } from 'react';
 import { Box, BoxProps, Heading, TextInput, Button } from 'grommet';
 import { FormField } from './FormField';
 
 interface Props {
   name: string;
   email: string;
+  onPasswordChange: (value: string) => void;
+  onPasswordCheckChange: (value: string) => void;
 }
 
-const RegistrationCard: FunctionComponent<BoxProps & Props> = (props) => (
-  <Box width="large" background="light" elevation="small" align="center" round="medium" pad="medium" gap="small">
+const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
+  name,
+  email,
+  onPasswordChange,
+  onPasswordCheckChange,
+}) => (
+  <Box
+    width="large"
+    height="medium"
+    background="light"
+    elevation="medium"
+    align="center"
+    justify="center"
+    round="medium"
+    pad="medium"
+    gap="medium"
+  >
     <Heading level="2" margin="none">
-      {props.name}
+      {name}
     </Heading>
     <Heading level="4" margin="none">
-      {props.email}
+      {email}
     </Heading>
-    <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-      <TextInput plain id="password" placeholder="pw" />
+    <FormField flex="grow" basis="1" htmlFor="password" margin="none">
+      <TextInput
+        plain
+        type="password"
+        id="password"
+        placeholder="password"
+        onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordChange(event.target.value)}
+      />
     </FormField>
-    <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-      <TextInput plain id="password-chack" placeholder="pwcheck" />
+    <FormField flex="grow" basis="1" htmlFor="password-check" margin="none">
+      <TextInput
+        plain
+        type="password"
+        id="password-check"
+        placeholder="repeat password"
+        onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
+      />
     </FormField>
     <Button primary label="Registration" onClick={() => alert('Rakatintottal a gombra!')} />
   </Box>
