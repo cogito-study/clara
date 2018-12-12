@@ -21,6 +21,7 @@ export const GrommetComponents = () => {
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
       </FormField>
       <RegistrationCard
+        isRegistrationDisabled={false}
         name={registrationCardName}
         email={registrationCardEmail}
         onPasswordChange={console.log}

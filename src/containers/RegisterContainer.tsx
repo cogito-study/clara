@@ -1,9 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import gql from 'graphql-tag';
 import { Heading, Image, Box } from 'grommet';
 import { RouteComponentProps } from 'react-router-dom';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
+import { routePath } from '../constants/routePath';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer } from '../ui/components/Footer';
 import { RegistrationCard } from '../ui/components/RegistrationCard';
@@ -18,10 +19,17 @@ const USER_INFO_QUERY = gql`
   }
 `;
 
-export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: string }>> = ({ match }) => {
-  const onPasswordChange = (value: string) => console.log(value);
+const ACTIVATE_USER = gql`
+  mutation ActivateUser($userID: Int!, $password: String!) {
+    activateUser(userId: $userID, newPassword: $password) {
+      success
+    }
+  }
+`;
 
-  const onPasswordCheckChange = (value: string) => console.log(value);
+export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: string }>> = ({ history, match }) => {
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const { userID } = match.params;
 
   return (
@@ -39,20 +47,32 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
           <Query query={USER_INFO_QUERY} variables={{ userID }}>
             {({ loading, error, data }) => {
               if (loading) {
-                return <div>Loading...</div>; // TODO: Change Loading animation
+                return 'Loading...'; // TODO: Change Loading animation
               }
               if (error) {
-                return `Error!: ${error}`;
+                return `Error!: ${error}`; // TODO: Handle error
               }
 
               const { firstName, lastName, email } = data.user;
               return (
-                <RegistrationCard
-                  name={`${firstName} ${lastName}`}
-                  email={email}
-                  onPasswordChange={onPasswordChange}
-                  onPasswordCheckChange={onPasswordCheckChange}
-                />
+                <Mutation
+                  mutation={ACTIVATE_USER}
+                  variables={{ userID, password }}
+                  onCompleted={() => history.push(routePath.subjectNotes)}
+                >
+                  {(registerPassword) => {
+                    return (
+                      <RegistrationCard
+                        name={`${firstName} ${lastName}`}
+                        email={email}
+                        isRegistrationDisabled={password !== passwordCheck}
+                        onPasswordChange={setPassword}
+                        onPasswordCheckChange={setPasswordCheck}
+                        onRegistration={registerPassword}
+                      />
+                    );
+                  }}
+                </Mutation>
               );
             }}
           </Query>

@@ -5,15 +5,19 @@ import { FormField } from './FormField';
 interface Props {
   name: string;
   email: string;
+  isRegistrationDisabled: boolean;
   onPasswordChange: (value: string) => void;
   onPasswordCheckChange: (value: string) => void;
+  onRegistration?: () => void;
 }
 
 const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
   name,
   email,
+  isRegistrationDisabled,
   onPasswordChange,
   onPasswordCheckChange,
+  onRegistration,
 }) => (
   <Box
     width="large"
@@ -50,7 +54,7 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
         onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
       />
     </FormField>
-    <Button primary label="Registration" onClick={() => alert('Rakatintottal a gombra!')} />
+    <Button primary disabled={isRegistrationDisabled} label="Registration" onClick={onRegistration} />
   </Box>
 );
 
