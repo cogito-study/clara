@@ -6,8 +6,7 @@ import { Query, Mutation } from 'react-apollo';
 
 import { routePath } from '../constants/routePath';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
-import { Footer } from '../ui/components/Footer';
-import { RegistrationCard } from '../ui/components/RegistrationCard';
+import { Footer, RegistrationCard, Spinner } from '../ui/components';
 
 const USER_INFO_QUERY = gql`
   query UserInfo($userID: Int!) {
@@ -47,7 +46,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
           <Query query={USER_INFO_QUERY} variables={{ userID }}>
             {({ loading, error, data }) => {
               if (loading) {
-                return 'Loading...'; // TODO: Change Loading animation
+                return <Spinner primary={false} />;
               }
               if (error) {
                 return `Error!: ${error}`; // TODO: Handle error
@@ -60,12 +59,13 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
                   variables={{ userID, password }}
                   onCompleted={() => history.push(routePath.subjectNotes)}
                 >
-                  {(registerPassword) => {
+                  {(registerPassword, { loading: mutationLoading }) => {
                     return (
                       <RegistrationCard
                         name={`${firstName} ${lastName}`}
                         email={email}
                         isRegistrationDisabled={password !== passwordCheck}
+                        isLoading={mutationLoading}
                         onPasswordChange={setPassword}
                         onPasswordCheckChange={setPasswordCheck}
                         onRegistration={registerPassword}

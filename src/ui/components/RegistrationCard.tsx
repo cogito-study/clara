@@ -1,11 +1,13 @@
 import React, { FunctionComponent, ChangeEvent } from 'react';
 import { Box, BoxProps, Heading, TextInput, Button } from 'grommet';
 import { FormField } from './FormField';
+import { Spinner } from './Spinner';
 
 interface Props {
   name: string;
   email: string;
   isRegistrationDisabled: boolean;
+  isLoading: boolean;
   onPasswordChange: (value: string) => void;
   onPasswordCheckChange: (value: string) => void;
   onRegistration?: () => void;
@@ -15,6 +17,7 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
   name,
   email,
   isRegistrationDisabled,
+  isLoading,
   onPasswordChange,
   onPasswordCheckChange,
   onRegistration,
@@ -54,7 +57,11 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
         onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
       />
     </FormField>
-    <Button primary disabled={isRegistrationDisabled} label="Registration" onClick={onRegistration} />
+    {isLoading ? (
+      <Spinner primary />
+    ) : (
+      <Button primary disabled={isRegistrationDisabled} label="Registration" onClick={onRegistration} />
+    )}
   </Box>
 );
 
