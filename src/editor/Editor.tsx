@@ -9,7 +9,8 @@ import PasteLinkify from 'slate-paste-linkify';
 import testValue from './testValue.json';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
-import { PrototypeButton, Flex, HoverContainer } from './ProtoComponents';
+import { Box, Button } from 'grommet';
+import { HoverContainer } from './ProtoComponents';
 
 import History, { undo, redo } from './History';
 import Links, { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
@@ -118,6 +119,7 @@ export default class CogitoEditor extends React.Component {
     const { comments } = this.state;
     const id = Date.now();
     const text = prompt('Comment text');
+    if (!text) return;
     const range = Range.createProperties(this.editor.value.selection);
     this.setState({ comments: [...comments, { text, id, range }] }, () => {
       this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).blur();
@@ -177,11 +179,11 @@ export default class CogitoEditor extends React.Component {
   };
 
   renderMarkButton = (type: MarkType) => {
-    return <PrototypeButton onMouseDown={(e) => this.onClickMark(e, type)}>{type}</PrototypeButton>;
+    return <Button onMouseDown={(e) => this.onClickMark(e, type)}>{type}</Button>;
   };
 
   renderBlockButton = (type: NodeType) => {
-    return <PrototypeButton onMouseDown={(e) => this.onClickBlock(e, type)}>{type}</PrototypeButton>;
+    return <Button onMouseDown={(e) => this.onClickBlock(e, type)}>{type}</Button>;
   };
 
   onChange = ({ value }) => {
@@ -214,14 +216,14 @@ export default class CogitoEditor extends React.Component {
       <React.Fragment>
         {children}
         <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
-          <PrototypeButton
+          <Button
             onMouseDown={(e) => {
               e.preventDefault();
               this.createComment();
             }}
           >
             Comment
-          </PrototypeButton>
+          </Button>
         </HoverContainer>
         <HoverContainer
           shown={selectedComments.length > 0}
@@ -244,23 +246,23 @@ export default class CogitoEditor extends React.Component {
     } = this;
     return (
       <div style={{ margin: '40px' }}>
-        <Flex>
-          <PrototypeButton onMouseDown={() => undo(editor)}>Undo</PrototypeButton>
-          <PrototypeButton onMouseDown={() => redo(editor)}>Redo</PrototypeButton>
-        </Flex>
-        <Flex>
+        <Box>
+          <Button onMouseDown={() => undo(editor)}>Undo</Button>
+          <Button onMouseDown={() => redo(editor)}>Redo</Button>
+        </Box>
+        <Box>
           {this.renderMarkButton(MarkType.BOLD)}
           {this.renderMarkButton(MarkType.ITALIC)}
           {this.renderMarkButton(MarkType.UNDERLINED)}
-          <PrototypeButton onMouseDown={(e) => onClickLink(e, editor)}>Link</PrototypeButton>
-        </Flex>
-        <Flex>
+          <Button onMouseDown={(e) => onClickLink(e, editor)}>Link</Button>
+        </Box>
+        <Box>
           {this.renderBlockButton(NodeType.NumberedList)}
           {this.renderBlockButton(NodeType.BulletedList)}
           {this.renderBlockButton(NodeType.Title)}
           {this.renderBlockButton(NodeType.Subtitle)}
-          <PrototypeButton onMouseDown={(e) => onClickImage(e, editor)}>Image</PrototypeButton>
-        </Flex>
+          <Button onMouseDown={(e) => onClickImage(e, editor)}>Image</Button>
+        </Box>
         <Editor
           spellCheck
           autoFocus
@@ -275,6 +277,7 @@ export default class CogitoEditor extends React.Component {
           role={'editor'}
         />
         <hr />
+        {/* <TEMPORARY> */}
         <div>
           {value.marks.map(
             (mark) =>
@@ -285,6 +288,7 @@ export default class CogitoEditor extends React.Component {
               ),
           )}
         </div>
+        {/* </TEMPORARY> */}
       </div>
     );
   }

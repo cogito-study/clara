@@ -1,19 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styled from 'styled-components';
-
-const PrototypeButton = styled.button`
-  border: 2px solid black;
-  color: black;
-  font-weight: bold;
-  background-color: white;
-`;
-
-const Flex = styled.div`
-  display: flex;
-`;
-
 const HoverContainer = ({ top, left, children, shown, innerRef }) => {
   const root = window.document.getElementById('root');
   return ReactDOM.createPortal(
@@ -24,4 +11,4 @@ const HoverContainer = ({ top, left, children, shown, innerRef }) => {
   );
 };
 
-export { PrototypeButton, Flex, HoverContainer };
+export { HoverContainer };
