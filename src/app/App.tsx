@@ -25,7 +25,7 @@ export const App = () => (
             <Link to={routePath.subjectInfo}>Subject Info</Link>
             <Link to={routePath.subjectNotes}>Subject Note List</Link>
             <Link to={routePath.register}>Register</Link>
-            <Link to={`${routePath.register}/asd`}>Register asd</Link>
+            <Link to={`${routePath.register}/3`}>Register 3</Link>
             <Link to={`${routePath.subjectNotes}/12`}>12. Note</Link>
             <Link to={`${routePath.subjectNotes}/5`}>5. Note</Link>
           </Box>
