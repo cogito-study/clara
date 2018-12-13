@@ -143,7 +143,7 @@ export default class CogitoEditor extends React.Component {
     const DEFAULT_NODE = NodeType.Paragraph;
 
     // Handle everything but list buttons.
-    if (type != NodeType.BulletedList && type != NodeType.NumberedList) {
+    if (type !== NodeType.BulletedList && type !== NodeType.NumberedList) {
       const isActive = hasBlock(type, value);
       const isList = hasBlock(NodeType.ListItem, value);
 
@@ -170,7 +170,7 @@ export default class CogitoEditor extends React.Component {
           .unwrapBlock(NodeType.NumberedList);
       } else if (isList) {
         editor
-          .unwrapBlock(type == NodeType.BulletedList ? NodeType.NumberedList : NodeType.BulletedList)
+          .unwrapBlock(type === NodeType.BulletedList ? NodeType.NumberedList : NodeType.BulletedList)
           .wrapBlock(type);
       } else {
         editor.setBlocks(NodeType.ListItem).wrapBlock(type);
