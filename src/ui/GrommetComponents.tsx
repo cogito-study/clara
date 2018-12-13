@@ -20,7 +20,14 @@ export const GrommetComponents = () => {
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
       </FormField>
-      <RegistrationCard name={registrationCardName} email={registrationCardEmail} />
+      <RegistrationCard
+        name={registrationCardName}
+        email={registrationCardEmail}
+        isRegistrationDisabled={false}
+        isLoading={false}
+        onPasswordChange={console.log}
+        onPasswordCheckChange={console.log}
+      />
       <Grid
         columns={{
           count: 3,
