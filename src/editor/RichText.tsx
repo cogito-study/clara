@@ -12,16 +12,16 @@ const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
 
 const hasMark = (type: MarkType, value: Value) => {
-  return value.activeMarks.some((mark) => mark.type == type);
+  return value.activeMarks.some((mark) => mark.type === type);
 };
 
 const hasBlock = (type: NodeType, value: Value) => {
-  return value.blocks.some((node) => node.type == type);
+  return value.blocks.some((node) => node.type === type);
 };
 
 export default function RichText() {
   return {
-    renderNode: (props, _, next: Function) => {
+    renderNode: (props, _, next: VoidFunction) => {
       const { attributes, children, node } = props;
 
       switch (node.type) {
@@ -42,7 +42,7 @@ export default function RichText() {
       }
     },
 
-    renderMark: (props, _, next: Function) => {
+    renderMark: (props, _, next: VoidFunction) => {
       const { children, mark, attributes } = props;
 
       switch (mark.type) {
@@ -69,7 +69,7 @@ export default function RichText() {
       }
     },
 
-    onKeyDown: (event: KeyboardEvent, editor: Editor, next: Function) => {
+    onKeyDown: (event: KeyboardEvent, editor: Editor, next: VoidFunction) => {
       let mark: MarkType;
       const { key } = event;
       if (isBoldHotkey(event)) {

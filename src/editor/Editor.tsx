@@ -1,15 +1,15 @@
 import React from 'react';
 
+import { Box, Button } from 'grommet';
 import { Editor } from 'slate-react';
 import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 
-import testValue from './testValue.json';
+import { testValue } from './testValue';
 import NodeType from './NodeType';
 import MarkType from './MarkType';
-import { Box, Button } from 'grommet';
 import { HoverContainer } from './ProtoComponents';
 
 import History, { undo, redo } from './History';
@@ -57,6 +57,32 @@ export default class CogitoEditor extends React.Component {
   commentButton!: HTMLElement;
   commentBox!: HTMLElement;
 
+  state: EditorState = {
+    value: Value.fromJSON(testValue),
+    readonly: false,
+    comments: [],
+    commentButtonState: { shown: false, left: -10000, top: -10000 },
+    commentBoxState: { selectedComments: [], left: -10000, top: -10000 },
+  };
+
+  plugins = [
+    History(),
+    Images(),
+    Links(),
+    RichText(),
+    CollapseOnEscape(),
+    PasteLinkify({
+      isActiveQuery: () => isLinkActive(this.state.value),
+      wrapCommand: wrapLink,
+      unwrapCommand: unwrapLink,
+    }),
+  ];
+
+  constructor(props: any) {
+    super(props);
+    this.plugins = [Comments(this.createComment), ...this.plugins];
+  }
+
   editorRef = (editor) => {
     this.editor = editor;
   };
@@ -67,14 +93,6 @@ export default class CogitoEditor extends React.Component {
 
   commentBoxRef = (commentBox) => {
     this.commentBox = commentBox;
-  };
-
-  state: EditorState = {
-    value: Value.fromJSON(testValue),
-    readonly: false,
-    comments: [],
-    commentButtonState: { shown: false, left: -10000, top: -10000 },
-    commentBoxState: { selectedComments: [], left: -10000, top: -10000 },
   };
 
   updateComments = (value) => {
@@ -119,7 +137,9 @@ export default class CogitoEditor extends React.Component {
     const { comments } = this.state;
     const id = Date.now();
     const text = prompt('Comment text');
-    if (!text) return;
+    if (!text) {
+      return;
+    }
     const range = Range.createProperties(this.editor.value.selection);
     this.setState({ comments: [...comments, { text, id, range }] }, () => {
       this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).blur();
@@ -160,7 +180,7 @@ export default class CogitoEditor extends React.Component {
       const isList = hasBlock(NodeType.ListItem, value);
       // Same type as one given in argument
       const sameType = value.blocks.some((block) => {
-        return !!document.getClosest(block.key, (parent) => parent.type == type);
+        return !!document.getClosest(block.key, (parent) => parent.type === type);
       });
 
       if (isList && sameType) {
@@ -179,31 +199,25 @@ export default class CogitoEditor extends React.Component {
   };
 
   renderMarkButton = (type: MarkType) => {
-    return <Button onMouseDown={(e) => this.onClickMark(e, type)}>{type}</Button>;
+    return (
+      <Button primary onMouseDown={(e) => this.onClickMark(e, type)}>
+        {type}
+      </Button>
+    );
   };
 
   renderBlockButton = (type: NodeType) => {
-    return <Button onMouseDown={(e) => this.onClickBlock(e, type)}>{type}</Button>;
+    return (
+      <Button primary onMouseDown={(e) => this.onClickBlock(e, type)}>
+        {type}
+      </Button>
+    );
   };
 
   onChange = ({ value }) => {
     this.updateComments(value);
     this.setState({ value });
   };
-
-  plugins = [
-    History(),
-    Images(),
-    Links(),
-    Comments(this.createComment),
-    RichText(),
-    CollapseOnEscape(),
-    PasteLinkify({
-      isActiveQuery: () => isLinkActive(this.state.value),
-      wrapCommand: wrapLink,
-      unwrapCommand: unwrapLink,
-    }),
-  ];
 
   renderEditor = (_props, _editor, next) => {
     const children = next();
@@ -217,6 +231,7 @@ export default class CogitoEditor extends React.Component {
         {children}
         <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
           <Button
+            primary
             onMouseDown={(e) => {
               e.preventDefault();
               this.createComment();
@@ -246,22 +261,30 @@ export default class CogitoEditor extends React.Component {
     } = this;
     return (
       <div style={{ margin: '40px' }}>
-        <Box>
-          <Button onMouseDown={() => undo(editor)}>Undo</Button>
-          <Button onMouseDown={() => redo(editor)}>Redo</Button>
+        <Box flex align="center" direction="row">
+          <Button primary onMouseDown={() => undo(editor)}>
+            Undo
+          </Button>
+          <Button primary onMouseDown={() => redo(editor)}>
+            Redo
+          </Button>
         </Box>
-        <Box>
+        <Box flex align="center" direction="row">
           {this.renderMarkButton(MarkType.BOLD)}
           {this.renderMarkButton(MarkType.ITALIC)}
           {this.renderMarkButton(MarkType.UNDERLINED)}
-          <Button onMouseDown={(e) => onClickLink(e, editor)}>Link</Button>
+          <Button primary onMouseDown={(e) => onClickLink(e, editor)}>
+            Link
+          </Button>
         </Box>
-        <Box>
+        <Box flex align="center" direction="row">
           {this.renderBlockButton(NodeType.NumberedList)}
           {this.renderBlockButton(NodeType.BulletedList)}
           {this.renderBlockButton(NodeType.Title)}
           {this.renderBlockButton(NodeType.Subtitle)}
-          <Button onMouseDown={(e) => onClickImage(e, editor)}>Image</Button>
+          <Button primary onMouseDown={(e) => onClickImage(e, editor)}>
+            Image
+          </Button>
         </Box>
         <Editor
           spellCheck

@@ -11,7 +11,7 @@ const addComment = (editor, id) => {
 
 export default function Comments(createComment: () => void) {
   return {
-    renderMark: (props, _, next: Function) => {
+    renderMark: (props, _, next: VoidFunction) => {
       const {
         attributes,
         children,

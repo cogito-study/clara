@@ -1,4 +1,4 @@
-const testValue = {
+export const testValue = {
   document: {
     object: 'document',
     nodes: [
@@ -51,7 +51,7 @@ const testValue = {
             object: 'text',
             leaves: [
               {
-                text: "Since it's rich text, you can do things like turn a selection of text ",
+                text: 'Since it\'s rich text, you can do things like turn a selection of text ',
                 marks: [],
               },
               {
@@ -133,5 +133,3 @@ const testValue = {
     ],
   },
 };
-
-export default testValue;
