@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React, { StrictMode } from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
 
 import { App } from './app/App';
@@ -16,7 +16,7 @@ if (config.environment === 'production') {
   console.warn = empty;
 }
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+ReactDOM.render(<StrictMode><App /></StrictMode>, document.getElementById('root') as HTMLElement);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
