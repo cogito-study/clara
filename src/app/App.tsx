@@ -41,10 +41,14 @@ export const App = () => (
                 component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
               />
               <PrivateRoute
+                exact
+                path={routePath.subjectNote()}
+                component={(props: RouteComponentProps) => <NotePage {...props} />}
+              />
+              <PrivateRoute
                 path={routePath.subject()}
                 component={(props: RouteComponentProps) => <SubjectPage {...props} />}
               />
-              <PrivateRoute exact path={routePath.subjectNote()} component={(props) => <NotePage {...props} />} />
               <Route path={routePath.root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
             </Switch>
           </Suspense>
