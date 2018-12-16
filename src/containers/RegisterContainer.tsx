@@ -63,7 +63,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
         <Box flex align="center" pad="large">
           {data.user && (
             <RegistrationCard
-              name={`${data.user.firstName} ${data.user.lastName}`}
+              name={`${data.user.lastName} ${data.user.firstName}`}
               email={data.user.email}
               isRegistrationDisabled={password !== passwordCheck}
               isLoading={isLoading}
