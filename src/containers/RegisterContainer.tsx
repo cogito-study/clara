@@ -4,7 +4,7 @@ import { Heading, Image, Box } from 'grommet';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 
-import { routePath } from '../constants';
+import { routePath, localStorageKeys } from '../constants';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
 
@@ -21,7 +21,10 @@ const USER_INFO_QUERY = gql`
 const ACTIVATE_USER = gql`
   mutation ActivateUser($userID: Int!, $password: String!) {
     activateUser(userId: $userID, newPassword: $password) {
-      success
+      token
+      user {
+        id
+      }
     }
   }
 `;
@@ -37,8 +40,11 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
 
   const onRegistration = () => {
     setLoading(true);
-    registerPassword().then(() => {
+    registerPassword().then(({ data: mutationData }) => {
+      const { token, user } = mutationData;
       setLoading(false);
+      localStorage.setItem(localStorageKeys.loggedInUserID, user.id);
+      localStorage.setItem(localStorageKeys.authToken, token);
       history.push(routePath.subjectNotes);
     });
   };
