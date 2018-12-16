@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Link, BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Grommet, Box, Heading } from 'grommet';
@@ -8,6 +8,7 @@ import { routePath } from '../constants';
 import { theme } from '../ui/theme/theme';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
+import { PrivateRoute } from '../utils/PrivateRoute';
 
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
@@ -32,11 +33,27 @@ export const App = () => (
               <Link to={`${routePath.subjectNotes}/5`}>5. Note</Link>
             </Box>
             <Switch>
-              <Route exact path={routePath.subjectNoteWithParams} component={(props) => <NotePage {...props} />} />
-              <Route path={routePath.register} component={(props) => <RegisterPage {...props} />} />
-              <Route path={routePath.subject} component={(props) => <SubjectPage {...props} />} />
-              <Route path={routePath.components} component={(props) => <GrommetComponents {...props} />} />
-              <Route path={routePath.root} component={(props) => <Heading {...props}>Landing Page helye</Heading>} />
+              <Route
+                path={routePath.register}
+                component={(props: RouteComponentProps) => <RegisterPage {...props} />}
+              />
+              <Route
+                path={routePath.components}
+                component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
+              />
+              <PrivateRoute
+                path={routePath.subject}
+                component={(props: RouteComponentProps) => <SubjectPage {...props} />}
+              />
+              <PrivateRoute
+                exact
+                path={routePath.subjectNoteWithParams}
+                component={(props) => <NotePage {...props} />}
+              />
+              <Route
+                path={routePath.root}
+                component={(props: RouteComponentProps) => <Heading {...props}>Landing Page helye</Heading>}
+              />
             </Switch>
           </Suspense>
         </BrowserRouter>
