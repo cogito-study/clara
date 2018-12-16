@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Tabs, Tab } from 'grommet';
 import { RouteComponentProps, withRouter, Route } from 'react-router-dom';
 
-import { routePath } from '../constants/routePath';
+import { routePath } from '../constants';
 import { SubjectInfoContainer } from './SubjectInfoContainer';
 import { SubjectNoteListContainer } from './SubjectNoteListContainer';
 

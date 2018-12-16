@@ -4,7 +4,7 @@ import { Heading, Image, Box } from 'grommet';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 
-import { routePath } from '../constants/routePath';
+import { routePath } from '../constants';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
 

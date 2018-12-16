@@ -6,7 +6,7 @@ import Scroll from 'react-scroll';
 import { SubscribeButton, SubscribeInput } from '../subscribe';
 import { color, Header3, Header2, Header1 } from '../styles';
 import { ContactCard } from '../contact/ContactCard';
-import { scrollOptions } from '../../constants/scrollOptions';
+import { scrollOptions } from '../../constants';
 import i18n from '../../services/localization/i18n';
 import downArrow from '../../assets/images/down.svg';
 
