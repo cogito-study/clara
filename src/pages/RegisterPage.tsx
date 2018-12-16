@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import { Box, Heading } from 'grommet';
+import { Box } from 'grommet';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 
+import { routePath } from '../constants';
 import { RegisterContainer } from '../containers/RegisterContainer';
 
 const RegisterPage: FunctionComponent<RouteComponentProps> = ({ match }) => (
   <Box fill>
     <Switch>
-      <Route path={`${match!.path}/:userID`} component={RegisterContainer} />
-      <Route exact path={match!.path} render={() => <Heading level="3">Find a registration ID</Heading>} />
+      <Route path={routePath.register()} component={RegisterContainer} />
     </Switch>
   </Box>
 );

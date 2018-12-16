@@ -23,35 +23,30 @@ export const App = () => (
         <BrowserRouter>
           <Suspense fallback={<LoadingPage />}>
             <Box background="primary" flex="grow" direction="row" justify="between" align="center" wrap>
-              <Link to={routePath.root}>Landing Page</Link>
-              <Link to={routePath.components}>Components</Link>
-              <Link to={routePath.subjectInfo}>Subject Info</Link>
-              <Link to={routePath.subjectNotes}>Subject Note List</Link>
-              <Link to={routePath.register}>Register</Link>
-              <Link to={`${routePath.register}/3`}>Register 3</Link>
-              <Link to={`${routePath.subjectNotes}/12`}>12. Note</Link>
-              <Link to={`${routePath.subjectNotes}/5`}>5. Note</Link>
+              <Link to={routePath.root()}>Landing Page</Link>
+              <Link to={routePath.components()}>Components</Link>
+              <Link to={routePath.subjectInfo('NEU999')}>Subject Info</Link>
+              <Link to={routePath.subjectNoteList('NEU999')}>Subject Note List</Link>
+              <Link to={routePath.register('3')}>Register 3</Link>
+              <Link to={routePath.subjectNote('NEU999', '12')}>12. Note</Link>
+              <Link to={routePath.subjectNote('NEU999', '5')}>12. Note</Link>
             </Box>
             <Switch>
               <Route
-                path={routePath.register}
+                path={routePath.register()}
                 component={(props: RouteComponentProps) => <RegisterPage {...props} />}
               />
               <Route
-                path={routePath.components}
+                path={routePath.components()}
                 component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
               />
               <PrivateRoute
-                path={routePath.subject}
+                path={routePath.subject()}
                 component={(props: RouteComponentProps) => <SubjectPage {...props} />}
               />
-              <PrivateRoute
-                exact
-                path={routePath.subjectNoteWithParams}
-                component={(props) => <NotePage {...props} />}
-              />
+              <PrivateRoute exact path={routePath.subjectNote()} component={(props) => <NotePage {...props} />} />
               <Route
-                path={routePath.root}
+                path={routePath.root()}
                 component={(props: RouteComponentProps) => <Heading {...props}>Landing Page helye</Heading>}
               />
             </Switch>

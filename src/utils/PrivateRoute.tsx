@@ -16,7 +16,7 @@ export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({ component: 
       ) : (
         <Redirect
           to={{
-            pathname: routePath.root,
+            pathname: routePath.root(),
             state: { from: props.location },
           }}
         />

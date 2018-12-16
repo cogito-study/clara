@@ -41,11 +41,11 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
   const onRegistration = () => {
     setLoading(true);
     registerPassword().then(({ data: mutationData }) => {
-      const { token, user } = mutationData;
+      const { token, user } = mutationData.activateUser;
       setLoading(false);
       localStorage.setItem(localStorageKeys.loggedInUserID, user.id);
       localStorage.setItem(localStorageKeys.authToken, token);
-      history.push(routePath.subjectNotes);
+      history.push(routePath.subjectInfo('NEU999')); // TODO: Change to ersebeszet subject code in PROD
     });
   };
 
