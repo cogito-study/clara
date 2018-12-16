@@ -14,9 +14,12 @@
     },
     "card": {
       "title": "Belépés",
-      "placeholder": "Hamarosan... ;)",
-      "passwordTitle": "Írd be a jelszavad",
-      "passwordForgot": "Elfelejtetted a jelszavad?"
+      "placeholder": "Hamarosan...",
+      "emailtitle": "Email címed",
+      "emailplaceholder": "ilovelearning@somuch.com",
+      "passwordtitle": "Írd be a jelszavad",
+      "passwordplaceholder": "*******",
+      "passwordforgot": "Elfelejtetted a jelszavad?"
     },
     "subtitle": "Tudás és inspiráció egy helyen, Cogito.",
     "button": "Iratkozz fel!"

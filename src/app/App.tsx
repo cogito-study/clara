@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Link, BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import { Grommet, Box, Heading } from 'grommet';
+import { Grommet, Box } from 'grommet';
 
 import { routePath } from '../constants';
 import { theme } from '../ui/theme/theme';
@@ -13,7 +13,7 @@ import { PrivateRoute } from '../utils/PrivateRoute';
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
-// const LandingPage = lazy(() => import('../landing-page/LandingPage')); // TODO: Substitute to real landing page
+const LandingPage = lazy(() => import('../landing-page/LandingPage')); // TODO: Substitute to real landing page
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
 export const App = () => (
@@ -45,10 +45,7 @@ export const App = () => (
                 component={(props: RouteComponentProps) => <SubjectPage {...props} />}
               />
               <PrivateRoute exact path={routePath.subjectNote()} component={(props) => <NotePage {...props} />} />
-              <Route
-                path={routePath.root()}
-                component={(props: RouteComponentProps) => <Heading {...props}>Landing Page helye</Heading>}
-              />
+              <Route path={routePath.root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
             </Switch>
           </Suspense>
         </BrowserRouter>

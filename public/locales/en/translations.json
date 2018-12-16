@@ -16,8 +16,11 @@
     "card": {
       "title": "Login",
       "placeholder": "Coming soon...",
-      "passwordTitle": "Enter your password",
-      "passwordForgot": "Forgot your password?"
+      "emailtitle": "Enter your email address",
+      "emailplaceholder": "ilovelearning@somuch.com",
+      "passwordtitle": "Enter your password",
+      "passwordplaceholder": "*******",
+      "passwordforgot": "Forgot your password?"
     },
     "subtitle": "Your social platform for perfect notes and inspiration.",
     "button": "Subscribe!"
