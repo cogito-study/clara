@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
-  <Box pad="medium" background="light" round="xsmall" elevation="small" width="large">
+  <Box pad="medium" background="white" round="xsmall" elevation="small" width="large">
     <Heading level="3" margin="xsmall">
       {props.title}
     </Heading>
