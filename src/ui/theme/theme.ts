@@ -83,8 +83,5 @@ export const theme = {
       margin: 'none',
     },
     gap: 'small',
-    textInput: {
-      type: 'password',
-    },
   },
 };
