@@ -1,36 +1,39 @@
 import React, { FunctionComponent } from 'react';
 import { Box, BoxProps, Heading, Paragraph } from 'grommet';
+import { format } from 'date-fns';
+import { hu } from 'date-fns/locale';
 
+import { dateFormat } from '../../constants';
 interface Props {
-  number: number;
+  noteNumber: number;
   title: string;
   abstract: string;
-  date?: string;
+  date?: Date;
 }
 
-const NoteCard: FunctionComponent<BoxProps & Props> = (props) => (
-  <Box width="medium" pad="none" background="primary" round="small" {...props} elevation="small">
-    <Box align="end">
-      <Heading
-        level={'2'}
-        margin={{
-          top: 'none',
-          bottom: 'none',
-          horizontal: 'none',
-          vertical: 'none',
-          left: 'none',
-          right: 'medium',
-        }}
-      >
-        {props.number}
-      </Heading>
+const NoteCard: FunctionComponent<BoxProps & Props> = ({ noteNumber, title, abstract, date, ...rest }) => (
+  <Box width="medium" pad="none" round="small" elevation="small" {...rest}>
+    <Box
+      height="xxsmall"
+      background="primary"
+      overflow="hidden"
+      justify="center"
+      align="end"
+      round={{ corner: 'top', size: 'small' }}
+      pad={{ horizontal: 'small' }}
+    >
+      <Heading level="3">{noteNumber}</Heading>
     </Box>
-    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="xsmall">
-      <Heading level="3" margin="small">
-        {props.title}
+    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="small" gap="medium">
+      <Heading level="3" margin="none">
+        {title}
       </Heading>
-      <Paragraph margin="small">{props.abstract}</Paragraph>
-      {props.date && <Paragraph margin="small">{props.date}</Paragraph>}
+      <Paragraph margin="none">{abstract}</Paragraph>
+      {date && (
+        <Paragraph margin="none" size="small" color="lightGrey">
+          {`Frissítve: ${format(date, dateFormat.short, { locale: hu })}`}
+        </Paragraph>
+      )}
     </Box>
   </Box>
 );
