@@ -6,8 +6,12 @@ import { RouteComponentProps } from 'react-router';
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
 const noteCardTitle = 'Origin of heart murmurs. Diastolic murmurs.';
-const noteCardAbstract =
-  'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok, Lyell szindróma)!';
+const noteCardAbstracts = [
+  'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok, Lyell szindróma)!',
+  'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok',
+  'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok',
+  'Létfontos szerv: bőr és nyálkahártya nélkül nincs',
+];
 const noteDate = new Date();
 const infoCardTitle = 'Követelmények';
 const infoCardSubtitle = 'Ilyen, ha van alcím';
@@ -39,7 +43,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             key={number || 0}
             noteNumber={number}
             title={noteCardTitle}
-            abstract={noteCardAbstract}
+            abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
             date={noteDate}
             margin="small"
           />

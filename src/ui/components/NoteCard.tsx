@@ -12,7 +12,7 @@ interface Props {
 }
 
 const NoteCard: FunctionComponent<BoxProps & Props> = ({ noteNumber, title, abstract, date, ...rest }) => (
-  <Box width="300px" pad="none" round="small" elevation="small" {...rest}>
+  <Box width="320px" height="320px" pad="none" round="small" elevation="small" {...rest}>
     <Box
       height="xxsmall"
       background="primary"
@@ -24,11 +24,13 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({ noteNumber, title, abst
     >
       <Heading level="3">{noteNumber}</Heading>
     </Box>
-    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="medium">
-      <Heading level="3" margin="none">
+    <Box fill justify="between" background="white" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="small">
+      <Heading level="3" margin="none" color="dark">
         {title}
       </Heading>
-      <Paragraph margin="none">{abstract}</Paragraph>
+      <Paragraph margin="none" color="grey">
+        {abstract.substring(0, 100)}
+      </Paragraph>
       {date && (
         <Paragraph margin="none" size="small" color="lightGrey">
           {`Frissítve: ${format(date, dateFormat.short, { locale: hu })}`}

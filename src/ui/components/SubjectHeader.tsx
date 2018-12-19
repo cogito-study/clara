@@ -13,14 +13,14 @@ interface Props {
 export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLogout }) => (
   <Box flex width="xlarge" height="60px" pad="xsmall" justify="between" align="center" direction="row">
     <Box basis="1/4" justify="center">
-      <Image src={logo} width="80%" />
+      <Image src={logo} width="150px" />
     </Box>
     <Box basis="1/2">
       <Heading level="2" color="white" textAlign="center">
         {title}
       </Heading>
     </Box>
-    <Box basis="1/4" direction="row" align="center" gap="small">
+    <Box basis="1/4" direction="row" justify="end" align="center" gap="small">
       <Heading level="4" color="white">
         {userName}
       </Heading>
