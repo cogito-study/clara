@@ -4,7 +4,7 @@ import { Heading, Image, Box } from 'grommet';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 
-import { routePath } from '../constants/routePath';
+import { authService } from '../services/authService';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
 
@@ -21,7 +21,10 @@ const USER_INFO_QUERY = gql`
 const ACTIVATE_USER = gql`
   mutation ActivateUser($userID: Int!, $password: String!) {
     activateUser(userId: $userID, newPassword: $password) {
-      success
+      token
+      user {
+        id
+      }
     }
   }
 `;
@@ -37,9 +40,10 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
 
   const onRegistration = () => {
     setLoading(true);
-    registerPassword().then(() => {
+    registerPassword().then(({ data: mutationData }) => {
+      const { token, user } = mutationData.activateUser;
+      authService.authSuccess(token, user.id, history);
       setLoading(false);
-      history.push(routePath.subjectNotes);
     });
   };
 
@@ -57,7 +61,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
         <Box flex align="center" pad="large">
           {data.user && (
             <RegistrationCard
-              name={`${data.user.firstName} ${data.user.lastName}`}
+              name={`${data.user.lastName} ${data.user.firstName}`}
               email={data.user.email}
               isRegistrationDisabled={password !== passwordCheck}
               isLoading={isLoading}
