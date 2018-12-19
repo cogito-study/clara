@@ -37,7 +37,7 @@ const HeaderContainer: FunctionComponent<RouteComponentProps<{ subjectCode: stri
   };
 
   return (
-    <Box fill="horizontal" background="gradient" align="center" justify="center">
+    <Box fill="horizontal" background="primary" align="center" justify="center">
       <SubjectHeader title={subjectInfo.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />
     </Box>
   );

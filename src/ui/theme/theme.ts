@@ -1,3 +1,6 @@
+import { button } from './button';
+import { tab, tabs } from './tabs';
+
 export const theme = {
   global: {
     colors: {
@@ -19,31 +22,7 @@ export const theme = {
       size: '16px',
     },
   },
-  button: {
-    border: {
-      radius: '20px',
-      width: '0px',
-    },
-    padding: {
-      vertical: '14px',
-      horizontal: '30px',
-    },
-    primary: {
-      color: 'linear-gradient(103.39deg, #67BCFB -13.85%, #4787D3 113.18%)',
-    },
-    extend: (props) => `
-      color: white;
-      box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);
-      text-transform: uppercase;
-      font-weight: bold;
-      transition: all 0.1s ease-in-out;
-
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0px 10.2643px 20.5286px rgba(71, 135, 211, 0.3);
-      }
-    `,
-  },
+  button: { ...button },
   paragraph: {
     extend: (props) => `
     max-width: 2000px;
@@ -55,33 +34,6 @@ export const theme = {
       size: '16px',
     },
   },
-  tab: {
-    color: 'light',
-    font: {
-      size: 'medium',
-    },
-    active: {
-      color: 'light',
-    },
-    hover: {
-      color: 'light',
-    },
-    border: {
-      active: {
-        color: 'light',
-      },
-      color: 'transparent',
-      hover: {
-        color: 'transparent',
-      },
-    },
-  },
-  tabs: {
-    background: 'transparent',
-    header: {
-      background: 'gradient',
-      margin: 'none',
-    },
-    gap: 'small',
-  },
+  tab: { ...tab },
+  tabs: { ...tabs },
 };
