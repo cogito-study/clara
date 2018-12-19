@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Box, BoxProps, Text, Button } from 'grommet';
 import { Facebook, Instagram, Twitter } from 'grommet-icons';
 
-const Footer: FunctionComponent<BoxProps> = (props) => (
+export const Footer: FunctionComponent<BoxProps> = (props) => (
   <Box margin="none" width="100%" pad="small" background="primary" justify="center" align="center" {...props}>
     <Box align="center" gap="xlarge" margin="medium" direction="row-responsive">
       <Box basis="2/3" gap="large" direction="row-responsive">

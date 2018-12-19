@@ -80,12 +80,11 @@ export const theme = {
     background: 'transparent',
     header: {
       background: 'gradient',
+      margin: 'none',
     },
     gap: 'small',
-  textInput: {
-    type: 'password',
-  },
-  header: {
-    margin: 'none',
+    textInput: {
+      type: 'password',
+    },
   },
 };
