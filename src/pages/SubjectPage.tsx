@@ -5,7 +5,7 @@ import { Box } from 'grommet';
 import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
 import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
 
-const SubjectPage: FunctionComponent<RouteComponentProps> = ({ match }) => (
+const SubjectPage: FunctionComponent<RouteComponentProps> = () => (
   <Box fill>
     <SubjectHeaderContainer />
     <SubjectTabsContainer />

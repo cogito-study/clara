@@ -3,7 +3,7 @@ import { Flex, Image } from 'rebass';
 
 import { color, Paragraph, Header1 } from '../styles';
 import { ContactCard } from '../contact/ContactCard';
-import i18n from '../../services/localization/i18n';
+import i18n from '../../services/i18n';
 import iphoneMockupEn from '../../assets/images/iphoneMockup(EN).png';
 import iphoneMockupHun from '../../assets/images/iphoneMockup(HUN).png';
 

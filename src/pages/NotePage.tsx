@@ -4,12 +4,10 @@ import CogitoEditor from '../editor/Editor';
 import { RouteComponentProps } from 'react-router-dom';
 
 // TODO: Change background color
-const NotePage: FunctionComponent<RouteComponentProps<{ noteID: string }>> = ({ match }) => (
-  <div>
-    <Box fill>
-      <CogitoEditor />
-    </Box>
-  </div>
+const NotePage: FunctionComponent<RouteComponentProps> = () => (
+  <Box fill>
+    <CogitoEditor />
+  </Box>
 );
 
 export default NotePage;

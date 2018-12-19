@@ -1,6 +1,7 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Box, Button, TextInput, Grid } from 'grommet';
 import { FormField, Footer, NoteCard, InfoCard, RegistrationCard } from './components';
+import { RouteComponentProps } from 'react-router';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -13,7 +14,7 @@ const infoCardSubtitle = 'Ilyen, ha van alcím';
 const infoCardContent =
   'Az előadásokon történő részvétel kötelező, a hallgatókat az előadásokon tájékoztatjuk arról, hogy azok anyagait az adott tárgy (Sebészet III.) vizsgáján teszt formájában számon kérjük. Az előadás tematikájára a tanszékvezető javaslatokat tehet. A hallgatók minden előadáson lehetőséget kapnak visszajelzésekre, ill. kérdéseik feltevésére. A gyakorlatokon történő részvétel kötelező, minden gyakorlaton katalógust vezetünk (titkárságon elzárva). Erről a hallgatókat az egyetemi hallgatói tájékoztatóban írásban, ill. a gyakorlatokon szóban tájékoztatjuk. A gyakorlatokon a hallgatókat köpennyel, ill. személyre szóló névtáblával látjuk el, minden csoport kinyomtatott formában megkapja a részletes órarend egy példányát. A vizsgán számon kért anyagokról, illetve az ajánlott irodalmakról (jegyzet, könyv, előadások, gyakorlatok stb.) a hallgatókat az egyetem hallgatói tájékoztatójában és honlapunkon tájékoztatjuk. Irodalom: Acsády Gy. – Nemes A.: Az érsebészet tankönyve. Medicina, Budapest, 2007. Acsády Gy. – Nemes A.: Az érbetegségek klinikai és műtéttani atlasza. Medicina, Budapest, 2005. Gaál Cs.: Sebészet. Medicina, Budapest, 2012.';
 
-export const GrommetComponents = () => {
+export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
   return (
     <Box align="center" gap="large" background="#FBFDFF">
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
