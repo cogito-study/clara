@@ -2,7 +2,7 @@ import React from 'react';
 import NodeType from './NodeType';
 
 const isLinkActive = (value) => {
-  return value.inlines.some((inline) => inline.type == NodeType.Link);
+  return value.inlines.some((inline) => inline.type === NodeType.Link);
 };
 
 const wrapLink = (editor, href: string) => {

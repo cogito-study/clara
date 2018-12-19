@@ -22,7 +22,9 @@ const insertImage = (editor, src, target) => {
 const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor) => {
   event.preventDefault();
   const src = window.prompt('Enter the URL of the image:');
-  if (!src) return;
+  if (!src) {
+    return;
+  }
   editor.command(insertImage, src);
   return true;
 };
