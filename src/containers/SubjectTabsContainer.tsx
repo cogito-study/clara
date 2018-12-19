@@ -1,12 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { Tabs, Tab } from 'grommet';
-import { RouteComponentProps, withRouter, Route } from 'react-router-dom';
+import { RouteComponentProps, Route } from 'react-router-dom';
 
 import { routePath } from '../constants';
 import { SubjectInfoContainer } from './SubjectInfoContainer';
 import { SubjectNoteListContainer } from './SubjectNoteListContainer';
+import { SubjectRouteParams } from '../types/RouteParams';
 
-const SubjectTabs: FunctionComponent<RouteComponentProps<{ subjectCode: string }>> = ({ history, location, match }) => {
+export const SubjectTabsContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({
+  history,
+  location,
+  match,
+}) => {
   const { subjectCode } = match.params;
   const tabRoutes = [routePath.subjectNoteList(subjectCode), routePath.subjectInfo(subjectCode)];
 
@@ -25,5 +30,3 @@ const SubjectTabs: FunctionComponent<RouteComponentProps<{ subjectCode: string }
     </Tabs>
   );
 };
-
-export const SubjectTabsContainer = withRouter(SubjectTabs);

@@ -5,6 +5,7 @@ import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { InfoCard } from '../ui/components';
+import { SubjectRouteParams } from '../types/RouteParams';
 
 const SUBJECT_INFO_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
@@ -20,7 +21,7 @@ const SUBJECT_INFO_QUERY = gql`
   }
 `;
 
-export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<{ subjectCode: string }>> = ({ match }) => {
+export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
 

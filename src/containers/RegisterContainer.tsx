@@ -7,6 +7,7 @@ import { useQuery, useMutation } from 'react-apollo-hooks';
 import { authService } from '../services/authService';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
+import { AuthRouteParams } from '../types/RouteParams';
 
 const USER_INFO_QUERY = gql`
   query UserInfo($userID: Int!) {
@@ -29,7 +30,7 @@ const ACTIVATE_USER = gql`
   }
 `;
 
-export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: string }>> = ({ history, match }) => {
+export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [isLoading, setLoading] = useState(false);

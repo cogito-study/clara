@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Link, BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Link, BrowserRouter, Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Grommet, Box } from 'grommet';
@@ -9,6 +9,7 @@ import { theme } from '../ui/theme';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
 import { PrivateRoute } from '../utils/PrivateRoute';
+import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
 
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
@@ -34,7 +35,7 @@ export const App = () => (
             <Switch>
               <Route
                 path={routePath.register()}
-                component={(props: RouteComponentProps) => <RegisterPage {...props} />}
+                component={(props: RouteComponentProps<AuthRouteParams>) => <RegisterPage {...props} />}
               />
               <Route
                 path={routePath.components()}
@@ -43,13 +44,18 @@ export const App = () => (
               <PrivateRoute
                 exact
                 path={routePath.subjectNote()}
-                component={(props: RouteComponentProps) => <NotePage {...props} />}
+                component={(props: RouteComponentProps<NoteRouteParams>) => <NotePage {...props} />}
               />
               <PrivateRoute
                 path={routePath.subject()}
-                component={(props: RouteComponentProps) => <SubjectPage {...props} />}
+                component={(props: RouteComponentProps<SubjectRouteParams>) => <SubjectPage {...props} />}
               />
-              <Route path={routePath.root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
+              <Route
+                exact
+                path={routePath.root()}
+                component={(props: RouteComponentProps) => <LandingPage {...props} />}
+              />
+              <Redirect to={routePath.root()} />
             </Switch>
           </Suspense>
         </BrowserRouter>

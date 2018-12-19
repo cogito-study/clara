@@ -4,11 +4,12 @@ import { Box } from 'grommet';
 
 import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
 import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
+import { SubjectRouteParams } from '../types/RouteParams';
 
-const SubjectPage: FunctionComponent<RouteComponentProps> = () => (
-  <Box fill>
-    <SubjectHeaderContainer />
-    <SubjectTabsContainer />
+const SubjectPage: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => (
+  <Box fill background="light">
+    <SubjectHeaderContainer {...props} />
+    <SubjectTabsContainer {...props} />
   </Box>
 );
 

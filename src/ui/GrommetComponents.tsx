@@ -40,8 +40,10 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
       <Box gap="small" direction="row" wrap alignContent="around">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
           <NoteCard
+            id={number.toLocaleString()}
             key={number || 0}
             noteNumber={number}
+            subjectCode="ABC123"
             title={noteCardTitle}
             abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
             date={noteDate}

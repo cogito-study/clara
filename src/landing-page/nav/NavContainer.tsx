@@ -7,7 +7,7 @@ import { NavLink } from './NavLink';
 import { NavLogo } from './NavLogo';
 import { NavToolbar } from './NavToolbar';
 import { scrollOptions } from '../../constants';
-import { Language, english, hungarian } from '../../types/language';
+import { Language, english, hungarian } from '../../types/Language';
 
 import i18n from '../../services/i18n';
 

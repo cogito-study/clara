@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
 import gql from 'graphql-tag';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { useQuery } from 'react-apollo-hooks';
 
 import { SubjectHeader } from '../ui/components/SubjectHeader';
 import { localStorageKeys, routePath } from '../constants';
+import { SubjectRouteParams } from '../types/RouteParams';
 
 const SUBJECT_HEADER_QUERY = gql`
   query SubjectHeader($userID: Int!, $subjectCode: String!) {
@@ -21,7 +22,7 @@ const SUBJECT_HEADER_QUERY = gql`
   }
 `;
 
-const HeaderContainer: FunctionComponent<RouteComponentProps<{ subjectCode: string }>> = (props) => {
+export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => {
   const { subjectCode } = props.match.params;
   const userID = localStorage.getItem(localStorageKeys.loggedInUserID);
   const { data } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
@@ -42,5 +43,3 @@ const HeaderContainer: FunctionComponent<RouteComponentProps<{ subjectCode: stri
     </Box>
   );
 };
-
-export const SubjectHeaderContainer = withRouter(HeaderContainer);

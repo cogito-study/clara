@@ -1,15 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 
 import { routePath } from '../constants';
 import { RegisterContainer } from '../containers/RegisterContainer';
 
-const RegisterPage: FunctionComponent<RouteComponentProps> = ({ match }) => (
+const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
   <Box fill>
-    <Switch>
-      <Route path={routePath.register()} component={RegisterContainer} />
-    </Switch>
+    <Route path={routePath.register()} component={RegisterContainer} />
   </Box>
 );
 
