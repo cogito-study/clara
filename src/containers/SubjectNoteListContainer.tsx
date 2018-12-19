@@ -12,7 +12,7 @@ const SUBJECT_NOTE_LIST_QUERY = gql`
       notes {
         seriesNumber
         title
-        text
+        description
         modifiedAt
       }
     }
@@ -29,11 +29,17 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<{ s
 
   const renderNoteList = () =>
     data.subject.notes.map((note, index) => (
-      <NoteCard key={index} number={note.seriesNumber} title={note.title} abstract={note.text} date={note.modifiedAt} />
+      <NoteCard
+        key={index}
+        noteNumber={note.seriesNumber}
+        title={note.title}
+        abstract={note.description}
+        date={note.modifiedAt}
+      />
     ));
 
   return (
-    <Box background="light" fill="vertical" align="center" gap="medium" pad="medium">
+    <Box flex wrap background="light" fill align="center" gap="medium" pad="medium">
       {errors && renderError()}
       {data.subject.notes && renderNoteList()}
     </Box>

@@ -22,7 +22,7 @@
     "no-invalid-this": [true, "check-function-in-method"],
     "no-null-keyword": true,
     "no-require-imports": false,
-    "no-submodule-imports": [true, "@src", "rxjs"],
+    "no-submodule-imports": [true, "@src", "rxjs", "date-fns"],
     "no-this-assignment": [true, {
       "allow-destructuring": true
     }],
