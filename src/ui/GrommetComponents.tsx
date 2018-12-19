@@ -20,6 +20,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
   return (
     <Box align="center" gap="large" background="#FBFDFF">
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
+      <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
       </FormField>
