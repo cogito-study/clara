@@ -4,7 +4,7 @@ import CogitoEditor from '../editor/Editor';
 import { RouteComponentProps } from 'react-router-dom';
 
 const NotePage: FunctionComponent<RouteComponentProps> = () => (
-  <Box fill>
+  <Box pad="40px" fill align="center">
     <CogitoEditor />
   </Box>
 );

@@ -10,6 +10,10 @@ import { testValue } from './testValue';
 import MarkType from './MarkType';
 import { HoverContainer } from './ProtoComponents';
 
+import Images from './Images';
+import Links from './Links';
+import RichText from './RichText';
+
 import Comments from './Comments';
 
 // testing
@@ -61,9 +65,9 @@ export default class CogitoEditor extends React.Component {
 
   plugins = [
     // History(),
-    // Images(),
-    // Links(),
-    // RichText(),
+    Images(),
+    Links(),
+    RichText(),
     // PasteLinkify({
     //   isActiveQuery: () => isLinkActive(this.state.value),
     //   wrapCommand: wrapLink,
@@ -113,6 +117,14 @@ export default class CogitoEditor extends React.Component {
             selectedComments,
             top: rect.bottom,
             left: rect.left + window.pageXOffset - this.commentBox.offsetWidth / 2 + rect.width / 2,
+          },
+        });
+      } else {
+        this.setState({
+          commentBoxState: {
+            selectedComments: [],
+            top: -10000,
+            left: -10000,
           },
         });
       }
@@ -253,7 +265,15 @@ export default class CogitoEditor extends React.Component {
       state: { value },
     } = this;
     return (
-      <Box>
+      <Box
+        width="large"
+        background="light"
+        elevation="medium"
+        justify="center"
+        round="medium"
+        pad="medium"
+        gap="medium"
+      >
         <Editor
           spellCheck
           autoFocus
