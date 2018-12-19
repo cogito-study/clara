@@ -13,7 +13,7 @@ import { PrivateRoute } from '../utils/PrivateRoute';
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
-const LandingPage = lazy(() => import('../landing-page/LandingPage')); // TODO: Substitute to real landing page
+const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
 export const App = () => (

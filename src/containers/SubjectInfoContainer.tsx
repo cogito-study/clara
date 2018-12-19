@@ -22,10 +22,7 @@ const SUBJECT_INFO_QUERY = gql`
 
 export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<{ subjectCode: string }>> = ({ match }) => {
   const { subjectCode } = match.params;
-  console.log('match', match);
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
-  console.log(data);
-  console.log(errors);
 
   const renderError = () => <div>Error</div>; // TODO: proper error handling
 

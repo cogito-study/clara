@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 
-import { routePath, localStorageKeys } from '../constants';
+import { routePath } from '../constants';
+import { authService } from '../services/authService';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -11,7 +12,7 @@ export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({ component: 
   <Route
     {...rest}
     render={(props: RouteComponentProps<any>) =>
-      localStorage.getItem(localStorageKeys.authToken) ? ( // TODO: Implement authentication service
+      authService.authToken() ? (
         <Component {...props} />
       ) : (
         <Redirect

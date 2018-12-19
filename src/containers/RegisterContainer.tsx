@@ -42,7 +42,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
     setLoading(true);
     registerPassword().then(({ data: mutationData }) => {
       const { token, user } = mutationData.activateUser;
-      authService.authenticationSuccess(token, user.id, history);
+      authService.authSuccess(token, user.id, history);
       setLoading(false);
     });
   };

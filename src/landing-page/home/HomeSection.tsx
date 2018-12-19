@@ -45,9 +45,7 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
   const loginUser = useMutation(LOGIN_USER, { variables: { username, password } });
 
   const onLogin = () =>
-    loginUser().then(({ data }) =>
-      authService.authenticationSuccess(data.loginUser.token, data.loginUser.user.id, history),
-    );
+    loginUser().then(({ data }) => authService.authSuccess(data.loginUser.token, data.loginUser.user.id, history));
 
   return (
     <Flex flexDirection="column">
