@@ -9,7 +9,7 @@ import { NavToolbar } from './NavToolbar';
 import { scrollOptions } from '../../constants';
 import { Language, english, hungarian } from '../../types/language';
 
-import i18n from '../../services/localization/i18n';
+import i18n from '../../services/i18n';
 
 const { scroller } = Scroll;
 

@@ -5,7 +5,7 @@ import { color, Paragraph, Header2, Header1, Header3, gradientText } from '../st
 import { SubscribeButton, SubscribeInput } from '../subscribe';
 import { ContactCard } from './ContactCard';
 import { SocialImage } from './SocialImage';
-import i18n from '../../services/localization/i18n';
+import i18n from '../../services/i18n';
 
 import facebook from '../../assets/images/facebook.svg';
 import twitter from '../../assets/images/twitter.svg';
