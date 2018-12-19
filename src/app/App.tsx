@@ -5,7 +5,7 @@ import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Grommet, Box } from 'grommet';
 
 import { routePath } from '../constants';
-import { theme } from '../ui/theme/theme';
+import { theme } from '../ui/theme';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
 import { PrivateRoute } from '../utils/PrivateRoute';
