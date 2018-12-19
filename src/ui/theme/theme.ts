@@ -1,6 +1,5 @@
 export const theme = {
   global: {
-    margin: '0px',
     colors: {
       primary: '#4787D3',
       gradient: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
@@ -81,6 +80,7 @@ export const theme = {
     background: 'transparent',
     header: {
       background: 'gradient',
+      margin: 'none',
     },
     gap: 'small',
   },
