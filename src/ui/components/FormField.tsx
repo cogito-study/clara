@@ -5,12 +5,12 @@ const FormFieldWrapper: FunctionComponent<FormFieldProps & BoxProps> = (props) =
   <Box
     direction="row"
     width="medium"
-    round="20px"
+    round="14px"
     pad="5px"
     align="center"
     border={{
       side: 'all',
-      size: 'small',
+      size: '1px',
       color: 'primary',
     }}
   >

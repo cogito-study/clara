@@ -8,6 +8,7 @@ export const theme = {
       gradient: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
       light: '#FBFBFB',
       dark: '#101010',
+      nightBlue: '#093C78',
       grey: '#595959',
       lightGrey: '#9C9C9C',
       transparent: 'rgba(0, 0, 0, 0.0);',
