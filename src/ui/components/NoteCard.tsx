@@ -12,7 +12,7 @@ interface Props {
 }
 
 const NoteCard: FunctionComponent<BoxProps & Props> = ({ noteNumber, title, abstract, date, ...rest }) => (
-  <Box width="medium" pad="none" round="small" elevation="small" {...rest}>
+  <Box width="300px" pad="none" round="small" elevation="small" {...rest}>
     <Box
       height="xxsmall"
       background="primary"
@@ -24,7 +24,7 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({ noteNumber, title, abst
     >
       <Heading level="3">{noteNumber}</Heading>
     </Box>
-    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="small" gap="medium">
+    <Box background="light" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="medium">
       <Heading level="3" margin="none">
         {title}
       </Heading>

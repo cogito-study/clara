@@ -33,7 +33,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         onPasswordCheckChange={console.log}
       />
 
-      <Box gap="medium" direction="row" wrap>
+      <Box gap="small" direction="row" wrap alignContent="around">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
           <NoteCard
             key={number || 0}
@@ -41,6 +41,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             title={noteCardTitle}
             abstract={noteCardAbstract}
             date={noteDate}
+            margin="small"
           />
         ))}
       </Box>

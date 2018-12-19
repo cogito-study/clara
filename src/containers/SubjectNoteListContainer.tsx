@@ -35,13 +35,27 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<{ s
         title={note.title}
         abstract={note.description}
         date={note.modifiedAt}
+        margin="small"
       />
     ));
 
   return (
-    <Box flex wrap background="light" fill align="center" gap="medium" pad="medium">
-      {errors && renderError()}
-      {data.subject.notes && renderNoteList()}
+    <Box fill background="light" justify="center" align="center">
+      <Box
+        flex
+        wrap
+        direction="row"
+        width="xlarge"
+        background="light"
+        fill="vertical"
+        align="start"
+        justify="start"
+        gap="small"
+        pad="medium"
+      >
+        {errors && renderError()}
+        {data.subject.notes && renderNoteList()}
+      </Box>
     </Box>
   );
 };

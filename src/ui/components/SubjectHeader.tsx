@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLogout }) => (
-  <Box flex width="large" height="60px" justify="between" align="center" direction="row">
+  <Box flex width="xlarge" height="60px" pad="xsmall" justify="between" align="center" direction="row">
     <Box basis="1/4" justify="center">
       <Image src={logo} width="80%" />
     </Box>
