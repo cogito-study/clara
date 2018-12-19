@@ -5,17 +5,11 @@ import { Editor } from 'slate-react';
 import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
-import PasteLinkify from 'slate-paste-linkify';
 
 import { testValue } from './testValue';
-import NodeType from './NodeType';
 import MarkType from './MarkType';
 import { HoverContainer } from './ProtoComponents';
 
-import History, { undo, redo } from './History';
-import Links, { isLinkActive, wrapLink, unwrapLink, onClickLink } from './Links';
-import Images, { onClickImage } from './Images';
-import RichText, { hasBlock } from './RichText';
 import Comments from './Comments';
 
 // testing
@@ -66,16 +60,16 @@ export default class CogitoEditor extends React.Component {
   };
 
   plugins = [
-    History(),
-    Images(),
-    Links(),
-    RichText(),
+    // History(),
+    // Images(),
+    // Links(),
+    // RichText(),
+    // PasteLinkify({
+    //   isActiveQuery: () => isLinkActive(this.state.value),
+    //   wrapCommand: wrapLink,
+    //   unwrapCommand: unwrapLink,
+    // }),
     CollapseOnEscape(),
-    PasteLinkify({
-      isActiveQuery: () => isLinkActive(this.state.value),
-      wrapCommand: wrapLink,
-      unwrapCommand: unwrapLink,
-    }),
   ];
 
   constructor(props: any) {
@@ -147,72 +141,72 @@ export default class CogitoEditor extends React.Component {
     return id;
   };
 
-  onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
-    event.preventDefault();
-    this.editor.toggleMark(type);
-  };
+  // onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
+  //   event.preventDefault();
+  //   this.editor.toggleMark(type);
+  // };
 
-  onClickBlock = (event: React.MouseEvent<HTMLButtonElement>, type: NodeType) => {
-    event.preventDefault();
-    event.stopPropagation();
+  // onClickBlock = (event: React.MouseEvent<HTMLButtonElement>, type: NodeType) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
 
-    const { editor } = this;
-    const { value } = editor;
-    const { document } = value;
+  //   const { editor } = this;
+  //   const { value } = editor;
+  //   const { document } = value;
 
-    const DEFAULT_NODE = NodeType.Paragraph;
+  //   const DEFAULT_NODE = NodeType.Paragraph;
 
-    // Handle everything but list buttons.
-    if (type !== NodeType.BulletedList && type !== NodeType.NumberedList) {
-      const isActive = hasBlock(type, value);
-      const isList = hasBlock(NodeType.ListItem, value);
+  //   // Handle everything but list buttons.
+  //   if (type !== NodeType.BulletedList && type !== NodeType.NumberedList) {
+  //     const isActive = hasBlock(type, value);
+  //     const isList = hasBlock(NodeType.ListItem, value);
 
-      if (isList) {
-        editor
-          .setBlocks(isActive ? DEFAULT_NODE : type)
-          .unwrapBlock(NodeType.BulletedList)
-          .unwrapBlock(NodeType.NumberedList);
-      } else {
-        editor.setBlocks(isActive ? DEFAULT_NODE : type);
-      }
-    } else {
-      // Handle the extra wrapping required for list buttons.
-      const isList = hasBlock(NodeType.ListItem, value);
-      // Same type as one given in argument
-      const sameType = value.blocks.some((block) => {
-        return !!document.getClosest(block.key, (parent) => parent.type === type);
-      });
+  //     if (isList) {
+  //       editor
+  //         .setBlocks(isActive ? DEFAULT_NODE : type)
+  //         .unwrapBlock(NodeType.BulletedList)
+  //         .unwrapBlock(NodeType.NumberedList);
+  //     } else {
+  //       editor.setBlocks(isActive ? DEFAULT_NODE : type);
+  //     }
+  //   } else {
+  //     // Handle the extra wrapping required for list buttons.
+  //     const isList = hasBlock(NodeType.ListItem, value);
+  //     // Same type as one given in argument
+  //     const sameType = value.blocks.some((block) => {
+  //       return !!document.getClosest(block.key, (parent) => parent.type === type);
+  //     });
 
-      if (isList && sameType) {
-        editor
-          .setBlocks(DEFAULT_NODE)
-          .unwrapBlock(NodeType.BulletedList)
-          .unwrapBlock(NodeType.NumberedList);
-      } else if (isList) {
-        editor
-          .unwrapBlock(type === NodeType.BulletedList ? NodeType.NumberedList : NodeType.BulletedList)
-          .wrapBlock(type);
-      } else {
-        editor.setBlocks(NodeType.ListItem).wrapBlock(type);
-      }
-    }
-  };
+  //     if (isList && sameType) {
+  //       editor
+  //         .setBlocks(DEFAULT_NODE)
+  //         .unwrapBlock(NodeType.BulletedList)
+  //         .unwrapBlock(NodeType.NumberedList);
+  //     } else if (isList) {
+  //       editor
+  //         .unwrapBlock(type === NodeType.BulletedList ? NodeType.NumberedList : NodeType.BulletedList)
+  //         .wrapBlock(type);
+  //     } else {
+  //       editor.setBlocks(NodeType.ListItem).wrapBlock(type);
+  //     }
+  //   }
+  // };
 
-  renderMarkButton = (type: MarkType) => {
-    return (
-      <Button primary onMouseDown={(e) => this.onClickMark(e, type)}>
-        {type}
-      </Button>
-    );
-  };
+  // renderMarkButton = (type: MarkType) => {
+  //   return (
+  //     <Button primary onMouseDown={(e) => this.onClickMark(e, type)}>
+  //       {type}
+  //     </Button>
+  //   );
+  // };
 
-  renderBlockButton = (type: NodeType) => {
-    return (
-      <Button primary onMouseDown={(e) => this.onClickBlock(e, type)}>
-        {type}
-      </Button>
-    );
-  };
+  // renderBlockButton = (type: NodeType) => {
+  //   return (
+  //     <Button primary onMouseDown={(e) => this.onClickBlock(e, type)}>
+  //       {type}
+  //     </Button>
+  //   );
+  // };
 
   onChange = ({ value }) => {
     this.updateComments(value);
@@ -256,63 +250,23 @@ export default class CogitoEditor extends React.Component {
 
   render() {
     const {
-      editor,
-      state: { readonly, value },
+      state: { value },
     } = this;
     return (
-      <div style={{ margin: '40px' }}>
-        <Box flex align="center" direction="row">
-          <Button primary onMouseDown={() => undo(editor)}>
-            Undo
-          </Button>
-          <Button primary onMouseDown={() => redo(editor)}>
-            Redo
-          </Button>
-        </Box>
-        <Box flex align="center" direction="row">
-          {this.renderMarkButton(MarkType.BOLD)}
-          {this.renderMarkButton(MarkType.ITALIC)}
-          {this.renderMarkButton(MarkType.UNDERLINED)}
-          <Button primary onMouseDown={(e) => onClickLink(e, editor)}>
-            Link
-          </Button>
-        </Box>
-        <Box flex align="center" direction="row">
-          {this.renderBlockButton(NodeType.NumberedList)}
-          {this.renderBlockButton(NodeType.BulletedList)}
-          {this.renderBlockButton(NodeType.Title)}
-          {this.renderBlockButton(NodeType.Subtitle)}
-          <Button primary onMouseDown={(e) => onClickImage(e, editor)}>
-            Image
-          </Button>
-        </Box>
+      <Box>
         <Editor
           spellCheck
           autoFocus
-          readOnly={readonly}
           placeholder="Enter some text..."
           ref={this.editorRef}
           onChange={this.onChange}
-          value={this.state.value}
+          value={value}
           plugins={this.plugins}
           schema={schema}
           renderEditor={this.renderEditor}
           role={'editor'}
         />
-        <hr />
-        {/* <TEMPORARY> */}
-        <div>
-          {value.marks.map(
-            (mark) =>
-              mark.type === MarkType.COMMENT && (
-                <p key={mark.data.get('id')}>
-                  <em>{mark.data.get('id')}</em>
-                </p>
-              ),
-          )}
-        </div>
-        {/* </TEMPORARY> */}
-      </div>
+      </Box>
     );
   }
 }
