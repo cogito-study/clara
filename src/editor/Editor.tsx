@@ -115,7 +115,7 @@ export default class CogitoEditor extends React.Component {
         this.setState({
           commentBoxState: {
             selectedComments,
-            top: rect.bottom,
+            top: rect.bottom + 5,
             left: rect.left + window.pageXOffset - this.commentBox.offsetWidth / 2 + rect.width / 2,
           },
         });
@@ -252,9 +252,11 @@ export default class CogitoEditor extends React.Component {
           left={commentsLeft}
           top={commentsTop}
         >
-          {selectedComments.map((comment) => (
-            <p>{comment.text}</p>
-          ))}
+          <div style={{ backgroundColor: 'white', border: '2px solid black', padding: '5px' }}>
+            {selectedComments.map((comment) => (
+              <p>{comment.text}</p>
+            ))}
+          </div>
         </HoverContainer>
       </React.Fragment>
     );
