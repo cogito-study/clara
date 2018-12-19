@@ -5,7 +5,7 @@ const authSuccess = (token: string, userID: string, history: H.History) => {
   console.log('authToken', token);
   localStorage.setItem(localStorageKeys.loggedInUserID, userID);
   localStorage.setItem(localStorageKeys.authToken, token);
-  history.push(routePath.subjectInfo('NEU999')); // TODO: Change to ersebeszet subject code in PROD
+  history.push(routePath.subjectInfo('BIOIN124')); // TODO: Change to ersebeszet subject code in PROD
 };
 
 const authToken = (): string | null => localStorage.getItem(localStorageKeys.authToken);

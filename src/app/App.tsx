@@ -25,11 +25,11 @@ export const App = () => (
             <Box background="primary" flex="grow" direction="row" justify="between" align="center" wrap>
               <Link to={routePath.root()}>Landing Page</Link>
               <Link to={routePath.components()}>Components</Link>
-              <Link to={routePath.subjectInfo('NEU999')}>Subject Info</Link>
-              <Link to={routePath.subjectNoteList('NEU999')}>Subject Note List</Link>
+              <Link to={routePath.subjectInfo('BIOIN124')}>Subject Info</Link>
+              <Link to={routePath.subjectNoteList('BIOIN124')}>Subject Note List</Link>
               <Link to={routePath.register('3')}>Register 3</Link>
-              <Link to={routePath.subjectNote('NEU999', '12')}>12. Note</Link>
-              <Link to={routePath.subjectNote('NEU999', '5')}>12. Note</Link>
+              <Link to={routePath.subjectNote('BIOIN124', '12')}>12. Note</Link>
+              <Link to={routePath.subjectNote('BIOIN124', '5')}>12. Note</Link>
             </Box>
             <Switch>
               <Route
