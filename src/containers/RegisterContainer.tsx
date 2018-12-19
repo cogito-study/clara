@@ -4,7 +4,7 @@ import { Heading, Image, Box } from 'grommet';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 
-import { routePath, localStorageKeys } from '../constants';
+import { authService } from '../services/authService';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
 
@@ -42,10 +42,8 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<{ userID: 
     setLoading(true);
     registerPassword().then(({ data: mutationData }) => {
       const { token, user } = mutationData.activateUser;
+      authService.authenticationSuccess(token, user.id, history);
       setLoading(false);
-      localStorage.setItem(localStorageKeys.loggedInUserID, user.id);
-      localStorage.setItem(localStorageKeys.authToken, token);
-      history.push(routePath.subjectInfo('NEU999')); // TODO: Change to ersebeszet subject code in PROD
     });
   };
 

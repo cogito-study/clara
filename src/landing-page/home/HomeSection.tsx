@@ -10,7 +10,8 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { SubscribeButton } from '../subscribe';
 import { color, Header3, Header2, Header1 } from '../styles';
 import { ContactCard } from '../contact/ContactCard';
-import { scrollOptions, routePath, localStorageKeys } from '../../constants';
+import { scrollOptions } from '../../constants';
+import { authService } from '../../services/authService';
 import i18n from '../../services/i18n';
 import downArrow from '../../assets/images/down.svg';
 
@@ -43,14 +44,10 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
   const [password, setPassword] = useState('');
   const loginUser = useMutation(LOGIN_USER, { variables: { username, password } });
 
-  const onLogin = () => {
-    loginUser().then(({ data: mutationData }) => {
-      const { token, user } = mutationData.loginUser;
-      localStorage.setItem(localStorageKeys.loggedInUserID, user.id);
-      localStorage.setItem(localStorageKeys.authToken, token);
-      history.push(routePath.subjectInfo('NEU999')); // TODO: Change to ersebeszet subject code in PROD
-    });
-  };
+  const onLogin = () =>
+    loginUser().then(({ data }) =>
+      authService.authenticationSuccess(data.loginUser.token, data.loginUser.user.id, history),
+    );
 
   return (
     <Flex flexDirection="column">
