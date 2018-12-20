@@ -6,14 +6,12 @@ import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
 
-// import { testValue } from './testValue';
 import MarkType from './MarkType';
 import { HoverContainer } from './ProtoComponents';
 
 import Images from './Images';
 import Links from './Links';
 import RichText from './RichText';
-
 import Comments from './Comments';
 
 // testing
@@ -268,7 +266,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
 
   render() {
     const { value } = this.state;
-    console.log(this.props);
+
     return (
       <Box
         width="xlarge"

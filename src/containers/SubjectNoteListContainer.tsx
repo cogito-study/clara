@@ -6,6 +6,9 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { NoteCard } from '../ui/components';
 import { SubjectRouteParams } from '../types/RouteParams';
+import { Link } from '../ui/components/Link';
+import { routePath } from '../constants';
+import { dateService } from '../services/dateService';
 
 const SUBJECT_NOTE_LIST_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
@@ -16,6 +19,7 @@ const SUBJECT_NOTE_LIST_QUERY = gql`
         title
         description
         modifiedAt
+        createdAt
       }
     }
   }
@@ -24,22 +28,29 @@ const SUBJECT_NOTE_LIST_QUERY = gql`
 export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
   const { data, errors } = useQuery(SUBJECT_NOTE_LIST_QUERY, { variables: { subjectCode } });
+  console.log(data);
 
   const renderError = () => <div>Error</div>; // TODO: proper error handling
 
-  const renderNoteList = () =>
-    data.subject.notes.map((note) => (
-      <NoteCard
-        key={note.id}
-        id={note.id}
-        noteNumber={note.seriesNumber}
-        subjectCode={subjectCode}
-        title={note.title}
-        abstract={note.description}
-        date={note.modifiedAt}
-        margin="small"
-      />
+  const renderNoteList = () => {
+    const renderDateLabel = (createdAt: string, modifiedAt?: string): string =>
+      modifiedAt
+        ? `Frissítve ${dateService.yearMonthDay(modifiedAt)}`
+        : `Létrehozva ${dateService.yearMonthDay(createdAt)}`;
+
+    return data.subject.notes.map((note) => (
+      <Link to={routePath.subjectNote(subjectCode, note.id)}>
+        <NoteCard
+          key={note.id}
+          noteNumber={note.seriesNumber}
+          title={note.title}
+          abstract={note.description}
+          dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
+          margin="small"
+        />
+      </Link>
     ));
+  };
 
   return (
     <Box justify="center" align="center" background="light">
