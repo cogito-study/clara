@@ -118,7 +118,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
 
       this.setState({
         commentButtonState: {
-          top: rect.top + window.pageYOffset - 30,
+          top: rect.top + window.pageYOffset - 40,
           left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
         },
       });
