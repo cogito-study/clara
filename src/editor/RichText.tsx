@@ -1,6 +1,5 @@
 import React from 'react';
-import { Value } from 'slate';
-import { Editor } from 'slate';
+import { Editor, Value } from 'slate';
 
 import { isKeyHotkey } from 'is-hotkey';
 

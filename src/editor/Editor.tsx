@@ -13,6 +13,7 @@ import Images from './Images';
 import Links from './Links';
 import RichText from './RichText';
 import Comments from './Comments';
+import ReadOnlyPlugin from './ReadOnlyPlugin';
 
 // testing
 interface Comment {
@@ -67,6 +68,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
 
   plugins = [
     // History(),
+    ReadOnlyPlugin(),
     Images(),
     Links(),
     RichText(),
@@ -280,7 +282,6 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
         <Editor
           spellCheck
           autoFocus
-          readOnly
           ref={this.editorRef}
           onChange={this.onChange}
           value={value}
