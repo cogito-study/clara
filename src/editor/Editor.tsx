@@ -58,7 +58,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
   commentBox!: HTMLElement;
 
   state: EditorState = {
-    value: Value.fromJSON(this.props.initialValue),
+    value: Value.fromJSON(JSON.parse(this.props.initialValue)),
     readonly: false,
     comments: [],
     commentButtonState: { shown: false, left: -10000, top: -10000 },
@@ -280,7 +280,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
         <Editor
           spellCheck
           autoFocus
-          placeholder="Enter some text..."
+          readOnly
           ref={this.editorRef}
           onChange={this.onChange}
           value={value}
