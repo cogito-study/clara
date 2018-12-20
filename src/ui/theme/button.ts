@@ -12,7 +12,7 @@ export const button = {
   },
 
   extend: (props) => `
-    color: ${props.primary ? 'white' : 'red'};
+    color: ${props.primary ? 'white' : 'gray'};
     text-transform: uppercase;
     padding: ${props.primary && '12px 40px'}
     box-shadow: ${props.primary ? '0px 7px 15px rgba(71, 135, 211, 0.25' : 'none'});

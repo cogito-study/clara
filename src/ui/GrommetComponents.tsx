@@ -32,7 +32,9 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         date="12 minutes ago"
         paragraph={commentParagraph}
         upvoteCounts={16}
-        onUpvote={() => alert('Like')}
+        onUpvote={() => {
+          alert('Like');
+        }}
       />
 
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
