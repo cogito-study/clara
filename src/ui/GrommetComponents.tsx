@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Box, Button, TextInput } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteCommentBox } from './components';
+import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteCommentBox, Notification } from './components';
 import { RouteComponentProps } from 'react-router';
 
 const registrationCardName = 'Körmendy Bertalan';
@@ -22,6 +22,8 @@ const commentParagraph =
 export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
   return (
     <Box align="center" gap="large" background="#FBFDFF">
+      <Notification type="error" message="There is an error" />
+      <Notification type="ok" message="It's a success" />
       <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
       <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
 

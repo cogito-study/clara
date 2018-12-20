@@ -6,6 +6,8 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+import { Notification } from '../ui/components';
+
 import { config } from '../environment/config';
 import { authService } from '../services/authService';
 
@@ -31,9 +33,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, response })
   }
 
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) => (
-      <div>{`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`}</div>
-    ));
+    graphQLErrors.map(({ message, locations, path }) => <Notification type="error" message={message} />);
   }
 
   if (networkError) {

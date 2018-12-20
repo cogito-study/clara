@@ -39,7 +39,7 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
       </Box>
       {dateLabel && (
         <Paragraph margin="none" size="small" color="lightGrey">
-          {dateLabel}{' '}
+          {dateLabel}
         </Paragraph>
       )}
     </Box>
