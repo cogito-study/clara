@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Box, Button } from 'grommet';
+import { Box, Button, Heading } from 'grommet';
 import { Editor } from 'slate-react';
 import { Value, Range } from 'slate';
 
@@ -28,6 +28,7 @@ interface CommentButtonState {
 }
 
 interface EditorProps {
+  title: string;
   initialValue: string;
 }
 interface EditorState {
@@ -239,10 +240,14 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
 
   render() {
     const { value, commentBoxTop, comments, selectedCommentId } = this.state;
+    const { title } = this.props;
 
     return (
       <Box flex direction="row">
-        <Box height="auto" background="light" elevation="medium" round="small" pad="40px" gap="medium">
+        <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
+          <Heading level="2" margin="none">
+            {title}
+          </Heading>
           <Editor
             spellCheck
             autoFocus

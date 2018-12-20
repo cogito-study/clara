@@ -31,7 +31,7 @@ export const NoteCommentBox: FunctionComponent<Props> = ({ author, date, paragra
           background="light"
           align="end"
           pad={{ horizontal: 'small', vertical: 'xsmall' }}
-          border={{ color: 'lightGrey', side: 'top', size: 'xsmall' }}
+          border={{ color: 'lightGray', side: 'top', size: 'xsmall' }}
         >
           <Button
             plain

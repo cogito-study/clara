@@ -14,14 +14,14 @@ const UpperCaseHeading = styled(Heading)`
 
 export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
   <Box pad="medium" background="white" round="xsmall" elevation="small" width="large">
-    <UpperCaseHeading level="3" margin="xsmall">
+    <UpperCaseHeading color="primary" level="3" margin="xsmall">
       {props.title}
     </UpperCaseHeading>
     {props.subtitle && (
-      <Heading level="4" margin="xsmall">
+      <Heading color="gray" level="4" margin="xsmall">
         {props.subtitle}
       </Heading>
     )}
-    <Paragraph>{props.content}</Paragraph>
+    <Paragraph margin={{ horizontal: 'xsmall', vertical: 'small' }}>{props.content}</Paragraph>
   </Box>
 );
