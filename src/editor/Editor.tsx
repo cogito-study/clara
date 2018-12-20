@@ -7,7 +7,7 @@ import { Value, Range } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 
 import MarkType from './MarkType';
-import { HoverContainer } from './ProtoComponents';
+import { HoverContainer, CommentBoxContainer } from './ProtoComponents';
 
 import Images from './Images';
 import Links from './Links';
@@ -23,13 +23,6 @@ interface Comment {
 }
 
 interface CommentButtonState {
-  shown: boolean;
-  top: number;
-  left: number;
-}
-
-interface CommentBoxState {
-  selectedComments: Comment[];
   top: number;
   left: number;
 }
@@ -39,9 +32,11 @@ interface EditorProps {
 }
 interface EditorState {
   value: Value;
+  selectedComments: Comment[];
   readonly: boolean;
   commentButtonState: CommentButtonState;
-  commentBoxState: CommentBoxState;
+  commentBoxTop: number;
+  selectedCommentId: number;
   comments: Comment[];
 }
 
@@ -62,8 +57,10 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     value: Value.fromJSON(JSON.parse(this.props.initialValue)),
     readonly: false,
     comments: [],
-    commentButtonState: { shown: false, left: -10000, top: -10000 },
-    commentBoxState: { selectedComments: [], left: -10000, top: -10000 },
+    selectedComments: [],
+    commentButtonState: { left: -10000, top: -10000 },
+    selectedCommentId: -1,
+    commentBoxTop: -1,
   };
 
   plugins = [
@@ -82,8 +79,18 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
 
   constructor(props: any) {
     super(props);
-    this.plugins = [Comments(this.createComment), ...this.plugins];
+    this.plugins = [Comments(this.createComment, this.onClickComment), ...this.plugins];
   }
+
+  onClickComment = (top: number, id: number) => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        commentBoxTop: top,
+        selectedCommentId: id,
+      };
+    });
+  };
 
   editorRef = (editor) => {
     this.editor = editor;
@@ -97,50 +104,29 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     this.commentBox = commentBox;
   };
 
-  updateComments = (value) => {
-    const { comments } = this.state;
-    const { fragment, selection, marks } = value;
+  updateCommentButton = (value) => {
+    const { fragment, selection } = value;
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
       this.setState({
-        commentButtonState: { left: -10000, top: -10000, shown: false },
-        commentBoxState: { left: -10000, top: -10000, selectedComments: [] },
+        commentButtonState: { left: -10000, top: -10000 },
       });
     } else {
       const native = window.getSelection();
       const range = native.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      const commentsUnderSelection = marks.filter((mark) => mark.type === MarkType.COMMENT);
-
-      if (marks.size > 0) {
-        const selectedMarkIds = commentsUnderSelection.map((mark) => mark.data.get('id')).toArray();
-        const selectedComments = comments.filter((comment) => selectedMarkIds.includes(comment.id));
-        this.setState({
-          commentBoxState: {
-            selectedComments,
-            top: rect.bottom + 5,
-            left: rect.left + window.pageXOffset - this.commentBox.offsetWidth / 2 + rect.width / 2,
-          },
-        });
-      } else {
-        this.setState({
-          commentBoxState: {
-            selectedComments: [],
-            top: -10000,
-            left: -10000,
-          },
-        });
-      }
-
       this.setState({
         commentButtonState: {
           top: rect.top + window.pageYOffset - 30,
           left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
-          shown: true,
         },
       });
     }
+  };
+
+  showComment = (id) => {
+    /* TODO */
   };
 
   createComment = () => {
@@ -152,9 +138,19 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     }
     const range = Range.createProperties(this.editor.value.selection);
     this.setState({ comments: [...comments, { text, id, range }] }, () => {
-      this.editor.addMark({ type: MarkType.COMMENT, data: { id } }).blur();
+      const decorations = this.state.comments.map((comment) => {
+        const {
+          id: commentId,
+          range: { anchor, focus },
+        } = comment;
+        return {
+          anchor,
+          focus,
+          mark: { type: MarkType.COMMENT, data: { id: commentId } },
+        };
+      });
+      this.editor.withoutSaving(() => this.editor.setDecorations(decorations));
     });
-    return id;
   };
 
   // onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
@@ -225,7 +221,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
   // };
 
   onChange = ({ value }) => {
-    this.updateComments(value);
+    this.updateCommentButton(value);
     this.setState({ value });
   };
 
@@ -233,13 +229,12 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     const children = next();
 
     const {
-      commentButtonState: { shown, left: buttonLeft, top: buttonTop },
-      commentBoxState: { selectedComments, left: commentsLeft, top: commentsTop },
+      commentButtonState: { left: buttonLeft, top: buttonTop },
     } = this.state;
     return (
       <Fragment>
         {children}
-        <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
+        <HoverContainer shown={true} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
           <Button
             primary
             onMouseDown={(e) => {
@@ -250,46 +245,35 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
             Comment
           </Button>
         </HoverContainer>
-        <HoverContainer
-          shown={selectedComments.length > 0}
-          innerRef={this.commentBoxRef}
-          left={commentsLeft}
-          top={commentsTop}
-        >
-          <div style={{ backgroundColor: 'white', border: '2px solid black', padding: '5px' }}>
-            {selectedComments.map((comment) => (
-              <p>{comment.text}</p>
-            ))}
-          </div>
-        </HoverContainer>
       </Fragment>
     );
   };
 
   render() {
-    const { value } = this.state;
+    const { value, commentBoxTop, comments, selectedCommentId } = this.state;
 
     return (
-      <Box
-        width="xlarge"
-        background="light"
-        elevation="medium"
-        justify="center"
-        round="small"
-        pad="medium"
-        gap="medium"
-      >
-        <Editor
-          spellCheck
-          autoFocus
-          ref={this.editorRef}
-          onChange={this.onChange}
-          value={value}
-          plugins={this.plugins}
-          schema={schema}
-          renderEditor={this.renderEditor}
-          role={'editor'}
-        />
+      <Box flex direction="row">
+        <Box height="auto" background="light" elevation="medium" round="small" pad="40px" gap="medium">
+          <Editor
+            spellCheck
+            autoFocus
+            ref={this.editorRef}
+            onChange={this.onChange}
+            value={value}
+            plugins={this.plugins}
+            schema={schema}
+            renderEditor={this.renderEditor}
+            role={'editor'}
+          />
+        </Box>
+        <div ref={this.commentBoxRef}>
+          <Box width="medium">
+            <CommentBoxContainer top={commentBoxTop - 40}>
+              {selectedCommentId > 0 ? comments.find((comment) => comment.id === selectedCommentId)!.text : undefined}
+            </CommentBoxContainer>
+          </Box>
+        </div>
       </Box>
     );
   }

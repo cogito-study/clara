@@ -24,7 +24,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const { data } = useQuery(NOTE_QUERY, { variables: { noteID } });
 
   return (
-    <Box background="light" fill="vertical" align="center" pad="small">
+    <Box background="light" align="center" pad="small">
       {data && <CogitoEditor initialValue={data.note.text} />}
     </Box>
   );
