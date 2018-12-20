@@ -10,11 +10,8 @@ import { NoteRouteParams } from '../types/RouteParams';
 const NOTE_QUERY = gql`
   query NoteQuery($noteID: Int!) {
     note(noteId: $noteID) {
-      id
       title
-      noteType
       text
-      description
     }
   }
 `;

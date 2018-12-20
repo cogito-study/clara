@@ -46,9 +46,8 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         : `Létrehozva ${dateService.yearMonthDay(createdAt)}`;
 
     return data.subject.notes.map((note) => (
-      <Link to={routePath.subjectNote(subjectCode, note.id)}>
+      <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
         <HoveredNoteCard
-          key={note.id}
           noteNumber={note.seriesNumber}
           title={note.title}
           abstract={note.description}
