@@ -46,25 +46,7 @@ export const NoteCommentBox: FunctionComponent<Props> = ({ author, date, paragra
             </Box>
           </HoveredBox>
         </Box>
-<<<<<<< HEAD
-        <Box
-          height="42px"
-          background="light"
-          align="end"
-          pad={{ horizontal: 'small', vertical: 'xsmall' }}
-          border={{ color: 'lightGray', side: 'top', size: 'xsmall' }}
-        >
-          <Button
-            plain
-            reverse
-            label={upvoteCounts}
-            icon={<Like size="medium" color="lightGrey" />}
-            onClick={onUpvote}
-          />
-        </Box>
-=======
         <Paragraph margin="0px 20px 20px 20px">{paragraph}</Paragraph>
->>>>>>> Updated comment component
       </Box>
     </Box>
   );
