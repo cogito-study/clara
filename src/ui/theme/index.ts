@@ -1,6 +1,7 @@
 import { button } from './button';
-import { formField } from './formField';
 import { colors, control, font } from './global';
+import { formField } from './formField';
+import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
 
 export const theme = {
@@ -11,6 +12,7 @@ export const theme = {
   },
   button: { ...button },
   formField: { ...formField },
+  paragraph: { ...paragraph },
   tab: { ...tab },
   tabs: { ...tabs },
 };
