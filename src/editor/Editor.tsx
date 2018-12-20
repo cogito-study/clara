@@ -134,18 +134,10 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     }
     const range = Range.createProperties(this.editor.value.selection);
     this.setState({ comments: [...comments, { text, id, range }] }, () => {
-      const decorations = this.state.comments.map((comment) => {
-        const {
-          id: commentId,
-          range: { anchor, focus },
-        } = comment;
-        return {
-          anchor,
-          focus,
-          mark: { type: MarkType.COMMENT, data: { id: commentId } },
-        };
-      });
-      this.editor.withoutSaving(() => this.editor.setDecorations(decorations));
+      for (const comment of this.state.comments) {
+        this.editor.select(comment.range).addMark({ type: MarkType.COMMENT, data: { id: comment.id } });
+      }
+      this.editor.moveToEnd().blur();
     });
   };
 
