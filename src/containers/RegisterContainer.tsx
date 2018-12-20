@@ -8,6 +8,7 @@ import { authService } from '../services/authService';
 import cogitoPortrait from '../assets/images/cogito-portrait.svg';
 import { Footer, RegistrationCard } from '../ui/components';
 import { AuthRouteParams } from '../types/RouteParams';
+import styled from 'styled-components';
 
 const USER_INFO_QUERY = gql`
   query UserInfo($userID: Int!) {
@@ -30,6 +31,14 @@ const ACTIVATE_USER = gql`
   }
 `;
 
+const MottoHeading = styled(Heading)`
+  font-weight: 700;
+`;
+
+const UnresponsiveBox = styled(Box)`
+  min-width: 1000px;
+`;
+
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -49,31 +58,29 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
   };
 
   return (
-    <Box flex background="gradient" fill>
-      <Box flex="shrink" justify="center" align="center">
-        <Heading level="2" color="light">
+    <UnresponsiveBox flex background="gradient" fill>
+      <Box justify="center" align="center">
+        <MottoHeading level="1" color="nightBlue">
           Let’s join the community!
-        </Heading>
+        </MottoHeading>
       </Box>
-      <Box flex="grow" direction="row" justify="center" align="center" gap="small">
-        <Box flex align="center" pad="large">
-          <Image src={cogitoPortrait} width="40%" />
+      <Box direction="row" pad="large" justify="center" align="center" gap="xlarge">
+        <Box justify="center" pad="medium">
+          <Image src={cogitoPortrait} width="200px" />
         </Box>
-        <Box flex align="center" pad="large">
-          {data.user && (
-            <RegistrationCard
-              name={`${data.user.lastName} ${data.user.firstName}`}
-              email={data.user.email}
-              isRegistrationDisabled={password !== passwordCheck}
-              isLoading={isLoading}
-              onPasswordChange={setPassword}
-              onPasswordCheckChange={setPasswordCheck}
-              onRegistration={onRegistration}
-            />
-          )}
-        </Box>
+        {data.user && (
+          <RegistrationCard
+            name={`${data.user.lastName} ${data.user.firstName}`}
+            email={data.user.email}
+            isRegistrationDisabled={password !== passwordCheck}
+            isLoading={isLoading}
+            onPasswordChange={setPassword}
+            onPasswordCheckChange={setPasswordCheck}
+            onRegistration={onRegistration}
+          />
+        )}
       </Box>
       <Footer />
-    </Box>
+    </UnresponsiveBox>
   );
 };
