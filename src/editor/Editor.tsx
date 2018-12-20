@@ -125,10 +125,6 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     }
   };
 
-  showComment = (id) => {
-    /* TODO */
-  };
-
   createComment = () => {
     const { comments } = this.state;
     const id = Date.now();
