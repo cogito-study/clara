@@ -27,10 +27,7 @@ const SUBJECT_NOTE_LIST_QUERY = gql`
 
 export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
-  const { data, errors } = useQuery(SUBJECT_NOTE_LIST_QUERY, { variables: { subjectCode } });
-  console.log(data);
-
-  const renderError = () => <div>Error</div>; // TODO: proper error handling
+  const { data } = useQuery(SUBJECT_NOTE_LIST_QUERY, { variables: { subjectCode } });
 
   const renderNoteList = () => {
     const renderDateLabel = (createdAt: string, modifiedAt?: string): string =>
@@ -55,7 +52,6 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
   return (
     <Box justify="center" align="center" background="light">
       <Box flex wrap direction="row" width="xlarge" align="center" justify="center" pad="small">
-        {errors && renderError()}
         {data.subject.notes && renderNoteList()}
       </Box>
     </Box>

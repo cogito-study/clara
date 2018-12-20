@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router-dom';
-import { useQuery } from 'react-apollo-hooks';
+import { useQuery, useApolloClient } from 'react-apollo-hooks';
 
 import { SubjectHeader } from '../ui/components/SubjectHeader';
-import { localStorageKeys, routePath } from '../constants';
 import { SubjectRouteParams } from '../types/RouteParams';
+import { authService } from '../services/authService';
 
 const SUBJECT_HEADER_QUERY = gql`
   query SubjectHeader($userID: Int!, $subjectCode: String!) {
@@ -24,18 +24,16 @@ const SUBJECT_HEADER_QUERY = gql`
 
 export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => {
   const { subjectCode } = props.match.params;
-  const userID = localStorage.getItem(localStorageKeys.loggedInUserID);
+  const userID = authService.getUserID();
+
+  const client = useApolloClient();
   const { data } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
   const {
     user: { lastName, firstName },
     subject: { subjectInfo },
   } = data;
 
-  const onLogout = () => {
-    localStorage.removeItem(localStorageKeys.authToken);
-    localStorage.removeItem(localStorageKeys.loggedInUserID);
-    props.history.push(routePath.root());
-  };
+  const onLogout = () => authService.logout(props.history, client);
 
   return (
     <Box fill="horizontal" background="primary" align="center" justify="center">

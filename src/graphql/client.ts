@@ -10,7 +10,7 @@ import { authService } from '../services/authService';
 const httpLink = new HttpLink({ uri: config.apiURL });
 
 const authLink = setContext((_, { headers }) => {
-  const token = authService.authToken();
+  const token = authService.getAuthToken();
   return {
     headers: {
       ...headers,

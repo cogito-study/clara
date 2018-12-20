@@ -12,7 +12,7 @@ export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({ component: 
   <Route
     {...rest}
     render={(props: RouteComponentProps<any>) =>
-      authService.authToken() ? (
+      authService.getAuthToken() ? (
         <Component {...props} />
       ) : (
         <Redirect
