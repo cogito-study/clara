@@ -50,7 +50,6 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         <HoveredNoteCard
           key={note.id}
           noteNumber={note.seriesNumber}
-          subjectCode={subjectCode}
           title={note.title}
           abstract={note.description}
           dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
