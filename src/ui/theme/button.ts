@@ -4,8 +4,8 @@ export const button = {
     width: '0px',
   },
   padding: {
-    vertical: '14px',
-    horizontal: '40px',
+    vertical: 'xsmall',
+    horizontal: 'xsmall',
   },
   primary: {
     color: 'gradient',
@@ -14,6 +14,7 @@ export const button = {
   extend: (props) => `
     color: ${props.primary ? 'white' : 'red'};
     text-transform: uppercase;
+    padding: ${props.primary && '12px 40px'}
     box-shadow: ${props.primary ? '0px 7px 15px rgba(71, 135, 211, 0.25' : 'none'});
     font-weight: bold;
     transition: all 0.1s ease-in-out;
