@@ -22,6 +22,6 @@ export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
         {props.subtitle}
       </Heading>
     )}
-    <Paragraph margin="xsmall">{props.content}</Paragraph>
+    <Paragraph>{props.content}</Paragraph>
   </Box>
 );

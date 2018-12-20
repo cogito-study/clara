@@ -15,16 +15,6 @@ export const control = {
   },
 };
 
-//????????????
-export const elevation = {
-  none: 'none',
-  xsmall: '0px 1px 2px rgba(68, 68, 68, 0.5)',
-  small: '0px 2px 4px rgba(68, 68, 68, 0.5)',
-  medium: '0px 3px 8px rgba(255, 43, 94, 0.5)',
-  large: '0px 6px 12px rgba(68, 68, 68, 0.5)',
-  xlarge: '0px 8px 16px rgba(68, 68, 68, 0.5)',
-};
-
 export const font = {
   family: 'Montserrat',
   size: '16px',

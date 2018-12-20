@@ -1,5 +1,18 @@
 export const paragraph = {
-  extend: `
-  max-width: 2000px;
-  `,
+  small: {
+    height: '1.6',
+    maxWidth: '2000px',
+  },
+  medium: {
+    height: '1.6',
+    maxWidth: '2000px',
+  },
+  large: {
+    height: '1.6',
+    maxWidth: '2000px',
+  },
+  xlarge: {
+    height: '1.6',
+    maxWidth: '2000px',
+  },
 };
