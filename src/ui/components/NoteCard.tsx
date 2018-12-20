@@ -32,12 +32,14 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
       <Heading level="3" margin="none" color="dark">
         {title}
       </Heading>
-      <Paragraph margin="none" color="grey">
-        {abstract.substring(0, 100)}
-      </Paragraph>
+      <Box direction="column" align="start" justify="start">
+        <Paragraph margin="none" color="grey">
+          {abstract.substring(0, 100)}
+        </Paragraph>
+      </Box>
       {dateLabel && (
         <Paragraph margin="none" size="small" color="lightGrey">
-          {dateLabel}
+          {dateLabel}{' '}
         </Paragraph>
       )}
     </Box>
