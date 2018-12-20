@@ -1,20 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
-import CogitoEditor from '../editor/Editor';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { NoteRouteParams } from '../types/RouteParams';
+import { NoteEditorContainer } from '../containers/NoteEditorContainer';
 
-const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
-  const { subjectCode, noteID } = match.params;
-  console.log('subjectCode', subjectCode);
-  console.log('noteID', noteID);
-
-  return (
-    <Box fill>
-      <CogitoEditor />
-    </Box>
-  );
-};
+const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = (props) => (
+  <Box fill>
+    <NoteEditorContainer {...props} />
+  </Box>
+);
 
 export default NotePage;

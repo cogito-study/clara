@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { Box, Button } from 'grommet';
 import { Editor } from 'slate-react';
@@ -6,7 +6,7 @@ import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
 
-import { testValue } from './testValue';
+// import { testValue } from './testValue';
 import MarkType from './MarkType';
 import { HoverContainer } from './ProtoComponents';
 
@@ -34,6 +34,10 @@ interface CommentBoxState {
   top: number;
   left: number;
 }
+
+interface EditorProps {
+  initialValue: string;
+}
 interface EditorState {
   value: Value;
   readonly: boolean;
@@ -50,13 +54,13 @@ const schema = {
   },
 };
 
-export default class CogitoEditor extends React.Component {
+export default class CogitoEditor extends Component<EditorProps, EditorState> {
   editor!: Editor;
   commentButton!: HTMLElement;
   commentBox!: HTMLElement;
 
   state: EditorState = {
-    value: Value.fromJSON(testValue),
+    value: Value.fromJSON(this.props.initialValue),
     readonly: false,
     comments: [],
     commentButtonState: { shown: false, left: -10000, top: -10000 },
@@ -233,7 +237,7 @@ export default class CogitoEditor extends React.Component {
       commentBoxState: { selectedComments, left: commentsLeft, top: commentsTop },
     } = this.state;
     return (
-      <React.Fragment>
+      <Fragment>
         {children}
         <HoverContainer shown={shown} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
           <Button
@@ -258,21 +262,20 @@ export default class CogitoEditor extends React.Component {
             ))}
           </div>
         </HoverContainer>
-      </React.Fragment>
+      </Fragment>
     );
   };
 
   render() {
-    const {
-      state: { value },
-    } = this;
+    const { value } = this.state;
+    console.log(this.props);
     return (
       <Box
-        width="large"
+        width="xlarge"
         background="light"
         elevation="medium"
         justify="center"
-        round="medium"
+        round="small"
         pad="medium"
         gap="medium"
       >
