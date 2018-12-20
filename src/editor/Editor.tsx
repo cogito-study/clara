@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, MouseEvent } from 'react';
 
 import { Box, Button, Heading } from 'grommet';
 import { Editor } from 'slate-react';
@@ -7,38 +7,32 @@ import { Value, Range } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 
 import MarkType from './MarkType';
-import { HoverContainer, CommentBoxContainer } from './ProtoComponents';
+import { HoverContainer } from './ProtoComponents';
 
 import Images from './Images';
 import Links from './Links';
 import RichText from './RichText';
 import Comments from './Comments';
 import ReadOnlyPlugin from './ReadOnlyPlugin';
-
-// testing
-interface Comment {
-  id: number;
-  text: string;
-  range: Range;
-}
-
-interface CommentButtonState {
+export interface CommentButtonPosition {
   top: number;
   left: number;
 }
 
-interface EditorProps {
-  title: string;
-  initialValue: string;
+export interface CommentLocation {
+  id: number;
+  range: JSON;
 }
-interface EditorState {
+interface Props {
+  title: string;
+  initialValue: JSON;
+  commentLocations: CommentLocation[];
+  onCommentClick: (id: number, marginTop: number) => void;
+  onCreateComment: (locationInText: string) => void;
+}
+interface State {
   value: Value;
-  selectedComments: Comment[];
-  readonly: boolean;
-  commentButtonState: CommentButtonState;
-  commentBoxTop: number;
-  selectedCommentId: number;
-  comments: Comment[];
+  commentButtonPosition: CommentButtonPosition;
 }
 
 const schema = {
@@ -49,19 +43,13 @@ const schema = {
   },
 };
 
-export default class CogitoEditor extends Component<EditorProps, EditorState> {
+export default class CogitoEditor extends Component<Props, State> {
   editor!: Editor;
   commentButton!: HTMLElement;
-  commentBox!: HTMLElement;
 
-  state: EditorState = {
-    value: Value.fromJSON(JSON.parse(this.props.initialValue)),
-    readonly: false,
-    comments: [],
-    selectedComments: [],
-    commentButtonState: { left: -10000, top: -10000 },
-    selectedCommentId: -1,
-    commentBoxTop: -1,
+  state: State = {
+    value: Value.fromJSON(this.props.initialValue),
+    commentButtonPosition: { top: -10000, left: -10000 },
   };
 
   plugins = [
@@ -78,20 +66,20 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     CollapseOnEscape(),
   ];
 
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
-    this.plugins = [Comments(this.createComment, this.onClickComment), ...this.plugins];
+    this.plugins = [Comments(this.props.onCommentClick), ...this.plugins];
   }
 
-  onClickComment = (top: number, id: number) => {
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        commentBoxTop: top,
-        selectedCommentId: id,
-      };
-    });
-  };
+  componentDidMount() {
+    this.highlightComments(this.props.commentLocations);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.commentLocations !== prevProps.commentLocations) {
+      this.highlightComments(this.props.commentLocations);
+    }
+  }
 
   editorRef = (editor) => {
     this.editor = editor;
@@ -101,16 +89,12 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     this.commentButton = commentButton;
   };
 
-  commentBoxRef = (commentBox) => {
-    this.commentBox = commentBox;
-  };
-
-  updateCommentButton = (value) => {
+  updateCommentButtonPosition = (value) => {
     const { fragment, selection } = value;
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
       this.setState({
-        commentButtonState: { left: -10000, top: -10000 },
+        commentButtonPosition: { left: -10000, top: -10000 },
       });
     } else {
       const native = window.getSelection();
@@ -118,7 +102,7 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
       const rect = range.getBoundingClientRect();
 
       this.setState({
-        commentButtonState: {
+        commentButtonPosition: {
           top: rect.top + window.pageYOffset - 40,
           left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
         },
@@ -126,20 +110,13 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
     }
   };
 
-  createComment = () => {
-    const { comments } = this.state;
-    const id = Date.now();
-    const text = prompt('Comment text');
-    if (!text) {
-      return;
-    }
-    const range = Range.createProperties(this.editor.value.selection);
-    this.setState({ comments: [...comments, { text, id, range }] }, () => {
-      for (const comment of this.state.comments) {
-        this.editor.select(comment.range).addMark({ type: MarkType.COMMENT, data: { id: comment.id } });
-      }
-      this.editor.moveToEnd().blur();
+  highlightComments = (commentLocations: CommentLocation[]) => {
+    commentLocations.forEach((commentLocation) => {
+      const range = Range.createProperties(commentLocation.range);
+      this.editor.select(range).addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
     });
+
+    this.editor.moveToEnd().blur();
   };
 
   // onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
@@ -210,27 +187,25 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
   // };
 
   onChange = ({ value }) => {
-    this.updateCommentButton(value);
+    this.updateCommentButtonPosition(value);
     this.setState({ value });
+  };
+
+  onCreateComment = (event: MouseEvent<any>) => {
+    event.preventDefault();
+    const range = Range.createProperties(this.editor.value.selection);
+    this.props.onCreateComment(JSON.stringify(range));
   };
 
   renderEditor = (_props, _editor, next) => {
     const children = next();
 
-    const {
-      commentButtonState: { left: buttonLeft, top: buttonTop },
-    } = this.state;
+    const { left: buttonLeft, top: buttonTop } = this.state.commentButtonPosition;
     return (
       <Fragment>
         {children}
         <HoverContainer shown={true} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
-          <Button
-            primary
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.createComment();
-            }}
-          >
+          <Button primary onMouseDown={this.onCreateComment}>
             Comment
           </Button>
         </HoverContainer>
@@ -239,34 +214,25 @@ export default class CogitoEditor extends Component<EditorProps, EditorState> {
   };
 
   render() {
-    const { value, commentBoxTop, comments, selectedCommentId } = this.state;
+    const { value } = this.state;
     const { title } = this.props;
 
     return (
-      <Box flex direction="row">
-        <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
-          <Heading level="2" margin="none">
-            {title}
-          </Heading>
-          <Editor
-            spellCheck
-            autoFocus
-            ref={this.editorRef}
-            onChange={this.onChange}
-            value={value}
-            plugins={this.plugins}
-            schema={schema}
-            renderEditor={this.renderEditor}
-            role={'editor'}
-          />
-        </Box>
-        <div ref={this.commentBoxRef}>
-          <Box width="medium">
-            <CommentBoxContainer top={commentBoxTop - 40}>
-              {selectedCommentId > 0 ? comments.find((comment) => comment.id === selectedCommentId)!.text : undefined}
-            </CommentBoxContainer>
-          </Box>
-        </div>
+      <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
+        <Heading level="2" margin="none">
+          {title}
+        </Heading>
+        <Editor
+          spellCheck
+          autoFocus
+          ref={this.editorRef}
+          onChange={this.onChange}
+          value={value}
+          plugins={this.plugins}
+          schema={schema}
+          renderEditor={this.renderEditor}
+          role={'editor'}
+        />
       </Box>
     );
   }

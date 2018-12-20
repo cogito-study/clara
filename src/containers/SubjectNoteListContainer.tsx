@@ -45,17 +45,19 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         ? `Frissítve ${dateService.yearMonthDay(modifiedAt)}`
         : `Létrehozva ${dateService.yearMonthDay(createdAt)}`;
 
-    return data.subject.notes.map((note) => (
-      <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
-        <HoveredNoteCard
-          noteNumber={note.seriesNumber}
-          title={note.title}
-          abstract={note.description}
-          dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
-          margin="medium"
-        />
-      </Link>
-    ));
+    return data.subject.notes
+      .sort((lhs, rhs) => lhs.id - rhs.id)
+      .map((note) => (
+        <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
+          <HoveredNoteCard
+            noteNumber={note.seriesNumber}
+            title={note.title}
+            abstract={note.description}
+            dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
+            margin="medium"
+          />
+        </Link>
+      ));
   };
 
   return (
