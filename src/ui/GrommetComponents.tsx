@@ -28,7 +28,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
 
       <Button primary label="Main Button" onClick={() => {}} />
       <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
-      <NoteCommentBox
+      <NoteComment
         author="Mate Papp"
         date="12 minutes ago"
         paragraph={commentParagraph}
