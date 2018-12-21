@@ -2,12 +2,12 @@ import React, { FunctionComponent, useState } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
+import { DataProxy } from 'apollo-cache';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { NoteRouteParams } from '../types/RouteParams';
 import Editor, { CommentLocation } from '../editor/Editor';
 import { NoteCommentBox } from '../ui/components';
-import { DataProxy } from 'apollo-cache';
 import { dateService } from '../services/dateService';
 
 const NOTE_QUERY = gql`
@@ -33,7 +33,7 @@ const COMMENT_QUERY = gql`
         lastName
       }
       upvotes {
-        username
+        id
       }
     }
   }
@@ -53,7 +53,20 @@ const SUBMIT_COMMENT_MUTATION = gql`
   }
 `;
 
-const updateCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
+const UPVOTE_COMMENT_MUTATION = gql`
+  mutation UpvoteComment($commentID: Int!) {
+    upvoteComment(commentId: $commentID) {
+      comment {
+        id
+        upvotes {
+          id
+        }
+      }
+    }
+  }
+`;
+
+const updateNoteCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
   const { commentNote } = mutationResult.data;
   const queryType = cache.readQuery<{ note: any }>({
     query: NOTE_QUERY,
@@ -65,6 +78,22 @@ const updateCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
       query: NOTE_QUERY,
       variables: { noteID: commentNote.note.id },
       data: { note: { ...note, comments: commentNote.note.comments } },
+    });
+  }
+};
+
+const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
+  const { upvoteComment } = mutationResult.data;
+  const queryType = cache.readQuery<{ comment: any }>({
+    query: COMMENT_QUERY,
+    variables: { commentID: upvoteComment.comment.id },
+  });
+  if (queryType) {
+    const { comment } = queryType;
+    cache.writeQuery({
+      query: COMMENT_QUERY,
+      variables: { commentID: upvoteComment.comment.id },
+      data: { comment: { ...comment, upvotes: upvoteComment.comment.upvotes } },
     });
   }
 };
@@ -81,12 +110,13 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
-  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateCache });
+
+  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
+  const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, { update: updateCommentCache });
 
   const onCreateComment = (locationInText: string) => {
-    console.log('locationInText', locationInText);
     const commentText = 'User entered a comment here';
-    submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } }).then(console.log);
+    submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } });
   };
 
   const onCommentClick = (id: number, marginTop: number) => {
@@ -94,7 +124,9 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setCommentMarginTop(marginTop);
   };
 
-  const onCommentUpvote = () => console.log('Upvoted comment');
+  const onCommentUpvote = () => {
+    upvoteComment({ variables: { commentID: selectedCommentID } });
+  };
 
   const renderEditor = (data: any) => {
     const { title, text, comments } = data.note;
@@ -112,7 +144,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   };
 
   const renderCommentBox = (data: any) => {
-    console.log(data.comment);
     const { author, createdAt, upvotes, text } = data.comment;
     return (
       <Box basis="1/3">
