@@ -22,11 +22,12 @@ const commentParagraph =
 export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
   return (
     <Box align="center" gap="large" background="#FBFDFF">
-      <Notification type="error" message="There is an error" />
-      <Notification type="ok" message="It's a success" />
-      <Button primary label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
-      <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
+      <Notification type="error" message="There is an error with multiple lines let us see how this looks like" />
+      <Notification type="info" message="There is an info with multiple lines let us see how this looks like" />
+      <Notification type="ok" message="There is an ok with multiple lines let us see how this looks like" />
 
+      <Button primary label="Main Button" onClick={() => {}} />
+      <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
       <NoteCommentBox
         author="Mate Papp"
         date="12 minutes ago"
@@ -36,7 +37,6 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           alert('Like');
         }}
       />
-
       <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
         <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
       </FormField>
@@ -48,7 +48,6 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         onPasswordChange={console.log}
         onPasswordCheckChange={console.log}
       />
-
       <Box gap="small" direction="row" wrap alignContent="around">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
           <NoteCard
