@@ -28,7 +28,7 @@ export const Notification: FunctionComponent<LayerProps & Props> = ({ type, mess
 
   if (isOpen) {
     return (
-      <Layer plain position="top" modal onEsc={() => setIsOpen(false)} {...rest}>
+      <Layer plain position="top" modal={false} onEsc={() => setIsOpen(false)} {...rest}>
         <NotificationBox align="start" round="small" height="120px">
           <Box align="center" direction="row" round="small" elevation="none" height="120px" background={background}>
             <Box
