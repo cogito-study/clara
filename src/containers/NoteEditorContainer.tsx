@@ -76,27 +76,21 @@ const mapCommentToLocations = (comment: any): CommentLocation => ({
 
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
   const { noteID } = match.params;
-  const [locationInText, setLocationInText] = useState('');
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(2);
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
-  const [commentText, setCommentText] = useState('New Comment');
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
-  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, {
-    update: updateCache,
-    variables: { noteID, commentData: { text: commentText, locationInText } },
-  });
+  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateCache });
 
-  const onCreateComment = (location: string) => {
-    setLocationInText(location);
-    setCommentText('User entered a comment here'); // TODO: Create modal for comment input
-    submitComment().then(console.log);
+  const onCreateComment = (locationInText: string) => {
+    console.log('locationInText', locationInText);
+    const commentText = 'User entered a comment here';
+    submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } }).then(console.log);
   };
 
   const onCommentClick = (id: number, marginTop: number) => {
     setSelectedCommentID(id);
-    console.log('marginTop', marginTop);
     setCommentMarginTop(marginTop);
   };
 
