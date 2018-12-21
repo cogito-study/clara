@@ -1,7 +1,7 @@
 import React, { Component, Fragment, MouseEvent } from 'react';
 
 import { Box, Button, Heading } from 'grommet';
-import { Editor } from 'slate-react';
+import { Editor as SlateEditor } from 'slate-react';
 import { Value, Range } from 'slate';
 
 import CollapseOnEscape from 'slate-collapse-on-escape';
@@ -43,8 +43,8 @@ const schema = {
   },
 };
 
-export default class CogitoEditor extends Component<Props, State> {
-  editor!: Editor;
+export default class Editor extends Component<Props, State> {
+  editor!: SlateEditor;
   commentButton!: HTMLElement;
 
   state: State = {
@@ -68,7 +68,7 @@ export default class CogitoEditor extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.plugins = [Comments(this.props.onCommentClick), ...this.plugins];
+    this.plugins = [Comments((id: number, top: number) => this.props.onCommentClick(id, top - 40)), ...this.plugins];
   }
 
   componentDidMount() {
@@ -222,7 +222,7 @@ export default class CogitoEditor extends Component<Props, State> {
         <Heading level="2" margin="none">
           {title}
         </Heading>
-        <Editor
+        <SlateEditor
           spellCheck
           autoFocus
           ref={this.editorRef}

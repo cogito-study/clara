@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Box, Button, TextInput } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteCommentBox, Notification } from './components';
+import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment, Notification } from './components';
 import { RouteComponentProps } from 'react-router';
 
 const registrationCardName = 'Körmendy Bertalan';
