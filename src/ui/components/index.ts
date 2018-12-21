@@ -6,6 +6,5 @@ export * from './NoteCard';
 export * from './Notification';
 export * from './RegistrationCard';
 export * from './Spinner';
-export * from './NoteCommentBox';
 export * from './NoteComment';
 export * from './SubjectHeader';

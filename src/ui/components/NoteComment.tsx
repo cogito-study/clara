@@ -4,7 +4,7 @@ import { CaretUp, CaretDown } from 'grommet-icons';
 // import upvote from '../../assets/images/Upvote.svg';
 import styled from 'styled-components';
 
-export interface NoteCommentProps {
+export interface Props {
   author: string;
   date: string;
   paragraph: string;
@@ -21,14 +21,7 @@ const HoveredBox = styled(Box)`
   }
 `;
 
-export const NoteComment: FunctionComponent<NoteCommentProps> = ({
-  author,
-  date,
-  paragraph,
-  upvoteCounts,
-  isUpvoted,
-  onVote,
-}) => {
+export const NoteComment: FunctionComponent<Props> = ({ author, date, paragraph, upvoteCounts, isUpvoted, onVote }) => {
   return (
     <Box width="medium" direction="row" round="small" overflow="hidden" elevation="medium">
       <Box background="primary" width="12px" />
