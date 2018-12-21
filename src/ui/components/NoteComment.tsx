@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Box, Button, Heading, Paragraph, Image, Text } from 'grommet';
-import upvote from '../../assets/images/Upvote.svg';
+import { Box, Button, Heading, Paragraph, Text } from 'grommet';
+import { CaretUp, CaretDown } from 'grommet-icons';
+// import upvote from '../../assets/images/Upvote.svg';
 import styled from 'styled-components';
 
 export interface NoteCommentProps {
@@ -8,7 +9,8 @@ export interface NoteCommentProps {
   date: string;
   paragraph: string;
   upvoteCounts: number;
-  onUpvote: () => void;
+  isUpvoted: boolean;
+  onVote: (isUpvoted: boolean) => void;
 }
 
 const HoveredBox = styled(Box)`
@@ -24,7 +26,8 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
   date,
   paragraph,
   upvoteCounts,
-  onUpvote,
+  isUpvoted,
+  onVote,
 }) => {
   return (
     <Box width="medium" direction="row" round="small" overflow="hidden" elevation="medium">
@@ -45,9 +48,13 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
                 plain
                 reverse
                 margin="medium"
-                label={<Text alignSelf="end">{upvoteCounts}</Text>}
-                icon={<Image src={upvote} width="30px" />}
-                onClick={onUpvote}
+                label={
+                  <Text color={`${isUpvoted}` ? 'primary' : 'lightGray'} alignSelf="end">
+                    {upvoteCounts}
+                  </Text>
+                }
+                icon={isUpvoted ? <CaretDown width="30px" /> : <CaretUp width="30px" />}
+                onClick={() => onVote(isUpvoted)}
               />
             </Box>
           </HoveredBox>

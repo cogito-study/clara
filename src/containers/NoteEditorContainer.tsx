@@ -9,6 +9,7 @@ import { NoteRouteParams } from '../types/RouteParams';
 import Editor, { CommentLocation } from '../editor/Editor';
 import { NoteCommentBox } from '../ui/components';
 import { dateService } from '../services/dateService';
+import { authService } from '../services/authService';
 
 const NOTE_QUERY = gql`
   query NoteQuery($noteID: Int!) {
@@ -66,6 +67,19 @@ const UPVOTE_COMMENT_MUTATION = gql`
   }
 `;
 
+const UNVOTE_COMMENT_MUTATION = gql`
+  mutation UnvoteComment($commentID: Int!) {
+    unvoteComment(commentId: $commentID) {
+      comment {
+        id
+        upvotes {
+          id
+        }
+      }
+    }
+  }
+`;
+
 const updateNoteCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
   const { commentNote } = mutationResult.data;
   const queryType = cache.readQuery<{ note: any }>({
@@ -83,17 +97,20 @@ const updateNoteCache = (cache: DataProxy, mutationResult: FetchResult<any>) => 
 };
 
 const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
-  const { upvoteComment } = mutationResult.data;
+  const newComment = mutationResult.data.upvoteComment
+    ? mutationResult.data.upvoteComment
+    : mutationResult.data.unvoteComment;
+
   const queryType = cache.readQuery<{ comment: any }>({
     query: COMMENT_QUERY,
-    variables: { commentID: upvoteComment.comment.id },
+    variables: { commentID: newComment.comment.id },
   });
   if (queryType) {
     const { comment } = queryType;
     cache.writeQuery({
       query: COMMENT_QUERY,
-      variables: { commentID: upvoteComment.comment.id },
-      data: { comment: { ...comment, upvotes: upvoteComment.comment.upvotes } },
+      variables: { commentID: newComment.comment.id },
+      data: { comment: { ...comment, upvotes: newComment.comment.upvotes } },
     });
   }
 };
@@ -113,6 +130,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, { update: updateCommentCache });
+  const unvoteComment = useMutation(UNVOTE_COMMENT_MUTATION, { update: updateCommentCache });
 
   const onCreateComment = (locationInText: string) => {
     const commentText = 'User entered a comment here';
@@ -124,12 +142,15 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setCommentMarginTop(marginTop);
   };
 
-  const onCommentUpvote = () => {
-    upvoteComment({ variables: { commentID: selectedCommentID } });
+  const onCommentVote = (isUpvoted: boolean) => {
+    isUpvoted
+      ? unvoteComment({ variables: { commentID: selectedCommentID } })
+      : upvoteComment({ variables: { commentID: selectedCommentID } });
   };
 
   const renderEditor = (data: any) => {
     const { title, text, comments } = data.note;
+    console.log(data.note);
     return (
       <Box basis="2/3">
         <Editor
@@ -153,7 +174,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
           date={dateService.yearMonthDay(createdAt)} // TODO: Implement datservice "xy minutes ago" function
           paragraph={text}
           upvoteCounts={upvotes.length}
-          onUpvote={onCommentUpvote}
+          isUpvoted={upvotes.some((upvote) => upvote.id === authService.getUserID())}
+          onVote={onCommentVote}
         />
       </Box>
     );

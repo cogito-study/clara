@@ -33,7 +33,8 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         date="12 minutes ago"
         paragraph={commentParagraph}
         upvoteCounts={16}
-        onUpvote={() => {
+        isUpvoted
+        onVote={() => {
           alert('Like');
         }}
       />
