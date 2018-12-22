@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Box, Heading, Image, Button, Text } from 'grommet';
-import { Logout } from 'grommet-icons';
 import logo from '../../assets/images/logo.svg';
 import styled from 'styled-components';
+import logout from '../../assets/images/Log-out.svg';
 
 interface Props {
   title: string;
@@ -42,10 +42,11 @@ export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLog
       </Heading>
     </Box>
     <Box basis="1/4" direction="row" justify="end" align="center" gap="small">
-      <Heading level="4" color="white">
+      <Heading level="4" color="white" margin="small">
         {userName}
       </Heading>
-      <Button icon={<Logout color="white" />} onClick={onLogout} />
+      <Box height="23px" background="white" width="2px" />
+      <Button icon={<Image src={logout} />} onClick={onLogout} />
     </Box>
   </Box>
 );
