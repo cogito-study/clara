@@ -103,7 +103,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, sele
   };
 
   return (
-    <Box margin={{ top: `${marginTop}px` }}>
+    <Box margin={{ top: `${marginTop}px` }} animation="slideLeft">
       {commentQueryData && commentQueryData.comment && renderCommentBox(commentQueryData.comment)}
     </Box>
   );

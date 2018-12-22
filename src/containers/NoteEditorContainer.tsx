@@ -70,8 +70,11 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
 
   const onCreateComment = (locationInText: string) => {
-    const commentText = 'User entered a comment here';
-    submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } });
+    const commentText = prompt('Komment szovege?');
+
+    if (commentText) {
+      submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } });
+    }
   };
 
   const onCommentClick = (id: number, marginTop: number) => {
