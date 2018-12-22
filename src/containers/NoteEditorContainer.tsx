@@ -61,13 +61,16 @@ const mapCommentToLocations = (comment: any): CommentLocation => ({
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
   const { noteID } = match.params;
 
-  const spacerRef = useRef(null);
+  const spacerRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
   const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
+
+  const calculateRelativeMarginTop = (): number =>
+    commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
 
   const onCreateComment = (locationInText: string) => {
     const commentText = prompt('Komment szovege?');
@@ -107,20 +110,14 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
             fallback={
               <Box
                 margin={{
-                  top: `${commentMarginTop -
-                    (spacerRef.current !== null ? (spacerRef.current! as HTMLDivElement).offsetTop : 0)}px`,
+                  top: `${calculateRelativeMarginTop()}px`,
                 }}
               >
                 <Spinner primary />
               </Box>
             }
           >
-            <NoteCommentContainer
-              marginTop={
-                commentMarginTop - (spacerRef.current !== null ? (spacerRef.current! as HTMLDivElement).offsetTop : 0)
-              }
-              selectedCommentID={selectedCommentID}
-            />
+            <NoteCommentContainer marginTop={calculateRelativeMarginTop()} selectedCommentID={selectedCommentID} />
           </Suspense>
         </div>
       </Box>
