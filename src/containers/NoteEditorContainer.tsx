@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, Suspense } from 'react';
+import React, { FunctionComponent, useState, Suspense, ReactNode } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
@@ -58,8 +58,26 @@ const mapCommentToLocations = (comment: any): CommentLocation => ({
   range: JSON.parse(comment.locationInText),
 });
 
+interface SpacerProps {
+  space: (n: number) => ReactNode;
+}
+
+class NoteCommentSpacer extends React.Component<SpacerProps, {}> {
+  box: HTMLDivElement | null;
+
+  constructor(props: SpacerProps) {
+    super(props);
+    this.box = null;
+  }
+
+  render() {
+    return <div ref={(b) => (this.box = b)}>{this.props.space(this.box ? this.box.offsetTop : 0)}</div>;
+  }
+}
+
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
   const { noteID } = match.params;
+
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
 
@@ -72,6 +90,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   };
 
   const onCommentClick = (id: number, marginTop: number) => {
+    console.log(marginTop);
     setSelectedCommentID(id);
     setCommentMarginTop(marginTop);
   };
@@ -94,17 +113,21 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   return (
     <Box fill justify="start" align="start" pad="small" direction="row">
       {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
-      <Box justify="center" align="center" pad="none" basis="1/3">
-        <Suspense
-          fallback={
-            <Box margin={{ top: `${commentMarginTop}px` }}>
-              <Spinner primary />
-            </Box>
-          }
-        >
-          <NoteCommentContainer marginTop={commentMarginTop} selectedCommentID={selectedCommentID} />
-        </Suspense>
-      </Box>
+      <NoteCommentSpacer
+        space={(space) => (
+          <Box justify="center" align="center" pad="none" basis="1/3">
+            <Suspense
+              fallback={
+                <Box margin={{ top: `${commentMarginTop - space}px` }}>
+                  <Spinner primary />
+                </Box>
+              }
+            >
+              <NoteCommentContainer marginTop={commentMarginTop - space} selectedCommentID={selectedCommentID} />
+            </Suspense>
+          </Box>
+        )}
+      />
     </Box>
   );
 };

@@ -11,10 +11,12 @@ const CommentContainer = styled.span`
 
 interface CommentProps {
   onClickCallback: (top: number) => void;
+  canShowComments: () => boolean;
 }
 
 class Comment extends React.Component<CommentProps, {}> {
   getPosition = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
     const { onClickCallback } = this.props;
     const node = findDOMNode(this);
     const top = (node! as HTMLElement).offsetTop;
@@ -27,7 +29,7 @@ class Comment extends React.Component<CommentProps, {}> {
   }
 }
 
-export default function Comments(onClickCallback: (id: number, top: number) => void) {
+export default function Comments(onClickCallback: (id: number, top: number) => void, canShowComments: () => boolean) {
   return {
     renderMark: (props, _, next: VoidFunction) => {
       const {
@@ -36,10 +38,12 @@ export default function Comments(onClickCallback: (id: number, top: number) => v
         mark: { type, data },
       } = props;
       if (type === MarkType.COMMENT) {
-        return (
+        return canShowComments() ? (
           <Comment onClickCallback={(top) => onClickCallback(data.get('id'), top)} {...attributes}>
             {children}
           </Comment>
+        ) : (
+          undefined
         );
       }
       return next();

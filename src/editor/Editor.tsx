@@ -14,6 +14,7 @@ import Links from './Links';
 import RichText from './RichText';
 import Comments from './Comments';
 import ReadOnlyPlugin from './ReadOnlyPlugin';
+
 export interface CommentButtonPosition {
   top: number;
   left: number;
@@ -32,6 +33,7 @@ interface Props {
 }
 interface State {
   value: Value;
+  showComments: boolean;
   commentButtonPosition: CommentButtonPosition;
 }
 
@@ -46,38 +48,40 @@ const schema = {
 export default class Editor extends Component<Props, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
-
-  state: State = {
-    value: Value.fromJSON(this.props.initialValue),
-    commentButtonPosition: { top: -10000, left: -10000 },
-  };
-
-  plugins = [
-    // History(),
-    ReadOnlyPlugin(),
-    Images(),
-    Links(),
-    RichText(),
-    // PasteLinkify({
-    //   isActiveQuery: () => isLinkActive(this.state.value),
-    //   wrapCommand: wrapLink,
-    //   unwrapCommand: unwrapLink,
-    // }),
-    CollapseOnEscape(),
-  ];
+  canDisplayComments: () => boolean;
+  plugins: any[];
 
   constructor(props: Props) {
     super(props);
-    this.plugins = [Comments((id: number, top: number) => this.props.onCommentClick(id, top - 40)), ...this.plugins];
-  }
 
-  componentDidMount() {
-    this.highlightComments(this.props.commentLocations);
+    this.state = {
+      value: Value.fromJSON(this.props.initialValue),
+      showComments: false,
+      commentButtonPosition: { top: -10000, left: -10000 },
+    };
+
+    this.canDisplayComments = () => this.state.showComments;
+
+    this.plugins = [
+      // History(),
+      ReadOnlyPlugin(),
+      Images(),
+      Links(),
+      RichText(),
+      Comments((id: number, top: number) => this.props.onCommentClick(id, top), this.canDisplayComments),
+      this.canDisplayComments,
+      // PasteLinkify({
+      //   isActiveQuery: () => isLinkActive(this.state.value),
+      //   wrapCommand: wrapLink,
+      //   unwrapCommand: unwrapLink,
+      // }),
+      CollapseOnEscape(),
+    ];
   }
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.commentLocations !== prevProps.commentLocations) {
-      this.highlightComments(this.props.commentLocations);
+      this.toggleComments(this.props.commentLocations);
     }
   }
 
@@ -90,7 +94,12 @@ export default class Editor extends Component<Props, State> {
   };
 
   updateCommentButtonPosition = (value) => {
+    const { showComments } = this.state;
     const { fragment, selection } = value;
+
+    if (!showComments) {
+      return;
+    }
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
       this.setState({
@@ -110,12 +119,17 @@ export default class Editor extends Component<Props, State> {
     }
   };
 
-  highlightComments = (commentLocations: CommentLocation[]) => {
-    commentLocations.forEach((commentLocation) => {
+  toggleComments = (commentLocations: CommentLocation[]) => {
+    const { showComments } = this.state;
+    for (const commentLocation of commentLocations) {
       const range = Range.createProperties(commentLocation.range);
-      this.editor.select(range).addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
-    });
-
+      this.editor.select(range);
+      if (showComments) {
+        this.editor.addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
+      } else {
+        this.editor.removeMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
+      }
+    }
     this.editor.moveToEnd().blur();
   };
 
@@ -214,26 +228,36 @@ export default class Editor extends Component<Props, State> {
   };
 
   render() {
-    const { value } = this.state;
+    const { value, showComments } = this.state;
     const { title } = this.props;
 
     return (
-      <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
-        <Heading level="2" margin="none">
-          {title}
-        </Heading>
-        <SlateEditor
-          spellCheck
-          autoFocus
-          ref={this.editorRef}
-          onChange={this.onChange}
-          value={value}
-          plugins={this.plugins}
-          schema={schema}
-          renderEditor={this.renderEditor}
-          role={'editor'}
-        />
-      </Box>
+      <div>
+        <button
+          onMouseDown={(e) => {
+            e.preventDefault();
+            this.setState({ showComments: !showComments }, () => this.toggleComments(this.props.commentLocations));
+          }}
+        >
+          showComments: {showComments ? 'true' : 'false'}
+        </button>
+        <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
+          <Heading level="2" margin="none">
+            {title}
+          </Heading>
+          <SlateEditor
+            spellCheck
+            autoFocus
+            ref={this.editorRef}
+            onChange={this.onChange}
+            value={value}
+            plugins={this.plugins}
+            schema={schema}
+            renderEditor={this.renderEditor}
+            role={'editor'}
+          />
+        </Box>
+      </div>
     );
   }
 }

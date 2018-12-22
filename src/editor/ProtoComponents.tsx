@@ -10,7 +10,3 @@ export const HoverContainer = ({ top, left, children, shown, innerRef }) => {
     root!,
   );
 };
-
-export const CommentBoxContainer = ({ top, children }) => (
-  <p style={{ marginTop: top }}>{top > 0 ? children : undefined}</p>
-);
