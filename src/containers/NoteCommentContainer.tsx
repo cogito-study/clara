@@ -74,7 +74,7 @@ export interface Props {
   selectedCommentID?: number;
 }
 
-export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID, ...rest }) => {
+export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID }) => {
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, {
     variables: { commentID: selectedCommentID },
   });

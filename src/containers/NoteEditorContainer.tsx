@@ -121,7 +121,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
           </Suspense>
         </div>
       </Box>
-      )} />
     </Box>
   );
 };
