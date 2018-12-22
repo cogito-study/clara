@@ -93,7 +93,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, sele
     return (
       <NoteComment
         author={`${author.lastName} ${author.firstName}`}
-        date={dateService.yearMonthDay(createdAt)} // TODO: Implement datservice "xy minutes ago" function
+        date={dateService.yearMonthDay(createdAt)} // TODO: Implement dateservice "xy minutes ago" function
         paragraph={text}
         upvoteCounts={upvotes.length}
         isUpvoted={upvotes.some((upvote) => upvote.id === authService.getUserID())}
