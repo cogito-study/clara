@@ -1,16 +1,19 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Box } from 'grommet';
+import { Box, Grommet } from 'grommet';
+import { theme } from '../ui/theme';
 
 import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
 import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
 import { SubjectRouteParams } from '../types/RouteParams';
 
 const SubjectPage: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => (
-  <Box fill background="light">
-    <SubjectHeaderContainer {...props} />
-    <SubjectTabsContainer {...props} />
-  </Box>
+  <Grommet theme={theme} full>
+    <Box fill background="light">
+      <SubjectHeaderContainer {...props} />
+      <SubjectTabsContainer {...props} />
+    </Box>
+  </Grommet>
 );
 
 export default SubjectPage;

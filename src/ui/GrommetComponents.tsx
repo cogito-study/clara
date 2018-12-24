@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { Box, Button, TextInput } from 'grommet';
+import { Box, Button, Grommet, TextInput } from 'grommet';
 import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment, Notification } from './components';
 import { RouteComponentProps } from 'react-router';
+import { theme } from '../ui/theme';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -21,52 +22,54 @@ const commentParagraph =
 
 export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
   return (
-    <Box align="center" gap="large" background="#FBFDFF">
-      <Notification type="error" message="There is an error with multiple lines let us see how this looks like" />
-      <Notification type="info" message="There is an info with multiple lines let us see how this looks like" />
-      <Notification type="ok" message="There is an ok with multiple lines let us see how this looks like" />
+    <Grommet theme={theme} full>
+      <Box align="center" gap="large" background="#FBFDFF">
+        <Notification type="error" message="There is an error with multiple lines let us see how this looks like" />
+        <Notification type="info" message="There is an info with multiple lines let us see how this looks like" />
+        <Notification type="ok" message="There is an ok with multiple lines let us see how this looks like" />
 
-      <Button primary label="Main Button" onClick={() => {}} />
-      <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
-      <NoteComment
-        author="Mate Papp"
-        date="12 minutes ago"
-        paragraph={commentParagraph}
-        upvoteCounts={16}
-        isUpvoted
-        onVote={() => {
-          alert('Like');
-        }}
-      />
-      <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
-        <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
-      </FormField>
-      <RegistrationCard
-        name={registrationCardName}
-        email={registrationCardEmail}
-        isRegistrationDisabled={false}
-        isLoading={false}
-        onPasswordChange={console.log}
-        onPasswordCheckChange={console.log}
-      />
-      <Box gap="small" direction="row" wrap alignContent="around">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
-          <NoteCard
-            key={number || 0}
-            noteNumber={number}
-            title={noteCardTitle}
-            abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
-            dateLabel={new Date().toLocaleString()}
-            margin="small"
-          />
-        ))}
+        <Button primary label="Main Button" onClick={() => {}} />
+        <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
+        <NoteComment
+          author="Mate Papp"
+          date="12 minutes ago"
+          paragraph={commentParagraph}
+          upvoteCounts={16}
+          isUpvoted
+          onVote={() => {
+            alert('Like');
+          }}
+        />
+        <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
+          <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
+        </FormField>
+        <RegistrationCard
+          name={registrationCardName}
+          email={registrationCardEmail}
+          isRegistrationDisabled={false}
+          isLoading={false}
+          onPasswordChange={console.log}
+          onPasswordCheckChange={console.log}
+        />
+        <Box gap="small" direction="row" wrap alignContent="around">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
+            <NoteCard
+              key={number || 0}
+              noteNumber={number}
+              title={noteCardTitle}
+              abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
+              dateLabel={new Date().toLocaleString()}
+              margin="small"
+            />
+          ))}
+        </Box>
+        <Box direction="column" gap="medium">
+          <InfoCard title={infoCardTitle} subtitle={infoCardSubtitle} content={infoCardContent} />
+          <InfoCard title={infoCardTitle} content={infoCardContent} />
+        </Box>
+        <Footer />
       </Box>
-      <Box direction="column" gap="medium">
-        <InfoCard title={infoCardTitle} subtitle={infoCardSubtitle} content={infoCardContent} />
-        <InfoCard title={infoCardTitle} content={infoCardContent} />
-      </Box>
-      <Footer />
-    </Box>
+    </Grommet>
   );
 };
 
