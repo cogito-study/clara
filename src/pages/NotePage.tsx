@@ -8,7 +8,7 @@ import { NoteEditorContainer } from '../containers/NoteEditorContainer';
 
 const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = (props) => (
   <Grommet theme={theme} full>
-    <Box fill background="light">
+    <Box fill background="backgroundBlue">
       <NoteEditorContainer {...props} />
     </Box>
   </Grommet>

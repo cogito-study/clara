@@ -4,6 +4,7 @@ export const colors = {
   light: '#FBFBFB',
   dark: '#101010',
   grey: '#595959',
+  backgroundBlue: '#DDE6ED',
   nightBlue: '#093C78',
   lightGrey: '#9C9C9C',
   transparent: 'rgba(0, 0, 0, 0.0);',

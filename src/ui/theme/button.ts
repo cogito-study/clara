@@ -17,7 +17,7 @@ export const button = {
     padding: ${props.primary && '12px 40px'}
     box-shadow: ${props.primary ? '0px 7px 15px rgba(71, 135, 211, 0.25' : 'none'});
     font-weight: bold;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
         transform: ${props.primary && 'scale(1.05)'};

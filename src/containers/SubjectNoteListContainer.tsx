@@ -28,7 +28,7 @@ const SUBJECT_NOTE_LIST_QUERY = gql`
 `;
 
 const HoveredNoteCard = styled(NoteCard)`
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
