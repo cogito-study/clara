@@ -32,7 +32,7 @@ export const NoteComment: FunctionComponent<Props> = ({ author, date, paragraph,
             <Heading level="3" margin="none">
               {author}
             </Heading>
-            <Text color="gray" size="12px" margin="none">
+            <Text color="gray" size="small" margin="none">
               {date}
             </Text>
           </Box>
