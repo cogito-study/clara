@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Box, Heading, Image, Button, Text } from 'grommet';
-import logo from '../../assets/images/logo.svg';
-import styled from 'styled-components';
+import { Box, Heading, Image, Button } from 'grommet';
+import betaLogo from '../../assets/images/CogitoLogoBeta.svg';
 import logout from '../../assets/images/Log-out.svg';
 
 interface Props {
@@ -10,31 +9,10 @@ interface Props {
   onLogout: () => void;
 }
 
-const BetaBox = styled(Box)`
-  min-width: 45px;
-`;
-
 export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLogout }) => (
   <Box flex width="xlarge" height="60px" pad="xsmall" justify="between" align="center" direction="row">
     <Box basis="1/4" justify="center" align="center" direction="row">
-      <Image src={logo} width="150px" />
-      <BetaBox
-        margin={{ horizontal: 'medium', top: '4px', bottom: 'none' }}
-        height="20px"
-        round="xsmall"
-        background="white"
-      >
-        <Text
-          textAlign="center"
-          alignSelf="center"
-          size="11px"
-          weight="bold"
-          margin={{ horizontal: 'xsmall', top: '3px', bottom: 'none' }}
-          color="primary"
-        >
-          BETA
-        </Text>
-      </BetaBox>
+      <Image src={betaLogo} width="150px" />
     </Box>
     <Box basis="1/2">
       <Heading level="2" color="white" textAlign="center">
