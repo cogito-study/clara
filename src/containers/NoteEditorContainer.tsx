@@ -81,7 +81,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   };
 
   const onCommentClick = (id: number, marginTop: number) => {
-    console.log(marginTop);
     setSelectedCommentID(id);
     setCommentMarginTop(marginTop);
   };

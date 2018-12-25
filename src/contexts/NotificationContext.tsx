@@ -3,7 +3,7 @@ import React, { createContext, FunctionComponent, useState } from 'react';
 import { Notification, NotificationType } from '../ui/components/Notification';
 
 // tslint:disable-next-line
-export const NotificationContext = createContext<(message: string, type: NotificationType) => void>(() => {});
+export const NotificationContext = createContext<(message: string, type?: NotificationType) => void>(() => {});
 
 export const NotificationConsumer = NotificationContext.Consumer;
 
@@ -16,7 +16,7 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
 
   const showNotification = (
     message: string,
-    type: NotificationType,
+    type: NotificationType = NotificationType.Success,
     duration: number = defaultNotificationDuration,
   ) => {
     setIsNotificationOpen(true);

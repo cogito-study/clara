@@ -27,8 +27,6 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
   const showNotification = useContext(NotificationContext);
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
 
-  console.log('errors', errors);
-
   const renderInfos = () =>
     data.subject.subjectInfo.infoItems.map((infoItem, index) => (
       <InfoCard key={index} title={infoItem.title} subtitle={infoItem.subtitle} content={infoItem.text} />
@@ -37,7 +35,7 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
   return (
     <Box background="light" fill="vertical" align="center" gap="medium" pad="medium">
       {errors && showNotification(errors[0].message, NotificationType.Error)}
-      {data && data.subjectInfo && renderInfos()}
+      {data && data.subject && renderInfos()}
     </Box>
   );
 };

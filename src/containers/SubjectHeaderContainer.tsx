@@ -27,8 +27,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
   const userID = authService.getUserID();
 
   const client = useApolloClient();
-  const { data: queryData, errors } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
-  console.log(errors);
+  const { data: queryData } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
 
   const onLogout = () => authService.logout(props.history, client);
 

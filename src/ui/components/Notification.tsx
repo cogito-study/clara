@@ -36,18 +36,16 @@ export const Notification: FunctionComponent<NotificationProps> = ({ isOpen, typ
 
   if (isOpen) {
     return (
-      <Layer position="bottom" modal={false}>
+      <Layer plain position="bottom" modal={false}>
         <Button plain onClick={onClose}>
-          <Box pad="xsmall">
-            <Box round="small" elevation="small" overflow="hidden" direction="row">
-              <Box align="center" direction="row" background="white" pad="medium" margin="none">
-                <Paragraph size="small" textAlign="start" color={type} margin="none">
-                  {message}
-                </Paragraph>
-              </Box>
-              <Box width="40px" align="center" justify="center" pad="small" background={type}>
-                {renderNotificationIcon()}
-              </Box>
+          <Box round="small" elevation="small" overflow="hidden" direction="row" margin="small">
+            <Box align="center" direction="row" background="white" pad="medium" margin="none">
+              <Paragraph size="small" textAlign="start" color={type} margin="none">
+                {message}
+              </Paragraph>
+            </Box>
+            <Box width="40px" align="center" justify="center" pad="small" background={type}>
+              {renderNotificationIcon()}
             </Box>
           </Box>
         </Button>

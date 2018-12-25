@@ -14,7 +14,6 @@ const getUserID = (): string | null => localStorage.getItem(localStorageKeys.log
 
 const logout = (history: H.History, client: ApolloClient<any> | null) => {
   if (client) {
-    console.log('reseted store');
     client.resetStore();
   }
 
