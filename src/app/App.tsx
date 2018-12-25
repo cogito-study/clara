@@ -3,6 +3,7 @@ import { BrowserRouter, Route, RouteComponentProps, Switch, Redirect } from 'rea
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Grommet } from 'grommet';
+import styled from 'styled-components';
 
 import { theme } from '../ui/theme';
 import { routePath } from '../constants';
@@ -18,8 +19,12 @@ const NotePage = lazy(() => import('../pages/NotePage'));
 const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
+const TempGrommet = styled(Grommet)`
+  overflow: visible;
+`;
+
 export const App = () => (
-  <Grommet theme={theme} full>
+  <TempGrommet theme={theme} full>
     <NotificationProvider>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
@@ -55,5 +60,5 @@ export const App = () => (
         </ApolloHooksProvider>
       </ApolloProvider>
     </NotificationProvider>
-  </Grommet>
+  </TempGrommet>
 );
