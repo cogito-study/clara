@@ -75,9 +75,7 @@ export interface Props {
 }
 
 export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID }) => {
-  const { data: commentQueryData } = useQuery(COMMENT_QUERY, {
-    variables: { commentID: selectedCommentID },
-  });
+  const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, { update: updateCommentCache });
   const unvoteComment = useMutation(UNVOTE_COMMENT_MUTATION, { update: updateCommentCache });

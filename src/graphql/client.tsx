@@ -33,7 +33,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, response })
   }
 
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) => <Notification type="error" message={message} />);
+    graphQLErrors.map(({ message, locations, path }) => <Notification key={1} type="error" message={message} />);
   }
 
   if (networkError) {

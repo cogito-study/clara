@@ -1,17 +1,16 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Layer, LayerProps, Box, Text, Button } from 'grommet';
 import { FormClose } from 'grommet-icons';
-import styled from 'styled-components';
 
+export enum NotificationType {
+  Error = 'error',
+  Success = 'success',
+  Info = 'info',
+}
 interface Props {
   message?: string;
-  type?: 'error' | 'ok' | 'info';
+  type?: NotificationType;
 }
-
-const NotificationBox = styled(Box)`
-  max-width: 300px;
-  box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);
-`;
 
 export const Notification: FunctionComponent<LayerProps & Props> = ({ type, message, ...rest }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -29,7 +28,7 @@ export const Notification: FunctionComponent<LayerProps & Props> = ({ type, mess
   if (isOpen) {
     return (
       <Layer plain position="top" modal={false} onEsc={() => setIsOpen(false)} {...rest}>
-        <NotificationBox align="start" round="small" height="120px">
+        <Box align="start" round="small" height="120px" elevation="small">
           <Box align="center" direction="row" round="small" elevation="none" height="120px" background={background}>
             <Box
               height="120px"
@@ -43,7 +42,7 @@ export const Notification: FunctionComponent<LayerProps & Props> = ({ type, mess
             </Box>
             <Button icon={<FormClose />} onClick={() => setIsOpen(false)} plain />
           </Box>
-        </NotificationBox>
+        </Box>
       </Layer>
     );
   }
