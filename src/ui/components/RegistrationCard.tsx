@@ -1,10 +1,11 @@
 import React, { FunctionComponent, ChangeEvent } from 'react';
 import { Box, BoxProps, Heading, TextInput, Button, Text, Image } from 'grommet';
+import styled from 'styled-components';
+
+import { Link } from './Link';
 import { FormField } from './FormField';
 import { Spinner } from './Spinner';
-import styled from 'styled-components';
 import profile from '../../assets/images/Profile.svg';
-import { Link } from './Link';
 import { routePath } from '../../constants';
 
 interface Props {
@@ -58,34 +59,37 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
         </Text>
       </Box>
     </Box>
-    <Box margin="20px 0px 0px 0px">
-      <Heading level="4" margin="0px 0px 0px 3px" color={'nightBlue'}>
-        {'Password'}
-      </Heading>
-      <FormField flex="grow" basis="1" htmlFor="password" margin="none">
-        <TextInput
-          plain
-          type="password"
-          id="password"
-          placeholder="password"
-          onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordChange(event.target.value)}
-        />
-      </FormField>
-    </Box>
-    <Box>
-      <Heading level="4" margin="0px 0px 0px 3px" color={'nightBlue'}>
-        {'Confirm password'}
-      </Heading>
-      <FormField flex="grow" basis="1" htmlFor="password-check" margin="none">
-        <TextInput
-          plain
-          type="password"
-          id="password-check"
-          placeholder="repeat password"
-          onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
-        />
-      </FormField>
-    </Box>
+    <form onSubmit={onRegistration}>
+      <Box margin="small">
+        <Heading level="4" margin="0px 0px 0px 3px" color={'nightBlue'}>
+          {'Password'}
+        </Heading>
+
+        <FormField flex="grow" basis="1" htmlFor="password" margin="none">
+          <TextInput
+            plain
+            type="password"
+            id="password"
+            placeholder="password"
+            onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordChange(event.target.value)}
+          />
+        </FormField>
+      </Box>
+      <Box margin="small">
+        <Heading level="4" margin="0px 0px 0px 3px" color={'nightBlue'}>
+          {'Confirm password'}
+        </Heading>
+        <FormField flex="grow" basis="1" htmlFor="password-check" margin="none">
+          <TextInput
+            plain
+            type="password"
+            id="password-check"
+            placeholder="repeat password"
+            onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
+          />
+        </FormField>
+      </Box>
+    </form>
     {isLoading ? (
       <Spinner primary />
     ) : (

@@ -57,6 +57,14 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
     });
   };
 
+  const isRegistrationDisabled = (): boolean => {
+    if (password === '' || passwordCheck === '') {
+      return true;
+    }
+
+    return password !== passwordCheck;
+  };
+
   return (
     <UnresponsiveBox flex background="gradient" fill>
       <Box justify="center" align="center">
@@ -72,7 +80,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
           <RegistrationCard
             name={`${data.user.lastName} ${data.user.firstName}`}
             email={data.user.email}
-            isRegistrationDisabled={password !== passwordCheck}
+            isRegistrationDisabled={isRegistrationDisabled()}
             isLoading={isLoading}
             onPasswordChange={setPassword}
             onPasswordCheckChange={setPasswordCheck}
