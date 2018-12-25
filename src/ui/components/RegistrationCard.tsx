@@ -1,40 +1,38 @@
 import React, { FunctionComponent, ChangeEvent } from 'react';
-import { Box, BoxProps, Heading, TextInput, Button, Text, Image } from 'grommet';
-import styled from 'styled-components';
+import { Box, Heading, TextInput, Button, Text, Image, CheckBox } from 'grommet';
 
 import { Link } from './Link';
 import { FormField } from './FormField';
 import { Spinner } from './Spinner';
-import profile from '../../assets/images/Profile.svg';
 import { routePath } from '../../constants';
+import profile from '../../assets/images/Profile.svg';
 
 interface Props {
   name: string;
   email: string;
   isRegistrationDisabled: boolean;
   isLoading: boolean;
+  isLegalCheckBoxChecked: boolean;
   onPasswordChange: (value: string) => void;
   onPasswordCheckChange: (value: string) => void;
+  onLegalCheckBoxChecked: (enabled: boolean) => void;
   onRegistration?: () => void;
 }
 
-const Card = styled(Box)`
-  min-height: 400px;
-`;
-
-const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
+export const RegistrationCard: FunctionComponent<Props> = ({
   name,
   email,
   isRegistrationDisabled,
   isLoading,
+  isLegalCheckBoxChecked,
   onPasswordChange,
   onPasswordCheckChange,
+  onLegalCheckBoxChecked,
   onRegistration,
 }) => (
-  <Card
+  <Box
     responsive={false}
     width="500px"
-    height="500px"
     background="white"
     elevation="large"
     align="center"
@@ -89,22 +87,21 @@ const RegistrationCard: FunctionComponent<BoxProps & Props> = ({
           />
         </FormField>
       </Box>
+      <Box align="center" margin="small">
+        <CheckBox
+          checked={isLegalCheckBoxChecked}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => onLegalCheckBoxChecked(event.target.checked)}
+          label="Elfogadok mindent"
+        />
+      </Box>
     </form>
     {isLoading ? (
       <Spinner primary />
     ) : (
-      <Button
-        primary
-        margin="20px 0px 0px 0px"
-        disabled={isRegistrationDisabled}
-        label="Registration"
-        onClick={onRegistration}
-      />
+      <Button primary disabled={isRegistrationDisabled} label="Registration" onClick={onRegistration} margin="xsmall" />
     )}
-    <Text size="small" margin="none">
+    <Text size="small" margin="xsmall">
       Already have an account? <Link to={routePath.root()}>Login</Link>
     </Text>
-  </Card>
+  </Box>
 );
-
-export { RegistrationCard };

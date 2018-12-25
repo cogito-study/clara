@@ -42,6 +42,7 @@ const UnresponsiveBox = styled(Box)`
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [isLegalChecked, setLegalChecked] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const { userID } = match.params;
@@ -58,7 +59,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
   };
 
   const isRegistrationDisabled = (): boolean => {
-    if (password === '' || passwordCheck === '') {
+    if (!isLegalChecked || password === '' || passwordCheck === '') {
       return true;
     }
 
@@ -82,8 +83,10 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
             email={data.user.email}
             isRegistrationDisabled={isRegistrationDisabled()}
             isLoading={isLoading}
+            isLegalCheckBoxChecked={isLegalChecked}
             onPasswordChange={setPassword}
             onPasswordCheckChange={setPasswordCheck}
+            onLegalCheckBoxChecked={setLegalChecked}
             onRegistration={onRegistration}
           />
         )}

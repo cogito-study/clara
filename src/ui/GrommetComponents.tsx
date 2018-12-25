@@ -79,8 +79,10 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           email={registrationCardEmail}
           isRegistrationDisabled={false}
           isLoading={false}
+          isLegalCheckBoxChecked={false}
           onPasswordChange={console.log}
           onPasswordCheckChange={console.log}
+          onLegalCheckBoxChecked={console.log}
         />
         <Box gap="small" direction="row" wrap alignContent="around">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
