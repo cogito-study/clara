@@ -9,6 +9,7 @@ import { NoteRouteParams } from '../types/RouteParams';
 import Editor, { CommentLocation } from '../editor/Editor';
 import { NoteCommentContainer } from './NoteCommentContainer';
 import { Spinner } from '../ui/components';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 const NOTE_QUERY = gql`
   query NoteQuery($noteID: Int!) {
@@ -69,6 +70,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
   const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
 
+  useDocumentTitle(noteQueryData.note.title);
+
   const calculateRelativeMarginTop = (): number =>
     commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
 
@@ -100,22 +103,18 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     );
   };
 
+  const renderCommentLoading = () => (
+    <Box margin={{ top: `${calculateRelativeMarginTop()}px` }}>
+      <Spinner primary />
+    </Box>
+  );
+
   return (
     <Box fill justify="start" align="start" pad="small" direction="row">
       {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       <Box justify="center" align="center" pad="none" basis="1/3">
         <div ref={spacerRef}>
-          <Suspense
-            fallback={
-              <Box
-                margin={{
-                  top: `${calculateRelativeMarginTop()}px`,
-                }}
-              >
-                <Spinner primary />
-              </Box>
-            }
-          >
+          <Suspense fallback={renderCommentLoading()}>
             <NoteCommentContainer marginTop={calculateRelativeMarginTop()} selectedCommentID={selectedCommentID} />
           </Suspense>
         </div>

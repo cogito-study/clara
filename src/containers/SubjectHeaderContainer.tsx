@@ -7,6 +7,7 @@ import { useQuery, useApolloClient } from 'react-apollo-hooks';
 import { SubjectHeader } from '../ui/components/SubjectHeader';
 import { SubjectRouteParams } from '../types/RouteParams';
 import { authService } from '../services/authService';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
 const SUBJECT_HEADER_QUERY = gql`
   query SubjectHeader($userID: Int!, $subjectCode: String!) {
@@ -28,6 +29,8 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
 
   const client = useApolloClient();
   const { data: queryData } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
+
+  useDocumentTitle(queryData.subject.subjectInfo.name);
 
   const onLogout = () => authService.logout(props.history, client);
 
