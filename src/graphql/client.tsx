@@ -1,12 +1,9 @@
-import React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { from } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
-import { Notification } from '../ui/components';
 
 import { config } from '../environment/config';
 import { authService } from '../services/authService';
@@ -33,7 +30,9 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, response })
   }
 
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) => <Notification key={1} type="error" message={message} />);
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.group('message', message, 'locations', locations, 'path', path),
+    );
   }
 
   if (networkError) {

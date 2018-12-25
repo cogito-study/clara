@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { Box, Button, Grommet, TextInput } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment, Notification } from './components';
+import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment, NotificationType } from './components';
 import { RouteComponentProps } from 'react-router';
+
 import { theme } from '../ui/theme';
+import { NotificationContext } from '../contexts/NotificationContext';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -21,14 +23,43 @@ const commentParagraph =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
+  const showNotification = useContext(NotificationContext);
+
   return (
     <Grommet theme={theme} full>
-      <Box align="center" gap="large" background="#FBFDFF">
-        <Notification type="error" message="There is an error with multiple lines let us see how this looks like" />
-        <Notification type="info" message="There is an info with multiple lines let us see how this looks like" />
-        <Notification type="ok" message="There is an ok with multiple lines let us see how this looks like" />
-
-        <Button primary label="Main Button" onClick={() => {}} />
+      <Box align="center" gap="large" background="light">
+        <Button
+          primary
+          label="Error Button"
+          onClick={() =>
+            showNotification(
+              'There is an error with multiple lines let us see how this looks like',
+              NotificationType.Error,
+            )
+          }
+        />
+        <Button
+          primary
+          label="Success Button"
+          onClick={() =>
+            showNotification(
+              'There is success with multiple lines let us see how this looks like',
+              NotificationType.Success,
+            )
+          }
+        />
+        <Button
+          primary
+          label="Info Button"
+          onClick={() =>
+            showNotification(
+              'There is an info with multiple lines let us see how this looks like',
+              NotificationType.Info,
+            )
+          }
+        />
+        <Button primary label="Success Button" onClick={() => {}} />
+        <Button primary label="Info Button" onClick={() => {}} />
         <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
         <NoteComment
           author="Mate Papp"

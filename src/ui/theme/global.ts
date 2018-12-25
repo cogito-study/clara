@@ -7,6 +7,9 @@ export const colors = {
   backgroundBlue: '#DDE6ED',
   nightBlue: '#093C78',
   lightGrey: '#9C9C9C',
+  success: '#24EE81',
+  error: '#FF2B5E',
+  info: 'primary',
   transparent: 'rgba(0, 0, 0, 0.0);',
 };
 

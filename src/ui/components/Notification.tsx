@@ -1,48 +1,56 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Layer, LayerProps, Box, Text, Button } from 'grommet';
-import { FormClose } from 'grommet-icons';
+import React, { FunctionComponent } from 'react';
+import { Layer, Box, Button, Paragraph, Image } from 'grommet';
+
+import errorIcon from '../../assets/images/errorIcon.svg';
+import successIcon from '../../assets/images/successIcon.svg';
+import infoIcon from '../../assets/images/infoIcon.svg';
 
 export enum NotificationType {
   Error = 'error',
   Success = 'success',
   Info = 'info',
 }
-interface Props {
+export interface NotificationProps {
+  isOpen: boolean;
   message?: string;
   type?: NotificationType;
+  onClose: () => void;
 }
 
-export const Notification: FunctionComponent<LayerProps & Props> = ({ type, message, ...rest }) => {
-  const [isOpen, setIsOpen] = useState(true);
+export const Notification: FunctionComponent<NotificationProps> = ({ isOpen, type, message, onClose }) => {
+  const renderNotificationIcon = () => {
+    switch (type) {
+      case NotificationType.Error:
+        return <Image src={errorIcon} />;
 
-  let background = '#FF2B5E';
+      case NotificationType.Success:
+        return <Image src={successIcon} />;
 
-  switch (type) {
-    case 'ok':
-      background = '#24EE81';
-      break;
-    case 'info':
-      background = '#4787D3';
-  }
+      case NotificationType.Info:
+        return <Image src={infoIcon} />;
+
+      default:
+        return;
+    }
+  };
 
   if (isOpen) {
     return (
-      <Layer plain position="top" modal={false} onEsc={() => setIsOpen(false)} {...rest}>
-        <Box align="start" round="small" height="120px" elevation="small">
-          <Box align="center" direction="row" round="small" elevation="none" height="120px" background={background}>
-            <Box
-              height="120px"
-              align="center"
-              direction="row"
-              background="white"
-              round={{ corner: 'left', size: 'small' }}
-              pad="medium"
-            >
-              <Text color={background}>{message}</Text>
+      <Layer position="bottom" modal={false}>
+        <Button plain onClick={onClose}>
+          <Box pad="xsmall">
+            <Box round="small" elevation="small" overflow="hidden" direction="row">
+              <Box align="center" direction="row" background="white" pad="medium" margin="none">
+                <Paragraph size="small" textAlign="start" color={type} margin="none">
+                  {message}
+                </Paragraph>
+              </Box>
+              <Box width="40px" align="center" justify="center" pad="small" background={type}>
+                {renderNotificationIcon()}
+              </Box>
             </Box>
-            <Button icon={<FormClose />} onClick={() => setIsOpen(false)} plain />
           </Box>
-        </Box>
+        </Button>
       </Layer>
     );
   }

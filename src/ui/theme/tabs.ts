@@ -17,6 +17,7 @@ export const tab = {
   },
   extend: `
     font-weight: 600;
+    text-transform: uppercase;
     margin: 0px 15px 0px 15px;
     span {
       font-size: 16px;
