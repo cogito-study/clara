@@ -30,9 +30,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, response })
   }
 
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.group('message', message, 'locations', locations, 'path', path),
-    );
+    graphQLErrors.map(({ message, locations }) => console.log('message', message, 'locations', locations));
   }
 
   if (networkError) {

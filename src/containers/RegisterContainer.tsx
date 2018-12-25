@@ -74,7 +74,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
             email={data.user.email}
             isRegistrationDisabled={password !== passwordCheck}
             isLoading={isLoading}
-            onPasswordChange={(password: string) => setPassword(password)}
+            onPasswordChange={setPassword}
             onPasswordCheckChange={setPasswordCheck}
             onRegistration={onRegistration}
           />

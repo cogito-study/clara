@@ -27,17 +27,26 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
   const userID = authService.getUserID();
 
   const client = useApolloClient();
-  const { data } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
-  const {
-    user: { lastName, firstName },
-    subject: { subjectInfo },
-  } = data;
+  const { data: queryData, errors } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
+  console.log(errors);
 
   const onLogout = () => authService.logout(props.history, client);
 
+  const renderHeader = (data: any) => {
+    if (data.subject && data.user) {
+      const {
+        user: { lastName, firstName },
+        subject: { subjectInfo },
+      } = data;
+      return <SubjectHeader title={subjectInfo.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />;
+    }
+
+    return null;
+  };
+
   return (
     <Box fill="horizontal" background="primary" align="center" justify="center">
-      <SubjectHeader title={subjectInfo.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />
+      {queryData && renderHeader(queryData)}
     </Box>
   );
 };

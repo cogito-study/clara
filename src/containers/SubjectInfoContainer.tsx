@@ -1,11 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { InfoCard } from '../ui/components';
+import { InfoCard, NotificationType } from '../ui/components';
 import { SubjectRouteParams } from '../types/RouteParams';
+import { NotificationContext } from '../contexts/NotificationContext';
 
 const SUBJECT_INFO_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
@@ -23,9 +24,10 @@ const SUBJECT_INFO_QUERY = gql`
 
 export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
+  const showNotification = useContext(NotificationContext);
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
 
-  const renderError = () => <div>Error</div>; // TODO: proper error handling
+  console.log('errors', errors);
 
   const renderInfos = () =>
     data.subject.subjectInfo.infoItems.map((infoItem, index) => (
@@ -34,8 +36,8 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
 
   return (
     <Box background="light" fill="vertical" align="center" gap="medium" pad="medium">
-      {errors && renderError()}
-      {data && renderInfos()}
+      {errors && showNotification(errors[0].message, NotificationType.Error)}
+      {data && data.subjectInfo && renderInfos()}
     </Box>
   );
 };
