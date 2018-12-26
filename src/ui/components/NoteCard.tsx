@@ -29,10 +29,10 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
     </Box>
     <Box fill justify="between" background="white" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="small">
       {children}
-      <Heading level="3" margin="none" color="dark">
-        {title}
-      </Heading>
-      <Box direction="column" align="start" justify="start">
+      <Box fill direction="column" align="start" justify="start" gap="xsmall">
+        <Heading level="3" color="dark" margin="none">
+          {title}
+        </Heading>
         <Paragraph margin="none" color="grey">
           {abstract.substring(0, 100)}
         </Paragraph>
