@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { InfoCard, NotificationType } from '../ui/components';
+import { InfoCard } from '../ui/components';
 import { SubjectRouteParams } from '../types/RouteParams';
 import { NotificationContext } from '../contexts/NotificationContext';
 
@@ -24,7 +24,7 @@ const SUBJECT_INFO_QUERY = gql`
 
 export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
-  const showNotification = useContext(NotificationContext);
+  const { showNotification } = useContext(NotificationContext);
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
 
   const renderInfos = () =>
@@ -34,7 +34,7 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
 
   return (
     <Box background="light" fill="vertical" align="center" gap="medium" pad="medium">
-      {errors && showNotification(errors[0].message, NotificationType.Error)}
+      {errors && showNotification(errors[0].message, 'error')}
       {data && data.subject && renderInfos()}
     </Box>
   );

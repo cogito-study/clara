@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { Box, Button, Grommet, TextInput } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment, NotificationType } from './components';
+import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment } from './components';
 import { RouteComponentProps } from 'react-router';
 
 import { theme } from '../ui/theme';
@@ -23,7 +23,7 @@ const commentParagraph =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
-  const showNotification = useContext(NotificationContext);
+  const { showNotification } = useContext(NotificationContext);
 
   return (
     <Grommet theme={theme} full>
@@ -32,30 +32,21 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           primary
           label="Error Button"
           onClick={() =>
-            showNotification(
-              'There is an error with multiple lines let us see how this looks like',
-              NotificationType.Error,
-            )
+            showNotification('There is an error with multiple lines let us see how this looks like', 'error')
           }
         />
         <Button
           primary
           label="Success Button"
           onClick={() =>
-            showNotification(
-              'There is success with multiple lines let us see how this looks like',
-              NotificationType.Success,
-            )
+            showNotification('There is success with multiple lines let us see how this looks like', 'success')
           }
         />
         <Button
           primary
           label="Info Button"
           onClick={() =>
-            showNotification(
-              'There is an info with multiple lines let us see how this looks like',
-              NotificationType.Info,
-            )
+            showNotification('There is an info with multiple lines let us see how this looks like', 'info')
           }
         />
         <Button primary label="Success Button" onClick={() => {}} />

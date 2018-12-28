@@ -5,11 +5,7 @@ import errorIcon from '../../assets/images/errorIcon.svg';
 import successIcon from '../../assets/images/successIcon.svg';
 import infoIcon from '../../assets/images/infoIcon.svg';
 
-export enum NotificationType {
-  Error = 'error',
-  Success = 'success',
-  Info = 'info',
-}
+export type NotificationType = 'error' | 'success' | 'info';
 export interface NotificationProps {
   isOpen: boolean;
   message?: string;
@@ -20,13 +16,13 @@ export interface NotificationProps {
 export const Notification: FunctionComponent<NotificationProps> = ({ isOpen, type, message, onClose }) => {
   const renderNotificationIcon = () => {
     switch (type) {
-      case NotificationType.Error:
+      case 'error':
         return <Image src={errorIcon} />;
 
-      case NotificationType.Success:
+      case 'success':
         return <Image src={successIcon} />;
 
-      case NotificationType.Info:
+      case 'info':
         return <Image src={infoIcon} />;
 
       default:
