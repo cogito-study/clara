@@ -1,4 +1,4 @@
-import React, { Component, Fragment, MouseEvent } from 'react';
+import React, { PureComponent, Fragment, MouseEvent } from 'react';
 
 import { Box, Button, Heading } from 'grommet';
 import { Editor as SlateEditor } from 'slate-react';
@@ -26,6 +26,7 @@ export interface CommentLocation {
 }
 interface Props {
   title: string;
+  canShowComments: boolean;
   initialValue: JSON;
   commentLocations: CommentLocation[];
   onCommentClick: (id: number, marginTop: number) => void;
@@ -33,7 +34,6 @@ interface Props {
 }
 interface State {
   value: Value;
-  showComments: boolean;
   commentButtonPosition: CommentButtonPosition;
 }
 
@@ -45,22 +45,18 @@ const schema = {
   },
 };
 
-export default class Editor extends Component<Props, State> {
+export default class Editor extends PureComponent<Props, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
-  canDisplayComments: () => boolean;
   plugins: any[];
+
+  state = {
+    value: Value.fromJSON(this.props.initialValue),
+    commentButtonPosition: { top: -10000, left: -10000 },
+  };
 
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      value: Value.fromJSON(this.props.initialValue),
-      showComments: false,
-      commentButtonPosition: { top: -10000, left: -10000 },
-    };
-
-    this.canDisplayComments = () => this.state.showComments;
 
     this.plugins = [
       // History(),
@@ -68,8 +64,7 @@ export default class Editor extends Component<Props, State> {
       Images(),
       Links(),
       RichText(),
-      Comments((id: number, top: number) => this.props.onCommentClick(id, top), this.canDisplayComments),
-      this.canDisplayComments,
+      Comments((id: number, top: number) => this.props.onCommentClick(id, top), this.props.canShowComments),
       // PasteLinkify({
       //   isActiveQuery: () => isLinkActive(this.state.value),
       //   wrapCommand: wrapLink,
@@ -94,10 +89,10 @@ export default class Editor extends Component<Props, State> {
   };
 
   updateCommentButtonPosition = (value) => {
-    const { showComments } = this.state;
+    const { canShowComments } = this.props;
     const { fragment, selection } = value;
 
-    if (!showComments) {
+    if (!canShowComments) {
       return;
     }
 
@@ -120,16 +115,17 @@ export default class Editor extends Component<Props, State> {
   };
 
   toggleComments = (commentLocations: CommentLocation[]) => {
-    const { showComments } = this.state;
+    const { canShowComments } = this.props;
+
     for (const commentLocation of commentLocations) {
       const range = Range.createProperties(commentLocation.range);
       this.editor.select(range);
-      if (showComments) {
-        this.editor.addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
-      } else {
-        this.editor.removeMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
-      }
+
+      canShowComments
+        ? this.editor.addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } })
+        : this.editor.removeMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
     }
+
     this.editor.moveToEnd().blur();
   };
 
@@ -228,36 +224,31 @@ export default class Editor extends Component<Props, State> {
   };
 
   render() {
-    const { value, showComments } = this.state;
-    const { title } = this.props;
+    const { value } = this.state;
+    const { title, canShowComments, commentLocations } = this.props;
+    console.log('canShowComments', canShowComments);
+
+    if (canShowComments) {
+      this.toggleComments(commentLocations);
+    }
 
     return (
-      <div>
-        <button
-          onMouseDown={(e) => {
-            e.preventDefault();
-            this.setState({ showComments: !showComments }, () => this.toggleComments(this.props.commentLocations));
-          }}
-        >
-          showComments: {showComments ? 'true' : 'false'}
-        </button>
-        <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
-          <Heading level="2" margin="none">
-            {title}
-          </Heading>
-          <SlateEditor
-            spellCheck
-            autoFocus
-            ref={this.editorRef}
-            onChange={this.onChange}
-            value={value}
-            plugins={this.plugins}
-            schema={schema}
-            renderEditor={this.renderEditor}
-            role={'editor'}
-          />
-        </Box>
-      </div>
+      <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
+        <Heading level="2" margin="none">
+          {title}
+        </Heading>
+        <SlateEditor
+          spellCheck
+          autoFocus
+          ref={this.editorRef}
+          onChange={this.onChange}
+          value={value}
+          plugins={this.plugins}
+          schema={schema}
+          renderEditor={this.renderEditor}
+          role={'editor'}
+        />
+      </Box>
     );
   }
 }

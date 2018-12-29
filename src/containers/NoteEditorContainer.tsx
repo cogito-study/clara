@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, Suspense, useRef } from 'react';
 import gql from 'graphql-tag';
-import { Box } from 'grommet';
+import { Box, Button } from 'grommet';
 import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
 import { DataProxy } from 'apollo-cache';
 import { RouteComponentProps } from 'react-router-dom';
@@ -44,6 +44,7 @@ const updateNoteCache = (cache: DataProxy, mutationResult: FetchResult<any>) => 
     query: NOTE_QUERY,
     variables: { noteID: commentNote.note.id },
   });
+
   if (queryType) {
     const { note } = queryType;
     cache.writeQuery({
@@ -65,6 +66,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const spacerRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
+  const [canShowComments, setShowComments] = useState(false);
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
@@ -91,9 +93,10 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const renderEditor = (note: any) => {
     const { title, text, comments } = note;
     return (
-      <Box basis="2/3">
+      <Box flex>
         <Editor
           title={title}
+          canShowComments={canShowComments}
           initialValue={JSON.parse(text)}
           commentLocations={comments.map(mapCommentToLocations)}
           onCreateComment={onCreateComment}
@@ -111,7 +114,12 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   return (
     <Box fill justify="start" align="start" pad="small" direction="row">
+      <Button primary onClick={() => setShowComments(!canShowComments)}>
+        Toggle Comments
+      </Button>
+
       {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
+
       <Box justify="center" align="center" pad="none" basis="1/3">
         <div ref={spacerRef}>
           <Suspense fallback={renderCommentLoading()}>

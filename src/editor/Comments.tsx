@@ -29,7 +29,7 @@ class Comment extends React.Component<CommentProps, {}> {
   }
 }
 
-export default function Comments(onClickCallback: (id: number, top: number) => void, canShowComments: () => boolean) {
+export default function Comments(onClickCallback: (id: number, top: number) => void, canShowComments: boolean) {
   return {
     renderMark: (props, _, next: VoidFunction) => {
       const {
@@ -38,7 +38,7 @@ export default function Comments(onClickCallback: (id: number, top: number) => v
         mark: { type, data },
       } = props;
       if (type === MarkType.COMMENT) {
-        return canShowComments() ? (
+        return canShowComments ? (
           <Comment onClickCallback={(top) => onClickCallback(data.get('id'), top)} {...attributes}>
             {children}
           </Comment>
