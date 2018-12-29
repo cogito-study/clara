@@ -20,7 +20,7 @@ export const tab = {
     text-transform: uppercase;
     margin: 0px 15px 0px 15px;
     span {
-      font-size: 16px;
+      font-size: 14px;
     }
     `,
 };
@@ -28,7 +28,7 @@ export const tab = {
 export const tabs = {
   background: 'transparent',
   header: {
-    background: 'primary',
+    background: 'horizontalGradient',
     margin: 'none',
   },
   gap: 'small',

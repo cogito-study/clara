@@ -15,7 +15,7 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
   children,
   ...rest
 }) => (
-  <Box width="320px" height="320px" pad="none" round="small" elevation="medium" {...rest}>
+  <Box width="280px" height="270px" pad="none" margin="none" round="small" elevation="medium" {...rest}>
     <Box
       height="xxsmall"
       background="primary"
@@ -23,17 +23,17 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
       justify="center"
       align="end"
       round={{ corner: 'top', size: 'small' }}
-      pad={{ horizontal: 'small' }}
+      pad={{ horizontal: 'small', vertical: 'none' }}
     >
-      <Heading level="3">{noteNumber}</Heading>
+      <Heading level="4">{noteNumber}</Heading>
     </Box>
     <Box fill justify="between" background="white" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="small">
       {children}
       <Box fill direction="column" align="start" justify="start" gap="xsmall">
-        <Heading level="3" color="dark" margin="none">
+        <Heading level="4" color="dark" margin="none">
           {title}
         </Heading>
-        <Paragraph margin="none" color="grey">
+        <Paragraph margin="none" size="small" color="grey">
           {abstract.substring(0, 100)}
         </Paragraph>
       </Box>

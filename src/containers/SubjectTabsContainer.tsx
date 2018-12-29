@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Tabs, Tab } from 'grommet';
 import { RouteComponentProps, Route } from 'react-router-dom';
-
 import { routePath } from '../constants';
 import { SubjectInfoContainer } from './SubjectInfoContainer';
 import { SubjectNoteListContainer } from './SubjectNoteListContainer';

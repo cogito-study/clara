@@ -47,7 +47,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
   };
 
   return (
-    <Box fill="horizontal" background="primary" align="center" justify="center">
+    <Box fill="horizontal" background="horizontalGradient" align="center" justify="center">
       {queryData && renderHeader(queryData)}
     </Box>
   );
