@@ -115,7 +115,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   return (
     <Box fill justify="start" align="start" pad="small" direction="row">
       <Button primary onClick={() => setShowComments(!canShowComments)}>
-        Toggle Comments
+        {canShowComments ? 'Hide' : 'Show'} Comments
       </Button>
 
       {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}

@@ -1,19 +1,17 @@
 import React, { PureComponent, Fragment, MouseEvent } from 'react';
-
 import { Box, Button, Heading } from 'grommet';
-import { Editor as SlateEditor } from 'slate-react';
-import { Value, Range } from 'slate';
-
+import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
+import { Value, Range, SchemaProperties, Editor as CoreEditor, ValueJSON, RangeJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 
-import MarkType from './MarkType';
 import { HoverContainer } from './ProtoComponents';
-
-import Images from './Images';
-import Links from './Links';
-import RichText from './RichText';
-import Comments from './Comments';
-import ReadOnlyPlugin from './ReadOnlyPlugin';
+import { MarkType } from './enums/MarkType';
+import { History } from './plugins/History';
+import { Images } from './plugins/Images';
+import { Links } from './plugins/Links';
+import { RichText } from './plugins/RichText';
+import { Comments } from './plugins/Comments';
+import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 
 export interface CommentButtonPosition {
   top: number;
@@ -22,12 +20,12 @@ export interface CommentButtonPosition {
 
 export interface CommentLocation {
   id: number;
-  range: JSON;
+  range: RangeJSON;
 }
 interface Props {
   title: string;
   canShowComments: boolean;
-  initialValue: JSON;
+  initialValue: ValueJSON;
   commentLocations: CommentLocation[];
   onCommentClick: (id: number, marginTop: number) => void;
   onCreateComment: (locationInText: string) => void;
@@ -37,7 +35,7 @@ interface State {
   commentButtonPosition: CommentButtonPosition;
 }
 
-const schema = {
+const schema: SchemaProperties = {
   blocks: {
     image: {
       isVoid: true,
@@ -48,7 +46,7 @@ const schema = {
 export default class Editor extends PureComponent<Props, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
-  plugins: any[];
+  plugins: Plugin[];
 
   state = {
     value: Value.fromJSON(this.props.initialValue),
@@ -59,12 +57,12 @@ export default class Editor extends PureComponent<Props, State> {
     super(props);
 
     this.plugins = [
-      // History(),
+      History(),
       ReadOnlyPlugin(),
       Images(),
       Links(),
       RichText(),
-      Comments((id: number, top: number) => this.props.onCommentClick(id, top), this.props.canShowComments),
+      Comments((id: number, top: number) => props.onCommentClick(id, top)),
       // PasteLinkify({
       //   isActiveQuery: () => isLinkActive(this.state.value),
       //   wrapCommand: wrapLink,
@@ -75,20 +73,13 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.commentLocations !== prevProps.commentLocations) {
-      this.toggleComments(this.props.commentLocations);
+    const { commentLocations, canShowComments } = this.props;
+    if (commentLocations !== prevProps.commentLocations && canShowComments !== prevProps.canShowComments) {
+      this.toggleComments(commentLocations);
     }
   }
 
-  editorRef = (editor) => {
-    this.editor = editor;
-  };
-
-  commentButtonRef = (commentButton) => {
-    this.commentButton = commentButton;
-  };
-
-  updateCommentButtonPosition = (value) => {
+  updateCommentButtonPosition = (value: Value) => {
     const { canShowComments } = this.props;
     const { fragment, selection } = value;
 
@@ -118,12 +109,11 @@ export default class Editor extends PureComponent<Props, State> {
     const { canShowComments } = this.props;
 
     for (const commentLocation of commentLocations) {
-      const range = Range.createProperties(commentLocation.range);
-      this.editor.select(range);
+      const range = Range.fromJSON(commentLocation.range);
 
       canShowComments
-        ? this.editor.addMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } })
-        : this.editor.removeMark({ type: MarkType.COMMENT, data: { id: commentLocation.id } });
+        ? this.editor.select(range).addMark({ type: MarkType.Comment, data: { id: commentLocation.id } })
+        : this.editor.select(range).removeMark({ type: MarkType.Comment, data: { id: commentLocation.id } });
     }
 
     this.editor.moveToEnd().blur();
@@ -142,8 +132,6 @@ export default class Editor extends PureComponent<Props, State> {
   //   const { value } = editor;
   //   const { document } = value;
 
-  //   const DEFAULT_NODE = NodeType.Paragraph;
-
   //   // Handle everything but list buttons.
   //   if (type !== NodeType.BulletedList && type !== NodeType.NumberedList) {
   //     const isActive = hasBlock(type, value);
@@ -151,11 +139,11 @@ export default class Editor extends PureComponent<Props, State> {
 
   //     if (isList) {
   //       editor
-  //         .setBlocks(isActive ? DEFAULT_NODE : type)
+  //         .setBlocks(isActive ? NodeType.Paragraph : type)
   //         .unwrapBlock(NodeType.BulletedList)
   //         .unwrapBlock(NodeType.NumberedList);
   //     } else {
-  //       editor.setBlocks(isActive ? DEFAULT_NODE : type);
+  //       editor.setBlocks(isActive ? NodeType.Paragraph : type);
   //     }
   //   } else {
   //     // Handle the extra wrapping required for list buttons.
@@ -167,7 +155,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   //     if (isList && sameType) {
   //       editor
-  //         .setBlocks(DEFAULT_NODE)
+  //         .setBlocks(NodeType.Paragraph)
   //         .unwrapBlock(NodeType.BulletedList)
   //         .unwrapBlock(NodeType.NumberedList);
   //     } else if (isList) {
@@ -207,14 +195,19 @@ export default class Editor extends PureComponent<Props, State> {
     this.props.onCreateComment(JSON.stringify(range));
   };
 
-  renderEditor = (_props, _editor, next) => {
+  renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {
     const children = next();
 
-    const { left: buttonLeft, top: buttonTop } = this.state.commentButtonPosition;
+    const { left, top } = this.state.commentButtonPosition;
     return (
       <Fragment>
         {children}
-        <HoverContainer shown={true} innerRef={this.commentButtonRef} left={buttonLeft} top={buttonTop}>
+        <HoverContainer
+          shown={true}
+          innerRef={(commentButton: HTMLElement) => (this.commentButton = commentButton)}
+          left={left}
+          top={top}
+        >
           <Button primary onMouseDown={this.onCreateComment}>
             Comment
           </Button>
@@ -225,12 +218,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   render() {
     const { value } = this.state;
-    const { title, canShowComments, commentLocations } = this.props;
-    console.log('canShowComments', canShowComments);
-
-    if (canShowComments) {
-      this.toggleComments(commentLocations);
-    }
+    const { title, canShowComments } = this.props;
 
     return (
       <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
@@ -240,13 +228,14 @@ export default class Editor extends PureComponent<Props, State> {
         <SlateEditor
           spellCheck
           autoFocus
-          ref={this.editorRef}
+          ref={(editor: SlateEditor) => (this.editor = editor)}
           onChange={this.onChange}
           value={value}
           plugins={this.plugins}
           schema={schema}
+          readOnly={!canShowComments}
           renderEditor={this.renderEditor}
-          role={'editor'}
+          role="editor"
         />
       </Box>
     );

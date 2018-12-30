@@ -1,4 +1,4 @@
-enum NodeType {
+export enum NodeType {
   Paragraph = 'paragraph',
   BulletedList = 'bulleted-list',
   Title = 'heading-one',
@@ -8,5 +8,3 @@ enum NodeType {
   Link = 'link',
   Image = 'image',
 }
-
-export default NodeType;
