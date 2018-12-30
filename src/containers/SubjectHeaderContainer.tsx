@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { Box } from 'grommet';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useQuery, useApolloClient } from 'react-apollo-hooks';
 
 import { SubjectHeader } from '../ui/components/SubjectHeader';
 import { SubjectRouteParams } from '../types/RouteParams';
+import { UserContext } from '../contexts/UserContext';
 import { authService } from '../services/authService';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 
@@ -25,9 +26,10 @@ const SUBJECT_HEADER_QUERY = gql`
 
 export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => {
   const { subjectCode } = props.match.params;
-  const userID = authService.getUserID();
-
   const client = useApolloClient();
+
+  const loggedInUser = useContext(UserContext);
+  const userID = loggedInUser ? loggedInUser.id : undefined;
   const { data: queryData } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
 
   useDocumentTitle(queryData.subject.subjectInfo.name);

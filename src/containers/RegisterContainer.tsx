@@ -24,9 +24,6 @@ const ACTIVATE_USER = gql`
   mutation ActivateUser($userID: Int!, $password: String!) {
     activateUser(userId: $userID, newPassword: $password) {
       token
-      user {
-        id
-      }
     }
   }
 `;
@@ -52,8 +49,8 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
   const onRegistration = () => {
     setLoading(true);
     registerPassword().then(({ data: mutationData }) => {
-      const { token, user } = mutationData.activateUser;
-      authService.authSuccess(token, user.id, history);
+      const { token } = mutationData.activateUser;
+      authService.authSuccess(token, history);
       setLoading(false);
     });
   };

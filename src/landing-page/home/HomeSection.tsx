@@ -32,9 +32,6 @@ const LOGIN_USER = gql`
   mutation LoginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {
       token
-      user {
-        id
-      }
     }
   }
 `;
@@ -46,7 +43,7 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
 
   const onLogin = (event) => {
     event.preventDefault();
-    loginUser().then(({ data }) => authService.authSuccess(data.loginUser.token, data.loginUser.user.id, history));
+    loginUser().then(({ data }) => authService.authSuccess(data.loginUser.token, history));
   };
 
   return (

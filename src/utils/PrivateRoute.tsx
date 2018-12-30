@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 
 import { routePath } from '../constants';
+import { UserProvider } from '../contexts/UserContext';
 import { authService } from '../services/authService';
 
 interface PrivateRouteProps extends RouteProps {
@@ -13,7 +14,9 @@ export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({ component: 
     {...rest}
     render={(props: RouteComponentProps<any>) =>
       authService.getAuthToken() ? (
-        <Component {...props} />
+        <UserProvider>
+          <Component {...props} />
+        </UserProvider>
       ) : (
         <Redirect
           to={{

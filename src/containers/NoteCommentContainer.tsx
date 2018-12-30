@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import { DataProxy } from 'apollo-cache';
 import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
 
 import { NoteComment } from '../ui/components';
+import { UserContext } from '../contexts/UserContext';
 import { dateService } from '../services/dateService';
-import { authService } from '../services/authService';
 
 const COMMENT_QUERY = gql`
   query CommentQuery($commentID: Int!) {
@@ -84,6 +84,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   canShowComments,
   onCommentDelete,
 }) => {
+  const loggedInUser = useContext(UserContext);
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, {
@@ -99,13 +100,10 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
 
   const renderCommentBox = (comment: any) => {
     const { author, createdAt, upvotes, text } = comment;
-    const loggedInUserID = authService.getUserID();
+    const loggedInUserID = loggedInUser ? loggedInUser.id : undefined;
 
     const isUpvoted = upvotes.some((upvote) => upvote.id === loggedInUserID);
     const isMyComment = author.id === loggedInUserID;
-
-    console.log('authorid', author.id, 'loggedInUserID', loggedInUserID);
-    console.log('isMyComment', isMyComment);
 
     return (
       <NoteComment
