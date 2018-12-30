@@ -49,15 +49,15 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             showNotification('There is an info with multiple lines let us see how this looks like', 'info')
           }
         />
-        <Button primary label="Success Button" onClick={() => {}} />
-        <Button primary label="Info Button" onClick={() => {}} />
-        <Button label="Main Button" onClick={() => alert('Rakatintottal a gombra!')} />
+        <Button primary label="Primary Button" onClick={() => {}} />
+        <Button color="primary" label="Default Button" onClick={() => {}} />
+        <Button plain label="Plain Button" onClick={() => alert('Rakatintottal a gombra!')} />
         <NoteComment
           author="Mate Papp"
           date="12 minutes ago"
           paragraph={commentParagraph}
           upvoteCounts={16}
-          isUpvoted
+          isUpvoted={false}
           onVote={() => {
             alert('Like');
           }}
