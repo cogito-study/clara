@@ -41,7 +41,7 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
         <Box fill="horizontal">
           <Stack anchor="top-right" margin="none" guidingChild="last">
             <HeadingWithOpacity margin="none" color="primary" level="1">
-              {noteNumber}
+              {noteNumber < 10 ? '0' + noteNumber : noteNumber}
             </HeadingWithOpacity>
             <Heading level="4" color="dark" margin="none">
               {title}

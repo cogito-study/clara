@@ -13,6 +13,10 @@ import { LoadingPage } from '../pages/LoadingPage';
 import { PrivateRoute } from '../utils/PrivateRoute';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
 
+import { isProduction } from '../environment/config';
+
+import ReactGA from 'react-ga';
+
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
@@ -23,8 +27,14 @@ const TempGrommet = styled(Grommet)`
   overflow: visible;
 `;
 
+const initializeGA = () => {
+  ReactGA.initialize('UA-120199285-1');
+  ReactGA.pageview(window.location.pathname + window.location.search);
+};
+
 export const App = () => (
   <TempGrommet theme={theme} full>
+    {isProduction && initializeGA()}
     <NotificationProvider>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
