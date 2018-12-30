@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 import { DataProxy } from 'apollo-cache';
 import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
 
-import { NoteComment } from '../ui/components/NoteComment';
+import { NoteComment } from '../ui/components';
 import { dateService } from '../services/dateService';
 import { authService } from '../services/authService';
 
@@ -89,14 +89,16 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, sele
 
   const renderCommentBox = (comment: any) => {
     const { author, createdAt, upvotes, text } = comment;
+    const isUpvoted = upvotes.some((upvote) => upvote.id === authService.getUserID());
+
     return (
       <NoteComment
         author={`${author.lastName} ${author.firstName}`}
         date={dateService.sinceNow(createdAt)}
         paragraph={text}
         upvoteCounts={upvotes.length}
-        isUpvoted={upvotes.some((upvote) => upvote.id === authService.getUserID())}
-        onVote={onCommentVote}
+        isUpvoted={isUpvoted}
+        onVote={() => onCommentVote(isUpvoted)}
       />
     );
   };

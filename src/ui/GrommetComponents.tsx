@@ -50,7 +50,9 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           }
         />
         <Button primary label="Primary Button" onClick={() => {}} />
-        <Button color="primary" label="Default Button" onClick={() => {}} />
+        <Button color="primary" label="Default blue Button" onClick={() => {}} />
+        <Button color="error" label="Default red Button" onClick={() => {}} />
+        <Button color="success" label="Default green Button" onClick={() => {}} />
         <Button plain label="Plain Button" onClick={() => alert('Rakatintottal a gombra!')} />
         <NoteComment
           author="Mate Papp"
@@ -58,10 +60,24 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           paragraph={commentParagraph}
           upvoteCounts={16}
           isUpvoted={false}
-          onVote={() => {
-            alert('Like');
-          }}
+          onVote={() => alert('Like')}
         />
+        <NoteComment
+          author="Mate Papp"
+          onNewCommentChange={console.log}
+          onNewCommentCancel={() => alert('Cancel')}
+          onNewCommentDone={() => alert('Done')}
+        />
+        <NoteComment
+          author="Mate Papp"
+          date="12 minutes ago"
+          paragraph={commentParagraph}
+          upvoteCounts={16}
+          isUpvoted={false}
+          onDelete={() => alert('Delete')}
+          onVote={() => alert('Like')}
+        />
+
         <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
           <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
         </FormField>
