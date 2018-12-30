@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useState, Suspense, useRef } from 'react';
 import gql from 'graphql-tag';
 import { Box, Button } from 'grommet';
-import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
-import { DataProxy } from 'apollo-cache';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { NoteRouteParams } from '../types/RouteParams';
@@ -38,22 +37,13 @@ const SUBMIT_COMMENT_MUTATION = gql`
   }
 `;
 
-const updateNoteCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
-  const { commentNote } = mutationResult.data;
-  const queryType = cache.readQuery<{ note: any }>({
-    query: NOTE_QUERY,
-    variables: { noteID: commentNote.note.id },
-  });
-
-  if (queryType) {
-    const { note } = queryType;
-    cache.writeQuery({
-      query: NOTE_QUERY,
-      variables: { noteID: commentNote.note.id },
-      data: { note: { ...note, comments: commentNote.note.comments } },
-    });
+const DELETE_COMMENT_MUTATION = gql`
+  mutation DeleteComment($commentID: Int!) {
+    deleteComment(commentId: $commentID) {
+      success
+    }
   }
-};
+`;
 
 const mapCommentToLocations = (comment: any): CommentLocation => ({
   id: comment.id,
@@ -70,7 +60,11 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
-  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { update: updateNoteCache });
+  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { refetchQueries: [NOTE_QUERY] });
+  const deleteComment = useMutation(DELETE_COMMENT_MUTATION, {
+    variables: { commentID: selectedCommentID },
+    refetchQueries: [NOTE_QUERY],
+  });
 
   useDocumentTitle(noteQueryData.note.title);
 
@@ -84,6 +78,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } });
     }
   };
+
+  const onCommentDelete = () => deleteComment().then(() => setSelectedCommentID(undefined));
 
   const onCommentClick = (id: number, marginTop: number) => {
     setSelectedCommentID(id);
@@ -127,6 +123,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
               marginTop={calculateRelativeMarginTop()}
               selectedCommentID={selectedCommentID}
               canShowComments={canShowComments}
+              onCommentDelete={onCommentDelete}
             />
           </Suspense>
         </div>

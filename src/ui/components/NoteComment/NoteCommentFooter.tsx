@@ -18,17 +18,25 @@ const ExistingCommentFooter: FunctionComponent<ExistingCommentFooterProps> = ({
   onDelete,
   upvoteCounts,
 }) => (
-  <Box justify="end" direction="row" pad="none" gap="small">
+  <Box height="38px" align="stretch" justify="end" direction="row" pad="none" gap="small">
     {onDelete && (
-      <Button reverse color="error" label="Törlés" onClick={onDelete} icon={<Image src={trash} width="16px" />} />
-    )}
-    {isUpvoted !== undefined && upvoteCounts && onVote && (
       <Button
         reverse
+        plain={false}
+        color="error"
+        label="Törlés"
+        onClick={onDelete}
+        icon={<Image src={trash} width="16px" />}
+      />
+    )}
+    {isUpvoted !== undefined && upvoteCounts !== undefined && onVote && (
+      <Button
+        reverse
+        plain={false}
         active={isUpvoted}
         color="primary"
         icon={<Image src={isUpvoted ? upvoted : upvote} width="16px" />}
-        label={upvoteCounts}
+        label={upvoteCounts === 0 ? true : upvoteCounts} // temporary workaround to handle 0 not a falsy value
         onClick={() => onVote(isUpvoted)}
       />
     )}

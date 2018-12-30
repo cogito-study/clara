@@ -14,6 +14,7 @@ const COMMENT_QUERY = gql`
       text
       createdAt
       author {
+        id
         firstName
         lastName
       }
@@ -59,6 +60,7 @@ const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) 
     query: COMMENT_QUERY,
     variables: { commentID: newComment.comment.id },
   });
+
   if (queryType) {
     const { comment } = queryType;
     cache.writeQuery({
@@ -73,23 +75,37 @@ export interface Props {
   marginTop: number;
   canShowComments: boolean;
   selectedCommentID?: number;
+  onCommentDelete: () => void;
 }
 
-export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID, canShowComments }) => {
+export const NoteCommentContainer: FunctionComponent<Props> = ({
+  marginTop,
+  selectedCommentID,
+  canShowComments,
+  onCommentDelete,
+}) => {
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
-  const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, { update: updateCommentCache });
-  const unvoteComment = useMutation(UNVOTE_COMMENT_MUTATION, { update: updateCommentCache });
+  const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, {
+    update: updateCommentCache,
+    variables: { commentID: selectedCommentID },
+  });
+  const unvoteComment = useMutation(UNVOTE_COMMENT_MUTATION, {
+    update: updateCommentCache,
+    variables: { commentID: selectedCommentID },
+  });
 
-  const onCommentVote = (isUpvoted: boolean) => {
-    isUpvoted
-      ? unvoteComment({ variables: { commentID: selectedCommentID } })
-      : upvoteComment({ variables: { commentID: selectedCommentID } });
-  };
+  const onCommentVote = (isUpvoted: boolean) => (isUpvoted ? unvoteComment() : upvoteComment());
 
   const renderCommentBox = (comment: any) => {
     const { author, createdAt, upvotes, text } = comment;
-    const isUpvoted = upvotes.some((upvote) => upvote.id === authService.getUserID());
+    const loggedInUserID = authService.getUserID();
+
+    const isUpvoted = upvotes.some((upvote) => upvote.id === loggedInUserID);
+    const isMyComment = author.id === loggedInUserID;
+
+    console.log('authorid', author.id, 'loggedInUserID', loggedInUserID);
+    console.log('isMyComment', isMyComment);
 
     return (
       <NoteComment
@@ -99,6 +115,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, sele
         upvoteCounts={upvotes.length}
         isUpvoted={isUpvoted}
         onVote={() => onCommentVote(isUpvoted)}
+        onDelete={isMyComment ? () => onCommentDelete() : undefined}
       />
     );
   };
