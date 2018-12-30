@@ -63,8 +63,10 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
   return (
     <Box justify="center" align="center" background="light" pad="none">
       <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
-        <Box wrap fill={true} direction="row-responsive" justify="center">
+        <Box wrap fill={true} direction="row" justify="center">
           {data.subject.notes && renderNoteList()}
+          <Box width="280px" height="0px" margin="medium" />
+          <Box width="280px" height="0px" margin="medium" />
         </Box>
       </Box>
     </Box>
