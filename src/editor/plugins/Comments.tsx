@@ -36,8 +36,9 @@ export const Comments = (onClickCallback: (id: number, top: number) => void): Pl
     } = props;
 
     if (type === MarkType.Comment) {
+      const id = data.get('id');
       return (
-        <Comment node={node} onClickCallback={(top) => onClickCallback(data.get('id'), top)}>
+        <Comment key={id} node={node} onClickCallback={(top) => onClickCallback(id, top)}>
           {children}
         </Comment>
       );

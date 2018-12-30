@@ -108,13 +108,13 @@ export default class Editor extends PureComponent<Props, State> {
   toggleComments = (commentLocations: CommentLocation[]) => {
     const { canShowComments } = this.props;
 
-    for (const commentLocation of commentLocations) {
-      const range = Range.fromJSON(commentLocation.range);
+    commentLocations.forEach(({ id, range }: CommentLocation) => {
+      const commentRange = Range.fromJSON(range);
 
       canShowComments
-        ? this.editor.select(range).addMark({ type: MarkType.Comment, data: { id: commentLocation.id } })
-        : this.editor.select(range).removeMark({ type: MarkType.Comment, data: { id: commentLocation.id } });
-    }
+        ? this.editor.select(commentRange).addMark({ type: MarkType.Comment, data: { id } })
+        : this.editor.select(commentRange).removeMark({ type: MarkType.Comment, data: { id } });
+    });
 
     this.editor.moveToEnd().blur();
   };
@@ -191,8 +191,8 @@ export default class Editor extends PureComponent<Props, State> {
 
   onCreateComment = (event: MouseEvent<any>) => {
     event.preventDefault();
-    const range = Range.createProperties(this.editor.value.selection);
-    this.props.onCreateComment(JSON.stringify(range));
+    const selectionJSON = this.editor.value.selection.toJSON();
+    this.props.onCreateComment(JSON.stringify(selectionJSON));
   };
 
   renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {
