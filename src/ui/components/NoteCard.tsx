@@ -1,11 +1,19 @@
 import React, { FunctionComponent } from 'react';
-import { Box, BoxProps, Heading, Paragraph } from 'grommet';
+import { Box, BoxProps, Heading, Paragraph, Stack } from 'grommet';
+
+import styled from 'styled-components';
+
 interface Props {
   noteNumber: number;
   title: string;
   abstract: string;
   dateLabel?: string;
 }
+
+const HeadingWithOpacity = styled(Heading)`
+  opacity: 0.2;
+  font-size: 80px;
+`;
 
 const NoteCard: FunctionComponent<BoxProps & Props> = ({
   noteNumber,
@@ -15,24 +23,31 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
   children,
   ...rest
 }) => (
-  <Box width="280px" height="270px" pad="none" margin="none" round="small" elevation="medium" {...rest}>
+  <Box>
     <Box
-      height="xxsmall"
-      background="primary"
-      overflow="hidden"
-      justify="center"
-      align="end"
-      round={{ corner: 'top', size: 'small' }}
-      pad={{ horizontal: 'small', vertical: 'none' }}
+      width="280px"
+      height="270px"
+      justify="between"
+      background="white"
+      round="small"
+      pad="medium"
+      gap="small"
+      elevation="medium"
+      {...rest}
     >
-      <Heading level="4">{noteNumber}</Heading>
-    </Box>
-    <Box fill justify="between" background="white" round={{ corner: 'bottom', size: 'small' }} pad="medium" gap="small">
       {children}
+
       <Box fill direction="column" align="start" justify="start" gap="xsmall">
-        <Heading level="4" color="dark" margin="none">
-          {title}
-        </Heading>
+        <Box fill="horizontal">
+          <Stack anchor="top-right" margin="none" guidingChild="last">
+            <HeadingWithOpacity margin="none" color="primary" level="1">
+              {noteNumber}
+            </HeadingWithOpacity>
+            <Heading level="4" color="dark" margin="none">
+              {title}
+            </Heading>
+          </Stack>
+        </Box>
         <Paragraph margin="none" size="small" color="grey">
           {abstract.substring(0, 100)}
         </Paragraph>
