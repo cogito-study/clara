@@ -123,7 +123,11 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       <Box justify="center" align="center" pad="none" basis="1/3">
         <div ref={spacerRef}>
           <Suspense fallback={renderCommentLoading()}>
-            <NoteCommentContainer marginTop={calculateRelativeMarginTop()} selectedCommentID={selectedCommentID} />
+            <NoteCommentContainer
+              marginTop={calculateRelativeMarginTop()}
+              selectedCommentID={selectedCommentID}
+              canShowComments={canShowComments}
+            />
           </Suspense>
         </div>
       </Box>

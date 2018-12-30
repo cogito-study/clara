@@ -71,10 +71,11 @@ const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) 
 
 export interface Props {
   marginTop: number;
+  canShowComments: boolean;
   selectedCommentID?: number;
 }
 
-export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID }) => {
+export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, selectedCommentID, canShowComments }) => {
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, { update: updateCommentCache });
@@ -102,7 +103,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({ marginTop, sele
 
   return (
     <Box margin={{ top: `${marginTop}px` }} animation="slideLeft">
-      {commentQueryData && commentQueryData.comment && renderCommentBox(commentQueryData.comment)}
+      {commentQueryData && commentQueryData.comment && canShowComments && renderCommentBox(commentQueryData.comment)}
     </Box>
   );
 };
