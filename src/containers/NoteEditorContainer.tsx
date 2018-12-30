@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, Suspense, useRef } from 'react';
+import React, { FunctionComponent, useState, useRef, Suspense } from 'react';
 import gql from 'graphql-tag';
 import { Box, Button } from 'grommet';
 import { useQuery, useMutation } from 'react-apollo-hooks';
@@ -57,13 +57,17 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [canShowComments, setShowComments] = useState(false);
+  const [shouldDisplayNewComment, setShouldDisplayNewComment] = useState(false);
+  const [newCommentLocationInText, setNewCommentLocationInText] = useState('');
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
 
   const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
-  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, { refetchQueries: [NOTE_QUERY] });
+  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, {
+    refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
+  });
   const deleteComment = useMutation(DELETE_COMMENT_MUTATION, {
     variables: { commentID: selectedCommentID },
-    refetchQueries: [NOTE_QUERY],
+    refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
 
   useDocumentTitle(noteQueryData.note.title);
@@ -71,19 +75,32 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const calculateRelativeMarginTop = (): number =>
     commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
 
-  const onCreateComment = (locationInText: string) => {
-    const commentText = prompt('Komment szovege?');
+  const onCreateComment = (locationInText: string, marginTop: number) => {
+    setShouldDisplayNewComment(true);
+    setSelectedCommentID(undefined);
+    setCommentMarginTop(marginTop);
+    setNewCommentLocationInText(locationInText);
+  };
 
+  const onCreateCommentDone = (commentText: string) => {
     if (commentText) {
-      submitComment({ variables: { noteID, commentData: { text: commentText, locationInText } } });
+      submitComment({
+        variables: { noteID, commentData: { text: commentText, locationInText: newCommentLocationInText } },
+      }).then(() => setShouldDisplayNewComment(false));
     }
   };
 
   const onCommentDelete = () => deleteComment().then(() => setSelectedCommentID(undefined));
 
   const onCommentClick = (id: number, marginTop: number) => {
+    setShouldDisplayNewComment(false);
     setSelectedCommentID(id);
     setCommentMarginTop(marginTop);
+  };
+
+  const toggleComments = () => {
+    setShowComments(!canShowComments);
+    setSelectedCommentID(undefined);
   };
 
   const renderEditor = (note: any) => {
@@ -110,7 +127,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   return (
     <Box fill justify="start" align="start" pad="small" direction="row">
-      <Button primary onClick={() => setShowComments(!canShowComments)}>
+      <Button primary onClick={toggleComments}>
         {canShowComments ? 'Hide' : 'Show'} Comments
       </Button>
 
@@ -123,7 +140,10 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
               marginTop={calculateRelativeMarginTop()}
               selectedCommentID={selectedCommentID}
               canShowComments={canShowComments}
+              shouldDisplayNewComment={shouldDisplayNewComment}
               onCommentDelete={onCommentDelete}
+              onNewCommentCancel={() => setShouldDisplayNewComment(false)}
+              onNewCommentDone={onCreateCommentDone}
             />
           </Suspense>
         </div>

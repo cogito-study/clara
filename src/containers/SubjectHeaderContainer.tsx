@@ -45,7 +45,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
       return <SubjectHeader title={subjectInfo.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />;
     }
 
-    return null;
+    return undefined;
   };
 
   return (

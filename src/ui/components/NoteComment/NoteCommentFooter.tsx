@@ -18,7 +18,7 @@ const ExistingCommentFooter: FunctionComponent<ExistingCommentFooterProps> = ({
   onDelete,
   upvoteCounts,
 }) => (
-  <Box height="38px" align="stretch" justify="end" direction="row" pad="none" gap="small">
+  <Box align="stretch" justify="end" direction="row" pad="none" gap="small">
     {onDelete && (
       <Button
         reverse

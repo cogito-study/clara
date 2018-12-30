@@ -28,7 +28,7 @@ interface Props {
   initialValue: ValueJSON;
   commentLocations: CommentLocation[];
   onCommentClick: (id: number, marginTop: number) => void;
-  onCreateComment: (locationInText: string) => void;
+  onCreateComment: (locationInText: string, marginTop: number) => void;
 }
 interface State {
   value: Value;
@@ -73,11 +73,16 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { commentLocations, canShowComments } = this.props;
-    if (commentLocations !== prevProps.commentLocations && canShowComments !== prevProps.canShowComments) {
-      this.toggleComments(commentLocations);
+    if (this.props.commentLocations !== prevProps.commentLocations) {
+      this.toggleComments(this.props.commentLocations);
     }
   }
+
+  calculateSelectionPosition = () =>
+    window
+      .getSelection()
+      .getRangeAt(0)
+      .getBoundingClientRect();
 
   updateCommentButtonPosition = (value: Value) => {
     const { canShowComments } = this.props;
@@ -92,9 +97,7 @@ export default class Editor extends PureComponent<Props, State> {
         commentButtonPosition: { left: -10000, top: -10000 },
       });
     } else {
-      const native = window.getSelection();
-      const range = native.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
+      const rect = this.calculateSelectionPosition();
 
       this.setState({
         commentButtonPosition: {
@@ -192,7 +195,8 @@ export default class Editor extends PureComponent<Props, State> {
   onCreateComment = (event: MouseEvent<any>) => {
     event.preventDefault();
     const selectionJSON = this.editor.value.selection.toJSON();
-    this.props.onCreateComment(JSON.stringify(selectionJSON));
+    const marginTop = this.calculateSelectionPosition().top;
+    this.props.onCreateComment(JSON.stringify(selectionJSON), marginTop);
   };
 
   renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {

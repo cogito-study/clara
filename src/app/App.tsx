@@ -32,43 +32,48 @@ const initializeGA = () => {
   ReactGA.pageview(window.location.pathname + window.location.search);
 };
 
-export const App = () => (
-  <TempGrommet theme={theme} full>
-    {isProduction && initializeGA()}
-    <NotificationProvider>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
-          <BrowserRouter>
-            <Suspense fallback={<LoadingPage />}>
-              <Switch>
-                <Route
-                  path={routePath.register()}
-                  component={(props: RouteComponentProps<AuthRouteParams>) => <RegisterPage {...props} />}
-                />
-                <Route
-                  path={routePath.components()}
-                  component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
-                />
-                <PrivateRoute
-                  exact
-                  path={routePath.subjectNote()}
-                  component={(props: RouteComponentProps<NoteRouteParams>) => <NotePage {...props} />}
-                />
-                <PrivateRoute
-                  path={routePath.subject()}
-                  component={(props: RouteComponentProps<SubjectRouteParams>) => <SubjectPage {...props} />}
-                />
-                <Route
-                  exact
-                  path={routePath.root()}
-                  component={(props: RouteComponentProps) => <LandingPage {...props} />}
-                />
-                <Redirect to={routePath.root()} />
-              </Switch>
-            </Suspense>
-          </BrowserRouter>
-        </ApolloHooksProvider>
-      </ApolloProvider>
-    </NotificationProvider>
-  </TempGrommet>
-);
+export const App = () => {
+  if (isProduction) {
+    initializeGA();
+  }
+
+  return (
+    <TempGrommet theme={theme} full>
+      <NotificationProvider>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            <BrowserRouter>
+              <Suspense fallback={<LoadingPage />}>
+                <Switch>
+                  <Route
+                    path={routePath.register()}
+                    component={(props: RouteComponentProps<AuthRouteParams>) => <RegisterPage {...props} />}
+                  />
+                  <Route
+                    path={routePath.components()}
+                    component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
+                  />
+                  <PrivateRoute
+                    exact
+                    path={routePath.subjectNote()}
+                    component={(props: RouteComponentProps<NoteRouteParams>) => <NotePage {...props} />}
+                  />
+                  <PrivateRoute
+                    path={routePath.subject()}
+                    component={(props: RouteComponentProps<SubjectRouteParams>) => <SubjectPage {...props} />}
+                  />
+                  <Route
+                    exact
+                    path={routePath.root()}
+                    component={(props: RouteComponentProps) => <LandingPage {...props} />}
+                  />
+                  <Redirect to={routePath.root()} />
+                </Switch>
+              </Suspense>
+            </BrowserRouter>
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      </NotificationProvider>
+    </TempGrommet>
+  );
+};

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import { DataProxy } from 'apollo-cache';
@@ -74,17 +74,24 @@ const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) 
 export interface Props {
   marginTop: number;
   canShowComments: boolean;
+  shouldDisplayNewComment: boolean;
   selectedCommentID?: number;
   onCommentDelete: () => void;
+  onNewCommentCancel: () => void;
+  onNewCommentDone: (text: string) => void;
 }
 
 export const NoteCommentContainer: FunctionComponent<Props> = ({
   marginTop,
-  selectedCommentID,
   canShowComments,
+  selectedCommentID,
+  shouldDisplayNewComment,
   onCommentDelete,
+  onNewCommentCancel,
+  onNewCommentDone,
 }) => {
   const loggedInUser = useContext(UserContext);
+  const [newCommentText, setNewCommentText] = useState('');
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, {
@@ -118,9 +125,26 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
     );
   };
 
+  const renderNewCommentBox = () => {
+    const author = loggedInUser ? `${loggedInUser.lastName} ${loggedInUser.firstName}` : '';
+    return (
+      <NoteComment
+        author={author}
+        onNewCommentChange={setNewCommentText}
+        onNewCommentCancel={onNewCommentCancel}
+        onNewCommentDone={() => onNewCommentDone(newCommentText)}
+      />
+    );
+  };
+
   return (
     <Box margin={{ top: `${marginTop}px` }} animation="slideLeft">
-      {commentQueryData && commentQueryData.comment && canShowComments && renderCommentBox(commentQueryData.comment)}
+      {shouldDisplayNewComment && renderNewCommentBox()}
+      {commentQueryData &&
+        commentQueryData.comment &&
+        canShowComments &&
+        selectedCommentID &&
+        renderCommentBox(commentQueryData.comment)}
     </Box>
   );
 };
