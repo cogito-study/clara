@@ -25,21 +25,22 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
 }) => (
   <Box>
     <Box
+      align="center"
       width="280px"
       height="270px"
       justify="between"
       background="white"
-      round="small"
+      round="medium"
       pad="medium"
       gap="small"
-      elevation="medium"
+      elevation="large"
       {...rest}
     >
       {children}
 
       <Box fill direction="column" align="start" justify="start" gap="xsmall">
         <Box fill="horizontal">
-          <Stack anchor="top-right" margin="none" guidingChild="last">
+          <Stack anchor="top-right" margin={{ top: '12px', horizontal: 'none' }} guidingChild="last">
             <HeadingWithOpacity margin="none" color="primary" level="1">
               {noteNumber < 10 ? '0' + noteNumber : noteNumber}
             </HeadingWithOpacity>

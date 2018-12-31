@@ -24,3 +24,22 @@ export const font = {
   family: 'Montserrat',
   size: '16px',
 };
+
+export const elevation = {
+  light: {
+    none: 'none',
+    xsmall: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    small: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    medium: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    large: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    xlarge: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+  },
+  dark: {
+    none: 'none',
+    xsmall: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    small: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    medium: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    large: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+    xlarge: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+  },
+};

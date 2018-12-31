@@ -32,6 +32,7 @@ const HoveredNoteCard = styled(NoteCard)`
 
   &:hover {
     transform: scale(1.05);
+    box-shadow: ${(props) => props.theme.global.elevation.light.xlarge};
   }
 `;
 
