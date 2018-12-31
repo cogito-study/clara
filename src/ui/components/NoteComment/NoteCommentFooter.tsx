@@ -51,7 +51,7 @@ interface NewCommentFooterProps {
 const NewCommentFooter: FunctionComponent<NewCommentFooterProps> = ({ onNewCommentCancel, onNewCommentDone }) => (
   <Box justify="end" direction="row" pad="none" gap="small">
     {onNewCommentCancel && <Button reverse color="gray" label="X" onClick={onNewCommentCancel} />}
-    {onNewCommentDone && <Button color="primary" label="Kész" onClick={onNewCommentDone} />}
+    {onNewCommentDone && <Button active color="primary" label="Kész" onClick={onNewCommentDone} />}
   </Box>
 );
 
