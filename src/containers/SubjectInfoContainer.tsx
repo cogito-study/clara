@@ -33,7 +33,7 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
     ));
 
   return (
-    <Box background="light" fill="vertical" align="center" gap="medium" pad="medium">
+    <Box background="light" fill="vertical" align="center" gap="medium" pad="medium" margin="medium">
       {errors && showNotification(errors[0].message, 'error')}
       {data && data.subject && renderInfos()}
     </Box>

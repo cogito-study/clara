@@ -55,19 +55,19 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
             title={note.title}
             abstract={note.description}
             dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
-            margin="medium"
+            margin="small"
           />
         </Link>
       ));
   };
 
   return (
-    <Box justify="center" align="center" background="light" pad="none">
+    <Box justify="center" align="center" background="light" margin={{ top: 'medium' }} pad="none">
       <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
         <Box wrap fill={true} direction="row" justify="center">
           {data.subject.notes && renderNoteList()}
-          <Box width="280px" height="0px" margin="medium" />
-          <Box width="280px" height="0px" margin="medium" />
+          <Box width="280px" height="0px" margin="small" />
+          <Box width="280px" height="0px" margin="small" />
         </Box>
       </Box>
     </Box>

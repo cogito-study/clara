@@ -6,7 +6,7 @@ import { NoteRouteParams } from '../types/RouteParams';
 import { NoteEditorContainer } from '../containers/NoteEditorContainer';
 
 const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = (props) => (
-  <Box fill background="backgroundBlue">
+  <Box fill background="light">
     <NoteEditorContainer {...props} />
   </Box>
 );

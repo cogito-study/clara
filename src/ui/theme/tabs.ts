@@ -1,7 +1,9 @@
 export const tab = {
   color: 'light',
+  weight: '500',
   active: {
     color: 'light',
+    weight: '700',
   },
   hover: {
     color: 'light',
@@ -16,7 +18,6 @@ export const tab = {
     },
   },
   extend: `
-    font-weight: 600;
     text-transform: uppercase;
     margin: 0px 15px 0px 15px;
     span {

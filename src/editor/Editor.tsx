@@ -12,6 +12,7 @@ import { Links } from './plugins/Links';
 import { RichText } from './plugins/RichText';
 import { Comments } from './plugins/Comments';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
+import styled from 'styled-components';
 
 export interface CommentButtonPosition {
   top: number;
@@ -225,23 +226,30 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <Box background="light" elevation="medium" round="small" pad="large" gap="medium">
+      <EditorBox margin="large">
         <Heading level="2" margin="none">
           {title}
         </Heading>
-        <SlateEditor
-          spellCheck
-          autoFocus
-          ref={(editor: SlateEditor) => (this.editor = editor)}
-          onChange={this.onChange}
-          value={value}
-          plugins={this.plugins}
-          schema={schema}
-          readOnly={!canShowComments}
-          renderEditor={this.renderEditor}
-          role="editor"
-        />
-      </Box>
+        <Box background="white" elevation="large" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
+          <SlateEditor
+            spellCheck
+            autoFocus
+            ref={(editor: SlateEditor) => (this.editor = editor)}
+            onChange={this.onChange}
+            value={value}
+            plugins={this.plugins}
+            schema={schema}
+            readOnly={!canShowComments}
+            renderEditor={this.renderEditor}
+            role="editor"
+          />
+        </Box>
+      </EditorBox>
     );
   }
 }
+
+export const EditorBox = styled(Box)`
+  width: 80%;
+  max-width: 1000px;
+`;
