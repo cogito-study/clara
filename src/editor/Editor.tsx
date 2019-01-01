@@ -226,7 +226,7 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <EditorBox margin="large">
+      <EditorBox margin={{ vertical: 'large', horizontal: 'xsmall' }}>
         <Heading level="2" margin="none">
           {title}
         </Heading>
@@ -250,6 +250,5 @@ export default class Editor extends PureComponent<Props, State> {
 }
 
 export const EditorBox = styled(Box)`
-  width: 80%;
   max-width: 1000px;
 `;

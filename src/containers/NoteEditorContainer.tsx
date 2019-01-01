@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useState, useRef, Suspense } from 'react';
 import gql from 'graphql-tag';
-import { Box, Button } from 'grommet';
+import { Box, Button, Image } from 'grommet';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
+import CommentIcon from '../assets/images/CommentIcon.svg';
+import CloseIcon from '../assets/images/CloseIcon.svg';
+import BackIcon from '../assets/images/BackIcon.svg';
 
 import { NoteRouteParams } from '../types/RouteParams';
 import Editor, { CommentLocation } from '../editor/Editor';
@@ -106,7 +109,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const renderEditor = (note: any) => {
     const { title, text, comments } = note;
     return (
-      <Box flex>
+      <Box width="xlarge" justify="center" align="center">
         <Editor
           title={title}
           canShowComments={canShowComments}
@@ -126,27 +129,41 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   );
 
   return (
-    <Box fill justify="start" align="start" pad="small" direction="row">
-      <Button primary onClick={toggleComments}>
-        {canShowComments ? 'Hide' : 'Show'} Comments
-      </Button>
-
-      {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
-
-      <Box justify="center" align="center" pad="none" basis="1/3">
-        <div ref={spacerRef}>
-          <Suspense fallback={renderCommentLoading()}>
-            <NoteCommentContainer
-              marginTop={calculateRelativeMarginTop()}
-              selectedCommentID={selectedCommentID}
-              canShowComments={canShowComments}
-              shouldDisplayNewComment={shouldDisplayNewComment}
-              onCommentDelete={onCommentDelete}
-              onNewCommentCancel={() => setShouldDisplayNewComment(false)}
-              onNewCommentDone={onCreateCommentDone}
-            />
-          </Suspense>
-        </div>
+    <Box justify="center" alignContent="center" align="start" margin="medium" direction="row">
+      <Button
+        margin={{ top: 'medium' }}
+        color="gray"
+        label="Vissza"
+        icon={<Image src={BackIcon} width="20px" />}
+        // TODO : onClick -> back to noteList
+      />
+      <Box width="large" margin={{ horizontal: 'small' }} justify="center">
+        {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
+      </Box>
+      <Box direction="column" align="start" width="320px">
+        <Button
+          reverse
+          margin={{ top: 'medium' }}
+          color={canShowComments ? 'error' : 'primary'}
+          label={canShowComments ? 'Elrejtés' : 'Javaslatok'}
+          icon={canShowComments ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
+          onClick={toggleComments}
+        />
+        <Box justify="center" align="start" pad="none">
+          <div ref={spacerRef}>
+            <Suspense fallback={renderCommentLoading()}>
+              <NoteCommentContainer
+                marginTop={calculateRelativeMarginTop()}
+                selectedCommentID={selectedCommentID}
+                canShowComments={canShowComments}
+                shouldDisplayNewComment={shouldDisplayNewComment}
+                onCommentDelete={onCommentDelete}
+                onNewCommentCancel={() => setShouldDisplayNewComment(false)}
+                onNewCommentDone={onCreateCommentDone}
+              />
+            </Suspense>
+          </div>
+        </Box>
       </Box>
     </Box>
   );

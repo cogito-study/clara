@@ -13,7 +13,7 @@ const UpperCaseHeading = styled(Heading)`
 `;
 
 export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
-  <Box pad="medium" background="white" round="xsmall" elevation="medium" width="large">
+  <Box pad="medium" background="white" round="small" elevation="medium" width="large" animation="slideDown">
     <UpperCaseHeading color="primary" level="3" margin="xsmall">
       {props.title}
     </UpperCaseHeading>

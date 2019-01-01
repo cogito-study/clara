@@ -16,7 +16,7 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
 }) => {
   return (
     <Box
-      width="320px"
+      width="300px"
       background="white"
       direction="column"
       round="20px"
