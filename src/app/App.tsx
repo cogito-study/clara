@@ -1,4 +1,4 @@
-import Sentry from '@sentry/browser';
+import { init as initSentry } from '@sentry/browser';
 import { Grommet } from 'grommet';
 import React, { lazy, Suspense } from 'react';
 import { ApolloProvider } from 'react-apollo';
@@ -31,8 +31,7 @@ const TempGrommet = styled(Grommet)`
 //   ReactGA.pageview(window.location.pathname + window.location.search);
 // };
 
-const initializeErrorReporter = () =>
-  Sentry.init({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
+const initializeErrorReporter = () => initSentry({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
 
 export const App = () => {
   // if (isProduction) {
