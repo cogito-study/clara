@@ -48,8 +48,8 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
     return data.subject.notes
       .sort((lhs, rhs) => lhs.id - rhs.id)
       .map((note) => (
-        <Tilt className="Tilt" options={{ max: 15, scale: 1.03, speed: 1250 }} style={{ height: 300, width: 310 }}>
-          <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
+        <Tilt key={note.id} className="Tilt" options={{ max: 15, scale: 1.04, speed: 1250 }}>
+          <Link to={routePath.subjectNote(subjectCode, note.id)}>
             <HoveredNoteCard
               noteNumber={note.seriesNumber}
               title={note.title}

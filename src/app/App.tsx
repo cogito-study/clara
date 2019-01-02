@@ -26,19 +26,19 @@ const TempGrommet = styled(Grommet)`
   overflow: visible;
 `;
 
-const initializeGA = () => {
-  ReactGA.initialize('UA-120199285-1');
-  ReactGA.pageview(window.location.pathname + window.location.search);
-};
+// const initializeGA = () => {
+//   ReactGA.initialize('UA-120199285-1');
+//   ReactGA.pageview(window.location.pathname + window.location.search);
+// };
 
 const initializeErrorReporter = () =>
   Sentry.init({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
 
 export const App = () => {
-  if (isProduction) {
-    initializeGA();
-    initializeErrorReporter();
-  }
+  // if (isProduction) {
+  // initializeGA();
+  initializeErrorReporter();
+  // }
 
   return (
     <TempGrommet theme={theme} full>

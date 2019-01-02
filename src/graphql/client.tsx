@@ -1,9 +1,10 @@
+import { captureException } from '@sentry/browser';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
 import { from } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
 
 import { config } from '../environment/config';
 import { authService } from '../services/authService';
@@ -22,19 +23,19 @@ const authLink = setContext((_, { headers }) => {
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, response }) => {
   if (operation) {
-    console.log(`[Operation]: ${operation}`);
+    console.log('[Operation]: ', operation);
   }
 
   if (response) {
-    console.log(`[Response]: ${response}`);
+    console.log('[Response]: ', response);
   }
 
   if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations }) => console.log('message', message, 'locations', locations));
+    graphQLErrors.map(({ message }) => captureException(message));
   }
 
   if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
+    captureException(`[Network error]: ${networkError}`);
   }
 });
 
