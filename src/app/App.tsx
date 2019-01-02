@@ -3,13 +3,13 @@ import { Grommet } from 'grommet';
 import React, { lazy, Suspense } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/NotificationContext';
-import { isProduction } from '../environment/config';
+// import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
