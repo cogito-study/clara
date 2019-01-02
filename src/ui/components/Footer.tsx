@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { Box, BoxProps, Text, Button } from 'grommet';
+import { Box, BoxProps, Button, Text } from 'grommet';
 import { Facebook, Instagram, Twitter } from 'grommet-icons';
+import React, { FunctionComponent } from 'react';
 
 export const Footer: FunctionComponent<BoxProps> = (props) => (
   <Box margin="none" width="100%" pad="small" background="primary" justify="center" align="center" {...props}>

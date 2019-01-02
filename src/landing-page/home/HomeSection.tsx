@@ -1,19 +1,19 @@
-import React, { useState, FunctionComponent, ChangeEvent } from 'react';
-import { Flex, Banner, Button, Hide, Image, Input } from 'rebass';
-import { Parallax } from 'react-parallax';
-import Scroll from 'react-scroll';
-import styled from 'styled-components';
 import gql from 'graphql-tag';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
+import { Parallax } from 'react-parallax';
 import { RouteComponentProps, withRouter } from 'react-router';
+import Scroll from 'react-scroll';
+import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
+import styled from 'styled-components';
 
-import { SubscribeButton } from '../subscribe';
-import { color, Header3, Header2, Header1 } from '../styles';
-import { ContactCard } from '../contact/ContactCard';
+import downArrow from '../../assets/images/down.svg';
 import { scrollOptions } from '../../constants';
 import { authService } from '../../services/authService';
 import i18n from '../../services/i18n';
-import downArrow from '../../assets/images/down.svg';
+import { ContactCard } from '../contact/ContactCard';
+import { color, Header1, Header2, Header3 } from '../styles';
+import { SubscribeButton } from '../subscribe';
 
 const { scroller } = Scroll;
 

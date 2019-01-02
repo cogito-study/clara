@@ -1,12 +1,12 @@
-import React, { FunctionComponent, useContext } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
+import React, { FunctionComponent, useContext } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { InfoCard } from '../ui/components';
-import { SubjectRouteParams } from '../types/RouteParams';
 import { NotificationContext } from '../contexts/NotificationContext';
+import { SubjectRouteParams } from '../types/RouteParams';
+import { InfoCard } from '../ui/components';
 
 const SUBJECT_INFO_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {

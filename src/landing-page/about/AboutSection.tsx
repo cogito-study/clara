@@ -1,13 +1,13 @@
 import React from 'react';
 import { Flex, Image } from 'rebass';
 
-import { Paragraph, Header1, color, gradientText } from '../styles';
+import { color, gradientText, Header1, Paragraph } from '../styles';
 
-import i18n from '../../services/i18n';
-import NotesViewHun from '../../assets/images/NotesView(HUN).png';
 import NotesViewEN from '../../assets/images/NotesView(EN).png';
-import SubjectNewsHun from '../../assets/images/SubjectNews(HUN).png';
+import NotesViewHun from '../../assets/images/NotesView(HUN).png';
 import SubjectNewsEn from '../../assets/images/SubjectNews(EN).png';
+import SubjectNewsHun from '../../assets/images/SubjectNews(HUN).png';
+import i18n from '../../services/i18n';
 
 export const AboutSection = () => (
   <Flex flexDirection="column" pt={60} name="About">

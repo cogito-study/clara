@@ -1,6 +1,6 @@
 import { isKeyHotkey } from 'is-hotkey';
-import { Plugin } from 'slate-react';
 import { Editor as CoreEditor } from 'slate';
+import { Plugin } from 'slate-react';
 
 const undoHotkey = isKeyHotkey('mod+z');
 const redoHotkey = isKeyHotkey('mod+shift+z');

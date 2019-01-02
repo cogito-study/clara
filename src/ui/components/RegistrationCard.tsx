@@ -1,11 +1,11 @@
-import React, { FunctionComponent, ChangeEvent } from 'react';
-import { Box, Heading, TextInput, Button, Text, Image, CheckBox } from 'grommet';
+import { Box, Button, CheckBox, Heading, Image, Text, TextInput } from 'grommet';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 
-import { Link } from './Link';
-import { FormField } from './FormField';
-import { Spinner } from './Spinner';
-import { routePath } from '../../constants';
 import profile from '../../assets/images/Profile.svg';
+import { routePath } from '../../constants';
+import { FormField } from './FormField';
+import { Link } from './Link';
+import { Spinner } from './Spinner';
 
 interface Props {
   name: string;

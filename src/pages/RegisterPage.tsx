@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
+import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
 import { routePath } from '../constants';

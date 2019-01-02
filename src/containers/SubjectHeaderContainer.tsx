@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useContext } from 'react';
-import { Box } from 'grommet';
 import gql from 'graphql-tag';
+import { Box } from 'grommet';
+import React, { FunctionComponent, useContext } from 'react';
+import { useApolloClient, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { useQuery, useApolloClient } from 'react-apollo-hooks';
 
-import { SubjectHeader } from '../ui/components/SubjectHeader';
-import { SubjectRouteParams } from '../types/RouteParams';
 import { UserContext } from '../contexts/UserContext';
-import { authService } from '../services/authService';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { authService } from '../services/authService';
+import { SubjectRouteParams } from '../types/RouteParams';
+import { SubjectHeader } from '../ui/components/SubjectHeader';
 
 const SUBJECT_HEADER_QUERY = gql`
   query SubjectHeader($userID: Int!, $subjectCode: String!) {

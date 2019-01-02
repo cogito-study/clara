@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
 import { Box, BoxProps, Heading, Paragraph, Stack } from 'grommet';
+import React, { FunctionComponent } from 'react';
 
 import styled from 'styled-components';
 

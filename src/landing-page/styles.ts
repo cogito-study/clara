@@ -1,4 +1,4 @@
-import { Text, Subhead, Heading } from 'rebass';
+import { Heading, Subhead, Text } from 'rebass';
 import styled from 'styled-components';
 
 export const Paragraph = styled(Text)`

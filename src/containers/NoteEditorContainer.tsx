@@ -1,17 +1,18 @@
-import React, { FunctionComponent, useState, useRef, Suspense } from 'react';
 import gql from 'graphql-tag';
 import { Box, Button, Image } from 'grommet';
-import { useQuery, useMutation } from 'react-apollo-hooks';
+import React, { FunctionComponent, Suspense, useRef, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import CommentIcon from '../assets/images/CommentIcon.svg';
-import CloseIcon from '../assets/images/CloseIcon.svg';
-import BackIcon from '../assets/images/BackIcon.svg';
 
-import { NoteRouteParams } from '../types/RouteParams';
 import Editor, { CommentLocation } from '../editor/Editor';
-import { NoteCommentContainer } from './NoteCommentContainer';
-import { Spinner } from '../ui/components';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { NoteRouteParams } from '../types/RouteParams';
+import { Spinner } from '../ui/components';
+import { NoteCommentContainer } from './NoteCommentContainer';
+
+import BackIcon from '../assets/images/BackIcon.svg';
+import CloseIcon from '../assets/images/CloseIcon.svg';
+import CommentIcon from '../assets/images/CommentIcon.svg';
 
 const NOTE_QUERY = gql`
   query NoteQuery($noteID: Int!) {
@@ -53,7 +54,7 @@ const mapCommentToLocations = (comment: any): CommentLocation => ({
   range: JSON.parse(comment.locationInText),
 });
 
-export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
+export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match, history }) => {
   const { noteID } = match.params;
 
   const spacerRef = useRef<HTMLDivElement | null>(null);
@@ -136,7 +137,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         color="gray"
         label="Vissza"
         icon={<Image src={BackIcon} width="20px" />}
-        // TODO : onClick -> back to noteList
+        onClick={history.goBack}
       />
       <Box width="large" margin={{ horizontal: 'small' }} justify="center">
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}

@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
+import React, { FunctionComponent } from 'react';
 
-import { NoteCommentHeader, NoteCommentHeaderProps } from './NoteCommentHeader';
 import { NoteCommentContent, NoteCommentContentProps } from './NoteCommentContent';
 import { NoteCommentFooter, NoteCommentFooterProps } from './NoteCommentFooter';
+import { NoteCommentHeader, NoteCommentHeaderProps } from './NoteCommentHeader';
 
 export type NoteCommentProps = NoteCommentHeaderProps & NoteCommentContentProps & NoteCommentFooterProps;
 

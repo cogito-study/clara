@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
 import { Box, Heading, Text } from 'grommet';
+import React, { FunctionComponent } from 'react';
 
 export interface NoteCommentHeaderProps {
   author: string;

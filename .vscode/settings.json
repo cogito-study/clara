@@ -1,4 +1,11 @@
 {
     "editor.formatOnSave": true,
-    "javascript.format.enable": false
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": false
+    },
+    "editor.tabSize": 2,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "javascript.format.enable": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
 }

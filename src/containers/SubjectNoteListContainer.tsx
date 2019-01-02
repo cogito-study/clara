@@ -1,17 +1,16 @@
-import React, { FunctionComponent } from 'react';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
+import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
+import Tilt from 'react-tilt';
+import styled from 'styled-components';
 
-import { NoteCard } from '../ui/components';
-import { SubjectRouteParams } from '../types/RouteParams';
-import { Link } from '../ui/components/Link';
 import { routePath } from '../constants';
 import { dateService } from '../services/dateService';
-
-import styled from 'styled-components';
-import Tilt from 'react-tilt';
+import { SubjectRouteParams } from '../types/RouteParams';
+import { NoteCard } from '../ui/components';
+import { Link } from '../ui/components/Link';
 
 const SUBJECT_NOTE_LIST_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
@@ -49,7 +48,7 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
     return data.subject.notes
       .sort((lhs, rhs) => lhs.id - rhs.id)
       .map((note) => (
-        <Tilt className="Tilt" options={{ max: 15, scale: 1.05, speed: 1250 }} style={{ height: 300, width: 310 }}>
+        <Tilt className="Tilt" options={{ max: 15, scale: 1.03, speed: 1250 }} style={{ height: 300, width: 310 }}>
           <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
             <HoveredNoteCard
               noteNumber={note.seriesNumber}

@@ -1,8 +1,8 @@
-import React, { FunctionComponent, Fragment } from 'react';
 import { Box, Button, Image } from 'grommet';
+import React, { Fragment, FunctionComponent } from 'react';
 
-import upvote from '../../../assets/images/Upvote.svg';
 import trash from '../../../assets/images/Trash.svg';
+import upvote from '../../../assets/images/Upvote.svg';
 import upvoted from '../../../assets/images/Upvoted.svg';
 
 interface ExistingCommentFooterProps {
@@ -12,6 +12,7 @@ interface ExistingCommentFooterProps {
   onDelete?: () => void;
 }
 
+// tslint:disable
 const ExistingCommentFooter: FunctionComponent<ExistingCommentFooterProps> = ({
   isUpvoted,
   onVote,

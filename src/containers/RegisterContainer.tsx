@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useState } from 'react';
 import gql from 'graphql-tag';
-import { Heading, Image, Box } from 'grommet';
+import { Box, Heading, Image } from 'grommet';
+import React, { FunctionComponent, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { useQuery, useMutation } from 'react-apollo-hooks';
 
-import { authService } from '../services/authService';
-import cogitoPortrait from '../assets/images/cogito-portrait.svg';
-import { Footer, RegistrationCard } from '../ui/components';
-import { AuthRouteParams } from '../types/RouteParams';
 import styled from 'styled-components';
+import cogitoPortrait from '../assets/images/cogito-portrait.svg';
+import { authService } from '../services/authService';
+import { AuthRouteParams } from '../types/RouteParams';
+import { Footer, RegistrationCard } from '../ui/components';
 
 const USER_INFO_QUERY = gql`
   query UserInfo($userID: Int!) {

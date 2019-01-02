@@ -1,6 +1,6 @@
+import ApolloClient from 'apollo-client';
 import * as H from 'history';
 import { localStorageKeys, routePath } from '../constants';
-import ApolloClient from 'apollo-client';
 
 const authSuccess = (token: string, history: H.History) => {
   localStorage.setItem(localStorageKeys.authToken, token);

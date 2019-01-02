@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 import { Fixed, Hide } from 'rebass';
 
+import { scrollOptions } from '../../constants';
+import { english, hungarian, Language } from '../../types/Language';
 import { NavButton } from './NavButton';
 import { NavLink } from './NavLink';
 import { NavLogo } from './NavLogo';
 import { NavToolbar } from './NavToolbar';
-import { scrollOptions } from '../../constants';
-import { Language, english, hungarian } from '../../types/Language';
 
 import i18n from '../../services/i18n';
 

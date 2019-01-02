@@ -1,9 +1,9 @@
+import { Box, Button, Image, Layer, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
-import { Layer, Box, Button, Paragraph, Image } from 'grommet';
 
 import errorIcon from '../../assets/images/errorIcon.svg';
-import successIcon from '../../assets/images/successIcon.svg';
 import infoIcon from '../../assets/images/infoIcon.svg';
+import successIcon from '../../assets/images/successIcon.svg';
 
 export type NotificationType = 'error' | 'success' | 'info';
 export interface NotificationProps {

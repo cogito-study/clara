@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useContext } from 'react';
 import { Box, Button, Grommet, TextInput } from 'grommet';
-import { FormField, Footer, NoteCard, InfoCard, RegistrationCard, NoteComment } from './components';
+import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Footer, FormField, InfoCard, NoteCard, NoteComment, RegistrationCard } from './components';
 
-import { theme } from '../ui/theme';
 import { NotificationContext } from '../contexts/NotificationContext';
+import { theme } from '../ui/theme';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';

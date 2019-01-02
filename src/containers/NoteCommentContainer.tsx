@@ -1,12 +1,12 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import { DataProxy } from 'apollo-cache';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
-import { DataProxy } from 'apollo-cache';
-import { useQuery, useMutation, FetchResult } from 'react-apollo-hooks';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import { FetchResult, useMutation, useQuery } from 'react-apollo-hooks';
 
-import { NoteComment } from '../ui/components';
 import { UserContext } from '../contexts/UserContext';
 import { dateService } from '../services/dateService';
+import { NoteComment } from '../ui/components';
 
 const COMMENT_QUERY = gql`
   query CommentQuery($commentID: Int!) {

@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
 import { Box, BoxProps, FormField, FormFieldProps } from 'grommet';
+import React, { FunctionComponent } from 'react';
 
 const FormFieldWrapper: FunctionComponent<FormFieldProps & BoxProps> = (props) => (
   <Box

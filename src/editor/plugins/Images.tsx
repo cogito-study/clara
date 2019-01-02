@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { RenderNodeProps, Plugin } from 'slate-react';
 import { Editor as CoreEditor, Range, RangeProperties } from 'slate';
+import { Plugin, RenderNodeProps } from 'slate-react';
+import styled from 'styled-components';
 
 import { NodeType } from '../enums/NodeType';
 

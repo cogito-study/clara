@@ -1,5 +1,5 @@
-import React, { createContext, FunctionComponent } from 'react';
 import gql from 'graphql-tag';
+import React, { createContext, FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 
 const ME_QUERY = gql`

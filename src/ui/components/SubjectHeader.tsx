@@ -1,8 +1,9 @@
+import { Box, Button, Heading, Image, Text } from 'grommet';
 import React, { FunctionComponent } from 'react';
-import { Box, Heading, Image, Button, Text } from 'grommet';
+import styled from 'styled-components';
+
 import betaLogo from '../../assets/images/CogitoLogoBeta.svg';
 import logout from '../../assets/images/Log-out.svg';
-import styled from 'styled-components';
 import profile from '../../assets/images/Profile.svg';
 
 interface Props {

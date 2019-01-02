@@ -1,11 +1,11 @@
 import React from 'react';
 import { Flex, Image } from 'rebass';
 
-import { color, Paragraph, Header1 } from '../styles';
-import { ContactCard } from '../contact/ContactCard';
-import i18n from '../../services/i18n';
 import iphoneMockupEn from '../../assets/images/iphoneMockup(EN).png';
 import iphoneMockupHun from '../../assets/images/iphoneMockup(HUN).png';
+import i18n from '../../services/i18n';
+import { ContactCard } from '../contact/ContactCard';
+import { color, Header1, Paragraph } from '../styles';
 
 export const WhySection = () => (
   <Flex justifyContent="center" alignItems="center" pt={['20px', '40px', '60px', '140px', '150px']} name="Why">

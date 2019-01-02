@@ -1,5 +1,5 @@
-import React, { FunctionComponent, Fragment, ChangeEvent } from 'react';
-import { Text, TextArea, FormField } from 'grommet';
+import { FormField, Text, TextArea } from 'grommet';
+import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
 
 export interface NoteCommentContentProps {
   paragraph?: string;

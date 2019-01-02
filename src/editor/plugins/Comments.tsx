@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { RenderMarkProps, findDOMNode, Plugin } from 'slate-react';
 import { Editor as CoreEditor, Node } from 'slate';
+import { findDOMNode, Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
 
 import { MarkType } from '../enums/MarkType';

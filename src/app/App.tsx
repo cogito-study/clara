@@ -1,21 +1,20 @@
+import Sentry from '@sentry/browser';
+import { Grommet } from 'grommet';
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import { Grommet } from 'grommet';
+import ReactGA from 'react-ga';
+import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { theme } from '../ui/theme';
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/NotificationContext';
+import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
-import { PrivateRoute } from '../utils/PrivateRoute';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
-
-import { isProduction } from '../environment/config';
-
-import ReactGA from 'react-ga';
+import { theme } from '../ui/theme';
+import { PrivateRoute } from '../utils/PrivateRoute';
 
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
@@ -32,9 +31,13 @@ const initializeGA = () => {
   ReactGA.pageview(window.location.pathname + window.location.search);
 };
 
+const initializeErrorReporter = () =>
+  Sentry.init({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
+
 export const App = () => {
   if (isProduction) {
     initializeGA();
+    initializeErrorReporter();
   }
 
   return (

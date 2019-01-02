@@ -1,6 +1,6 @@
 import React from 'react';
-import { Plugin, RenderNodeProps } from 'slate-react';
 import { Editor as CoreEditor, Value } from 'slate';
+import { Plugin, RenderNodeProps } from 'slate-react';
 
 import { NodeType } from '../enums/NodeType';
 

@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
 import { Box } from 'grommet';
+import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { NoteRouteParams } from '../types/RouteParams';
 import { NoteEditorContainer } from '../containers/NoteEditorContainer';
+import { NoteRouteParams } from '../types/RouteParams';
 
 const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = (props) => (
   <Box fill background="light">

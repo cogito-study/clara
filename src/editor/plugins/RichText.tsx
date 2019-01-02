@@ -1,7 +1,7 @@
+import { isKeyHotkey } from 'is-hotkey';
 import React from 'react';
 import { Editor as CoreEditor, Value } from 'slate';
-import { Plugin, RenderNodeProps, RenderMarkProps } from 'slate-react';
-import { isKeyHotkey } from 'is-hotkey';
+import { Plugin, RenderMarkProps, RenderNodeProps } from 'slate-react';
 
 import { MarkType } from '../enums/MarkType';
 import { NodeType } from '../enums/NodeType';
