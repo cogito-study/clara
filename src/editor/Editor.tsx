@@ -123,71 +123,6 @@ export default class Editor extends PureComponent<Props, State> {
     this.editor.moveToEnd().blur();
   };
 
-  // onClickMark = (event: React.MouseEvent<HTMLButtonElement>, type: MarkType) => {
-  //   event.preventDefault();
-  //   this.editor.toggleMark(type);
-  // };
-
-  // onClickBlock = (event: React.MouseEvent<HTMLButtonElement>, type: NodeType) => {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-
-  //   const { editor } = this;
-  //   const { value } = editor;
-  //   const { document } = value;
-
-  //   // Handle everything but list buttons.
-  //   if (type !== NodeType.BulletedList && type !== NodeType.NumberedList) {
-  //     const isActive = hasBlock(type, value);
-  //     const isList = hasBlock(NodeType.ListItem, value);
-
-  //     if (isList) {
-  //       editor
-  //         .setBlocks(isActive ? NodeType.Paragraph : type)
-  //         .unwrapBlock(NodeType.BulletedList)
-  //         .unwrapBlock(NodeType.NumberedList);
-  //     } else {
-  //       editor.setBlocks(isActive ? NodeType.Paragraph : type);
-  //     }
-  //   } else {
-  //     // Handle the extra wrapping required for list buttons.
-  //     const isList = hasBlock(NodeType.ListItem, value);
-  //     // Same type as one given in argument
-  //     const sameType = value.blocks.some((block) => {
-  //       return !!document.getClosest(block.key, (parent) => parent.type === type);
-  //     });
-
-  //     if (isList && sameType) {
-  //       editor
-  //         .setBlocks(NodeType.Paragraph)
-  //         .unwrapBlock(NodeType.BulletedList)
-  //         .unwrapBlock(NodeType.NumberedList);
-  //     } else if (isList) {
-  //       editor
-  //         .unwrapBlock(type === NodeType.BulletedList ? NodeType.NumberedList : NodeType.BulletedList)
-  //         .wrapBlock(type);
-  //     } else {
-  //       editor.setBlocks(NodeType.ListItem).wrapBlock(type);
-  //     }
-  //   }
-  // };
-
-  // renderMarkButton = (type: MarkType) => {
-  //   return (
-  //     <Button primary onMouseDown={(e) => this.onClickMark(e, type)}>
-  //       {type}
-  //     </Button>
-  //   );
-  // };
-
-  // renderBlockButton = (type: NodeType) => {
-  //   return (
-  //     <Button primary onMouseDown={(e) => this.onClickBlock(e, type)}>
-  //       {type}
-  //     </Button>
-  //   );
-  // };
-
   onChange = ({ value }) => {
     this.updateCommentButtonPosition(value);
     this.setState({ value });
@@ -227,7 +162,7 @@ export default class Editor extends PureComponent<Props, State> {
 
     return (
       <EditorBox margin={{ vertical: 'medium', horizontal: 'xsmall' }}>
-        <Heading level="2" color="primary" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
+        <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
         <Box background="white" elevation="large" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
