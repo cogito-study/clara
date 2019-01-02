@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/browser';
+import { captureException, captureMessage, Severity } from '@sentry/browser';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
@@ -35,7 +35,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, response })
   }
 
   if (networkError) {
-    captureException(`[Network error]: ${networkError}`);
+    captureMessage(networkError.message, Severity.Error);
   }
 });
 
