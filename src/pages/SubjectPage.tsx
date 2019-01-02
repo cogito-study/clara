@@ -6,7 +6,7 @@ import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
 import { SubjectRouteParams } from '../types/RouteParams';
 
 const SubjectPage: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => (
-  <Box fill background="light">
+  <Box fill background="light" elevation="medium">
     <SubjectHeaderContainer {...props} />
     <SubjectTabsContainer {...props} />
   </Box>

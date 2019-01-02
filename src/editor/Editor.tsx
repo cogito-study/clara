@@ -226,8 +226,8 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <EditorBox margin={{ vertical: 'large', horizontal: 'xsmall' }}>
-        <Heading level="2" margin="none">
+      <EditorBox margin={{ vertical: 'medium', horizontal: 'xsmall' }}>
+        <Heading level="2" color="primary" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
         <Box background="white" elevation="large" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">

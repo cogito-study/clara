@@ -11,6 +11,7 @@ import { routePath } from '../constants';
 import { dateService } from '../services/dateService';
 
 import styled from 'styled-components';
+import Tilt from 'react-tilt';
 
 const SUBJECT_NOTE_LIST_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
@@ -31,7 +32,6 @@ const HoveredNoteCard = styled(NoteCard)`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(1.05);
     box-shadow: ${(props) => props.theme.global.elevation.light.xlarge};
   }
 `;
@@ -49,15 +49,17 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
     return data.subject.notes
       .sort((lhs, rhs) => lhs.id - rhs.id)
       .map((note) => (
-        <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
-          <HoveredNoteCard
-            noteNumber={note.seriesNumber}
-            title={note.title}
-            abstract={note.description}
-            dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
-            margin="small"
-          />
-        </Link>
+        <Tilt className="Tilt" options={{ max: 15, scale: 1.05, speed: 1250 }} style={{ height: 300, width: 310 }}>
+          <Link to={routePath.subjectNote(subjectCode, note.id)} key={note.id}>
+            <HoveredNoteCard
+              noteNumber={note.seriesNumber}
+              title={note.title}
+              abstract={note.description}
+              dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}
+              margin="small"
+            />
+          </Link>
+        </Tilt>
       ));
   };
 
