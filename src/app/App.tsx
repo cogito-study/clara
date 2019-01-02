@@ -3,13 +3,13 @@ import { Grommet } from 'grommet';
 import React, { lazy, Suspense } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-// import ReactGA from 'react-ga';
+import ReactGA from 'react-ga';
 import { BrowserRouter, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/NotificationContext';
-// import { isProduction } from '../environment/config';
+import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
 import { LoadingPage } from '../pages/LoadingPage';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
@@ -26,18 +26,18 @@ const TempGrommet = styled(Grommet)`
   overflow: visible;
 `;
 
-// const initializeGA = () => {
-//   ReactGA.initialize('UA-120199285-1');
-//   ReactGA.pageview(window.location.pathname + window.location.search);
-// };
+const initializeGA = () => {
+  ReactGA.initialize('UA-120199285-1');
+  ReactGA.pageview(window.location.pathname + window.location.search);
+};
 
 const initializeErrorReporter = () => initSentry({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
 
 export const App = () => {
-  // if (isProduction) {
-  // initializeGA();
-  initializeErrorReporter();
-  // }
+  if (isProduction) {
+    initializeGA();
+    initializeErrorReporter();
+  }
 
   return (
     <TempGrommet theme={theme} full>
