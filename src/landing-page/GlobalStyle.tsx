@@ -64,11 +64,7 @@ export const GlobalStyle = createGlobalStyle`
   .downButton {
     transform: translatey(0px);
     animation: float 2s ease-in-out infinite;
-  };
-
-  .contactemail : hover {
-    color: #444;
-  };
+  }
 
   .about {
     overflow: hidden;

@@ -46,6 +46,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "postinstall": "patch-package",
+    "lint:css":"stylelint './src/**/*.tsx'",
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "devDependencies": {
@@ -66,6 +67,10 @@
     "prettier": "^1.15.3",
     "react-scroll": "^1.7.10",
     "rebass": "2.3.4",
+    "stylelint": "^9.9.0",
+    "stylelint-config-recommended": "^2.1.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.5.1",
     "tslint": "^5.11.0",
     "tslint-config-palmerhq": "^1.0.2",
     "tslint-config-prettier": "^1.17.0",
