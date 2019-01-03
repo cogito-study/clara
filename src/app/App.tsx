@@ -16,6 +16,8 @@ import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/R
 import { theme } from '../ui/theme';
 import { PrivateRoute } from '../utils/PrivateRoute';
 
+import { Helmet } from 'react-helmet';
+
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
@@ -25,6 +27,10 @@ const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 const TempGrommet = styled(Grommet)`
   overflow: visible;
 `;
+
+function initializeDrift() {
+  return window.location.pathname === routePath.root();
+}
 
 const initializeGA = () => {
   ReactGA.initialize('UA-120199285-1');
@@ -41,9 +47,45 @@ export const App = () => {
 
   return (
     <TempGrommet theme={theme} full>
+      {isProduction && initializeGA()}
       <NotificationProvider>
         <ApolloProvider client={client}>
           <ApolloHooksProvider client={client}>
+            {!initializeDrift() && (
+              <Helmet
+                script={[
+                  {
+                    type: 'text/javascript',
+                    innerHTML: `
+"use strict";
+
+!function() {
+var t = window.driftt = window.drift = window.driftt || [];
+if (!t.init) {
+if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+t.factory = function(e) {
+  return function() {
+    var n = Array.prototype.slice.call(arguments);
+    return n.unshift(e), t.push(n), t;
+  };
+}, t.methods.forEach(function(e) {
+  t[e] = t.factory(e);
+}), t.load = function(t) {
+  var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+  o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+  var i = document.getElementsByTagName("script")[0];
+  i.parentNode.insertBefore(o, i);
+};
+}
+}();
+drift.SNIPPET_VERSION = '0.3.1';
+drift.load('dzw4g36p7k4z');
+`,
+                  },
+                ]}
+              />
+            )}
             <BrowserRouter>
               <Suspense fallback={<LoadingPage />}>
                 <Switch>
