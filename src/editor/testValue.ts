@@ -51,7 +51,7 @@ export const testValue = {
             object: 'text',
             leaves: [
               {
-                text: "Since it's rich text, you can do things like turn a selection of text ",
+                text: 'Since it is rich text, you can do things like turn a selection of text ',
                 marks: [],
               },
               {
