@@ -60,9 +60,9 @@ export const RegistrationCard: FunctionComponent<Props> = ({
     <Box margin={{ vertical: 'small' }} fill>
       <form onSubmit={onRegistration}>
         <Box margin={{ horizontal: 'large', vertical: 'small' }}>
-          <Heading level="4" margin="0px 0px 0px 3px" color={'nightBlue'}>
+          <Text size="16px" weight="bold" margin="0px 0px 0px 3px" color={'nightBlue'}>
             {'Password'}
-          </Heading>
+          </Text>
 
           <FormField flex="grow" basis="1" htmlFor="password" margin="none">
             <TextInput
