@@ -1,4 +1,4 @@
-# https://github.com/grommet/grommet/issues/2538
+// Remove after new grommet release
 
 patch-package
 --- a/node_modules/grommet/components/Select/index.d.ts
@@ -60,4 +60,14 @@ patch-package
 +  valueKey?: string | ((...args: any[]) => any);
    emptySearchMessage?: string;
  }
+
+--- a/node_modules/grommet/contexts/ResponsiveContext/index.d.ts
++++ b/node_modules/grommet/contexts/ResponsiveContext/index.d.ts
+@@ -1,6 +1,6 @@
+ import * as React from 'react';
+
+-export type ResponsiveValue = 'wide' | 'narrow';
++export type ResponsiveValue = string;
+
+ declare const ResponsiveContext: React.Context<ResponsiveValue>;
 

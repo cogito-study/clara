@@ -27,6 +27,7 @@ export const button = {
         &:hover {
           transform: scale(1.05);
           box-shadow: 0px 10px 20px rgba(71, 135, 211, 0.3);
+        }
           `;
     }
 

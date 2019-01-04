@@ -25,21 +25,46 @@ export const font = {
   size: '16px',
 };
 
-export const elevation = {
-  light: {
-    none: 'none',
-    xsmall: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    small: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    medium: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    large: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    xlarge: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+const baseSpacing = 24;
+
+export const breakpoints = {
+  small: {
+    value: baseSpacing * 32, // 768
+    borderSize: {
+      xsmall: '1px',
+      small: '2px',
+      medium: `${baseSpacing / 6}px`, // 4
+      large: `${baseSpacing / 4}px`, // 6
+      xlarge: `${baseSpacing / 2}px`, // 12
+    },
+    edgeSize: {
+      none: '0px',
+      hair: '1px', // for Chart
+      xxsmall: '2px',
+      xsmall: `${baseSpacing / 8}px`, // 3
+      small: `${baseSpacing / 4}px`, // 6
+      medium: `${baseSpacing / 2}px`, // 12
+      large: `${baseSpacing}px`, // 24
+      xlarge: `${baseSpacing * 2}px`, // 48
+    },
+    size: {
+      xxsmall: `${baseSpacing}px`, // 24
+      xsmall: `${baseSpacing * 2}px`, // 48
+      small: `${baseSpacing * 4}px`, // 96
+      medium: `${baseSpacing * 8}px`, // 192
+      large: `${baseSpacing * 16}px`, // 384
+      xlarge: `${baseSpacing * 32}px`, // 768
+      full: '100%',
+    },
   },
-  dark: {
-    none: 'none',
-    xsmall: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    small: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    medium: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    large: '0px 7px 15px rgba(71, 135, 211, 0.25)',
-    xlarge: '0px 7px 15px rgba(71, 135, 211, 0.25)',
+  medium: {
+    value: baseSpacing * 64, // 1536
   },
+  large: {}, // anything above 'medium'
+};
+
+export const deviceBreakpoints = {
+  phone: 'small',
+  tablet: 'medium',
+  computer: 'large',
 };

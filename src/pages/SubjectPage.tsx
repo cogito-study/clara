@@ -4,11 +4,20 @@ import { RouteComponentProps } from 'react-router-dom';
 import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
 import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
 import { SubjectRouteParams } from '../types/RouteParams';
+import { Footer } from '../ui/components/Footer';
+import styled from 'styled-components';
+
+const BoxWithHeight = styled(Box)`
+  min-height: 98vh;
+`;
 
 const SubjectPage: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => (
-  <Box fill background="light" elevation="medium">
-    <SubjectHeaderContainer {...props} />
-    <SubjectTabsContainer {...props} />
+  <Box align="center">
+    <BoxWithHeight fill background="light" pad={{ bottom: 'large' }}>
+      <SubjectHeaderContainer {...props} />
+      <SubjectTabsContainer {...props} />
+    </BoxWithHeight>
+    <Footer />
   </Box>
 );
 
