@@ -1,14 +1,15 @@
 import gql from 'graphql-tag';
-import { Box, Heading, Image } from 'grommet';
-import React, { FunctionComponent, useState } from 'react';
+import { Box, Image, ResponsiveContext } from 'grommet';
+import React, { FunctionComponent, useState, useContext } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import styled from 'styled-components';
-import cogitoPortrait from '../assets/images/cogito-portrait.svg';
+import cogitoPortrait from '../assets/images/cogitoPortrait.svg';
+import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
+
 import { authService } from '../services/authService';
 import { AuthRouteParams } from '../types/RouteParams';
-import { Footer, RegistrationCard } from '../ui/components';
+import { RegistrationCard } from '../ui/components';
 
 const USER_INFO_QUERY = gql`
   query UserInfo($userID: Int!) {
@@ -26,14 +27,6 @@ const ACTIVATE_USER = gql`
       token
     }
   }
-`;
-
-const MottoHeading = styled(Heading)`
-  font-weight: 700;
-`;
-
-const UnresponsiveBox = styled(Box)`
-  min-width: 1000px;
 `;
 
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
@@ -63,32 +56,36 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
     return password !== passwordCheck;
   };
 
+  const size = useContext(ResponsiveContext);
+
   return (
-    <UnresponsiveBox flex background="gradient" fill>
-      <Box justify="center" align="center">
-        <MottoHeading level="1" color="nightBlue">
-          Let’s join the community!
-        </MottoHeading>
-      </Box>
-      <Box direction="row" pad="large" justify="center" align="center" gap="xlarge">
-        <Box justify="center" pad="medium">
-          <Image src={cogitoPortrait} width="200px" />
-        </Box>
-        {data.user && (
-          <RegistrationCard
-            name={`${data.user.lastName} ${data.user.firstName}`}
-            email={data.user.email}
-            isRegistrationDisabled={isRegistrationDisabled()}
-            isLoading={isLoading}
-            isLegalCheckBoxChecked={isLegalChecked}
-            onPasswordChange={setPassword}
-            onPasswordCheckChange={setPasswordCheck}
-            onLegalCheckBoxChecked={setLegalChecked}
-            onRegistration={onRegistration}
-          />
+    <Box fill justify="center" pad="medium" margin={{ bottom: 'large' }} align="center">
+      <Box align="center" justify="center" direction="row-responsive">
+        {size === 'small' ? (
+          <Box align="center" pad={{ vertical: 'large' }}>
+            <Image src={cogitoLandscape} width="280px" />
+          </Box>
+        ) : (
+          <Box justify="center" pad={{ left: 'small', right: 'xlarge' }}>
+            <Image src={cogitoPortrait} width="200px" />
+          </Box>
         )}
+        <Box width="480px" align="center">
+          {data.user && (
+            <RegistrationCard
+              name={`${data.user.lastName} ${data.user.firstName}`}
+              email={data.user.email}
+              isRegistrationDisabled={isRegistrationDisabled()}
+              isLoading={isLoading}
+              isLegalCheckBoxChecked={isLegalChecked}
+              onPasswordChange={setPassword}
+              onPasswordCheckChange={setPasswordCheck}
+              onLegalCheckBoxChecked={setLegalChecked}
+              onRegistration={onRegistration}
+            />
+          )}
+        </Box>
       </Box>
-      <Footer />
-    </UnresponsiveBox>
+    </Box>
   );
 };

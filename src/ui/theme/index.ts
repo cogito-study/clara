@@ -12,6 +12,10 @@ export const theme = {
     control: { ...control },
     font: { ...font },
     elevation: { ...elevation },
+    input: {
+      padding: `10px`,
+      weight: 500,
+    },
   },
   breakpoints: { ...breakpoints },
   button: { ...button },
