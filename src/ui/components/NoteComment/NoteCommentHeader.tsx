@@ -8,7 +8,7 @@ export interface NoteCommentHeaderProps {
 
 export const NoteCommentHeader: FunctionComponent<NoteCommentHeaderProps> = ({ author, date }) => (
   <Box direction="column" align="start" justify="start">
-    <Heading level="3" margin="none">
+    <Heading level="4" margin="none">
       {author}
     </Heading>
     {date && (

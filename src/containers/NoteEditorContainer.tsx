@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { Box, Button, Image } from 'grommet';
-import React, { FunctionComponent, Suspense, useRef, useState } from 'react';
+import { Box, Button, Image, ResponsiveContext } from 'grommet';
+import React, { FunctionComponent, Suspense, useRef, useState, useContext } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -130,43 +130,54 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     </Box>
   );
 
+  const size = useContext(ResponsiveContext);
+
   return (
-    <Box justify="center" alignContent="center" align="start" margin="medium" direction="row">
-      <Button
-        margin={{ top: 'medium' }}
-        color="gray"
-        label="Vissza"
-        icon={<Image src={BackIcon} width="20px" />}
-        onClick={history.goBack}
-      />
+    <Box justify="center" alignContent="center" align="start" margin="xsmall" direction="row">
+      {size === 'small' ? (
+        <div />
+      ) : (
+        <Button
+          margin={{ top: 'medium' }}
+          color="gray"
+          label={true}
+          icon={<Image src={BackIcon} width="20px" />}
+          onClick={history.goBack}
+        />
+      )}
+
       <Box width="large" margin={{ horizontal: 'small' }} justify="center">
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       </Box>
-      <Box direction="column" align="start" width="320px">
-        <Button
-          reverse
-          margin={{ top: 'medium' }}
-          color={canShowComments ? 'error' : 'primary'}
-          label={canShowComments ? 'Elrejtés' : 'Javaslatok'}
-          icon={canShowComments ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
-          onClick={toggleComments}
-        />
-        <Box justify="center" align="start" pad="none">
-          <div ref={spacerRef}>
-            <Suspense fallback={renderCommentLoading()}>
-              <NoteCommentContainer
-                marginTop={calculateRelativeMarginTop()}
-                selectedCommentID={selectedCommentID}
-                canShowComments={canShowComments}
-                shouldDisplayNewComment={shouldDisplayNewComment}
-                onCommentDelete={onCommentDelete}
-                onNewCommentCancel={() => setShouldDisplayNewComment(false)}
-                onNewCommentDone={onCreateCommentDone}
-              />
-            </Suspense>
-          </div>
+      {size === 'small' ? (
+        <div />
+      ) : (
+        <Box direction="column" align="start" width="320px">
+          <Button
+            reverse
+            margin={{ top: 'medium' }}
+            color={canShowComments ? 'error' : 'primary'}
+            label={canShowComments ? 'Elrejtés' : 'Javaslatok'}
+            icon={canShowComments ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
+            onClick={toggleComments}
+          />
+          <Box justify="center" align="start" pad="none">
+            <div ref={spacerRef}>
+              <Suspense fallback={renderCommentLoading()}>
+                <NoteCommentContainer
+                  marginTop={calculateRelativeMarginTop()}
+                  selectedCommentID={selectedCommentID}
+                  canShowComments={canShowComments}
+                  shouldDisplayNewComment={shouldDisplayNewComment}
+                  onCommentDelete={onCommentDelete}
+                  onNewCommentCancel={() => setShouldDisplayNewComment(false)}
+                  onNewCommentDone={onCreateCommentDone}
+                />
+              </Suspense>
+            </div>
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };
