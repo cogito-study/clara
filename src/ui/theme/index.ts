@@ -14,7 +14,7 @@ export const theme = {
     elevation: { ...elevation },
     input: {
       padding: `10px`,
-      weight: 500,
+      weight: 400,
     },
   },
   breakpoints: { ...breakpoints },

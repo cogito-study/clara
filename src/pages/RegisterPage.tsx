@@ -13,7 +13,7 @@ const BoxWithHeight = styled(Box)`
 
 const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
   <Box align="center">
-    <BoxWithHeight fill align="center" justify="center" background="gradient" pad={{ bottom: 'large' }}>
+    <BoxWithHeight fill align="center" justify="center" background="light" pad={{ bottom: 'large' }}>
       <Route path={routePath.register()} component={RegisterContainer} />
     </BoxWithHeight>
     <Footer />

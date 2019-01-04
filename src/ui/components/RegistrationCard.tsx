@@ -42,7 +42,7 @@ export const RegistrationCard: FunctionComponent<Props> = ({
     gap="none"
   >
     <Heading level="2" margin={{ bottom: 'small', top: 'none' }} color="primary">
-      {'Register'}
+      {'Regisztráció'}
     </Heading>
     <Box direction="row-responsive" align="center">
       <Box align="center">
@@ -61,7 +61,7 @@ export const RegistrationCard: FunctionComponent<Props> = ({
       <form onSubmit={onRegistration}>
         <Box margin={{ horizontal: 'large', vertical: 'small' }}>
           <Text size="16px" weight="bold" margin="0px 0px 0px 3px" color={'nightBlue'}>
-            {'Password'}
+            {'Jelszó'}
           </Text>
 
           <FormField flex="grow" basis="1" htmlFor="password" margin="none">
@@ -69,21 +69,21 @@ export const RegistrationCard: FunctionComponent<Props> = ({
               plain
               type="password"
               id="password"
-              placeholder="password"
+              placeholder="Jelszó"
               onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordChange(event.target.value)}
             />
           </FormField>
         </Box>
         <Box margin={{ horizontal: 'large', vertical: 'small' }}>
           <Text size="16px" weight="bold" margin="0px 0px 0px 3px" color={'nightBlue'}>
-            {'Confirm password'}
+            {'Jelszó megerősítése'}
           </Text>
           <FormField htmlFor="password-check" margin="none">
             <TextInput
               plain
               type="password"
               id="password-check"
-              placeholder="repeat password"
+              placeholder="Jelszó mégegyszer"
               onChange={(event: ChangeEvent<HTMLInputElement>) => onPasswordCheckChange(event.target.value)}
             />
           </FormField>
@@ -100,10 +100,10 @@ export const RegistrationCard: FunctionComponent<Props> = ({
     {isLoading ? (
       <Spinner primary />
     ) : (
-      <Button primary disabled={isRegistrationDisabled} label="Registration" onClick={onRegistration} margin="xsmall" />
+      <Button primary disabled={isRegistrationDisabled} label="Regisztráció" onClick={onRegistration} margin="xsmall" />
     )}
     <Text size="small" margin="xsmall">
-      Already have an account? <Link to={routePath.root()}>Login</Link>
+      Már van profilod? <Link to={routePath.root()}>Bejelentkezés</Link>
     </Text>
   </Box>
 );
