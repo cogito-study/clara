@@ -59,7 +59,6 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
   const size = useContext(ResponsiveContext);
 
   //TODO: large bottom margin only on small screensizes
-
   return (
     <Box fill justify="center" pad="medium" margin={{ bottom: 'large' }} align="center">
       <Box align="center" justify="center" direction="row-responsive">

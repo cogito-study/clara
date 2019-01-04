@@ -1,4 +1,4 @@
-import { Tab, Tabs } from 'grommet';
+import { Tab, Tabs, Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 import { routePath } from '../constants';
@@ -21,7 +21,9 @@ export const SubjectTabsContainer: FunctionComponent<RouteComponentProps<Subject
   return (
     <Tabs flex justify="center" onActive={onActiveTab} activeIndex={findActiveIndex()}>
       <Tab title="Jegyzetek">
-        <Route exact path={routePath.subjectNoteList()} component={SubjectNoteListContainer} />
+        <Box align="center">
+          <Route exact path={routePath.subjectNoteList()} component={SubjectNoteListContainer} />
+        </Box>
       </Tab>
       <Tab title="Tárgy info">
         <Route exact path={routePath.subjectInfo()} component={SubjectInfoContainer} />

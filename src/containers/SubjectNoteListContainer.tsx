@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { Box } from 'grommet';
-import React, { FunctionComponent } from 'react';
+import { Box, ResponsiveContext, Grid } from 'grommet';
+import React, { FunctionComponent, useContext } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 import Tilt from 'react-tilt';
@@ -62,15 +62,38 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
       ));
   };
 
+  const size = useContext(ResponsiveContext);
+
   return (
-    <Box justify="center" align="center" background="light" margin={{ top: 'medium' }} pad="none">
-      <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
-        <Box wrap fill={true} direction="row" justify="center">
+    <Box
+      justify="center"
+      width="xxlarge"
+      align="center"
+      background="light"
+      margin={{ top: 'medium' }}
+      pad={{ horizontal: 'large' }}
+    >
+      {size === 'small' ? (
+        // TODO: align items to center without margin
+        <Box direction="column" gap="xsmall" margin={{ right: 'medium' }}>
           {data.subject.notes && renderNoteList()}
-          <Box width="280px" height="0px" margin="small" />
-          <Box width="280px" height="0px" margin="small" />
         </Box>
-      </Box>
+      ) : (
+        <Grid
+          fill="horizontal"
+          columns={{
+            count: 'fit',
+            size: '270px',
+          }}
+          align="center"
+          justify="center"
+          margin="none"
+          gap={{ row: 'small', column: 'medium' }}
+          rows="270px"
+        >
+          {data.subject.notes && renderNoteList()}
+        </Grid>
+      )}
     </Box>
   );
 };
