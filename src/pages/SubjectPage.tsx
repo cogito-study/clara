@@ -1,11 +1,12 @@
 import { Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
 import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
 import { SubjectRouteParams } from '../types/RouteParams';
 import { Footer } from '../ui/components/Footer';
-import styled from 'styled-components';
 
 const BoxWithHeight = styled(Box)`
   min-height: 98vh;

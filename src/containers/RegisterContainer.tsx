@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 import { Box, Image, ResponsiveContext } from 'grommet';
-import React, { FunctionComponent, useState, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import cogitoPortrait from '../assets/images/cogitoPortrait.svg';
 import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
+import cogitoPortrait from '../assets/images/cogitoPortrait.svg';
 
 import { authService } from '../services/authService';
 import { AuthRouteParams } from '../types/RouteParams';
@@ -34,6 +34,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
   const [passwordCheck, setPasswordCheck] = useState('');
   const [isLegalChecked, setLegalChecked] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const size = useContext(ResponsiveContext);
 
   const { userID } = match.params;
   const { data } = useQuery(USER_INFO_QUERY, { variables: { userID } });
@@ -56,9 +57,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
     return password !== passwordCheck;
   };
 
-  const size = useContext(ResponsiveContext);
-
-  //TODO: large bottom margin only on small screensizes
+  // TODO: large bottom margin only on small screensizes
   return (
     <Box fill justify="center" pad="medium" margin={{ bottom: 'large' }} align="center">
       <Box align="center" justify="center" direction="row-responsive">

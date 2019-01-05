@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { Box, ResponsiveContext, Grid } from 'grommet';
+import { Box, Grid, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
@@ -38,6 +38,7 @@ const HoveredNoteCard = styled(NoteCard)`
 export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
   const { data } = useQuery(SUBJECT_NOTE_LIST_QUERY, { variables: { subjectCode } });
+  const size = useContext(ResponsiveContext);
 
   const renderNoteList = () => {
     const renderDateLabel = (createdAt: string, modifiedAt?: string): string =>
@@ -61,8 +62,6 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         </Tilt>
       ));
   };
-
-  const size = useContext(ResponsiveContext);
 
   return (
     <Box

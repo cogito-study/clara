@@ -1,4 +1,4 @@
-import { Box, BoxProps, Heading, Paragraph, Stack, ResponsiveContext } from 'grommet';
+import { Box, BoxProps, Heading, Paragraph, ResponsiveContext, Stack } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 
 import styled from 'styled-components';

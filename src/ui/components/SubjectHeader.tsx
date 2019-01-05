@@ -1,11 +1,11 @@
-import { Box, Button, Heading, Image, Text, ResponsiveContext } from 'grommet';
+import { Box, Button, Heading, Image, ResponsiveContext, Text } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import styled from 'styled-components';
 
 import LargeBetaLogo from '../../assets/images/LargeBetaLogo.svg';
-import SmallBetaLogo from '../../assets/images/SmallBetaLogo.svg';
 import logout from '../../assets/images/Log-out.svg';
 import profile from '../../assets/images/Profile.svg';
+import SmallBetaLogo from '../../assets/images/SmallBetaLogo.svg';
 
 interface Props {
   title: string;
