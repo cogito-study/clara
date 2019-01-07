@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { Box, Image, ResponsiveContext } from 'grommet';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -30,34 +30,17 @@ const ACTIVATE_USER = gql`
 `;
 
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [isLegalChecked, setLegalChecked] = useState(false);
-  const [isLoading, setLoading] = useState(false);
   const size = useContext(ResponsiveContext);
 
   const { userID } = match.params;
   const { data } = useQuery(USER_INFO_QUERY, { variables: { userID } });
-  const registerPassword = useMutation(ACTIVATE_USER, { variables: { userID, password } });
+  const registerPassword = useMutation(ACTIVATE_USER);
 
-  const onRegistration = () => {
-    setLoading(true);
-    registerPassword().then(({ data: mutationData }) => {
-      const { token } = mutationData.activateUser;
-      authService.authSuccess(token, history);
-      setLoading(false);
-    });
+  const onRegistration = async (password: string) => {
+    const mutation = await registerPassword({ variables: { userID, password } });
+    authService.authSuccess(mutation.data.activateUser.token, history);
   };
 
-  const isRegistrationDisabled = (): boolean => {
-    if (!isLegalChecked || password === '' || passwordCheck === '') {
-      return true;
-    }
-
-    return password !== passwordCheck;
-  };
-
-  // TODO: large bottom margin only on small screensizes
   return (
     <Box fill justify="center" pad="medium" margin={{ bottom: 'large' }} align="center">
       <Box align="center" justify="center" direction="row-responsive">
@@ -75,12 +58,6 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
             <RegistrationCard
               name={`${data.user.lastName} ${data.user.firstName}`}
               email={data.user.email}
-              isRegistrationDisabled={isRegistrationDisabled()}
-              isLoading={isLoading}
-              isLegalCheckBoxChecked={isLegalChecked}
-              onPasswordChange={setPassword}
-              onPasswordCheckChange={setPasswordCheck}
-              onLegalCheckBoxChecked={setLegalChecked}
               onRegistration={onRegistration}
             />
           )}

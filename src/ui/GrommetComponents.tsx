@@ -84,12 +84,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         <RegistrationCard
           name={registrationCardName}
           email={registrationCardEmail}
-          isRegistrationDisabled={false}
-          isLoading={false}
-          isLegalCheckBoxChecked={false}
-          onPasswordChange={console.log}
-          onPasswordCheckChange={console.log}
-          onLegalCheckBoxChecked={console.log}
+          onRegistration={(password: string) => alert(password)}
         />
         <Box gap="small" direction="row" wrap alignContent="around">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
