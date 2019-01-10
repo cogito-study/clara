@@ -1,0 +1,7 @@
+query UserInfo($userID: Int!) {
+  user(userId: $userID) {
+    firstName
+    lastName
+    email
+  }
+}

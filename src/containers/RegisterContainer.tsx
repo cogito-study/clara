@@ -11,16 +11,6 @@ import { authService } from '../services/authService';
 import { AuthRouteParams } from '../types/RouteParams';
 import { RegistrationCard } from '../ui/components';
 
-const USER_INFO_QUERY = gql`
-  query UserInfo($userID: Int!) {
-    user(userId: $userID) {
-      firstName
-      lastName
-      email
-    }
-  }
-`;
-
 const ACTIVATE_USER = gql`
   mutation ActivateUser($userID: Int!, $password: String!) {
     activateUser(userId: $userID, newPassword: $password) {
