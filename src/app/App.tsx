@@ -11,6 +11,8 @@ import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/NotificationContext';
 import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
+import { Helmet } from 'react-helmet';
+import { hotjarString } from '../scripts/hotjar';
 import { Router } from '../route/Router';
 import { theme } from '../ui/theme';
 
@@ -33,6 +35,7 @@ export const App = () => {
 
   return (
     <TempGrommet theme={theme} full>
+      {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
       <NotificationProvider>
         <ApolloProvider client={client}>
           <ApolloHooksProvider client={client}>
