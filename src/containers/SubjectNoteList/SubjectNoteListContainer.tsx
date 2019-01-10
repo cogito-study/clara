@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/containers/SubjectNoteListContainer.tsx
-import gql from 'graphql-tag';
 import { Box, ResponsiveContext } from 'grommet';
-=======
-import { Box, Grid, ResponsiveContext } from 'grommet';
->>>>>>> Refactor to support client side code generation:src/containers/SubjectNoteList/SubjectNoteListContainer.tsx
 import React, { FunctionComponent, useContext } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
@@ -80,7 +75,7 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         // TODO: use grid instead
         <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
           <Box wrap fill={true} direction="row" justify="center">
-          {data.subject && renderNoteList(data.subject)}
+            {data.subject && renderNoteList(data.subject)}
             <Box width="280px" height="0px" margin="small" />
             <Box width="280px" height="0px" margin="small" />
             <Box width="280px" height="0px" margin="small" />
