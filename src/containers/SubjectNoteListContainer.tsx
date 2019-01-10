@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { Box, Grid, ResponsiveContext } from 'grommet';
+import { Box, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
@@ -78,20 +78,15 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
           {data.subject.notes && renderNoteList()}
         </Box>
       ) : (
-        <Grid
-          fill="horizontal"
-          columns={{
-            count: 'fit',
-            size: '270px',
-          }}
-          align="center"
-          justify="center"
-          margin="none"
-          gap={{ row: 'small', column: 'medium' }}
-          rows="270px"
-        >
-          {data.subject.notes && renderNoteList()}
-        </Grid>
+        //TODO: use grid instead
+        <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
+          <Box wrap fill={true} direction="row" justify="center">
+            {data.subject.notes && renderNoteList()}
+            <Box width="280px" height="0px" margin="small" />
+            <Box width="280px" height="0px" margin="small" />
+            <Box width="280px" height="0px" margin="small" />
+          </Box>
+        </Box>
       )}
     </Box>
   );
