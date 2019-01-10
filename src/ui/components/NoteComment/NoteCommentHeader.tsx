@@ -2,14 +2,14 @@ import { Box, Heading, Text } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
 export interface NoteCommentHeaderProps {
-  author: string;
+  authorName: string;
   date?: string;
 }
 
-export const NoteCommentHeader: FunctionComponent<NoteCommentHeaderProps> = ({ author, date }) => (
+export const NoteCommentHeader: FunctionComponent<NoteCommentHeaderProps> = ({ authorName, date }) => (
   <Box direction="column" align="start" justify="start">
     <Heading level="4" margin="none">
-      {author}
+      {authorName}
     </Heading>
     {date && (
       <Text color="gray" size="xsmall" margin="none">

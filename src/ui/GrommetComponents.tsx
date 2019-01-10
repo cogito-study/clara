@@ -3,7 +3,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Footer, FormField, InfoCard, NoteCard, NoteComment, RegistrationCard } from './components';
 
-import { NotificationContext } from '../contexts/NotificationContext';
+import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
 
 const registrationCardName = 'Körmendy Bertalan';
@@ -55,7 +55,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         <Button color="success" label="Default green Button" onClick={() => {}} />
         <Button plain label="Plain Button" onClick={() => alert('Rakatintottal a gombra!')} />
         <NoteComment
-          author="Mate Papp"
+          authorName="Mate Papp"
           date="12 minutes ago"
           paragraph={commentParagraph}
           upvoteCounts={16}
@@ -63,13 +63,13 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           onVote={() => alert('Like')}
         />
         <NoteComment
-          author="Mate Papp"
+          authorName="Mate Papp"
           onNewCommentChange={console.log}
           onNewCommentCancel={() => alert('Cancel')}
           onNewCommentDone={() => alert('Done')}
         />
         <NoteComment
-          author="Mate Papp"
+          authorName="Mate Papp"
           date="12 minutes ago"
           paragraph={commentParagraph}
           upvoteCounts={16}

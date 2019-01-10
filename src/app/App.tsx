@@ -8,7 +8,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { routePath } from '../constants';
-import { NotificationProvider } from '../contexts/NotificationContext';
+import { NotificationProvider } from '../contexts/notification/NotificationContext';
 import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
 import { Helmet } from 'react-helmet';

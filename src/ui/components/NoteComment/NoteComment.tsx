@@ -8,7 +8,7 @@ import { NoteCommentHeader, NoteCommentHeaderProps } from './NoteCommentHeader';
 export type NoteCommentProps = NoteCommentHeaderProps & NoteCommentContentProps & NoteCommentFooterProps;
 
 export const NoteComment: FunctionComponent<NoteCommentProps> = ({
-  author,
+  authorName,
   date,
   paragraph,
   onNewCommentChange,
@@ -25,7 +25,7 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
       pad="medium"
       gap="small"
     >
-      <NoteCommentHeader author={author} date={date} />
+      <NoteCommentHeader authorName={authorName} date={date} />
       <NoteCommentContent paragraph={paragraph} onNewCommentChange={onNewCommentChange} />
       <NoteCommentFooter {...rest} />
     </Box>

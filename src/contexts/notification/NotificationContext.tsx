@@ -1,6 +1,6 @@
 import React, { createContext, FunctionComponent, useState } from 'react';
 
-import { Notification, NotificationType } from '../ui/components/Notification';
+import { Notification, NotificationType } from '../../ui/components/Notification';
 
 interface NotificationContextState {
   showNotification: (message: string, type?: NotificationType, duration?: number) => void;

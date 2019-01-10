@@ -3,8 +3,8 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SubjectHeaderContainer } from '../containers/SubjectHeaderContainer';
-import { SubjectTabsContainer } from '../containers/SubjectTabsContainer';
+import { SubjectHeaderContainer } from '../containers/SubjectHeader/SubjectHeaderContainer';
+import { SubjectTabsContainer } from '../containers/SubjectTabs/SubjectTabsContainer';
 import { SubjectRouteParams } from '../types/RouteParams';
 import { Footer } from '../ui/components/Footer';
 

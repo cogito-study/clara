@@ -18,12 +18,12 @@ const BorderedBox = styled(Box)`
 `;
 
 export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLogout }) => {
-  const size = useContext(ResponsiveContext);
+  const screenSize = useContext(ResponsiveContext);
 
   return (
     <Box flex width="xlarge" height="50px" pad="xsmall" justify="between" align="center" direction="row">
       <Box basis="1/3" justify="start" align="center" direction="row">
-        {size === 'small' ? (
+        {screenSize === 'small' ? (
           <Image src={SmallBetaLogo} height="28px" margin={{ horizontal: 'small' }} />
         ) : (
           <Image src={LargeBetaLogo} height="34px" margin={{ horizontal: 'medium' }} />
@@ -35,7 +35,7 @@ export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLog
         </Heading>
       </Box>
       <Box basis="1/3" direction="row" justify="end" align="center" pad="none" gap="xsmall">
-        {size === 'small' ? (
+        {screenSize === 'small' ? (
           <div />
         ) : (
           <BorderedBox align="center" direction="row" round="16px">

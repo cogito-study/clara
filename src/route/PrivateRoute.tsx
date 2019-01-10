@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 
 import { routePath } from '../constants';
-import { UserProvider } from '../contexts/UserContext';
+import { UserProvider } from '../contexts/user/UserContext';
 import { authService } from '../services/authService';
 
 interface PrivateRouteProps extends RouteProps {

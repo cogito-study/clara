@@ -20,7 +20,7 @@ export interface CommentButtonPosition {
 }
 
 export interface CommentLocation {
-  id: number;
+  id: string;
   range: RangeJSON;
 }
 interface Props {

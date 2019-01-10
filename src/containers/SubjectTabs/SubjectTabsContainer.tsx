@@ -1,10 +1,10 @@
-import { Tab, Tabs, Box } from 'grommet';
+import { Box, Tab, Tabs } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-import { routePath } from '../constants';
-import { SubjectRouteParams } from '../types/RouteParams';
-import { SubjectInfoContainer } from './SubjectInfoContainer';
-import { SubjectNoteListContainer } from './SubjectNoteListContainer';
+import { routePath } from '../../constants';
+import { SubjectRouteParams } from '../../types/RouteParams';
+import { SubjectInfoContainer } from '../SubjectInfo/SubjectInfoContainer';
+import { SubjectNoteListContainer } from '../SubjectNoteList/SubjectNoteListContainer';
 
 export const SubjectTabsContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({
   history,

@@ -23,11 +23,11 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
   children,
   ...rest
 }) => {
-  const size = useContext(ResponsiveContext);
+  const screenSize = useContext(ResponsiveContext);
 
   return (
     <Box>
-      {size === 'small' ? (
+      {screenSize === 'small' ? (
         <Box
           width="100%"
           align="start"

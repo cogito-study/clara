@@ -1,53 +1,25 @@
-import gql from 'graphql-tag';
 import { Box, Button, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import Editor, { CommentLocation } from '../editor/Editor';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
-import { NoteRouteParams } from '../types/RouteParams';
-import { Spinner } from '../ui/components';
-import { NoteCommentContainer } from './NoteCommentContainer';
+import BackIcon from '../../assets/images/BackIcon.svg';
+import CloseIcon from '../../assets/images/CloseIcon.svg';
+import CommentIcon from '../../assets/images/CommentIcon.svg';
 
-import BackIcon from '../assets/images/BackIcon.svg';
-import CloseIcon from '../assets/images/CloseIcon.svg';
-import CommentIcon from '../assets/images/CommentIcon.svg';
+import Editor, { CommentLocation } from '../../editor/Editor';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { NoteRouteParams } from '../../types/RouteParams';
+import { Spinner } from '../../ui/components';
+import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
+import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
+import { NoteQuery, NoteQuery_note, NoteQuery_note_comments, NoteQueryVariables } from './__generated__/NoteQuery';
+import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
+import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
+import { NOTE_QUERY } from './NoteQuery';
+import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 
-const NOTE_QUERY = gql`
-  query NoteQuery($noteID: ID!) {
-    note(id: $noteID) {
-      title
-      text
-      comments {
-        id
-        locationInText
-      }
-    }
-  }
-`;
-
-const SUBMIT_COMMENT_MUTATION = gql`
-  mutation SubmitComment($noteID: ID!, $commentData: CommentInput!) {
-    submitComment(noteID: $noteID, input: $commentData) {
-      note {
-        id
-        comments {
-          id
-          locationInText
-        }
-      }
-    }
-  }
-`;
-
-const DELETE_COMMENT_MUTATION = gql`
-  mutation DeleteComment($commentID: ID!) {
-    deleteComment(id: $commentID)
-  }
-`;
-
-const mapCommentToLocations = (comment: any): CommentLocation => ({
+const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
   range: comment.locationInText,
 });
@@ -57,23 +29,24 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const { noteID } = match.params;
 
   const spacerRef = useRef<HTMLDivElement | null>(null);
+  const screenSize = useContext(ResponsiveContext);
 
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [canShowComments, setShowComments] = useState(false);
   const [shouldDisplayNewComment, setShouldDisplayNewComment] = useState(false);
   const [newCommentLocationInText, setNewCommentLocationInText] = useState('');
   const [commentMarginTop, setCommentMarginTop] = useState<number>(-10000);
+  const commentID = selectedCommentID ? selectedCommentID.toString() : '';
 
-  const { data: noteQueryData } = useQuery(NOTE_QUERY, { variables: { noteID } });
-  const submitComment = useMutation(SUBMIT_COMMENT_MUTATION, {
+  const { data: noteQueryData } = useQuery<NoteQuery, NoteQueryVariables>(NOTE_QUERY, { variables: { noteID } });
+  const submitComment = useMutation<SubmitCommentMutation, SubmitCommentMutationVariables>(SUBMIT_COMMENT_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
-  const deleteComment = useMutation(DELETE_COMMENT_MUTATION, {
+  const deleteComment = useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DELETE_COMMENT_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
-    variables: { commentID: selectedCommentID },
   });
 
-  useDocumentTitle(noteQueryData.note.title);
+  useDocumentTitle(noteQueryData && noteQueryData.note ? noteQueryData.note.title : '');
 
   const calculateRelativeMarginTop = (): number =>
     commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
@@ -93,7 +66,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     }
   };
 
-  const onCommentDelete = () => deleteComment().then(() => setSelectedCommentID(undefined));
+  const onCommentDelete = () => deleteComment({ variables: { commentID } }).then(() => setSelectedCommentID(undefined));
 
   const onCommentClick = (id: number, marginTop: number) => {
     setShouldDisplayNewComment(false);
@@ -106,21 +79,18 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setSelectedCommentID(undefined);
   };
 
-  const renderEditor = (note: any) => {
-    const { title, text, comments } = note;
-    return (
-      <Box width="xlarge" justify="center" align="center">
-        <Editor
-          title={title}
-          canShowComments={canShowComments}
-          initialValue={text}
-          commentLocations={comments.map(mapCommentToLocations)}
-          onCreateComment={onCreateComment}
-          onCommentClick={onCommentClick}
-        />
-      </Box>
-    );
-  };
+  const renderEditor = ({ title, text, comments }: NoteQuery_note) => (
+    <Box width="xlarge" justify="center" align="center">
+      <Editor
+        title={title}
+        canShowComments={canShowComments}
+        initialValue={text}
+        commentLocations={comments ? comments.map(mapCommentToLocations) : []}
+        onCreateComment={onCreateComment}
+        onCommentClick={onCommentClick}
+      />
+    </Box>
+  );
 
   const renderCommentLoading = () => (
     <Box margin={{ top: `${calculateRelativeMarginTop()}px` }}>
@@ -128,11 +98,9 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     </Box>
   );
 
-  const size = useContext(ResponsiveContext);
-
   return (
     <Box justify="center" alignContent="center" align="start" margin="xsmall" direction="row">
-      {size === 'small' ? (
+      {screenSize === 'small' ? (
         <div />
       ) : (
         <Button
@@ -147,7 +115,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       <Box width="large" margin={{ horizontal: 'small' }} justify="center">
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       </Box>
-      {size === 'small' ? (
+      {screenSize === 'small' ? (
         <div />
       ) : (
         <Box direction="column" align="start" width="320px">

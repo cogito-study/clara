@@ -4,7 +4,7 @@ import { Route, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { routePath } from '../constants';
-import { RegisterContainer } from '../containers/RegisterContainer';
+import { RegisterContainer } from '../containers/Register/RegisterContainer';
 import { Footer } from '../ui/components';
 
 const BoxWithHeight = styled(Box)`
