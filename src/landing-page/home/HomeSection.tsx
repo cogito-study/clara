@@ -43,7 +43,7 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
 
   const onLogin = (event) => {
     event.preventDefault();
-    loginUser().then(({ data }) => authService.authSuccess(data.loginUser.token, history));
+    loginUser().then(({ data }) => authService.authSuccess(data.login.token, history));
   };
 
   return (

@@ -69,8 +69,6 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   const [newCommentText, setNewCommentText] = useState('');
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
-  console.log('selectedCommentID', selectedCommentID);
-
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, {
     refetchQueries: [{ query: COMMENT_QUERY, variables: { commentID: selectedCommentID } }],
     variables: { commentID: selectedCommentID },

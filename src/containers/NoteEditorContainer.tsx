@@ -108,7 +108,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const renderEditor = (note: any) => {
     const { title, text, comments } = note;
-    console.log('note', note);
     return (
       <Box width="xlarge" justify="center" align="center">
         <Editor

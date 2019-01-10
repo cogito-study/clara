@@ -28,8 +28,6 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
       {(props) => {
         const { values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur } = props;
 
-        console.log('Form isValid?', isValid);
-
         return (
           <Form>
             <Box align="center">
