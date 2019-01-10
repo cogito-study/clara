@@ -43,7 +43,7 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:dev": "env-cmd .env.dev react-scripts start",
     "build": "react-scripts build",
     "build:staging": "env-cmd .env.staging npm run build",
     "test": "react-scripts test",

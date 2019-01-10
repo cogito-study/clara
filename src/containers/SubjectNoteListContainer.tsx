@@ -14,13 +14,13 @@ import { Link } from '../ui/components/Link';
 
 const SUBJECT_NOTE_LIST_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
-    subject(subjectCode: $subjectCode) {
+    subject(code: $subjectCode) {
       notes {
         id
-        seriesNumber
+        number
         title
         description
-        modifiedAt
+        updatedAt
         createdAt
       }
     }
@@ -41,9 +41,9 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
   const size = useContext(ResponsiveContext);
 
   const renderNoteList = () => {
-    const renderDateLabel = (createdAt: string, modifiedAt?: string): string =>
-      modifiedAt
-        ? `Frissítve ${dateService.yearMonthDay(modifiedAt)}`
+    const renderDateLabel = (createdAt: string, updatedAt?: string): string =>
+      updatedAt
+        ? `Frissítve ${dateService.yearMonthDay(updatedAt)}`
         : `Létrehozva ${dateService.yearMonthDay(createdAt)}`;
 
     return data.subject.notes
@@ -52,7 +52,7 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
         <Tilt key={note.id} className="Tilt" options={{ max: 15, scale: 1.04, speed: 1250 }}>
           <Link to={routePath.subjectNote(subjectCode, note.id)}>
             <HoveredNoteCard
-              noteNumber={note.seriesNumber}
+              noteNumber={note.number}
               title={note.title}
               abstract={note.description}
               dateLabel={renderDateLabel(note.createdAt, note.modifiedAt)}

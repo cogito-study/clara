@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/NotificationContext';
-import { isProduction } from '../environment/config';
+import { config, isProduction } from '../environment/config';
 import { client } from '../graphql/client';
 import { Router } from '../route/Router';
 import { theme } from '../ui/theme';
@@ -26,6 +26,8 @@ const initializeGA = () => {
 const initializeErrorReporter = () => initSentry({ dsn: 'https://fb58dd3770e24645ae9023bbd5797c7c@sentry.io/1363186' });
 
 export const App = () => {
+  console.log('api url', config.apiURL);
+
   if (isProduction) {
     initializeGA();
     initializeErrorReporter();

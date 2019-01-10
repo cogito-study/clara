@@ -11,9 +11,19 @@ import { authService } from '../services/authService';
 import { AuthRouteParams } from '../types/RouteParams';
 import { RegistrationCard } from '../ui/components';
 
+const USER_INFO_QUERY = gql`
+  query UserInfo($userID: ID!) {
+    user(id: $userID) {
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
 const ACTIVATE_USER = gql`
-  mutation ActivateUser($userID: Int!, $password: String!) {
-    activateUser(userId: $userID, newPassword: $password) {
+  mutation ActivateUser($userID: ID!, $password: String!) {
+    activate(id: $userID, password: $password) {
       token
     }
   }
@@ -28,7 +38,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
 
   const onRegistration = async (password: string) => {
     const mutation = await registerPassword({ variables: { userID, password } });
-    authService.authSuccess(mutation.data.activateUser.token, history);
+    authService.authSuccess(mutation.data.activate.token, history);
   };
 
   return (

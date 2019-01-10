@@ -1,16 +1,15 @@
-import { DataProxy } from 'apollo-cache';
 import gql from 'graphql-tag';
 import { Box } from 'grommet';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { FetchResult, useMutation, useQuery } from 'react-apollo-hooks';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 
 import { UserContext } from '../contexts/UserContext';
 import { dateService } from '../services/dateService';
 import { NoteComment } from '../ui/components';
 
 const COMMENT_QUERY = gql`
-  query CommentQuery($commentID: Int!) {
-    comment(commentId: $commentID) {
+  query CommentQuery($commentID: ID!) {
+    comment(id: $commentID) {
       text
       createdAt
       author {
@@ -26,50 +25,26 @@ const COMMENT_QUERY = gql`
 `;
 
 const UPVOTE_COMMENT_MUTATION = gql`
-  mutation UpvoteComment($commentID: Int!) {
-    upvoteComment(commentId: $commentID) {
-      comment {
+  mutation UpvoteComment($commentID: ID!) {
+    upvoteComment(id: $commentID) {
+      id
+      upvotes {
         id
-        upvotes {
-          id
-        }
       }
     }
   }
 `;
 
 const UNVOTE_COMMENT_MUTATION = gql`
-  mutation UnvoteComment($commentID: Int!) {
-    unvoteComment(commentId: $commentID) {
-      comment {
+  mutation UnvoteComment($commentID: ID!) {
+    unvoteComment(id: $commentID) {
+      id
+      upvotes {
         id
-        upvotes {
-          id
-        }
       }
     }
   }
 `;
-
-const updateCommentCache = (cache: DataProxy, mutationResult: FetchResult<any>) => {
-  const newComment = mutationResult.data.upvoteComment
-    ? mutationResult.data.upvoteComment
-    : mutationResult.data.unvoteComment;
-
-  const queryType = cache.readQuery<{ comment: any }>({
-    query: COMMENT_QUERY,
-    variables: { commentID: newComment.comment.id },
-  });
-
-  if (queryType) {
-    const { comment } = queryType;
-    cache.writeQuery({
-      query: COMMENT_QUERY,
-      variables: { commentID: newComment.comment.id },
-      data: { comment: { ...comment, upvotes: newComment.comment.upvotes } },
-    });
-  }
-};
 
 export interface Props {
   marginTop: number;
@@ -94,12 +69,14 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   const [newCommentText, setNewCommentText] = useState('');
   const { data: commentQueryData } = useQuery(COMMENT_QUERY, { variables: { commentID: selectedCommentID } });
 
+  console.log('selectedCommentID', selectedCommentID);
+
   const upvoteComment = useMutation(UPVOTE_COMMENT_MUTATION, {
-    update: updateCommentCache,
+    refetchQueries: [{ query: COMMENT_QUERY, variables: { commentID: selectedCommentID } }],
     variables: { commentID: selectedCommentID },
   });
   const unvoteComment = useMutation(UNVOTE_COMMENT_MUTATION, {
-    update: updateCommentCache,
+    refetchQueries: [{ query: COMMENT_QUERY, variables: { commentID: selectedCommentID } }],
     variables: { commentID: selectedCommentID },
   });
 

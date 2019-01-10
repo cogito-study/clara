@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { Box, Button, Image, ResponsiveContext } from 'grommet';
-import React, { FunctionComponent, Suspense, useRef, useState, useContext } from 'react';
+import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -15,8 +15,8 @@ import CloseIcon from '../assets/images/CloseIcon.svg';
 import CommentIcon from '../assets/images/CommentIcon.svg';
 
 const NOTE_QUERY = gql`
-  query NoteQuery($noteID: Int!) {
-    note(noteId: $noteID) {
+  query NoteQuery($noteID: ID!) {
+    note(id: $noteID) {
       title
       text
       comments {
@@ -28,8 +28,8 @@ const NOTE_QUERY = gql`
 `;
 
 const SUBMIT_COMMENT_MUTATION = gql`
-  mutation SubmitComment($noteID: Int!, $commentData: CommentInput!) {
-    commentNote(noteId: $noteID, commentData: $commentData) {
+  mutation SubmitComment($noteID: ID!, $commentData: CommentInput!) {
+    submitComment(noteID: $noteID, input: $commentData) {
       note {
         id
         comments {
@@ -42,18 +42,17 @@ const SUBMIT_COMMENT_MUTATION = gql`
 `;
 
 const DELETE_COMMENT_MUTATION = gql`
-  mutation DeleteComment($commentID: Int!) {
-    deleteComment(commentId: $commentID) {
-      success
-    }
+  mutation DeleteComment($commentID: ID!) {
+    deleteComment(id: $commentID)
   }
 `;
 
 const mapCommentToLocations = (comment: any): CommentLocation => ({
   id: comment.id,
-  range: JSON.parse(comment.locationInText),
+  range: comment.locationInText,
 });
 
+// tslint:disable:cyclomatic-complexity
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match, history }) => {
   const { noteID } = match.params;
 
@@ -70,8 +69,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
   const deleteComment = useMutation(DELETE_COMMENT_MUTATION, {
-    variables: { commentID: selectedCommentID },
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
+    variables: { commentID: selectedCommentID },
   });
 
   useDocumentTitle(noteQueryData.note.title);
@@ -109,13 +108,13 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const renderEditor = (note: any) => {
     const { title, text, comments } = note;
-    console.log('comments', comments);
+    console.log('note', note);
     return (
       <Box width="xlarge" justify="center" align="center">
         <Editor
           title={title}
           canShowComments={canShowComments}
-          initialValue={JSON.parse(text)}
+          initialValue={text}
           commentLocations={comments.map(mapCommentToLocations)}
           onCreateComment={onCreateComment}
           onCommentClick={onCommentClick}

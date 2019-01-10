@@ -11,15 +11,9 @@ import { SubjectRouteParams } from '../types/RouteParams';
 import { SubjectHeader } from '../ui/components/SubjectHeader';
 
 const SUBJECT_HEADER_QUERY = gql`
-  query SubjectHeader($userID: Int!, $subjectCode: String!) {
-    user(userId: $userID) {
-      lastName
-      firstName
-    }
-    subject(subjectCode: $subjectCode) {
-      subjectInfo {
-        name
-      }
+  query SubjectHeader($subjectCode: String!) {
+    subject(code: $subjectCode) {
+      name
     }
   }
 `;
@@ -29,20 +23,17 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
   const client = useApolloClient();
 
   const loggedInUser = useContext(UserContext);
-  const userID = loggedInUser ? loggedInUser.id : undefined;
-  const { data: queryData } = useQuery(SUBJECT_HEADER_QUERY, { variables: { userID, subjectCode } });
+  const { data: queryData } = useQuery(SUBJECT_HEADER_QUERY, { variables: { subjectCode } });
 
-  useDocumentTitle(queryData.subject.subjectInfo.name);
+  useDocumentTitle(queryData.subject.name);
 
   const onLogout = () => authService.logout(props.history, client);
 
   const renderHeader = (data: any) => {
-    if (data.subject && data.user) {
-      const {
-        user: { lastName, firstName },
-        subject: { subjectInfo },
-      } = data;
-      return <SubjectHeader title={subjectInfo.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />;
+    if (data.subject && loggedInUser) {
+      const { name } = data.subject;
+      const { firstName, lastName } = loggedInUser;
+      return <SubjectHeader title={name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />;
     }
 
     return undefined;

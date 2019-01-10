@@ -4,7 +4,7 @@ import { localStorageKeys, routePath } from '../constants';
 
 const authSuccess = (token: string, history: H.History) => {
   localStorage.setItem(localStorageKeys.authToken, token);
-  history.push(routePath.subjectInfo('BIOIN124')); // TODO: Change to ersebeszet subject code in PROD
+  history.push(routePath.subjectInfo('ERSEB')); // TODO: Change to ersebeszet subject code in PROD
 };
 
 const getAuthToken = (): string | null => localStorage.getItem(localStorageKeys.authToken);

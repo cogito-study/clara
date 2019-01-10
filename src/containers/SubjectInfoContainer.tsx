@@ -10,13 +10,12 @@ import { InfoCard } from '../ui/components';
 
 const SUBJECT_INFO_QUERY = gql`
   query SubjectInfo($subjectCode: String!) {
-    subject(subjectCode: $subjectCode) {
-      subjectInfo {
-        infoItems {
-          title
-          subtitle
-          text
-        }
+    subject(code: $subjectCode) {
+      info {
+        id
+        title
+        subtitle
+        text
       }
     }
   }
@@ -28,8 +27,8 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
   const { data, errors } = useQuery(SUBJECT_INFO_QUERY, { variables: { subjectCode } });
 
   const renderInfos = () =>
-    data.subject.subjectInfo.infoItems.map((infoItem, index) => (
-      <InfoCard key={index} title={infoItem.title} subtitle={infoItem.subtitle} content={infoItem.text} />
+    data.subject.info.map(({ id, title, subtitle, text }) => (
+      <InfoCard key={id} title={title} subtitle={subtitle} content={text} />
     ));
 
   return (
