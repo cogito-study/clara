@@ -16,7 +16,7 @@ import { Links } from './plugins/Links';
 import { RichText } from './plugins/RichText';
 import { HoverContainer } from './ProtoComponents';
 
-const CommentButton = styled(Box)`
+const CommentButtonBox = styled(Box)`
 transition: all 0.1s ease-in-out;
   &:hover {
     transform: scale(1.05);
@@ -155,9 +155,9 @@ export default class Editor extends PureComponent<Props, State> {
           left={left}
           top={top}
         >
-          <CommentButton align="center">
+          <CommentButtonBox align="center">
             <Button plain icon={<Image src={commentButtonImage} width="125px" />} onMouseDown={this.onCreateComment} />
-          </CommentButton>
+          </CommentButtonBox>
         </HoverContainer>
       </Fragment>
     );
