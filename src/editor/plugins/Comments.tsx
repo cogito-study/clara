@@ -6,9 +6,10 @@ import styled from 'styled-components';
 import { MarkType } from '../enums/MarkType';
 
 const CommentContainer = styled.span`
-  background-color: rgba(71, 135, 211, 0.8);};
+  background-color: rgba(71, 135, 211, 0.7);
   color: white;
-  padding: 2px;
+  padding: 2px 0px 2px 0px;
+  border: 1px solid rgba(71, 135, 211, 1);
 `;
 
 interface CommentProps {
