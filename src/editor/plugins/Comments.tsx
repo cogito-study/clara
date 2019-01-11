@@ -22,8 +22,12 @@ const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback, n
     window
       .getSelection()
       .getRangeAt(0)
-      .getBoundingClientRect().top;
-  return <CommentContainer onClick={() => onClickCallback(calculateSelectionPosition())}>{children}</CommentContainer>;
+      .getBoundingClientRect().top + window.scrollY;
+
+  const onMouseUp = (e: React.MouseEvent<HTMLElement>) => {
+    onClickCallback(calculateSelectionPosition());
+  };
+  return <CommentContainer onMouseUp={onMouseUp}>{children}</CommentContainer>;
 };
 
 export const Comments = (onClickCallback: (id: number, top: number) => void): Plugin => ({
