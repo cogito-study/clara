@@ -164,7 +164,7 @@ export default class Editor extends PureComponent<Props, State> {
         <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
-        <Box background="white" elevation="large" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
+        <Box background="white" elevation="small" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
           <SlateEditor
             spellCheck
             autoFocus

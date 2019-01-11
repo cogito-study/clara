@@ -101,20 +101,19 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   );
 
   return (
-    <Box justify="center" alignContent="center" align="start" margin="xsmall" direction="row">
+    <Box justify="center" alignContent="center" align="start" pad="xsmall" direction="row">
       {screenSize === 'small' ? (
         <div />
       ) : (
         <Button
-          margin={{ top: 'medium' }}
+          margin={{ top: 'xlarge' }}
           color="gray"
           label={true}
           icon={<Image src={BackIcon} width="20px" />}
           onClick={history.goBack}
         />
       )}
-
-      <Box width="large" margin={{ horizontal: 'small' }} justify="center">
+      <Box width="large" margin={{ horizontal: 'small', vertical: 'medium' }} justify="center">
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       </Box>
       {screenSize === 'small' ? (
@@ -123,7 +122,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         <Box direction="column" align="start" width="320px">
           <Button
             reverse
-            margin={{ top: 'medium' }}
+            margin={{ top: 'xlarge' }}
             color={canShowComments ? 'error' : 'primary'}
             label={canShowComments ? 'Elrejtés' : 'Javaslatok'}
             icon={canShowComments ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
