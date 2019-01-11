@@ -1,9 +1,11 @@
-import { Box, Button, Heading } from 'grommet';
+import { Box, Button, Heading, Image } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
 import { Editor as CoreEditor, Range, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 // import { PasteLinkify } from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
+
+import commentButtonImage from '../assets/images/commentButton.svg';
 
 import styled from 'styled-components';
 import { MarkType } from './enums/MarkType';
@@ -13,6 +15,12 @@ import { Images } from './plugins/Images';
 import { Links } from './plugins/Links';
 import { RichText } from './plugins/RichText';
 import { HoverContainer } from './ProtoComponents';
+
+const CommentButton = styled(Box)`
+transition: all 0.1s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+`;
 
 export interface CommentButtonPosition {
   top: number;
@@ -101,8 +109,8 @@ export default class Editor extends PureComponent<Props, State> {
 
       this.setState({
         commentButtonPosition: {
-          top: rect.top + window.pageYOffset - 40,
-          left: rect.left + window.pageXOffset - this.commentButton.offsetWidth / 2 + rect.width / 2,
+          top: rect.top + window.pageYOffset - 53,
+          left: rect.left + window.pageXOffset + rect.width - 16,
         },
       });
     }
@@ -147,9 +155,9 @@ export default class Editor extends PureComponent<Props, State> {
           left={left}
           top={top}
         >
-          <Button primary onMouseDown={this.onCreateComment}>
-            Comment
-          </Button>
+          <CommentButton align="center">
+            <Button plain icon={<Image src={commentButtonImage} width="125px" />} onMouseDown={this.onCreateComment} />
+          </CommentButton>
         </HoverContainer>
       </Fragment>
     );
