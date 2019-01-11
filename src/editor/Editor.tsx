@@ -2,6 +2,7 @@ import { Box, Button, Heading } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
 import { Editor as CoreEditor, Range, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
+// import { PasteLinkify } from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
 
 import styled from 'styled-components';
@@ -10,7 +11,6 @@ import { Comments } from './plugins/Comments';
 import { History } from './plugins/History';
 import { Images } from './plugins/Images';
 import { Links } from './plugins/Links';
-import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer } from './ProtoComponents';
 
@@ -59,7 +59,6 @@ export default class Editor extends PureComponent<Props, State> {
 
     this.plugins = [
       History(),
-      ReadOnlyPlugin(),
       Images(),
       Links(),
       RichText(),

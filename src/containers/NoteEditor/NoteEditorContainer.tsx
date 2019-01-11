@@ -48,8 +48,10 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   useDocumentTitle(noteQueryData && noteQueryData.note ? noteQueryData.note.title : '');
 
-  const calculateRelativeMarginTop = (): number =>
-    commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
+  const calculateRelativeMarginTop = (): number => {
+    const top = commentMarginTop - (spacerRef.current ? spacerRef.current.offsetTop : 0);
+    return top;
+  };
 
   const onCreateComment = (locationInText: string, marginTop: number) => {
     setShouldDisplayNewComment(true);

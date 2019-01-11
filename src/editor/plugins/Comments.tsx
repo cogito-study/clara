@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Editor as CoreEditor, Node } from 'slate';
-import { findDOMNode, Plugin, RenderMarkProps } from 'slate-react';
+import { Node } from 'slate';
+import { Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
 
 import { MarkType } from '../enums/MarkType';
@@ -16,19 +16,16 @@ interface CommentProps {
 }
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback, node }) => {
-  const getPosition = (event: React.MouseEvent<HTMLSpanElement>) => {
-    event.preventDefault();
-    const commentNode = findDOMNode(node);
-    if (commentNode instanceof HTMLElement) {
-      onClickCallback(commentNode.offsetTop);
-    }
-  };
-
-  return <CommentContainer onClick={getPosition}>{children}</CommentContainer>;
+  const calculateSelectionPosition = () =>
+    window
+      .getSelection()
+      .getRangeAt(0)
+      .getBoundingClientRect().top;
+  return <CommentContainer onClick={() => onClickCallback(calculateSelectionPosition())}>{children}</CommentContainer>;
 };
 
 export const Comments = (onClickCallback: (id: number, top: number) => void): Plugin => ({
-  renderMark: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => {
+  renderMark: (props: RenderMarkProps, _, next: () => any) => {
     const {
       children,
       node,

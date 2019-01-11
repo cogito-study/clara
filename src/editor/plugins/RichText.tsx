@@ -9,7 +9,6 @@ import { NodeType } from '../enums/NodeType';
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
-const isEnterKey = (event: Event) => event instanceof KeyboardEvent && event.key === 'Enter';
 
 const findMarkForEvent = (event: Event): MarkType | undefined => {
   switch (event) {
@@ -33,6 +32,7 @@ export const hasMark = (type: MarkType, value: Value) =>
 export const hasBlock = (type: NodeType, value: Value) =>
   value.blocks.some((node) => (node ? node.type === type : false));
 
+// tslint:disable:cyclomatic-complexity
 export const RichText = (): Plugin => ({
   renderNode: (props: RenderNodeProps, _, next: () => any) => {
     const { attributes, children, node } = props;
@@ -83,17 +83,11 @@ export const RichText = (): Plugin => ({
   },
 
   onKeyDown: (event: Event, editor: CoreEditor, next: VoidFunction) => {
-    event.preventDefault();
-
-    if (isEnterKey(event)) {
-      editor.insertText('\n');
-    }
-
     const mark = findMarkForEvent(event);
     if (mark !== undefined) {
+      event.preventDefault();
       editor.toggleMark({ type: mark });
     }
-
     next();
   },
 });
