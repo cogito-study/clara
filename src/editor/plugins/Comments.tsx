@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import { MarkType } from '../enums/MarkType';
 
 const CommentContainer = styled.span`
-  background-color: ${(props) => props.theme.global.colors.primary};
+  background-color: rgba(71, 135, 211, 0.8);};
   color: white;
+  padding: 2px;
 `;
 
 interface CommentProps {
