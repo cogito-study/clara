@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-client';
 import { Box, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
@@ -6,6 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import cogitoLandscape from '../../assets/images/cogitoLandscape.svg';
 import cogitoPortrait from '../../assets/images/cogitoPortrait.svg';
 
+import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { authService } from '../../services/authService';
 import { AuthRouteParams } from '../../types/RouteParams';
 import { RegistrationCard } from '../../ui/components';
@@ -16,14 +18,21 @@ import { USER_INFO_QUERY } from './UserInfoQuery';
 
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
   const screenSize = useContext(ResponsiveContext);
+  const { showNotification } = useContext(NotificationContext);
 
   const { userID } = match.params;
-  const { data } = useQuery<UserInfoQuery, UserInfoQueryVariables>(USER_INFO_QUERY, { variables: { userID } });
+  const { data: userInfoData } = useQuery<UserInfoQuery, UserInfoQueryVariables>(USER_INFO_QUERY, {
+    variables: { userID },
+  });
   const registerPassword = useMutation<ActivateUserMutation, ActivateUserMutationVariables>(ACTIVATE_USER);
 
-  const onRegistration = async (password: string) => {
-    const mutation = await registerPassword({ variables: { userID, password } });
-    authService.authSuccess(mutation.data.activate.token, history);
+  const onRegistration = (password: string, resetForm: () => void) => {
+    registerPassword({ variables: { userID, password } })
+      .then(({ data }) => authService.authSuccess(data.activate.token, history))
+      .catch((error: ApolloError) => {
+        error.graphQLErrors.map(({ message }) => showNotification(message, 'error'));
+        resetForm();
+      });
   };
 
   return (
@@ -39,10 +48,10 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
           </Box>
         )}
         <Box width="480px" align="center">
-          {data.user && (
+          {userInfoData.user && (
             <RegistrationCard
-              name={`${data.user.lastName} ${data.user.firstName}`}
-              email={data.user.email}
+              name={`${userInfoData.user.lastName} ${userInfoData.user.firstName}`}
+              email={userInfoData.user.email}
               onRegistration={onRegistration}
             />
           )}

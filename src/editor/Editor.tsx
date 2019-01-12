@@ -4,7 +4,6 @@ import { Editor as CoreEditor, Range, RangeJSON, SchemaProperties, Value, ValueJ
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
-import styled from 'styled-components';
 import commentButtonImage from '../assets/images/commentButton.svg';
 import { Comments, toggleCommentMark } from './plugins/Comments';
 import { History } from './plugins/History';
@@ -13,13 +12,6 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-
-const CommentButtonBox = styled(Box)`
-  transition: all 0.1s ease-in-out;
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
 
 export interface CommentButtonPosition {
   top: number;
@@ -164,9 +156,9 @@ export default class Editor extends PureComponent<Props, State> {
           left={left}
           top={top}
         >
-          <CommentButtonBox align="center">
+          <Box align="center" style={{ transition: 'all 0.1s ease-in-out' }}>
             <Button plain icon={<Image src={commentButtonImage} width="125px" />} onMouseDown={this.onCreateComment} />
-          </CommentButtonBox>
+          </Box>
         </HoverContainer>
       </Fragment>
     );
@@ -177,7 +169,7 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <EditorBox margin={{ vertical: 'medium', horizontal: 'xsmall' }}>
+      <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
         <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
@@ -195,11 +187,7 @@ export default class Editor extends PureComponent<Props, State> {
             role="editor"
           />
         </Box>
-      </EditorBox>
+      </Box>
     );
   }
 }
-
-export const EditorBox = styled(Box)`
-  max-width: 1000px;
-`;

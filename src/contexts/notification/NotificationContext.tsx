@@ -11,7 +11,7 @@ export const NotificationContext = createContext<NotificationContextState>({ sho
 export const NotificationConsumer = NotificationContext.Consumer;
 
 export const NotificationProvider: FunctionComponent = ({ children }) => {
-  const defaultNotificationDuration = 5000;
+  const defaultNotificationDuration = 10000;
 
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState<string | undefined>(undefined);

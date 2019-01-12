@@ -70,7 +70,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   };
 
   const renderNewCommentBox = () => {
-    const authorName = loggedInUser ? `${loggedInUser.lastName} ${loggedInUser.firstName}` : '';
+    const authorName = loggedInUser ? loggedInUser.fullName : '';
     return (
       <NoteComment
         authorName={authorName}

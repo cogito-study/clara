@@ -1,19 +1,12 @@
 import { Box, BoxProps, Heading, Paragraph, ResponsiveContext, Stack } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 
-import styled from 'styled-components';
-
 interface Props {
   noteNumber: number;
   title: string;
   abstract: string;
   dateLabel?: string;
 }
-
-const HeadingWithOpacity = styled(Heading)`
-  opacity: 0.2;
-  font-size: 80px;
-`;
 
 const NoteCard: FunctionComponent<BoxProps & Props> = ({
   noteNumber,
@@ -46,9 +39,14 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
           <Box fill direction="column" margin="none" align="start" gap="xsmall">
             <Box fill="horizontal" margin="none">
               <Stack anchor="right" guidingChild="last">
-                <HeadingWithOpacity margin={{ top: '20px', bottom: '0px' }} color="primary" level="1">
+                <Heading
+                  margin={{ top: '20px', bottom: '0px' }}
+                  color="primary"
+                  level="1"
+                  style={{ opacity: 0.2, fontSize: '80px' }}
+                >
                   {noteNumber < 10 ? '0' + noteNumber : noteNumber}
-                </HeadingWithOpacity>
+                </Heading>
                 <Heading level="4" color="dark" margin="small">
                   {title}
                 </Heading>
@@ -79,9 +77,9 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
           <Box fill direction="column" align="start" justify="start" gap="xsmall">
             <Box fill="horizontal">
               <Stack anchor="top-right" margin={{ top: '12px', horizontal: 'none' }} guidingChild="last">
-                <HeadingWithOpacity margin="none" color="primary" level="1">
+                <Heading margin="none" color="primary" level="1" style={{ opacity: 0.2, fontSize: '80px' }}>
                   {noteNumber < 10 ? '0' + noteNumber : noteNumber}
-                </HeadingWithOpacity>
+                </Heading>
                 <Heading level="4" color="dark" margin="none">
                   {title}
                 </Heading>
