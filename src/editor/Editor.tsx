@@ -2,17 +2,15 @@ import { Box, Button, Heading, Image } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
 import { Editor as CoreEditor, Range, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
-// import { PasteLinkify } from 'slate-paste-linkify';
+import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
-
-import commentButtonImage from '../assets/images/commentButton.svg';
-
 import styled from 'styled-components';
-import { MarkType } from './enums/MarkType';
-import { Comments } from './plugins/Comments';
+import commentButtonImage from '../assets/images/commentButton.svg';
+import { Comments, toggleCommentMark } from './plugins/Comments';
 import { History } from './plugins/History';
 import { Images } from './plugins/Images';
-import { Links } from './plugins/Links';
+import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
+import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer } from './ProtoComponents';
 
@@ -67,22 +65,26 @@ export default class Editor extends PureComponent<Props, State> {
     super(props);
 
     this.plugins = [
+      ReadOnlyPlugin(),
       History(),
       Images(),
       Links(),
       RichText(),
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
-      // PasteLinkify({
-      //   isActiveQuery: () => isLinkActive(this.state.value),
-      //   wrapCommand: wrapLink,
-      //   unwrapCommand: unwrapLink,
-      // }),
+      PasteLinkify({
+        isActiveQuery: () => isLinkActive(this.state.value),
+        wrapCommand: wrapLink,
+        unwrapCommand: unwrapLink,
+      }),
       CollapseOnEscape(),
     ];
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.canShowComments !== prevProps.canShowComments) {
+    if (
+      this.props.canShowComments !== prevProps.canShowComments ||
+      this.props.commentLocations.length !== prevProps.commentLocations.length
+    ) {
       this.toggleComments(this.props.commentLocations);
     }
   }
@@ -118,14 +120,9 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   toggleComments = (commentLocations: CommentLocation[]) => {
-    const { canShowComments } = this.props;
-
     commentLocations.forEach(({ id, range }: CommentLocation) => {
       const commentRange = Range.fromJSON(range);
-
-      canShowComments
-        ? this.editor.select(commentRange).addMark({ type: MarkType.Comment, data: { id } })
-        : this.editor.select(commentRange).removeMark({ type: MarkType.Comment, data: { id } });
+      toggleCommentMark(this.editor, commentRange, id);
     });
 
     this.editor.moveToStart().blur();

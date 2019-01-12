@@ -4,6 +4,19 @@ import { Plugin, RenderNodeProps } from 'slate-react';
 
 import { NodeType } from '../enums/NodeType';
 
+export const wrapLink = (editor, href) => {
+  editor.wrapInline({
+    type: NodeType.Link,
+    data: { href },
+  });
+
+  editor.moveToEnd();
+};
+
+export const unwrapLink = (editor) => {
+  editor.unwrapInline(NodeType.Link);
+};
+
 export const isLinkActive = (value: Value) => {
   return value.inlines.some((inline) => (inline ? inline.type === NodeType.Link : false));
 };
@@ -18,14 +31,7 @@ export const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor: 
   } else if (value.selection.isExpanded) {
     const href = window.prompt('Enter the URL of the link:');
 
-    if (href) {
-      editor
-        .wrapInline({
-          type: NodeType.Link,
-          data: { href },
-        })
-        .moveToEnd();
-    }
+    wrapLink(editor, href);
   } else {
     const href = window.prompt('Enter the URL of the link:');
     const text = window.prompt('Enter the text for the link:');

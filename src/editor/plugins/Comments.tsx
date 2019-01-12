@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Node } from 'slate';
-import { Plugin, RenderMarkProps } from 'slate-react';
+import { Node, Range } from 'slate';
+import { Editor, Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
-
 import { MarkType } from '../enums/MarkType';
 
 const CommentContainer = styled.span`
@@ -16,6 +15,9 @@ interface CommentProps {
   node: Node;
   onClickCallback: (top: number) => void;
 }
+
+export const toggleCommentMark = (editor: Editor, range: Range, id: string) =>
+  editor.select(range).toggleMark({ type: MarkType.Comment, data: { id } });
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
   const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
