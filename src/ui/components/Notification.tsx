@@ -32,7 +32,7 @@ export const Notification: FunctionComponent<NotificationProps> = ({ isOpen, typ
 
   if (isOpen) {
     return (
-      <Layer plain position="bottom" modal={false}>
+      <Layer plain position="top" modal={false}>
         <Button plain onClick={onClose}>
           <Box round="small" elevation="small" overflow="hidden" direction="row" margin="small">
             <Box align="center" direction="row" background="white" pad="medium" margin="none">

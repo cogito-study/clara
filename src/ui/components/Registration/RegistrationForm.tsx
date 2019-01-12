@@ -7,7 +7,7 @@ import { FormField } from '../FormField';
 import { Spinner } from '../Spinner';
 
 export interface RegistrationFormProps {
-  onRegistration: (password: string) => void;
+  onRegistration: (password: string, resetForm: () => void) => void;
 }
 
 // tslint:disable:cyclomatic-complexity
@@ -16,7 +16,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
   return (
     <Formik
       initialValues={{ password: '', passwordConfirm: '', legalAccepted: false }}
-      onSubmit={({ password }) => onRegistration(password)}
+      onSubmit={({ password }, { resetForm }) => onRegistration(password, resetForm)}
       validationSchema={Yup.object({
         password: Yup.string().required('Jelszó megadása kötelező'),
         passwordConfirm: Yup.string()

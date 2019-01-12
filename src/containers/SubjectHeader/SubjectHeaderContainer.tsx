@@ -25,8 +25,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
 
   const renderHeader = ({ subject }: SubjectHeaderQuery) => {
     if (subject && loggedInUser) {
-      const { firstName, lastName } = loggedInUser;
-      return <SubjectHeader title={subject.name} userName={`${lastName} ${firstName}`} onLogout={onLogout} />;
+      return <SubjectHeader title={subject.name} userName={loggedInUser.fullName} onLogout={onLogout} />;
     }
 
     return undefined;
