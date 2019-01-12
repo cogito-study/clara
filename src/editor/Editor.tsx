@@ -17,9 +17,10 @@ import { RichText } from './plugins/RichText';
 import { HoverContainer } from './ProtoComponents';
 
 const CommentButtonBox = styled(Box)`
-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   &:hover {
     transform: scale(1.05);
+  }
 `;
 
 export interface CommentButtonPosition {
@@ -81,7 +82,7 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (this.props.commentLocations !== prevProps.commentLocations) {
+    if (this.props.canShowComments !== prevProps.canShowComments) {
       this.toggleComments(this.props.commentLocations);
     }
   }
@@ -127,7 +128,7 @@ export default class Editor extends PureComponent<Props, State> {
         : this.editor.select(commentRange).removeMark({ type: MarkType.Comment, data: { id } });
     });
 
-    this.editor.moveToEnd().blur();
+    this.editor.moveToStart().blur();
   };
 
   onChange = ({ value }) => {

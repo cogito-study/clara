@@ -17,17 +17,12 @@ interface CommentProps {
   onClickCallback: (top: number) => void;
 }
 
-const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback, node }) => {
-  const calculateSelectionPosition = () =>
-    window
-      .getSelection()
-      .getRangeAt(0)
-      .getBoundingClientRect().top + window.scrollY;
-
-  const onMouseUp = (e: React.MouseEvent<HTMLElement>) => {
-    onClickCallback(calculateSelectionPosition());
+const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    onClickCallback(e.clientY + window.scrollY);
   };
-  return <CommentContainer onMouseUp={onMouseUp}>{children}</CommentContainer>;
+  return <CommentContainer onMouseDown={onMouseDown}>{children}</CommentContainer>;
 };
 
 export const Comments = (onClickCallback: (id: number, top: number) => void): Plugin => ({
