@@ -4,21 +4,16 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import ReactGA from 'react-ga';
+import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/notification/NotificationContext';
 import { isProduction } from '../environment/config';
 import { client } from '../graphql/client';
-import { Helmet } from 'react-helmet';
-import { hotjarString } from '../scripts/hotjar';
 import { Router } from '../route/Router';
+import { hotjarString } from '../scripts/hotjar';
 import { theme } from '../ui/theme';
-
-const TempGrommet = styled(Grommet)`
-  overflow: visible;
-`;
 
 const initializeGA = () => {
   ReactGA.initialize('UA-120199285-1');
@@ -34,7 +29,7 @@ export const App = () => {
   }
 
   return (
-    <TempGrommet theme={theme} full>
+    <Grommet theme={theme} full>
       {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
       <NotificationProvider>
         <ApolloProvider client={client}>
@@ -45,6 +40,6 @@ export const App = () => {
           </ApolloHooksProvider>
         </ApolloProvider>
       </NotificationProvider>
-    </TempGrommet>
+    </Grommet>
   );
 };

@@ -1,6 +1,5 @@
 import { Box, BoxProps, Heading, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
-import styled from 'styled-components';
 
 interface Props {
   title: string;
@@ -8,15 +7,11 @@ interface Props {
   content: string;
 }
 
-const UpperCaseHeading = styled(Heading)`
-  text-transform: uppercase;
-`;
-
 export const InfoCard: FunctionComponent<BoxProps & Props> = (props) => (
   <Box pad="medium" background="white" round="small" elevation="medium" width="large">
-    <UpperCaseHeading color="primary" level="3" margin="xsmall">
+    <Heading color="primary" level="3" margin="xsmall" style={{ textTransform: 'uppercase' }}>
       {props.title}
-    </UpperCaseHeading>
+    </Heading>
     {props.subtitle && (
       <Heading color="gray" level="4" margin="xsmall">
         {props.subtitle}

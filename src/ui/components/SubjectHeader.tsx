@@ -1,6 +1,5 @@
 import { Box, Button, Heading, Image, ResponsiveContext, Text } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
-import styled from 'styled-components';
 
 import LargeBetaLogo from '../../assets/images/LargeBetaLogo.svg';
 import logout from '../../assets/images/Log-out.svg';
@@ -12,10 +11,6 @@ interface Props {
   userName: string;
   onLogout: () => void;
 }
-
-const BorderedBox = styled(Box)`
-  border: 1px solid ${(props) => props.theme.global.colors.white};
-`;
 
 export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLogout }) => {
   const screenSize = useContext(ResponsiveContext);
@@ -38,19 +33,20 @@ export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLog
         {screenSize === 'small' ? (
           <div />
         ) : (
-          <BorderedBox align="center" direction="row" round="16px">
+          <Box align="center" direction="row" round="16px" style={{ border: '1px solid white' }}>
             <Text size="small" color="white" margin={{ left: 'small', vertical: 'xsmall' }}>
               {userName}
             </Text>
-            <BorderedBox
+            <Box
               align="center"
               justify="center"
               round="50px"
               margin={{ horizontal: 'small', vertical: 'none' }}
+              style={{ border: '1px solid white' }}
             >
               <Image src={profile} width="18px" margin="1px" />
-            </BorderedBox>
-          </BorderedBox>
+            </Box>
+          </Box>
         )}
 
         <Button
