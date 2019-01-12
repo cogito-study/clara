@@ -1,8 +1,7 @@
 import React from 'react';
 import { Editor as CoreEditor, Range, RangeProperties } from 'slate';
-import { Plugin, RenderNodeProps } from 'slate-react';
+import { Editor, Plugin, RenderNodeProps } from 'slate-react';
 import styled from 'styled-components';
-
 import { NodeType } from '../enums/NodeType';
 
 const Image = styled.img`
@@ -19,7 +18,7 @@ const insertImage = (editor: CoreEditor, src: string, target: Range | RangePrope
     })
     .select(target);
 
-export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor: CoreEditor) => {
+export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor: Editor) => {
   event.preventDefault();
   const src = window.prompt('Enter the URL of the image:');
 

@@ -12,7 +12,7 @@ import { Images } from './plugins/Images';
 import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
-import { HoverContainer } from './ProtoComponents';
+import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
 
 const CommentButtonBox = styled(Box)`
   transition: all 0.1s ease-in-out;
@@ -37,6 +37,8 @@ interface Props {
   commentLocations: CommentLocation[];
   onCommentClick: (id: number, marginTop: number) => void;
   onCreateComment: (locationInText: string, marginTop: number) => void;
+  onSelectionChanged: (cursorY: number) => void;
+  renderEditorToolsCallBack: (container: JSX.Element) => void;
 }
 interface State {
   value: Value;
@@ -78,6 +80,14 @@ export default class Editor extends PureComponent<Props, State> {
       }),
       CollapseOnEscape(),
     ];
+  }
+
+  componentDidMount() {
+    window.onscroll = () => {
+      if (this.props.canShowComments) {
+        this.props.onSelectionChanged(window.scrollY);
+      }
+    };
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -125,11 +135,12 @@ export default class Editor extends PureComponent<Props, State> {
       toggleCommentMark(this.editor, commentRange, id);
     });
 
-    this.editor.moveToStart().blur();
+    this.editor.blur();
   };
 
   onChange = ({ value }) => {
     this.updateCommentButtonPosition(value);
+    this.props.renderEditorToolsCallBack(renderEditorToolBox(this.editor));
     this.setState({ value });
   };
 

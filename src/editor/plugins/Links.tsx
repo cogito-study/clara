@@ -1,7 +1,6 @@
 import React from 'react';
 import { Editor as CoreEditor, Value } from 'slate';
-import { Plugin, RenderNodeProps } from 'slate-react';
-
+import { Editor, Plugin, RenderNodeProps } from 'slate-react';
 import { NodeType } from '../enums/NodeType';
 
 export const wrapLink = (editor, href) => {
@@ -21,7 +20,7 @@ export const isLinkActive = (value: Value) => {
   return value.inlines.some((inline) => (inline ? inline.type === NodeType.Link : false));
 };
 
-export const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor: CoreEditor) => {
+export const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor: Editor) => {
   event.preventDefault();
 
   const { value } = editor;

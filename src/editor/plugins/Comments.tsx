@@ -21,7 +21,6 @@ export const toggleCommentMark = (editor: Editor, range: Range, id: string) =>
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
   const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
     onClickCallback(e.clientY + window.scrollY);
   };
   return <CommentContainer onMouseDown={onMouseDown}>{children}</CommentContainer>;
@@ -32,13 +31,14 @@ export const Comments = (onClickCallback: (id: number, top: number) => void): Pl
     const {
       children,
       node,
+      attributes,
       mark: { type, data },
     } = props;
 
     if (type === MarkType.Comment) {
       const id = data.get('id');
       return (
-        <Comment key={id} node={node} onClickCallback={(top) => onClickCallback(id, top)}>
+        <Comment key={id} node={node} onClickCallback={(top) => onClickCallback(id, top)} {...attributes}>
           {children}
         </Comment>
       );

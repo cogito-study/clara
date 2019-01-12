@@ -48,7 +48,11 @@ export const RichText = (): Plugin => ({
       case NodeType.NumberedList:
         return <ol {...attributes}>{children}</ol>;
       case NodeType.Paragraph:
-        return <p style={{ margin: '10px 0px 10px 0px' }}>{children}</p>;
+        return (
+          <p style={{ margin: '10px 0px 10px 0px' }} {...attributes}>
+            {children}
+          </p>
+        );
       default:
         return next();
     }
