@@ -6,7 +6,6 @@ import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
-
 import { routePath } from '../constants';
 import { NotificationProvider } from '../contexts/notification/NotificationContext';
 import { isProduction } from '../environment/config';
@@ -29,7 +28,7 @@ export const App = () => {
   }
 
   return (
-    <Grommet theme={theme} full>
+    <Grommet theme={theme} style={{ overflow: 'visible' }} full>
       {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
       <NotificationProvider>
         <ApolloProvider client={client}>

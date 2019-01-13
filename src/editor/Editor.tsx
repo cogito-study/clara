@@ -76,13 +76,16 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    const { onNoteUpdate, renderEditorToolsCallBack } = this.props;
+    const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged } = this.props;
     renderEditorToolsCallBack(
       <div>
         <button onClick={() => onNoteUpdate(this.state.value.toJSON())}>Update</button>
         {renderEditorToolBox(this.editor)}
       </div>,
     );
+
+    // https://www.npmjs.com/package/react-throttle a jövőben
+    window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
   }
 
   componentDidUpdate(prevProps: Props) {
