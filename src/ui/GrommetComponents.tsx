@@ -1,7 +1,7 @@
-import { Box, Button, Grommet, TextInput } from 'grommet';
+import { Box, Button, Grommet, TextInput, FormField } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Footer, FormField, InfoCard, NoteCard, NoteComment, RegistrationCard } from './components';
+import { Footer, InfoCard, NoteCard, NoteComment, RegistrationCard } from './components';
 
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
@@ -78,7 +78,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           onVote={() => alert('Like')}
         />
 
-        <FormField flex="grow" basis="1" htmlFor="email-input" margin="none">
+        <FormField htmlFor="email-input">
           <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
         </FormField>
         <RegistrationCard

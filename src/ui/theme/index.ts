@@ -5,6 +5,7 @@ import { formField } from './formField';
 import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
 import { elevation } from './elevation';
+import { input } from './input';
 
 export const theme = {
   global: {
@@ -12,10 +13,7 @@ export const theme = {
     control: { ...control },
     font: { ...font },
     elevation: { ...elevation },
-    input: {
-      padding: `10px`,
-      weight: 400,
-    },
+    input: { ...input },
   },
   breakpoints: { ...breakpoints },
   button: { ...button },

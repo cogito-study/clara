@@ -17,7 +17,7 @@ export interface CommentButtonPosition {
   top: number;
   left: number;
 }
-
+//
 export interface CommentLocation {
   id: string;
   range: RangeJSON;
