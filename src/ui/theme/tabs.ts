@@ -2,15 +2,15 @@ export const tab = {
   color: 'light',
   weight: '500',
   active: {
-    color: 'light',
+    color: 'white',
     weight: '700',
   },
   hover: {
-    color: 'light',
+    color: 'white',
   },
   border: {
     active: {
-      color: 'light',
+      color: 'white',
     },
     color: 'transparent',
     hover: {
