@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Image } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
-import { Editor as CoreEditor, Range, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
+import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
@@ -11,7 +11,7 @@ import { Images } from './plugins/Images';
 import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
-import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
+import { HoverContainer } from './ProtoComponents';
 
 export interface CommentButtonPosition {
   top: number;
@@ -74,14 +74,6 @@ export default class Editor extends PureComponent<Props, State> {
     ];
   }
 
-  componentDidMount() {
-    window.onscroll = () => {
-      if (this.props.canShowComments) {
-        this.props.onSelectionChanged(window.scrollY);
-      }
-    };
-  }
-
   componentDidUpdate(prevProps: Props) {
     if (
       this.props.canShowComments !== prevProps.canShowComments ||
@@ -123,16 +115,15 @@ export default class Editor extends PureComponent<Props, State> {
 
   toggleComments = (commentLocations: CommentLocation[]) => {
     commentLocations.forEach(({ id, range }: CommentLocation) => {
-      const commentRange = Range.fromJSON(range);
+      const commentRange = SlateRange.fromJSON(range);
       toggleCommentMark(this.editor, commentRange, id);
     });
 
-    this.editor.blur();
+    this.editor.moveToStartOfDocument();
   };
 
   onChange = ({ value }) => {
     this.updateCommentButtonPosition(value);
-    this.props.renderEditorToolsCallBack(renderEditorToolBox(this.editor));
     this.setState({ value });
   };
 
