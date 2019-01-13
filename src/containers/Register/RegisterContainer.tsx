@@ -3,18 +3,16 @@ import { Box, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-
 import cogitoLandscape from '../../assets/images/cogitoLandscape.svg';
 import cogitoPortrait from '../../assets/images/cogitoPortrait.svg';
-
 import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { authService } from '../../services/authService';
 import { AuthRouteParams } from '../../types/RouteParams';
 import { RegistrationCard } from '../../ui/components';
-import { ActivateUserMutation, ActivateUserMutationVariables } from './__generated__/ActivateUserMutation';
-import { UserInfoQuery, UserInfoQueryVariables } from './__generated__/UserInfoQuery';
 import { ACTIVATE_USER } from './ActivateUserMutation';
 import { USER_INFO_QUERY } from './UserInfoQuery';
+import { ActivateUserMutation, ActivateUserMutationVariables } from './__generated__/ActivateUserMutation';
+import { UserInfoQuery, UserInfoQueryVariables } from './__generated__/UserInfoQuery';
 
 export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteParams>> = ({ history, match }) => {
   const screenSize = useContext(ResponsiveContext);
@@ -47,7 +45,7 @@ export const RegisterContainer: FunctionComponent<RouteComponentProps<AuthRouteP
             <Image src={cogitoPortrait} width="200px" />
           </Box>
         )}
-        <Box width="480px" align="center">
+        <Box width="460px" align="center">
           {userInfoData.user && (
             <RegistrationCard
               name={`${userInfoData.user.lastName} ${userInfoData.user.firstName}`}

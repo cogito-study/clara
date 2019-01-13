@@ -19,11 +19,11 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
     align="center"
     justify="center"
     round="medium"
-    pad={{ horizontal: 'medium', vertical: 'medium' }}
+    pad={{ horizontal: 'xlarge', vertical: 'medium' }}
     margin="small"
     gap="none"
   >
-    <Heading level="2" margin={{ bottom: 'small', top: 'none' }} color="primary">
+    <Heading level="2" margin={{ bottom: 'medium', top: 'none' }} color="primary">
       {'Regisztráció'}
     </Heading>
     <Box direction="row-responsive" align="center">
@@ -39,7 +39,7 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
         </Text>
       </Box>
     </Box>
-    <Box margin={{ vertical: 'small' }} fill align="center">
+    <Box margin={{ top: 'medium' }} fill align="center">
       <RegistrationForm onRegistration={onRegistration} />
       <Text size="small" margin="xsmall">
         Már van profilod? <Link to={routePath.root()}>Bejelentkezés</Link>

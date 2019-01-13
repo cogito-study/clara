@@ -16,7 +16,7 @@ export const colors = {
 
 export const control = {
   border: {
-    radius: '24px',
+    radius: '5px',
   },
 };
 
