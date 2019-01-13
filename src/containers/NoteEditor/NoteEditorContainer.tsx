@@ -13,9 +13,11 @@ import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
 import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
+import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
 import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
 import { NoteQuery, NoteQueryVariables, NoteQuery_note, NoteQuery_note_comments } from './__generated__/NoteQuery';
 import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
+import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
@@ -48,6 +50,9 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
   const deleteComment = useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DELETE_COMMENT_MUTATION, {
+    refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
+  });
+  const updateNote = useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(UPDATE_NOTE_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
 
