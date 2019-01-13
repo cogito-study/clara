@@ -5,6 +5,7 @@ export const paragraph = {
   },
   medium: {
     height: '1.6',
+    size: '16px',
     maxWidth: '2000px',
   },
   large: {
