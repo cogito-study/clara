@@ -11,7 +11,7 @@ import { Images } from './plugins/Images';
 import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
-import { HoverContainer } from './ProtoComponents';
+import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
 
 export interface CommentButtonPosition {
   top: number;
@@ -31,6 +31,7 @@ interface Props {
   onCreateComment: (locationInText: string, marginTop: number) => void;
   onSelectionChanged: (cursorY: number) => void;
   renderEditorToolsCallBack: (container: JSX.Element) => void;
+  onNoteUpdate: (text: any) => void;
 }
 interface State {
   value: Value;
@@ -72,6 +73,16 @@ export default class Editor extends PureComponent<Props, State> {
       }),
       CollapseOnEscape(),
     ];
+  }
+
+  componentDidMount() {
+    const { onNoteUpdate, renderEditorToolsCallBack } = this.props;
+    renderEditorToolsCallBack(
+      <div>
+        <button onClick={() => onNoteUpdate(this.state.value.toJSON())}>Update</button>
+        {renderEditorToolBox(this.editor)}
+      </div>,
+    );
   }
 
   componentDidUpdate(prevProps: Props) {

@@ -77,6 +77,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   };
 
   const onCommentDelete = () => deleteComment({ variables: { commentID } }).then(() => setSelectedCommentID(undefined));
+  const onNoteUpdate = (noteText) => updateNote({ variables: { noteID, noteText } });
 
   const onCommentClick = (id: number, marginTop: number) => {
     setShouldDisplayNewComment(false);
@@ -104,6 +105,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         onCommentClick={onCommentClick}
         onSelectionChanged={onSelectionChanged}
         renderEditorToolsCallBack={(container: JSX.Element) => setEditorToolsContainer(container)}
+        onNoteUpdate={onNoteUpdate}
       />
     </Box>
   );
