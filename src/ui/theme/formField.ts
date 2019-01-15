@@ -4,7 +4,7 @@ export const formField = {
   },
   border: {
     color: 'primary',
-    side: 'all',
+    side: 'bottom',
     error: {
       color: {
         dark: 'white',

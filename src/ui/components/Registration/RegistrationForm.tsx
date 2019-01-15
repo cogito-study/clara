@@ -1,7 +1,8 @@
 import { Form, Formik } from 'formik';
-import { Box, Button, CheckBox, TextInput, FormField } from 'grommet';
+import { Box, Button, CheckBox, FormField, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
+
 import { Spinner } from '../Spinner';
 
 export interface RegistrationFormProps {
@@ -35,6 +36,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                     label="Jelszó"
                     htmlFor="password"
                     error={errors.password && touched.password ? errors.password : undefined}
+                    style={{ borderRadius: '12px' }}
                   >
                     <TextInput
                       id="password"
@@ -54,7 +56,6 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                     error={errors.passwordConfirm && touched.passwordConfirm ? errors.passwordConfirm : undefined}
                   >
                     <TextInput
-                      plain
                       id="passwordConfirm"
                       type="password"
                       placeholder="*******"

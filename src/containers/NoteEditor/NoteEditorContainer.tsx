@@ -2,22 +2,24 @@ import { Box, Button, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
+
 import BackIcon from '../../assets/images/BackIcon.svg';
 import CloseIcon from '../../assets/images/CloseIcon.svg';
 import CommentIcon from '../../assets/images/CommentIcon.svg';
+
 import Editor, { CommentLocation } from '../../editor/Editor';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { NoteRouteParams } from '../../types/RouteParams';
 import { Spinner } from '../../ui/components';
 import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
+import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
+import { NoteQuery, NoteQuery_note, NoteQuery_note_comments, NoteQueryVariables } from './__generated__/NoteQuery';
+import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
+import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
 import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
-import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
-import { NoteQuery, NoteQueryVariables, NoteQuery_note, NoteQuery_note_comments } from './__generated__/NoteQuery';
-import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
-import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
@@ -31,7 +33,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   // tslint:disable:no-null-keyword
   const commentBoxSpacerRef = useRef<HTMLDivElement | null>(null);
   const editorToolBoxSpacerRef = useRef<HTMLDivElement | null>(null);
-  // tslint:enable:no-null-keyword
 
   const screenSize = useContext(ResponsiveContext);
 
@@ -77,7 +78,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   };
 
   const onCommentDelete = () => deleteComment({ variables: { commentID } }).then(() => setSelectedCommentID(undefined));
-  const onNoteUpdate = (noteText) => updateNote({ variables: { noteID, noteText } });
+
+  const onNoteUpdate = (noteText: any) => updateNote({ variables: { noteID, noteText } });
 
   const onCommentClick = (id: number, marginTop: number) => {
     setShouldDisplayNewComment(false);

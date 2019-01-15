@@ -4,7 +4,9 @@ import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties,
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
+
 import commentButtonImage from '../assets/images/commentButton.svg';
+
 import { Comments, toggleCommentMark } from './plugins/Comments';
 import { History } from './plugins/History';
 import { Images } from './plugins/Images';
@@ -17,7 +19,6 @@ export interface CommentButtonPosition {
   top: number;
   left: number;
 }
-//
 export interface CommentLocation {
   id: string;
   range: RangeJSON;

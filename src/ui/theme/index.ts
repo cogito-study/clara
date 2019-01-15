@@ -1,11 +1,11 @@
 import { button } from './button';
 import { checkBox } from './checkBox';
-import { colors, control, font, breakpoints, deviceBreakpoints } from './global';
+import { elevation } from './elevation';
 import { formField } from './formField';
+import { breakpoints, colors, control, deviceBreakpoints, font } from './global';
+import { input } from './input';
 import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
-import { elevation } from './elevation';
-import { input } from './input';
 
 export const theme = {
   global: {
