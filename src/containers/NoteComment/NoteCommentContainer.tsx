@@ -37,6 +37,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   const [newCommentText, setNewCommentText] = useState('');
   const { data: commentQueryData } = useQuery<CommentQuery, CommentQueryVariables>(COMMENT_QUERY, {
     variables: { commentID },
+    skip: !commentID,
   });
 
   const upvoteComment = useMutation<UpvoteCommentMutation, UpvoteCommentMutationVariables>(UPVOTE_COMMENT_MUTATION, {

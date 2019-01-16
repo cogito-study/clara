@@ -69,13 +69,13 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
       {screenSize === 'small' ? (
         // TODO: align items to center without margin
         <Box direction="column" gap="xsmall" margin={{ right: 'medium' }}>
-          {data.subject && renderNoteList(data.subject)}
+          {data && data.subject && renderNoteList(data.subject)}
         </Box>
       ) : (
         // TODO: use grid instead
         <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
           <Box wrap fill={true} direction="row" justify="center">
-            {data.subject && renderNoteList(data.subject)}
+            {data && data.subject && renderNoteList(data.subject)}
             <Box width="280px" height="0px" margin="small" />
             <Box width="280px" height="0px" margin="small" />
             <Box width="280px" height="0px" margin="small" />
