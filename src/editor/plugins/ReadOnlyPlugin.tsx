@@ -9,7 +9,4 @@ export const ReadOnlyPlugin = () => ({
     event.preventDefault();
     return editor;
   },
-  onCommand(command: any, editor: CoreEditor, next: VoidFunction) {
-    return next();
-  },
 });
