@@ -17,7 +17,9 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
       initialValues={{ password: '', passwordConfirm: '', legalAccepted: false }}
       onSubmit={({ password }, { resetForm }) => onRegistration(password, resetForm)}
       validationSchema={Yup.object({
-        password: Yup.string().required('Jelszó megadása kötelező'),
+        password: Yup.string()
+          .min(7, 'A jelszónak legalább 7 karakter hosszúnak kell lennie.')
+          .required('Jelszó megadása kötelező'),
         passwordConfirm: Yup.string()
           .oneOf([Yup.ref('password'), null], 'A két jelszó nem egyezik meg')
           .required('Jelszó megerősítése kötelező'),
