@@ -19,12 +19,12 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
     align="center"
     justify="center"
     round="medium"
-    pad={{ horizontal: 'xlarge', vertical: 'medium' }}
+    pad={{ horizontal: 'large', vertical: 'medium' }}
     margin="small"
     gap="none"
   >
     <Heading level="2" margin={{ bottom: 'medium', top: 'none' }} color="primary">
-      {'Regisztráció'}
+      Regisztráció
     </Heading>
     <Box direction="row-responsive" align="center">
       <Box align="center">

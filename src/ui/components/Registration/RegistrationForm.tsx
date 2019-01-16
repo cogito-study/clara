@@ -33,12 +33,11 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
           <Box fill>
             <Form>
               <Box align="center">
-                <Box fill="horizontal">
+                <Box fill="horizontal" margin="small">
                   <FormField
                     label="Jelszó"
                     htmlFor="password"
                     error={errors.password && touched.password ? errors.password : undefined}
-                    style={{ borderRadius: '12px' }}
                   >
                     <TextInput
                       id="password"
@@ -51,7 +50,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                   </FormField>
                 </Box>
 
-                <Box fill="horizontal">
+                <Box fill="horizontal" margin="small">
                   <FormField
                     label="Jelszó megerősítése"
                     htmlFor="passwordConfirm"
@@ -68,12 +67,12 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                   </FormField>
                 </Box>
 
-                <Box align="center">
+                <Box align="center" margin="small">
                   <CheckBox
                     id="legalAccepted"
                     checked={values.legalAccepted}
                     onChange={handleChange}
-                    label={'Elfogadok mindent'}
+                    label="Elfogadok mindent"
                   />
                 </Box>
 
