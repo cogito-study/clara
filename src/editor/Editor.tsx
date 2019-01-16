@@ -73,6 +73,7 @@ export default class Editor extends PureComponent<Props, State> {
         unwrapCommand: unwrapLink,
       }),
       CollapseOnEscape(),
+      ReadOnlyPlugin(),
     ];
   }
 
