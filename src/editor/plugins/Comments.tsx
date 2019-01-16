@@ -16,8 +16,13 @@ interface CommentProps {
   onClickCallback: (top: number) => void;
 }
 
-export const toggleCommentMark = (editor: Editor, range: Range, id: string) =>
-  editor.select(range).toggleMark({ type: MarkType.Comment, data: { id } });
+export const toggleCommentMark = (editor: Editor, range: Range, id: string, show: boolean) => {
+  if (show) {
+    editor.select(range).addMark({ type: MarkType.Comment, data: { id } });
+  } else {
+    editor.select(range).removeMark({ type: MarkType.Comment, data: { id } });
+  }
+};
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
   const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {

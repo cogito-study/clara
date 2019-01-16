@@ -7,7 +7,7 @@ import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from '
 
 import commentButtonImage from '../assets/images/commentButton.svg';
 
-import { Comments, toggleCommentMark } from './plugins/Comments';
+import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';
 import { History } from './plugins/History';
 import { Images } from './plugins/Images';
 import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
@@ -80,7 +80,15 @@ export default class Editor extends PureComponent<Props, State> {
     const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged } = this.props;
     renderEditorToolsCallBack(
       <div>
-        <button onClick={() => onNoteUpdate(this.state.value.toJSON())}>Update</button>
+        <button
+          onClick={() => {
+            const val = this.setCommentVisibility(this.props.commentLocations, false).toJSON();
+            onNoteUpdate(val);
+            this.setCommentVisibility(this.props.commentLocations, true);
+          }}
+        >
+          Update
+        </button>
         {renderEditorToolBox(this.editor)}
       </div>,
     );
@@ -94,7 +102,7 @@ export default class Editor extends PureComponent<Props, State> {
       this.props.canShowComments !== prevProps.canShowComments ||
       this.props.commentLocations.length !== prevProps.commentLocations.length
     ) {
-      this.toggleComments(this.props.commentLocations);
+      this.setCommentVisibility(this.props.commentLocations, this.props.canShowComments);
     }
   }
 
@@ -128,13 +136,14 @@ export default class Editor extends PureComponent<Props, State> {
     }
   };
 
-  toggleComments = (commentLocations: CommentLocation[]) => {
+  setCommentVisibility = (commentLocations: CommentLocation[], show: boolean) => {
     commentLocations.forEach(({ id, range }: CommentLocation) => {
       const commentRange = SlateRange.fromJSON(range);
-      toggleCommentMark(this.editor, commentRange, id);
+      toggleCommentVisible(this.editor, commentRange, id, show);
     });
 
     this.editor.moveToStartOfDocument();
+    return this.editor.value;
   };
 
   onChange = ({ value }) => {
