@@ -17,11 +17,9 @@ interface CommentProps {
 }
 
 export const toggleCommentMark = (editor: Editor, range: Range, id: string, show: boolean) => {
-  if (show) {
-    editor.select(range).addMark({ type: MarkType.Comment, data: { id } });
-  } else {
-    editor.select(range).removeMark({ type: MarkType.Comment, data: { id } });
-  }
+  editor
+    .select(range)
+    .replaceMark({ type: MarkType.Comment, data: { id, show: !show } }, { type: MarkType.Comment, data: { id, show } });
 };
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
@@ -42,11 +40,16 @@ export const Comments = (onClickCallback: (id: number, top: number) => void): Pl
 
     if (type === MarkType.Comment) {
       const id = data.get('id');
-      return (
-        <Comment key={id} node={node} onClickCallback={(top) => onClickCallback(id, top)} {...attributes}>
-          {children}
-        </Comment>
-      );
+      const show = data.get('show');
+      if (show) {
+        return (
+          <Comment key={id} node={node} onClickCallback={(top) => onClickCallback(id, top)} {...attributes}>
+            {children}
+          </Comment>
+        );
+      } else {
+        return <span {...attributes}>{children}</span>;
+      }
     }
     return next();
   },
