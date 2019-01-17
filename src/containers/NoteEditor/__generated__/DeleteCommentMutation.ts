@@ -10,5 +10,6 @@ export interface DeleteCommentMutation {
 }
 
 export interface DeleteCommentMutationVariables {
+  noteID: string;
   commentID: string;
 }

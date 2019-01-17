@@ -77,7 +77,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     }
   };
 
-  const onCommentDelete = () => deleteComment({ variables: { commentID } }).then(() => setSelectedCommentID(undefined));
+  const onCommentDelete = () =>
+    deleteComment({ variables: { noteID, commentID } }).then(() => setSelectedCommentID(undefined));
 
   const onNoteUpdate = (noteText: any) => updateNote({ variables: { noteID, noteText } });
 

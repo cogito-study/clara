@@ -14,7 +14,6 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-import { MarkType } from './enums/MarkType';
 
 export interface CommentButtonPosition {
   top: number;
@@ -100,20 +99,10 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { canShowComments, commentLocations } = this.props;
-    if (
-      !(canShowComments === prevProps.canShowComments && commentLocations.length === prevProps.commentLocations.length)
-    ) {
-      if (commentLocations.length < prevProps.commentLocations.length) {
-        prevProps.commentLocations.forEach(({ id, range }: CommentLocation) => {
-          const commentRange = SlateRange.fromJSON(range);
-          if (!commentLocations.map((cl) => cl.range).includes(range)) {
-            this.editor.select(SlateRange.fromJSON(commentRange)).removeMark({ type: MarkType.Comment, data: { id } });
-          }
-        });
-      } else {
-        this.setCommentVisibility(this.props.commentLocations, this.props.canShowComments);
-      }
+    const { canShowComments, initialValue } = this.props;
+    console.log(initialValue);
+    if (canShowComments !== prevProps.canShowComments) {
+      this.setCommentVisibility(this.props.commentLocations, this.props.canShowComments);
     }
   }
 
