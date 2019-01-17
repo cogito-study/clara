@@ -14,6 +14,7 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
+import { MarkType } from './enums/MarkType';
 
 export interface CommentButtonPosition {
   top: number;
@@ -98,11 +99,31 @@ export default class Editor extends PureComponent<Props, State> {
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
   }
 
+  // tslint:disable:cyclomatic-complexity
   componentDidUpdate(prevProps: Props) {
-    const { canShowComments, initialValue } = this.props;
-    console.log(initialValue);
+    const { canShowComments, commentLocations } = this.props;
     if (canShowComments !== prevProps.canShowComments) {
       this.setCommentVisibility(this.props.commentLocations, this.props.canShowComments);
+    }
+    if (commentLocations.length < prevProps.commentLocations.length) {
+      const locIds = commentLocations.map((loc) => loc.id);
+
+      prevProps.commentLocations.forEach((location) => {
+        if (!locIds.includes(location.id)) {
+          this.editor
+            .select(SlateRange.fromJSON(location.range))
+            .removeMark({ type: MarkType.Comment, data: { id: location.id, show: true } });
+        }
+      });
+    } else if (commentLocations.length > prevProps.commentLocations.length) {
+      const locIds = prevProps.commentLocations.map((loc) => loc.id);
+      commentLocations.forEach((location) => {
+        if (!locIds.includes(location.id)) {
+          this.editor
+            .select(SlateRange.fromJSON(location.range))
+            .addMark({ type: MarkType.Comment, data: { id: location.id, show: true } });
+        }
+      });
     }
   }
 
