@@ -157,6 +157,7 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   setCommentVisibility = (commentLocations: CommentLocation[], show: boolean) => {
+    this.editor.focus();
     commentLocations.forEach(({ id, range }: CommentLocation) => {
       const commentRange = SlateRange.fromJSON(range);
       toggleCommentVisible(this.editor, commentRange, id, show);
@@ -174,7 +175,7 @@ export default class Editor extends PureComponent<Props, State> {
     event.preventDefault();
     const selectionJSON = this.editor.value.selection.toJSON();
     const marginTop = this.calculateSelectionPosition().top;
-    this.props.onCreateComment(JSON.stringify(selectionJSON), marginTop);
+    this.props.onCreateComment(JSON.stringify(selectionJSON), marginTop + window.scrollY);
   };
 
   renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {
