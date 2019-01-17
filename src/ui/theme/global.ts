@@ -1,5 +1,21 @@
 export const colors = {
+  // Primary
+  primary_light_3: '#DFEDFF',
+  primary_light_2: '#A2C3EC',
+  primary_light_1: '#72A6E4',
   primary: '#4787D3',
+  primary_dark_1: '#1A59A4',
+  primary_dark_2: '#0D4485',
+  primary_dark_3: '#002E64',
+  // Neutral
+  gray_light_3: '#FBFBFB',
+  gray_light_2: '#C2C2C2',
+  gray_light_1: '#9D9D9D',
+  gray: '#737373',
+  gray_dark_1: '#5A5A5A',
+  gray_dark_2: '#3E3E3E',
+  gray_dark_3: '#1E1E1E',
+
   gradient: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
   horizontalGradient: 'linear-gradient(270deg, #4787D3 13.05%, #67BCFB 86.95%);',
   light: '#FBFBFB',
