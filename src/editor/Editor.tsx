@@ -19,6 +19,7 @@ import { MarkType } from './enums/MarkType';
 export interface CommentButtonPosition {
   top: number;
   left: number;
+  show: boolean;
 }
 export interface CommentLocation {
   id: string;
@@ -55,7 +56,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   state = {
     value: Value.fromJSON(this.props.initialValue),
-    commentButtonPosition: { top: -10000, left: -10000 },
+    commentButtonPosition: { top: -10000, left: -10000, show: false },
   };
 
   constructor(props: Props) {
@@ -136,24 +137,22 @@ export default class Editor extends PureComponent<Props, State> {
   updateCommentButtonPosition = (value: Value) => {
     const { canShowComments } = this.props;
     const { fragment, selection } = value;
+    const { commentButtonPosition } = this.state;
 
     if (!canShowComments) {
-      return;
+      return this.state.commentButtonPosition;
     }
 
     if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
-      this.setState({
-        commentButtonPosition: { left: -10000, top: -10000 },
-      });
+      return { ...commentButtonPosition, show: false };
     } else {
       const rect = this.calculateSelectionPosition();
 
-      this.setState({
-        commentButtonPosition: {
-          top: rect.top + window.pageYOffset - 53,
-          left: rect.left + window.pageXOffset + rect.width - 16,
-        },
-      });
+      return {
+        top: rect.top + window.pageYOffset - 53,
+        left: rect.left + window.pageXOffset + rect.width - 16,
+        show: true,
+      };
     }
   };
 
@@ -168,8 +167,7 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   onChange = ({ value }) => {
-    this.updateCommentButtonPosition(value);
-    this.setState({ value });
+    this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value) });
   };
 
   onCreateComment = (event: MouseEvent<any>) => {
@@ -182,20 +180,26 @@ export default class Editor extends PureComponent<Props, State> {
   renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {
     const children = next();
 
-    const { left, top } = this.state.commentButtonPosition;
+    const { left, top, show } = this.state.commentButtonPosition;
     return (
       <Fragment>
         {children}
-        <HoverContainer
-          shown={true}
-          innerRef={(commentButton: HTMLElement) => (this.commentButton = commentButton)}
-          left={left}
-          top={top}
-        >
-          <Box align="center" style={{ transition: 'all 0.1s ease-in-out' }}>
-            <Button plain icon={<Image src={commentButtonImage} width="125px" />} onMouseDown={this.onCreateComment} />
-          </Box>
-        </HoverContainer>
+        {show && (
+          <HoverContainer
+            shown={true}
+            innerRef={(commentButton: HTMLElement) => (this.commentButton = commentButton)}
+            left={left}
+            top={top}
+          >
+            <Box align="center" style={{ transition: 'all 0.1s ease-in-out' }}>
+              <Button
+                plain
+                icon={<Image src={commentButtonImage} width="125px" />}
+                onMouseDown={this.onCreateComment}
+              />
+            </Box>
+          </HoverContainer>
+        )}
       </Fragment>
     );
   };
