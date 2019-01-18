@@ -7,6 +7,7 @@ import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from '
 
 import commentButtonImage from '../assets/images/commentButton.svg';
 
+import { MarkType } from './enums/MarkType';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';
 import { History } from './plugins/History';
 import { Images } from './plugins/Images';
@@ -14,7 +15,6 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-import { MarkType } from './enums/MarkType';
 
 export interface CommentButtonPosition {
   top: number;

@@ -2,8 +2,8 @@ import { Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
-import { routePath } from '../constants';
 import { RegisterContainer } from '../containers/Register/RegisterContainer';
+import { routeBuilder } from '../route/routeBuilder';
 import { Footer } from '../ui/components';
 
 const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
@@ -16,7 +16,7 @@ const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
       pad={{ bottom: 'large' }}
       style={{ minHeight: '98vh' }}
     >
-      <Route path={routePath.register()} component={RegisterContainer} />
+      <Route path={routeBuilder.register()} component={RegisterContainer} />
     </Box>
     <Footer />
   </Box>

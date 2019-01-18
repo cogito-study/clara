@@ -1,4 +1,4 @@
-export const routePath = {
+export const routeBuilder = {
   root: () => '/',
   register: (userID?: string) => `/register/${userID ? userID : ':userID'}`,
   subject: (subjectCode?: string) => `/sote/${subjectCode ? subjectCode : ':subjectCode'}`,

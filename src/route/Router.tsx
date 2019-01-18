@@ -2,8 +2,8 @@ import React, { Fragment, FunctionComponent, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 
-import { routePath } from '../constants';
 import { LoadingPage } from '../pages/LoadingPage';
+import { routeBuilder } from '../route/routeBuilder';
 import { driftString } from '../scripts/drift';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
 import { PrivateRoute } from './PrivateRoute';
@@ -15,7 +15,8 @@ const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
-  const isRoot = location.pathname === routePath.root();
+  const { root, register, components, subjectNote, subject } = routeBuilder;
+  const isRoot = location.pathname === root();
 
   return (
     <Fragment>
@@ -24,24 +25,21 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
       <Suspense fallback={<LoadingPage />}>
         <Switch>
           <Route
-            path={routePath.register()}
+            path={register()}
             component={(props: RouteComponentProps<AuthRouteParams>) => <RegisterPage {...props} />}
           />
-          <Route
-            path={routePath.components()}
-            component={(props: RouteComponentProps) => <GrommetComponents {...props} />}
-          />
+          <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />
           <PrivateRoute
             exact
-            path={routePath.subjectNote()}
+            path={subjectNote()}
             component={(props: RouteComponentProps<NoteRouteParams>) => <NotePage {...props} />}
           />
           <PrivateRoute
-            path={routePath.subject()}
+            path={subject()}
             component={(props: RouteComponentProps<SubjectRouteParams>) => <SubjectPage {...props} />}
           />
-          <Route exact path={routePath.root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
-          <Redirect to={routePath.root()} />
+          <Route exact path={root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
+          <Redirect to={root()} />
         </Switch>
       </Suspense>
     </Fragment>

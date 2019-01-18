@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Tilt from 'react-tilt';
 import styled from 'styled-components';
 
-import { routePath } from '../../constants';
+import { routeBuilder } from '../../route/routeBuilder';
 import { dateService } from '../../services/dateService';
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { NoteCard } from '../../ui/components';
@@ -44,7 +44,7 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
 
     return notes.map((note) => (
       <Tilt key={note.id} className="Tilt" options={{ max: 15, scale: 1.04, speed: 1250 }}>
-        <Link to={routePath.subjectNote(subjectCode, note.id)}>
+        <Link to={routeBuilder.subjectNote(subjectCode, note.id)}>
           <HoveredNoteCard
             noteNumber={note.number}
             title={note.title}

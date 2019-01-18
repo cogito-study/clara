@@ -1,4 +1,5 @@
 import { Editor } from 'slate-react';
+
 import { MarkType } from '../enums/MarkType';
 import { NodeType } from '../enums/NodeType';
 

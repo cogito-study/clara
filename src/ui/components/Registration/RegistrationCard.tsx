@@ -2,7 +2,7 @@ import { Box, Heading, Image, Text } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
 import profile from '../../../assets/images/Profile.svg';
-import { routePath } from '../../../constants';
+import { routeBuilder } from '../../../route/routeBuilder';
 import { Link } from '../Link';
 import { RegistrationForm, RegistrationFormProps } from './RegistrationForm';
 
@@ -42,7 +42,7 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
     <Box margin={{ top: 'medium' }} fill align="center">
       <RegistrationForm onRegistration={onRegistration} />
       <Text size="small" margin="xsmall">
-        Már van profilod? <Link to={routePath.root()}>Bejelentkezés</Link>
+        Már van profilod? <Link to={routeBuilder.root()}>Bejelentkezés</Link>
       </Text>
     </Box>
   </Box>
