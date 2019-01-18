@@ -16,18 +16,18 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
   <Box
     width="large"
     background="white"
-    elevation="xlarge"
+    elevation="large"
     align="center"
     justify="center"
     round="medium"
-    pad={{ horizontal: 'large', vertical: 'medium' }}
+    pad={{ horizontal: 'large', vertical: 'large' }}
     margin="small"
     gap="none"
   >
-    <Heading level="2" margin={{ bottom: 'medium', top: 'none' }} color="primary">
+    <Heading level="2" margin={{ bottom: 'small', top: 'none' }} color="primary">
       Bejelentkezés
     </Heading>
-    <Box margin={{ top: 'medium' }} fill align="center">
+    <Box margin={{ top: 'small' }} fill align="center">
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={({ email, password }, { resetForm }) => onLogin(email, password, resetForm)}
@@ -41,7 +41,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
             <Box fill>
               <Form>
                 <Box align="center">
-                  <Box fill="horizontal" margin="small">
+                  <Box fill="horizontal" margin="none">
                     <FormField
                       label="Email"
                       htmlFor="email"
@@ -58,7 +58,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
                     </FormField>
                   </Box>
 
-                  <Box fill="horizontal" margin="small">
+                  <Box fill="horizontal" margin="none">
                     <FormField
                       label="Jelszó"
                       htmlFor="password"
