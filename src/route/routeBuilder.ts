@@ -2,6 +2,7 @@ export const routeBuilder = {
   root: () => '/',
   register: (userID?: string) => `/register/${userID ? userID : ':userID'}`,
   login: () => '/login',
+  forgetPassword: () => '/forget-password',
   subject: (subjectCode?: string) => `/sote/${subjectCode ? subjectCode : ':subjectCode'}`,
   subjectInfo: (subjectCode?: string) => `/sote/${subjectCode ? subjectCode : ':subjectCode'}/info`,
   subjectNoteList: (subjectCode?: string) => `/sote/${subjectCode ? subjectCode : ':subjectCode'}/notes`,

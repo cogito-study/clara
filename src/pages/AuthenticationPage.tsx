@@ -2,8 +2,7 @@ import { Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
-import { RegisterContainer } from '../containers/Register/RegisterContainer';
-import { routeBuilder } from '../route/routeBuilder';
+import { AuthenticationContainer } from '../containers/Authentication/AuthenticationContainer';
 import { Footer } from '../ui/components';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps> = () => (
@@ -16,8 +15,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps> = () => (
       pad={{ bottom: 'large' }}
       style={{ minHeight: '98vh' }}
     >
-      <Route path={routeBuilder.register()} component={RegisterContainer} />
-      <Route path={routeBuilder.login()} render={() => <div>Login Page</div>} />
+      <Route component={AuthenticationContainer} />
     </Box>
     <Footer />
   </Box>
