@@ -33,7 +33,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
           <Box fill>
             <Form>
               <Box align="center">
-                <Box fill="horizontal" margin="small">
+                <Box fill="horizontal" margin="none">
                   <FormField
                     label="Jelszó"
                     htmlFor="password"
@@ -50,7 +50,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                   </FormField>
                 </Box>
 
-                <Box fill="horizontal" margin="small">
+                <Box fill="horizontal" margin="none">
                   <FormField
                     label="Jelszó megerősítése"
                     htmlFor="passwordConfirm"

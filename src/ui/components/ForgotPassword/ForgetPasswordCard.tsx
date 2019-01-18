@@ -8,15 +8,15 @@ interface ForgotPasswordCardProps {
 }
 
 export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({ onForgotPassword }) => (
-  <Box background="white" elevation="xlarge" align="center" justify="center" round="medium">
+  <Box background="white" elevation="large" align="center" pad={{ vertical: 'medium' }} justify="center" round="medium">
     <Heading level="2" margin="medium" color="primary" textAlign="center">
       Jelszó visszaállítása
     </Heading>
-    <Paragraph textAlign="center" size="medium" margin="medium">
-      Küldünk egy e-mail, melynek segítségével visszaállíthatod a jelszavad
+    <Paragraph textAlign="center" size="medium" margin={{ horizontal: 'medium', vertical: 'small' }}>
+      E-mailben el fogunk küldeni egy hivatkozást, amellyel alaphelyzetbe állíthatod a jelszavad.
     </Paragraph>
 
-    <Box fill="horizontal" pad="medium" align="center">
+    <Box fill="horizontal" pad="small" align="center">
       <Formik
         initialValues={{ email: '' }}
         onSubmit={({ email }, { resetForm }) => onForgotPassword(email, resetForm)}

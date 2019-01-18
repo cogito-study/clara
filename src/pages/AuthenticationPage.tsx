@@ -29,8 +29,8 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
         <Box fill justify="center" pad="medium" margin={{ bottom: 'large' }} align="center">
           <Box align="center" justify="center" direction="row-responsive">
             {screenSize === 'small' ? (
-              <Box align="center" pad={{ vertical: 'large' }}>
-                <Image src={cogitoLandscape} width="280px" />
+              <Box align="center" pad={{ vertical: 'xlarge' }}>
+                <Image src={cogitoLandscape} width="240px" />
               </Box>
             ) : (
               <Box justify="center" pad={{ left: 'small', right: 'xlarge' }}>

@@ -5,6 +5,10 @@ import { Footer, InfoCard, NoteCard, NoteComment, RegistrationCard } from './com
 
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
+import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
+import { ForgotPasswordCardSent } from './components/ForgotPassword/ForgetPasswordCardSent';
+
+import { LoginCard } from './components/Login/LoginCard';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -81,11 +85,16 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         <FormField htmlFor="email-input">
           <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
         </FormField>
-        <RegistrationCard
-          name={registrationCardName}
-          email={registrationCardEmail}
-          onRegistration={(password: string) => alert(password)}
-        />
+        <Box width="400px" align="center" gap="medium">
+          <RegistrationCard
+            name={registrationCardName}
+            email={registrationCardEmail}
+            onRegistration={(password: string) => alert(password)}
+          />
+          <ForgotPasswordCard onForgotPassword={(password: string) => alert(password)} />
+          <ForgotPasswordCardSent />
+          <LoginCard onLogin={(password: string) => alert(password)} />
+        </Box>
         <Box gap="small" direction="row" wrap alignContent="around">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
             <NoteCard
