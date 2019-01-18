@@ -1,19 +1,14 @@
-import gql from 'graphql-tag';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { useMutation } from 'react-apollo-hooks';
+import React from 'react';
 import { Parallax } from 'react-parallax';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import Scroll from 'react-scroll';
 import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
 import styled from 'styled-components';
 
 import downArrow from '../../assets/images/down.svg';
 import { scrollOptions } from '../../constants';
-import { authService } from '../../services/authService';
 import i18n from '../../services/i18n';
-import { ContactCard } from '../contact/ContactCard';
-import { color, Header1, Header2, Header3 } from '../styles';
-import { SubscribeButton } from '../subscribe';
+import { color, Header1, Header3 } from '../styles';
 
 const { scroller } = Scroll;
 
@@ -28,24 +23,7 @@ export const LoginInput = styled(Input)`
   border-radius: 15px;
 `;
 
-const LOGIN_USER = gql`
-  mutation LoginUser($username: String!, $password: String!) {
-    login(email: $username, password: $password) {
-      token
-    }
-  }
-`;
-
-const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const loginUser = useMutation(LOGIN_USER, { variables: { username, password } });
-
-  const onLogin = (event) => {
-    event.preventDefault();
-    loginUser().then(({ data }) => authService.authSuccess(data.login.token, history));
-  };
-
+const Home = () => {
   return (
     <Flex flexDirection="column">
       <Flex
@@ -84,67 +62,6 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
                     {i18n.t('home.subtitle')}
                   </Header3>
                 </Flex>
-              </Flex>
-              <Flex pl={'0px'} pt={['40px', '50px', '80px', '0px']} mb="0px" justifyContent="flex-end" width="100%">
-                <ContactCard p={0}>
-                  <Flex
-                    alignItems="center"
-                    width={['100%', '100%', '100%', '300px']}
-                    justifyContent="center"
-                    flexDirection="column"
-                    py={['0px', '0px', '30px', '30px']}
-                    mx={['0px', '0px', '0px', '50px']}
-                  >
-                    <Header2
-                      position="relative"
-                      mt={['25px', '45px', '0px', '0px']}
-                      color={color.CogitoBlue}
-                      fontSize={['32px', '32px', '40px', '48px', '48px']}
-                    >
-                      {i18n.t('home.card.title')}
-                    </Header2>
-                    <form onSubmit={onLogin}>
-                      <Flex flexDirection="column" alignItems="center" mt={20}>
-                        <Flex width="100%" flexDirection="column">
-                          <Header3 fontSize={16} color={color.CogitoBlue} textAlign="left" ml="5px">
-                            {i18n.t('home.card.emailtitle')}
-                          </Header3>
-                          <LoginInput
-                            name="email"
-                            type="email"
-                            required
-                            fontSize="16px"
-                            placeholder={i18n.t('home.card.emailplaceholder')}
-                            onChange={(event: ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)}
-                            mb={20}
-                          />
-                        </Flex>
-                        <Flex width="100%" flexDirection="column">
-                          <Header3 fontSize={16} color={color.CogitoBlue} textAlign="left" ml="5px">
-                            {i18n.t('home.card.passwordtitle')}
-                          </Header3>
-                          <LoginInput
-                            required
-                            type="password"
-                            fontSize="16px"
-                            placeholder={i18n.t('home.card.passwordplaceholder')}
-                            onChange={(event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
-                          />
-                        </Flex>
-
-                        <SubscribeButton
-                          css={['background: linear-gradient(101.81deg, #63B6F6 1%, #4A8CD7 136.47%);']}
-                          mt={30}
-                          children={i18n.t('home.card.title')}
-                          fontSize={[1, 2, 2, '24px', '24px']}
-                          bg={'#F5FBFF'}
-                          color={color.almostWhite}
-                          borderRadius={20}
-                        />
-                      </Flex>
-                    </form>
-                  </Flex>
-                </ContactCard>
               </Flex>
             </Flex>
           </Banner>
