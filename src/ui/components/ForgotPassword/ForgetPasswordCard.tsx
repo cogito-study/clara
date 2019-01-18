@@ -3,11 +3,11 @@ import { Box, Button, FormField, Heading, Paragraph, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
 
-interface ForgetPasswordCardProps {
-  onForgetPassword: (email: string, resetForm: () => void) => void;
+interface ForgotPasswordCardProps {
+  onForgotPassword: (email: string, resetForm: () => void) => void;
 }
 
-export const ForgetPasswordCard: FunctionComponent<ForgetPasswordCardProps> = ({ onForgetPassword }) => (
+export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({ onForgotPassword }) => (
   <Box background="white" elevation="xlarge" align="center" justify="center" round="medium">
     <Heading level="2" margin="medium" color="primary" textAlign="center">
       Jelszó visszaállítása
@@ -19,7 +19,7 @@ export const ForgetPasswordCard: FunctionComponent<ForgetPasswordCardProps> = ({
     <Box fill="horizontal" pad="medium" align="center">
       <Formik
         initialValues={{ email: '' }}
-        onSubmit={({ email }, { resetForm }) => onForgetPassword(email, resetForm)}
+        onSubmit={({ email }, { resetForm }) => onForgotPassword(email, resetForm)}
         validationSchema={Yup.object({
           email: Yup.string().email('Az e-mail cím formátuma nem megfelelő'),
         })}

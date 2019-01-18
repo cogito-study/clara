@@ -10,7 +10,7 @@ import { RegisterContainer } from '../containers/Register/RegisterContainer';
 import { routeBuilder } from '../route/routeBuilder';
 import { AuthRouteParams } from '../types/RouteParams';
 import { Footer } from '../ui/components';
-import { ForgetPasswordCard } from '../ui/components/ForgetPassword/ForgetPasswordCard';
+import { ForgotPasswordCard } from '../ui/components/ForgotPassword/ForgetPasswordCard';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
@@ -40,7 +40,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
             <Box width="400px" align="center">
               <Route path={register()} component={RegisterContainer} />
               <Route path={login()} component={LoginContainer} />
-              <Route path={forgetPassword()} component={ForgetPasswordCard} />
+              <Route path={forgetPassword()} component={ForgotPasswordCard} />
             </Box>
           </Box>
         </Box>
