@@ -12,7 +12,7 @@ export const NavLink: FunctionComponent<Props> = ({ onClick, children }) => (
     onClick={onClick}
     mx={'2%'}
     fontWeight={500}
-    fontSize="14px"
+    fontSize={['12px', '14px']}
     color={color.almostWhite}
     css={{
       transition: 'all 0.2s ease-in-out',

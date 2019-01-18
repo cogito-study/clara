@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Parallax } from 'react-parallax';
 import { withRouter } from 'react-router';
 import Scroll from 'react-scroll';
+import { SubscribeButton } from '../subscribe';
 import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
+import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import downArrow from '../../assets/images/down.svg';
 import { scrollOptions } from '../../constants';
 import i18n from '../../services/i18n';
 import { color, Header1, Header3 } from '../styles';
+import { routeBuilder } from '../../route/routeBuilder';
 
 const { scroller } = Scroll;
 
@@ -23,7 +26,7 @@ export const LoginInput = styled(Input)`
   border-radius: 15px;
 `;
 
-const Home = () => {
+const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
   return (
     <Flex flexDirection="column">
       <Flex
@@ -38,29 +41,38 @@ const Home = () => {
               flexDirection={['column', 'column', 'column', 'row']}
               justifyContent="center"
               alignItems="center"
-              mt={['100px', '150px', '200px', '30px', '60px']}
+              mt={['100px', '100px', '100px', '30px', '60px']}
               className="home"
               css={{
                 maxWidth: '1024px',
               }}
             >
               <Flex
-                width={['273px', '340px', '434px', i18n.t('home.motto.width'), i18n.t('home.motto.width')]}
-                mr={['10px', '40px']}
+                width={['300px', '340px', '434px', i18n.t('home.motto.width'), i18n.t('home.motto.width')]}
                 mb={['50px', '50px', '50px', '0px']}
                 css={{
                   maxWidth: '600px',
                 }}
               >
-                <Flex flexDirection="column" alignItems={['flex-start']} justifyContent="center">
-                  <Header1 fontSize={['32px', '32px', '40px', '40px', '48px']} color="#FFF">
+                <Flex flexDirection="column" alignItems={['center']} justifyContent="center">
+                  <Header1 textAlign="center" fontSize={['26px', '30px', '36px', '48px']} color="#FFF">
                     {i18n.t('home.motto.part1')}
                     <span>{i18n.t('home.motto.span')}</span>
                     {i18n.t('home.motto.part2')}
                   </Header1>
-                  <Header3 fontSize={['18px', '18px', '18px', '18px', '22px']} color="#FFF" mt={30}>
+                  <Header3 textAlign="center" fontSize={['16px', '16px', '18px', '18px']} color="#FFF" mt={30}>
                     {i18n.t('home.subtitle')}
                   </Header3>
+                  <SubscribeButton
+                    css={['background: linear-gradient(101.81deg, #FFFFFF 1%, #FFFFFF 136.47%);']}
+                    mt={60}
+                    onClick={() => history.push(routeBuilder.login())}
+                    maxWidth={200}
+                    fontSize={[1, 2, 2, '24px', '24px']}
+                    color={color.darkBlue}
+                    children={'Log-in'}
+                    borderRadius={20}
+                  />
                 </Flex>
               </Flex>
             </Flex>
