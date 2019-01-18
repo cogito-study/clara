@@ -6,7 +6,7 @@ import { RegisterContainer } from '../containers/Register/RegisterContainer';
 import { routeBuilder } from '../route/routeBuilder';
 import { Footer } from '../ui/components';
 
-const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
+const AuthenticationPage: FunctionComponent<RouteComponentProps> = () => (
   <Box align="center">
     <Box
       fill
@@ -17,9 +17,10 @@ const RegisterPage: FunctionComponent<RouteComponentProps> = () => (
       style={{ minHeight: '98vh' }}
     >
       <Route path={routeBuilder.register()} component={RegisterContainer} />
+      <Route path={routeBuilder.login()} render={() => <div>Login Page</div>} />
     </Box>
     <Footer />
   </Box>
 );
 
-export default RegisterPage;
+export default AuthenticationPage;

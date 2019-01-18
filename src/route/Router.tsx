@@ -8,14 +8,14 @@ import { driftString } from '../scripts/drift';
 import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
 import { PrivateRoute } from './PrivateRoute';
 
-const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+const AuthenticationPage = lazy(() => import('../pages/AuthenticationPage'));
 const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
 const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
-  const { root, register, components, subjectNote, subject } = routeBuilder;
+  const { root, register, components, subjectNote, subject, login } = routeBuilder;
   const isRoot = location.pathname === root();
 
   return (
@@ -25,8 +25,8 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
       <Suspense fallback={<LoadingPage />}>
         <Switch>
           <Route
-            path={register()}
-            component={(props: RouteComponentProps<AuthRouteParams>) => <RegisterPage {...props} />}
+            path={[register(), login()]}
+            component={(props: RouteComponentProps<AuthRouteParams>) => <AuthenticationPage {...props} />}
           />
           <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />
           <PrivateRoute
