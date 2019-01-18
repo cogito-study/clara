@@ -8,7 +8,15 @@ interface ForgotPasswordCardProps {
 }
 
 export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({ onForgotPassword }) => (
-  <Box background="white" elevation="large" align="center" pad={{ vertical: 'medium' }} justify="center" round="medium">
+  <Box
+    background="white"
+    animation={{ type: 'fadeIn', duration: 500 }}
+    elevation="large"
+    align="center"
+    pad={{ vertical: 'medium' }}
+    justify="center"
+    round="medium"
+  >
     <Heading level="2" margin="medium" color="primary" textAlign="center">
       Jelszó visszaállítása
     </Heading>

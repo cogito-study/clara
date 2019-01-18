@@ -3,7 +3,15 @@ import React from 'react';
 import mail from '../../../assets/images/Mail.svg';
 
 export const ForgotPasswordCardSent = () => (
-  <Box background="white" elevation="large" align="center" pad={{ vertical: 'medium' }} justify="center" round="medium">
+  <Box
+    animation={{ type: 'fadeIn', duration: 500 }}
+    background="white"
+    elevation="large"
+    align="center"
+    pad={{ vertical: 'medium' }}
+    justify="center"
+    round="medium"
+  >
     <Heading level="2" margin="medium" color="primary" textAlign="center">
       Jelszó visszaállítása
     </Heading>
