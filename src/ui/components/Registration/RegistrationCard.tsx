@@ -15,34 +15,34 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
   <Box
     width="large"
     background="white"
-    elevation="xlarge"
+    elevation="large"
     align="center"
     justify="center"
     round="medium"
-    pad={{ horizontal: 'large', vertical: 'medium' }}
+    pad={{ horizontal: 'large', top: 'large', bottom: 'medium' }}
     margin="small"
     gap="none"
   >
     <Heading level="2" margin={{ bottom: 'medium', top: 'none' }} color="primary">
       Regisztráció
     </Heading>
-    <Box direction="row-responsive" align="center">
+    <Box direction="row" align="center">
       <Box align="center">
-        <Image src={profile} width="80px" />
+        <Image src={profile} width="70px" />
       </Box>
-      <Box direction="column" justify="center" pad={{ horizontal: 'medium', vertical: 'small' }}>
-        <Heading textAlign="center" level="3" margin="none" color="nightBlue">
+      <Box direction="column" justify="center" pad={{ left: 'medium', vertical: 'small' }}>
+        <Heading textAlign="start" level="4" margin="none" color="nightBlue">
           {name}
         </Heading>
-        <Text textAlign="center" margin="none" size="small" color="primary">
+        <Text textAlign="start" margin="none" size="small" color="primary">
           {email}
         </Text>
       </Box>
     </Box>
-    <Box margin={{ top: 'medium' }} fill align="center">
+    <Box margin={{ top: 'medium' }} pad={{ horizontal: 'medium' }} fill align="center">
       <RegistrationForm onRegistration={onRegistration} />
       <Text size="small" margin="xsmall">
-        Már van profilod? <Link to={routeBuilder.root()}>Bejelentkezés</Link>
+        Már van profilod? <Link to={routeBuilder.login()}>Bejelentkezés</Link>
       </Text>
     </Box>
   </Box>
