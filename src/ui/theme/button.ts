@@ -2,7 +2,7 @@ import { colors } from './global';
 
 export const button = {
   border: {
-    radius: '16px',
+    radius: '10px',
     width: '1px',
   },
   padding: {
