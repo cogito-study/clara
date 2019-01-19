@@ -68,10 +68,10 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
                     mt={60}
                     onClick={() => history.push(routeBuilder.login())}
                     maxWidth={200}
-                    fontSize={[1, 2, 2, '24px', '24px']}
+                    fontSize={20}
                     color={color.darkBlue}
-                    children={'Log-in'}
-                    borderRadius={20}
+                    children={i18n.t('home.buttontitle')}
+                    borderRadius={10}
                   />
                 </Flex>
               </Flex>

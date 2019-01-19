@@ -8,7 +8,7 @@ export const SubscribeButton = styled(Button)`
   font-weight: bold;
   transition: 250ms ease-in-out;
   min-width: 250px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(71, 135, 211, 0.2), 0px 2px 3px rgba(9, 60, 120, 0.1);
 
   &:hover {

@@ -6,6 +6,7 @@ import { breakpoints, colors, control, deviceBreakpoints, font } from './global'
 import { input } from './input';
 import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
+import { heading } from './heading';
 
 export const theme = {
   global: {
@@ -20,6 +21,7 @@ export const theme = {
   deviceBreakpoints: { ...deviceBreakpoints },
   checkBox: { ...checkBox },
   formField: { ...formField },
+  heading: { ...heading },
   paragraph: { ...paragraph },
   tab: { ...tab },
   tabs: { ...tabs },
