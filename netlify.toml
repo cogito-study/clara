@@ -8,18 +8,18 @@ publish = "build"
 [context.production.environment]
   command = "npm run build"
   REACT_APP_ENVIRONMENT = "production"
-  REACT_APP_API_URL = "https://cogito-graphql-backend.herokuapp.com/"
+  REACT_APP_API_URL = "https://cogito-graphql-staging.herokuapp.com/"
 
 # Deploy Preview context: all deploys resulting from a pull/merge request will
 # inherit these settings.
 [context.deploy-preview.environment]
   command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "review"
-  REACT_APP_API_URL="https://cogito-graphql-backend.herokuapp.com/"
+  REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
 
 # Specific branch context: all deploys from this specific branch will inherit
 # these settings.
 [context.development.environment]
   command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "staging"
-  REACT_APP_API_URL="https://cogito-graphql-backend.herokuapp.com/"
+  REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
