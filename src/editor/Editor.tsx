@@ -96,7 +96,6 @@ export default class Editor extends PureComponent<Props, State> {
       </div>,
     );
 
-    // https://www.npmjs.com/package/react-throttle a jövőben
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
   }
 
