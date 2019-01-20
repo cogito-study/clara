@@ -136,10 +136,12 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
             {canShowUI && editorToolBoxSpacerRef.current && (
               <div
                 style={{
+                  // TODO: grommetize
                   marginTop:
                     editorToolBoxSpacerRef.current.offsetTop > toolBoxMarginTop
                       ? 0
                       : toolBoxMarginTop - editorToolBoxSpacerRef.current.offsetTop,
+                  transition: 'all .2s ease-in-out',
                 }}
               >
                 {editorToolsContainer}
