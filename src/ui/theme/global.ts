@@ -39,6 +39,7 @@ export const control = {
 export const font = {
   family: 'Montserrat',
   size: '16px',
+  weight: '400',
 };
 
 const baseSpacing = 24;
