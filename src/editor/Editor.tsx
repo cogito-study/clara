@@ -1,9 +1,11 @@
 import { Box, Button, Heading, Image } from 'grommet';
-import React, { Fragment, MouseEvent, PureComponent } from 'react';
+import React, { Fragment, MouseEvent, PureComponent, useContext } from 'react';
 import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
+
+import { UserContext } from '../contexts/user/UserContext';
 
 import commentButtonImage from '../assets/images/commentButton.svg';
 
@@ -15,6 +17,7 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
+import { UserRole } from '../../__generated__/globalTypes';
 
 export interface CommentButtonPosition {
   top: number;
@@ -53,6 +56,7 @@ export default class Editor extends PureComponent<Props, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
   plugins: Plugin[];
+  user = useContext(UserContext)!;
 
   state = {
     value: Value.fromJSON(this.props.initialValue),
@@ -63,20 +67,26 @@ export default class Editor extends PureComponent<Props, State> {
     super(props);
 
     this.plugins = [
-      ReadOnlyPlugin(),
-      History(),
       Images(),
       Links(),
       RichText(),
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
-      PasteLinkify({
-        isActiveQuery: () => isLinkActive(this.state.value),
-        wrapCommand: wrapLink,
-        unwrapCommand: unwrapLink,
-      }),
       CollapseOnEscape(),
-      ReadOnlyPlugin(),
     ];
+
+    if (this.user.role === UserRole.ADMIN) {
+      this.plugins = [
+        History(),
+        PasteLinkify({
+          isActiveQuery: () => isLinkActive(this.state.value),
+          wrapCommand: wrapLink,
+          unwrapCommand: unwrapLink,
+        }),
+        ...this.plugins,
+      ];
+    } else if (this.user.role === UserRole.USER) {
+      this.plugins = [...this.plugins, ReadOnlyPlugin()];
+    }
   }
 
   componentDidMount() {

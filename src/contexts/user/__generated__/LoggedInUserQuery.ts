@@ -1,6 +1,8 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
+import { UserRole } from "./../../../../__generated__/globalTypes";
+
 // ====================================================
 // GraphQL query operation: LoggedInUserQuery
 // ====================================================
@@ -12,6 +14,7 @@ export interface LoggedInUserQuery_me {
   lastName: string | null;
   email: string;
   neptun: string;
+  role: UserRole;
 }
 
 export interface LoggedInUserQuery {
