@@ -46,7 +46,9 @@ export const RichText = (): Plugin => ({
             style={{
               fontFamily: 'Merryweather',
               fontSize: '20px',
-              lineHeight: '1.5em',
+              lineHeight: '1.4em',
+              marginBottom: '10px',
+              color: '#4E4E4E',
             }}
             {...attributes}
           >
@@ -72,7 +74,7 @@ export const RichText = (): Plugin => ({
             level="3"
             color="gray_dark_2"
             margin={{ top: 'large', bottom: 'small', horizontal: 'none' }}
-            style={{ fontFamily: 'Merriweather', lineHeight: '1.5em' }}
+            style={{ fontFamily: 'Merriweather', lineHeight: '1.53em' }}
             {...attributes}
           >
             {children}
@@ -84,7 +86,7 @@ export const RichText = (): Plugin => ({
         return <ol {...attributes}>{children}</ol>;
       case NodeType.Paragraph:
         return (
-          <Paragraph margin="none" style={{ fontFamily: 'Merriweather', lineHeight: '1.6em' }} {...attributes}>
+          <Paragraph margin="none" style={{ fontFamily: 'Merriweather', lineHeight: '1.8em' }} {...attributes}>
             {children}
           </Paragraph>
         );

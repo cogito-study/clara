@@ -4,7 +4,6 @@ import { Editor } from 'slate-react';
 import { MarkType } from './enums/MarkType';
 import { NodeType } from './enums/NodeType';
 import { onClickImage } from './plugins/Images';
-import { onClickLink } from './plugins/Links';
 import { onClickBlock, onClickMark } from './plugins/utils';
 import { Button, Box } from 'grommet';
 
@@ -65,6 +64,5 @@ export const renderEditorToolBox = (editor: Editor) => (
       margin={{ bottom: 'medium' }}
     />
     <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
-    <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />
   </Box>
 );

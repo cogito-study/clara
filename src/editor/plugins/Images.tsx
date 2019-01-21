@@ -2,16 +2,7 @@ import React from 'react';
 import { Editor as CoreEditor } from 'slate';
 import { Image, Box } from 'grommet';
 import { Editor, Plugin, RenderNodeProps } from 'slate-react';
-//import styled from 'styled-components';
 import { NodeType } from '../enums/NodeType';
-
-/*
-const Immage = styled.img`
-  display: block;
-  max-height: 300px;
-  max-width: auto;
-`;
-*/
 
 const insertImage = (editor: Editor, src: string): CoreEditor =>
   editor
