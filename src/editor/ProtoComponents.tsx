@@ -55,8 +55,14 @@ export const renderEditorToolBox = (editor: Editor) => (
       label="Dőlt"
       color="gray_dark_1"
       onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Italic))}
-      margin={{ bottom: 'medium' }}
       style={{ fontStyle: 'Italic', fontFamily: 'Merriweather' }}
+    />
+    <Button
+      label="Lista"
+      color="gray"
+      onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.BulletedList))}
+      style={{ color: 'black', fontFamily: 'Merriweather' }}
+      margin={{ bottom: 'medium' }}
     />
     <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
     <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />

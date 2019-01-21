@@ -41,14 +41,26 @@ export const RichText = (): Plugin => ({
 
     switch (node.type) {
       case NodeType.BulletedList:
-        return <ul {...attributes}>{children}</ul>;
+        return (
+          <li
+            style={{
+              fontFamily: 'Merryweather',
+              fontSize: '20px',
+              lineHeight: '1.5em',
+            }}
+            {...attributes}
+          >
+            {children}
+          </li>
+        );
+
       case NodeType.Title:
         return (
           <Heading
             level="2"
             color="gray_dark_3"
             margin={{ top: 'medium', bottom: 'small', horizontal: 'none' }}
-            style={{ fontFamily: 'Merriweather' }}
+            style={{ fontFamily: 'Merriweather', lineHeight: '1.4em' }}
             {...attributes}
           >
             {children}
@@ -60,7 +72,7 @@ export const RichText = (): Plugin => ({
             level="3"
             color="gray_dark_2"
             margin={{ top: 'large', bottom: 'small', horizontal: 'none' }}
-            style={{ fontFamily: 'Merriweather' }}
+            style={{ fontFamily: 'Merriweather', lineHeight: '1.5em' }}
             {...attributes}
           >
             {children}
@@ -72,7 +84,7 @@ export const RichText = (): Plugin => ({
         return <ol {...attributes}>{children}</ol>;
       case NodeType.Paragraph:
         return (
-          <Paragraph margin="none" style={{ fontFamily: 'Merriweather' }} {...attributes}>
+          <Paragraph margin="none" style={{ fontFamily: 'Merriweather', lineHeight: '1.6em' }} {...attributes}>
             {children}
           </Paragraph>
         );
