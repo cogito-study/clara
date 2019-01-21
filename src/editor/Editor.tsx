@@ -74,7 +74,6 @@ export default class Editor extends PureComponent<Props, State> {
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
       CollapseOnEscape(),
     ];
-    debugger;
     if (user.role === 'ADMIN') {
       this.plugins = [
         History(),

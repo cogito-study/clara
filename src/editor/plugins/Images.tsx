@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor as CoreEditor, Range, RangeProperties } from 'slate';
+import { Editor as CoreEditor } from 'slate';
 import { Editor, Plugin, RenderNodeProps } from 'slate-react';
 import styled from 'styled-components';
 import { NodeType } from '../enums/NodeType';
@@ -10,20 +10,19 @@ const Image = styled.img`
   max-width: auto;
 `;
 
-const insertImage = (editor: CoreEditor, src: string, target: Range | RangeProperties): CoreEditor =>
+const insertImage = (editor: Editor, src: string): CoreEditor =>
   editor
     .insertBlock({
       type: NodeType.Image,
       data: { src },
     })
-    .select(target);
+    .blur();
 
 export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor: Editor) => {
   event.preventDefault();
   const src = window.prompt('Enter the URL of the image:');
-
   if (src) {
-    editor.command(src, insertImage);
+    insertImage(editor, src);
   }
 };
 
