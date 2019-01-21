@@ -4,13 +4,14 @@ import { useQuery } from 'react-apollo-hooks';
 import { LoggedInUserQuery, LoggedInUserQuery_me } from './__generated__/LoggedInUserQuery';
 import { LOGGED_IN_USER_QUERY } from './LoggedInUserQuery';
 
-interface UserContextState {
+export interface UserContextState {
   id: string;
   firstName: string;
   lastName: string;
   fullName: string;
   email: string;
   neptun: string;
+  role: string;
 }
 
 export const UserContext = createContext<UserContextState | null | undefined>(undefined);

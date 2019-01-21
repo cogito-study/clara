@@ -20,6 +20,7 @@ import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
+import { UserContext } from '../../contexts/user/UserContext';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
@@ -35,6 +36,8 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const editorToolBoxSpacerRef = useRef<HTMLDivElement | null>(null);
 
   const screenSize = useContext(ResponsiveContext);
+
+  const user = useContext(UserContext)!;
 
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [canShowUI, setShowUI] = useState(false);
@@ -101,6 +104,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     <Box width="xlarge" justify="center" align="center">
       <Editor
         title={title}
+        user={user}
         canShowComments={canShowUI}
         initialValue={text}
         commentLocations={comments ? comments.map(mapCommentToLocations) : []}
@@ -133,7 +137,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
             onClick={history.goBack}
           />
           <div ref={editorToolBoxSpacerRef}>
-            {canShowUI && editorToolBoxSpacerRef.current && (
+            {canShowUI && user.role === 'ADMIN' && editorToolBoxSpacerRef.current && (
               <div
                 style={{
                   // TODO: grommetize

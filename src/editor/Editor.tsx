@@ -1,11 +1,11 @@
 import { Box, Button, Heading, Image } from 'grommet';
-import React, { Fragment, MouseEvent, PureComponent, useContext } from 'react';
+import React, { Fragment, MouseEvent, PureComponent } from 'react';
 import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
 
-import { UserContext } from '../contexts/user/UserContext';
+import { UserContextState } from '../contexts/user/UserContext';
 
 import commentButtonImage from '../assets/images/commentButton.svg';
 
@@ -17,7 +17,6 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-import { UserRole } from '../../__generated__/globalTypes';
 
 export interface CommentButtonPosition {
   top: number;
@@ -33,6 +32,7 @@ interface Props {
   canShowComments: boolean;
   initialValue: ValueJSON;
   commentLocations: CommentLocation[];
+  user: UserContextState;
   onCommentClick: (id: number, marginTop: number) => void;
   onCreateComment: (locationInText: string, marginTop: number) => void;
   onSelectionChanged: (cursorY: number) => void;
@@ -42,6 +42,7 @@ interface Props {
 interface State {
   value: Value;
   commentButtonPosition: CommentButtonPosition;
+  edited: boolean;
 }
 
 const schema: SchemaProperties = {
@@ -56,16 +57,16 @@ export default class Editor extends PureComponent<Props, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
   plugins: Plugin[];
-  user = useContext(UserContext)!;
 
   state = {
     value: Value.fromJSON(this.props.initialValue),
     commentButtonPosition: { top: -10000, left: -10000, show: false },
+    edited: false,
   };
 
   constructor(props: Props) {
     super(props);
-
+    const { user } = this.props;
     this.plugins = [
       Images(),
       Links(),
@@ -73,8 +74,8 @@ export default class Editor extends PureComponent<Props, State> {
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
       CollapseOnEscape(),
     ];
-
-    if (this.user.role === UserRole.ADMIN) {
+    debugger;
+    if (user.role === 'ADMIN') {
       this.plugins = [
         History(),
         PasteLinkify({
@@ -84,27 +85,26 @@ export default class Editor extends PureComponent<Props, State> {
         }),
         ...this.plugins,
       ];
-    } else if (this.user.role === UserRole.USER) {
-      this.plugins = [...this.plugins, ReadOnlyPlugin()];
+    } else if (user.role === 'USER') {
+      this.plugins = [ReadOnlyPlugin(), ...this.plugins];
     }
   }
 
   componentDidMount() {
     const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged } = this.props;
     renderEditorToolsCallBack(
-      <Box>
-        {renderEditorToolBox(this.editor)}
-        <Button
-          margin={{ top: 'medium' }}
-          label="Kész"
-          color="primary"
+      <div>
+        <button
           onClick={() => {
             const val = this.setCommentVisibility(this.props.commentLocations, false).toJSON();
             onNoteUpdate(val);
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
-        />
-      </Box>,
+        >
+          Update
+        </button>
+        {renderEditorToolBox(this.editor)}
+      </div>,
     );
 
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
@@ -221,17 +221,10 @@ export default class Editor extends PureComponent<Props, State> {
 
     return (
       <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
-        <Heading level="2" margin={{ left: 'small', right: 'none', bottom: 'small', top: 'medium' }}>
+        <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
-        <Box
-          background="light"
-          elevation="small"
-          round="medium"
-          pad={{ horizontal: 'large', vertical: 'medium' }}
-          margin={{ top: 'medium' }}
-          gap="medium"
-        >
+        <Box background="white" elevation="small" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
           <SlateEditor
             spellCheck
             autoFocus
