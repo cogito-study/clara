@@ -58,10 +58,10 @@ export const renderEditorToolBox = (editor: Editor) => (
       style={{ fontStyle: 'Italic', fontFamily: 'Merriweather' }}
     />
     <Button
-      label="Lista"
+      label="• Lista"
       color="gray"
       onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.BulletedList))}
-      style={{ color: 'black', fontFamily: 'Merriweather' }}
+      style={{ fontFamily: 'Merriweather' }}
       margin={{ bottom: 'medium' }}
     />
     <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />

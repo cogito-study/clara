@@ -92,18 +92,19 @@ export default class Editor extends PureComponent<Props, State> {
   componentDidMount() {
     const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged } = this.props;
     renderEditorToolsCallBack(
-      <div>
-        <button
+      <Box>
+        {renderEditorToolBox(this.editor)}
+        <Button
+          margin={{ top: 'medium' }}
+          label="Mentés"
+          color="primary"
           onClick={() => {
             const val = this.setCommentVisibility(this.props.commentLocations, false).toJSON();
             onNoteUpdate(val);
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
-        >
-          Update
-        </button>
-        {renderEditorToolBox(this.editor)}
-      </div>,
+        />
+      </Box>,
     );
 
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
@@ -223,7 +224,15 @@ export default class Editor extends PureComponent<Props, State> {
         <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
           {title}
         </Heading>
-        <Box background="white" elevation="small" round="medium" pad="large" margin={{ top: 'medium' }} gap="medium">
+        <Box
+          background="white"
+          elevation="small"
+          align="center"
+          round="medium"
+          pad="large"
+          margin={{ top: 'medium' }}
+          gap="medium"
+        >
           <SlateEditor
             spellCheck
             autoFocus
