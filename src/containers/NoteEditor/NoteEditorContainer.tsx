@@ -126,7 +126,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       ) : (
         <Box direction="column" align="start" margin={{ horizontal: 'small' }} pad="none">
           <Button
-            margin={{ top: 'xlarge' }}
+            margin={{ vertical: 'xlarge' }}
             color="gray"
             label={true}
             icon={<Image src={BackIcon} width="20px" />}
