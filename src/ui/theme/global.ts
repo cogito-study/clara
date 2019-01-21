@@ -8,13 +8,15 @@ export const colors = {
   primary_dark_2: '#0D4485',
   primary_dark_3: '#002E64',
   // Neutral
-  gray_light_3: '#FBFBFB',
+  gray_light_4: '#FBFBFB',
+  gray_light_3: '#E8E8E8',
   gray_light_2: '#C2C2C2',
   gray_light_1: '#9D9D9D',
   gray: '#737373',
   gray_dark_1: '#5A5A5A',
   gray_dark_2: '#3E3E3E',
-  gray_dark_3: '#1E1E1E',
+  gray_dark_3: '#2E2E2E',
+  gray_dark_4: '#1E1E1E',
 
   gradient: 'linear-gradient(306.87deg, #4787D3 0%, #67BCFB 100%)',
   horizontalGradient: 'linear-gradient(270deg, #4787D3 13.05%, #67BCFB 86.95%);',
@@ -39,6 +41,7 @@ export const control = {
 export const font = {
   family: 'Montserrat',
   size: '16px',
+  weight: '400',
 };
 
 const baseSpacing = 24;

@@ -120,13 +120,13 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   );
 
   return (
-    <Box justify="center" alignContent="center" align="start" pad="xsmall" direction="row">
+    <Box justify="center" alignContent="center" margin="none" align="start" direction="row">
       {screenSize === 'small' ? (
         <div />
       ) : (
-        <Box direction="column" align="start" pad="none">
+        <Box direction="column" align="start" margin={{ horizontal: 'small' }} pad="none">
           <Button
-            margin={{ top: 'xlarge' }}
+            margin={{ vertical: 'xlarge' }}
             color="gray"
             label={true}
             icon={<Image src={BackIcon} width="20px" />}
@@ -141,7 +141,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
                     editorToolBoxSpacerRef.current.offsetTop > toolBoxMarginTop
                       ? 0
                       : toolBoxMarginTop - editorToolBoxSpacerRef.current.offsetTop,
-                  transition: 'all .2s ease-in-out',
+                  transition: 'all .4s ease-in-out',
                 }}
               >
                 {editorToolsContainer}
@@ -150,15 +150,16 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
           </div>
         </Box>
       )}
-      <Box width="large" margin={{ horizontal: 'small', vertical: 'medium' }} justify="center">
+      <Box width="800px" justify="center">
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       </Box>
       {screenSize === 'small' ? (
         <div />
       ) : (
-        <Box direction="column" align="start" width="320px">
+        <Box direction="column" align="start" margin={{ horizontal: 'small' }} width="320px">
           <Button
             reverse
+            style={{ position: 'fixed' }}
             margin={{ top: 'xlarge' }}
             color={canShowUI ? 'error' : 'primary'}
             label={canShowUI ? 'Elrejtés' : 'Javaslatok'}

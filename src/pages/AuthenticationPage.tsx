@@ -47,7 +47,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
           </Box>
         )}
 
-        <Box fill style={{ minHeight: '75vh' }} align="center" justify="center" direction="row">
+        <Box fill style={{ minHeight: '60vh' }} align="center" justify="center" direction="row">
           {screenSize === 'small' ? (
             <Box />
           ) : (

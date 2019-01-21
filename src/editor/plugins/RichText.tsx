@@ -1,10 +1,12 @@
 import { isKeyHotkey } from 'is-hotkey';
 import React from 'react';
+import { Heading, Paragraph } from 'grommet';
 import { Editor as CoreEditor, Value } from 'slate';
 import { Plugin, RenderMarkProps, RenderNodeProps } from 'slate-react';
 
 import { MarkType } from '../enums/MarkType';
 import { NodeType } from '../enums/NodeType';
+//import { colors } from '../../ui/theme/global';
 
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
@@ -41,18 +43,38 @@ export const RichText = (): Plugin => ({
       case NodeType.BulletedList:
         return <ul {...attributes}>{children}</ul>;
       case NodeType.Title:
-        return <h1 {...attributes}>{children}</h1>;
+        return (
+          <Heading
+            level="2"
+            color="gray_dark_3"
+            margin={{ top: 'medium', bottom: 'small', horizontal: 'none' }}
+            style={{ fontFamily: 'Merriweather' }}
+            {...attributes}
+          >
+            {children}
+          </Heading>
+        );
       case NodeType.Subtitle:
-        return <h2 {...attributes}>{children}</h2>;
+        return (
+          <Heading
+            level="3"
+            color="gray_dark_2"
+            margin={{ top: 'large', bottom: 'small', horizontal: 'none' }}
+            style={{ fontFamily: 'Merriweather' }}
+            {...attributes}
+          >
+            {children}
+          </Heading>
+        );
       case NodeType.ListItem:
         return <li {...attributes}>{children}</li>;
       case NodeType.NumberedList:
         return <ol {...attributes}>{children}</ol>;
       case NodeType.Paragraph:
         return (
-          <p style={{ margin: '10px 0px 10px 0px' }} {...attributes}>
+          <Paragraph margin="none" style={{ fontFamily: 'Merriweather' }} {...attributes}>
             {children}
-          </p>
+          </Paragraph>
         );
       default:
         return next();
