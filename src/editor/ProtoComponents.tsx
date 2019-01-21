@@ -30,24 +30,33 @@ export const renderEditorToolBox = (editor: Editor) => (
       color="gray_dark_2"
       onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.Paragraph))}
       margin={{ bottom: 'small' }}
+      style={{ fontSize: '16px', fontFamily: 'Merriweather' }}
     />
     <Button
       label="Cím"
-      color="gray_dark_2"
+      color="gray_dark_3"
       onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.Title))}
+      style={{ fontSize: '32px', lineHeight: '1.1em', fontFamily: 'Merriweather' }}
     />
     <Button
       label="Alcím"
       color="gray_dark_2"
       onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.Subtitle))}
-      margin={{ bottom: 'small' }}
+      margin={{ bottom: 'medium' }}
+      style={{ fontSize: '26px', lineHeight: '1.1em', fontFamily: 'Merriweather' }}
     />
-    <Button label="Kiemelt" color="gray" onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Bold))} />
+    <Button
+      label="Kiemelt"
+      color="gray"
+      onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Bold))}
+      style={{ color: 'black', fontFamily: 'Merriweather' }}
+    />
     <Button
       label="Dőlt"
-      color="gray"
+      color="gray_dark_1"
       onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Italic))}
-      margin={{ bottom: 'small' }}
+      margin={{ bottom: 'medium' }}
+      style={{ fontStyle: 'Italic', fontFamily: 'Merriweather' }}
     />
     <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
     <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />

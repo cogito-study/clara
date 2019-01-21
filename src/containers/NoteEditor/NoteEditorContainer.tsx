@@ -141,7 +141,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
                     editorToolBoxSpacerRef.current.offsetTop > toolBoxMarginTop
                       ? 0
                       : toolBoxMarginTop - editorToolBoxSpacerRef.current.offsetTop,
-                  transition: 'all .2s ease-in-out',
+                  transition: 'all .4s ease-in-out',
                 }}
               >
                 {editorToolsContainer}
@@ -159,6 +159,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         <Box direction="column" align="start" margin={{ horizontal: 'small' }} width="320px">
           <Button
             reverse
+            style={{ position: 'fixed' }}
             margin={{ top: 'xlarge' }}
             color={canShowUI ? 'error' : 'primary'}
             label={canShowUI ? 'Elrejtés' : 'Javaslatok'}
