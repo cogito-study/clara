@@ -28,7 +28,12 @@ export const Images = (): Plugin => ({
       return (
         <Box align="center" margin={{ vertical: 'large' }}>
           <Image
-            style={{ maxHeight: '500px', boxShadow: '0px 2px 4px rgba(71, 135, 211, 0.15)' }}
+            style={{
+              maxHeight: '500px',
+              maxWidth: '100%',
+              borderRadius: '5px',
+              boxShadow: '0px 2px 4px rgba(71, 135, 211, 0.15)',
+            }}
             src={node.data.get('src')}
             {...attributes}
           />{' '}

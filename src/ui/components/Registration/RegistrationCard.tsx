@@ -31,7 +31,7 @@ export const RegistrationCard: FunctionComponent<RegistrationCardProps> = ({ nam
         <Image src={profile} width="70px" />
       </Box>
       <Box direction="column" justify="center" pad={{ left: 'medium', vertical: 'small' }}>
-        <Heading textAlign="start" level="4" margin="none" color="nightBlue">
+        <Heading textAlign="start" level="4" margin="none" color="primary_dark_2">
           {name}
         </Heading>
         <Text textAlign="start" margin="none" size="small" color="primary">
