@@ -44,11 +44,11 @@ export const RichText = (): Plugin => ({
         return (
           <li
             style={{
-              fontFamily: 'Merryweather',
-              fontSize: '20px',
-              lineHeight: '1.4em',
+              fontFamily: 'Merriweather',
+              fontSize: '16px',
+              lineHeight: '1.6em',
               marginBottom: '10px',
-              color: '#4E4E4E',
+              color: '#1E1E1E',
             }}
             {...attributes}
           >
