@@ -3,7 +3,7 @@ import { colors } from './global';
 export const button = {
   border: {
     radius: '10px',
-    width: '1px',
+    width: '2px',
   },
   padding: {
     vertical: '6px',
