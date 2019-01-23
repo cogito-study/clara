@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Editor } from 'slate-react';
+import { Button, Box } from 'grommet';
+
 import { MarkType } from './enums/MarkType';
 import { NodeType } from './enums/NodeType';
-import { onClickImage } from './plugins/Images';
+import { onClickImage, uploadFileFromFS } from './plugins/Images/Images';
 import { onClickLink } from './plugins/Links';
 import { onClickBlock, onClickMark } from './plugins/utils';
-import { Button, Box } from 'grommet';
 
 export const HoverContainer = ({ top, left, children, shown, innerRef }) => {
   const root = window.document.getElementById('root');
@@ -57,6 +58,7 @@ export const renderEditorToolBox = (editor: Editor) => (
       onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Italic))}
       style={{ fontStyle: 'Italic', fontFamily: 'Merriweather' }}
     />
+    <input type="file" onChange={(e) => uploadFileFromFS(e, editor)} />
     <Button
       label="Lista"
       color="gray"

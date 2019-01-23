@@ -12,7 +12,7 @@ import commentButtonImage from '../assets/images/commentButton.svg';
 import { MarkType } from './enums/MarkType';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';
 import { History } from './plugins/History';
-import { Images } from './plugins/Images';
+import { Images } from './plugins/Images/Images';
 import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
@@ -137,6 +137,10 @@ export default class Editor extends PureComponent<Props, State> {
     }
   }
 
+  notifySaveChanges = () => {
+    alert('Akarod menteni a változásokat?');
+  };
+
   calculateSelectionPosition = () =>
     window
       .getSelection()
@@ -177,6 +181,7 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   onChange = ({ value }) => {
+    console.log(value.toJSON());
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value) });
   };
 
