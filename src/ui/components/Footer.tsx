@@ -18,7 +18,7 @@ export const Footer: FunctionComponent<BoxProps> = (props) => (
           alignSelf="center"
           color="white"
           label="contact@cogito.study"
-          href="mailto://contact@cogito.study"
+          href="mailto:contact@cogito.study"
           style={{ fontWeight: 'bold' }}
         />
         <Anchor alignSelf="center" color="white" label="ÁSZF" href="../../assets/documents/ASZF.pdf" target="_blank" />
