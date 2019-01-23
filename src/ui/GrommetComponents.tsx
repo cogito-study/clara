@@ -9,6 +9,7 @@ import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCa
 import { ForgotPasswordCardSent } from './components/ForgotPassword/ForgetPasswordCardSent';
 
 import { LoginCard } from './components/Login/LoginCard';
+import { PopUpCard } from './components/PopUpCard';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -85,6 +86,16 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         <FormField htmlFor="email-input">
           <TextInput plain id="email-input" placeholder="iLoveLearning@somuch.com" />
         </FormField>
+        <Box>
+          <PopUpCard
+            question={'Lorem ipsum dolor sit amet, consectetur adipisicing elit?'}
+            details={
+              'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et'
+            }
+            cancelButton={'cancel'}
+            acceptButton={'accept'}
+          />
+        </Box>
         <Box width="400px" align="center" gap="medium">
           <RegistrationCard
             name={registrationCardName}
