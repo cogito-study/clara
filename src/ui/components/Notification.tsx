@@ -1,4 +1,4 @@
-import { Box, Button, Image, Layer, Paragraph } from 'grommet';
+import { Box, Button, Image, Layer, Paragraph, Stack } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
 import errorIcon from '../../assets/images/errorIcon.svg';
@@ -38,17 +38,26 @@ export const Notification: FunctionComponent<NotificationProps> = ({ isOpen, typ
         responsive={false}
         position="top"
         modal={false}
+        margin={{ top: 'large' }}
       >
         <Button plain onClick={onClose}>
-          <Box round="small" elevation="small" overflow="hidden" direction="row" margin="small">
-            <Box align="center" direction="row" background="white" pad="medium" margin="none">
-              <Paragraph size="small" textAlign="start" color={type} margin="none">
-                {message}
-              </Paragraph>
-            </Box>
-            <Box width="40px" align="center" justify="center" pad="small" background={type}>
+          <Box
+            round="small"
+            elevation="medium"
+            border={{ color: type, size: 'small' }}
+            overflow="hidden"
+            background="white"
+            margin="small"
+            width="275px"
+          >
+            <Stack anchor="right" guidingChild="last" fill>
               {renderNotificationIcon()}
-            </Box>
+              <Box pad="medium">
+                <Paragraph size="small" textAlign="start" color={type} margin="none">
+                  {message}
+                </Paragraph>
+              </Box>
+            </Stack>
           </Box>
         </Button>
       </Layer>

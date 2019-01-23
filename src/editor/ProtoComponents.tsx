@@ -60,13 +60,13 @@ export const renderEditorToolBox = (editor: Editor) => (
     />
     <input type="file" onChange={(e) => uploadFileFromFS(e, editor)} />
     <Button
-      label="Lista"
+      label="• Lista"
       color="gray"
       onMouseDown={(e) => prevented(e, () => onClickBlock(editor, NodeType.BulletedList))}
-      style={{ color: 'black', fontFamily: 'Merriweather' }}
+      style={{ fontFamily: 'Merriweather' }}
       margin={{ bottom: 'medium' }}
     />
     <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
-    <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />
+    <Button label="Link" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />
   </Box>
 );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor as CoreEditor } from 'slate';
 import { Editor, Plugin, RenderNodeProps, getEventRange, getEventTransfer } from 'slate-react';
+import { Box } from 'grommet';
 import styled from 'styled-components';
 
 import isUrl from 'is-url';
@@ -97,7 +98,20 @@ export const Images = (): Plugin => ({
     const { attributes, node } = props;
 
     if (node.type === NodeType.Image) {
-      return <Image src={node.data.get('src')} {...attributes} />;
+      return (
+        <Box align="center" margin={{ vertical: 'large' }}>
+          <Image
+            style={{
+              maxHeight: '500px',
+              maxWidth: '100%',
+              borderRadius: '5px',
+              boxShadow: '0px 2px 4px rgba(71, 135, 211, 0.15)',
+            }}
+            src={node.data.get('src')}
+            {...attributes}
+          />{' '}
+        </Box>
+      );
     }
 
     return next();

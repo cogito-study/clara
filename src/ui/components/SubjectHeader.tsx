@@ -33,8 +33,8 @@ export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLog
         {screenSize === 'small' ? (
           <div />
         ) : (
-          <Box align="center" direction="row" round="16px" style={{ border: '1px solid white' }}>
-            <Text size="small" color="white" margin={{ left: 'small', vertical: 'xsmall' }}>
+          <Box align="center" direction="row" round="10px" style={{ border: '1px solid white' }}>
+            <Text size="12px" color="white" margin={{ left: 'small', vertical: '9px' }}>
               {userName}
             </Text>
             <Box
@@ -53,7 +53,7 @@ export const SubjectHeader: FunctionComponent<Props> = ({ title, userName, onLog
           label={true}
           color="white"
           icon={<Image src={logout} height="20px" />}
-          margin="small"
+          margin="xsmall"
           onClick={onLogout}
         />
       </Box>

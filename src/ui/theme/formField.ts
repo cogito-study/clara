@@ -27,7 +27,7 @@ export const formField = {
   },
   label: {
     size: '16px',
-    color: 'nightBlue',
+    color: 'primary_dark_2',
     weight: '600',
   },
 };

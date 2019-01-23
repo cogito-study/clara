@@ -24,7 +24,6 @@ export const colors = {
   dark: '#101010',
   grey: '#595959',
   backgroundBlue: '#DDE6ED',
-  nightBlue: '#093C78',
   lightGrey: '#9C9C9C',
   success: '#24EE81',
   error: '#FF2B5E',
