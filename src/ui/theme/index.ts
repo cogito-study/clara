@@ -1,3 +1,4 @@
+import { anchor } from './anchor';
 import { button } from './button';
 import { checkBox } from './checkBox';
 import { elevation } from './elevation';
@@ -16,6 +17,7 @@ export const theme = {
     elevation: { ...elevation },
     input: { ...input },
   },
+  anchor: { ...anchor },
   breakpoints: { ...breakpoints },
   button: { ...button },
   deviceBreakpoints: { ...deviceBreakpoints },
