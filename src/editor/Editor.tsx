@@ -181,7 +181,6 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   onChange = ({ value }) => {
-    console.log(value.toJSON());
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value) });
   };
 
