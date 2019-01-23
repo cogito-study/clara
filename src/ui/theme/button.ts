@@ -15,6 +15,7 @@ export const button = {
 
   extend: (props) => {
     let extraStyles = '';
+    let extraStylesHover = '';
     if (props.primary) {
       extraStyles = `
         color: white;
@@ -23,12 +24,15 @@ export const button = {
         padding: 12px 40px;
         box-shadow: 0px 7px 15px rgba(71, 135, 211, 0.25);
         font-weight: bold;
-
+      `;
+      if (!props.disabled) {
+        extraStylesHover = `
         &:hover {
           transform: scale(1.05);
           box-shadow: 0px 10px 20px rgba(71, 135, 211, 0.3);
         }
-          `;
+        `;
+      }
     }
 
     return `
@@ -40,6 +44,7 @@ export const button = {
       transition: all 0.2s ease-in-out;
 
       ${extraStyles}
+      ${extraStylesHover}
     `;
   },
 
