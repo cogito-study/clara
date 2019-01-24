@@ -21,7 +21,13 @@ export const Footer: FunctionComponent<BoxProps> = (props) => (
           href="mailto:contact@cogito.study"
           style={{ fontWeight: 'bold' }}
         />
-        <Anchor alignSelf="center" color="white" label="ÁSZF" href="../../assets/documents/ASZF.pdf" target="_blank" />
+        <Anchor
+          alignSelf="center"
+          color="white"
+          label="ÁSZF"
+          href={process.env.PUBLIC_URL + '/ASZF.pdf'}
+          target="_blank"
+        />
         <Anchor alignSelf="center" color="white" label="Adatvédelem" href="../../assets/documents/ASZF.pdf" download />
       </Box>
       <Box basis="1/3" gap="medium" direction="row" justify="center">
