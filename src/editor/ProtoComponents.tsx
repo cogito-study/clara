@@ -58,7 +58,6 @@ export const renderEditorToolBox = (editor: Editor) => (
       onMouseDown={(e) => prevented(e, () => onClickMark(editor, MarkType.Italic))}
       style={{ fontStyle: 'Italic', fontFamily: 'Merriweather' }}
     />
-    <input type="file" onChange={(e) => uploadFileFromFS(e, editor)} />
     <Button
       label="• Lista"
       color="gray"
@@ -66,7 +65,10 @@ export const renderEditorToolBox = (editor: Editor) => (
       style={{ fontFamily: 'Merriweather' }}
       margin={{ bottom: 'medium' }}
     />
-    <Button label="Kép (image)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
+
+    <input type="file" style={{ maxWidth: '110px' }} onChange={(e) => uploadFileFromFS(e, editor)} />
+
+    <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
     <Button label="Link" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />
   </Box>
 );
