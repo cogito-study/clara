@@ -94,6 +94,8 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             }
             cancelButton={'cancel'}
             acceptButton={'accept'}
+            onAccept={() => alert('Accept')}
+            onCancel={() => alert('Cancel')}
           />
         </Box>
         <Box width="400px" align="center" gap="medium">
