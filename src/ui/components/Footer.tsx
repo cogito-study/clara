@@ -1,4 +1,4 @@
-import { Box, BoxProps, Anchor } from 'grommet';
+import { Anchor, Box, BoxProps } from 'grommet';
 import { Facebook, Instagram, Twitter } from 'grommet-icons';
 import React, { FunctionComponent } from 'react';
 import { config } from '../../environment/config';
