@@ -49,13 +49,52 @@ export const uploadFileFromFS = (event, editor) => {
   const reader = new FileReader();
   reader.addEventListener('load', () => alert('Image uploaded! (almost...)'));
   reader.readAsArrayBuffer(file);
+
+  // TODO: send file to image storage
 };
 
-// tslint:disable:cyclomatic-complexity
-const onDropOrPaste = (event, editor, next) => {
+const handleFiles = (files, editor, next) => {
+  for (const file of files) {
+    const reader = new FileReader();
+    const [mime] = file.type.split('/');
+    if (mime !== 'image') {
+      continue;
+    }
+
+    reader.addEventListener('load', () => {
+      // TODO: send file to image storage
+      editor.command(insertImage, reader.result, editor.value.selection);
+    });
+
+    reader.readAsDataURL(file);
+  }
+  return;
+};
+const handlePastedText = (text, editor, next) => {
+  if (!isUrl(text) || !isImage(text)) {
+    return next();
+  }
+  return editor.command(insertImage, text, editor.value.selection);
+};
+
+const onPaste = (event, editor, next) => {
+  const transfer = getEventTransfer(event);
+  const { type } = transfer;
+  if (type === 'text') {
+    const { text } = transfer as any;
+    handlePastedText(text, editor, next);
+  }
+  if (type === 'files') {
+    const files = event.clipboardData.files;
+    return handleFiles(files, editor, next);
+  }
+  return next();
+};
+
+const onDrop = (event, editor, next) => {
   const target = getEventRange(event, editor);
 
-  if (!target && event.type === 'drop') {
+  if (!target) {
     return next();
   }
 
@@ -64,33 +103,13 @@ const onDropOrPaste = (event, editor, next) => {
 
   if (type === 'files') {
     const files = event.dataTransfer.files;
-    for (const file of files) {
-      const reader = new FileReader();
-      const [mime] = file.type.split('/');
-      if (mime !== 'image') {
-        continue;
-      }
-
-      reader.addEventListener('load', () => {
-        // TODO: send file to image storage
-        editor.command(insertImage, reader.result, target);
-      });
-
-      reader.readAsDataURL(file);
-    }
-    return;
+    return handleFiles(files, editor, next);
   }
 
   if (type === 'text') {
     const { text } = transfer as any;
-    if (!isUrl(text) || !isImage(text)) {
-      return next();
-    }
-    editor.command(insertImage, text, editor.value.selection);
-    return;
+    return handlePastedText(text, editor, next);
   }
-
-  next();
 };
 
 export const Images = (): Plugin => ({
@@ -116,6 +135,6 @@ export const Images = (): Plugin => ({
 
     return next();
   },
-  onDrop: onDropOrPaste,
-  onPaste: onDropOrPaste,
+  onDrop,
+  onPaste,
 });
