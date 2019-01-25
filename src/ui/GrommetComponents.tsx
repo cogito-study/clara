@@ -1,7 +1,16 @@
 import { Box, Button, Grommet, TextInput, FormField } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Footer, InfoCard, NoteCard, NoteComment, RegistrationCard } from './components';
+import {
+  Footer,
+  InfoCard,
+  InfoCardTop,
+  NoteCard,
+  NoteComment,
+  RegistrationCard,
+  TeacherInfo,
+  TeacherInfoProps,
+} from './components';
 
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
@@ -20,6 +29,24 @@ const noteCardAbstracts = [
   'Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok Létfontos szerv: bőr és nyálkahártya nélkül nincs élet (ld. súlyos égést követő állapotok',
   'Létfontos szerv: bőr és nyálkahártya nélkül nincs',
 ];
+
+const teacherInfoName = 'Jason Evans';
+const teacherInfoRole = 'lecturer';
+const teacherInfoPhoneNumber = '+36 10 355 4432';
+const teacherInfoEmail = 'jasonevans@gmail.com';
+
+const infoCardTeacherInfo: TeacherInfoProps = {
+  name: teacherInfoName,
+  role: teacherInfoRole,
+  phoneNumber: teacherInfoPhoneNumber,
+  email: teacherInfoEmail,
+};
+
+const infoCardTopInstitute = 'Institute of this subject';
+const infoCardTopNeptun = 'ERSEB123';
+const infoCardTopDescription =
+  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
 const infoCardTitle = 'Követelmények';
 const infoCardSubtitle = 'Ilyen, ha van alcím';
 const infoCardContent =
@@ -94,6 +121,8 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             }
             cancelButton={'cancel'}
             acceptButton={'accept'}
+            onAccept={() => alert('Accept')}
+            onCancel={() => alert('Cancel')}
           />
         </Box>
         <Box width="400px" align="center" gap="medium">
@@ -119,6 +148,18 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           ))}
         </Box>
         <Box direction="column" gap="medium">
+          <TeacherInfo
+            name={teacherInfoName}
+            role={teacherInfoRole}
+            phoneNumber={teacherInfoPhoneNumber}
+            email={teacherInfoEmail}
+          />
+          <InfoCardTop
+            institute={infoCardTopInstitute}
+            neptun={infoCardTopNeptun}
+            description={infoCardTopDescription}
+            teacherInfos={[infoCardTeacherInfo, infoCardTeacherInfo, infoCardTeacherInfo]}
+          />
           <InfoCard title={infoCardTitle} subtitle={infoCardSubtitle} content={infoCardContent} />
           <InfoCard title={infoCardTitle} content={infoCardContent} />
         </Box>

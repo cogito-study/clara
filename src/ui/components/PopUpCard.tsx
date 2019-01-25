@@ -1,14 +1,23 @@
 import { Box, BoxProps, Heading, Button, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
-interface Props {
+interface PopUpCardProps {
   question: string;
   details?: string | null;
   cancelButton: string;
   acceptButton: string;
+  onCancel: () => void;
+  onAccept: () => void;
 }
 
-export const PopUpCard: FunctionComponent<BoxProps & Props> = (props) => (
+export const PopUpCard: FunctionComponent<BoxProps & PopUpCardProps> = ({
+  question,
+  details,
+  cancelButton,
+  acceptButton,
+  onAccept,
+  onCancel,
+}) => (
   <Box
     pad={{ horizontal: 'large', vertical: 'medium' }}
     background="white"
@@ -17,12 +26,12 @@ export const PopUpCard: FunctionComponent<BoxProps & Props> = (props) => (
     width="large"
   >
     <Heading level="3" margin="none">
-      {props.question}
+      {question}
     </Heading>
-    {props.details && <Paragraph margin={{ vertical: 'small' }}>{props.details}</Paragraph>}
+    {details && <Paragraph margin={{ vertical: 'small' }}>{details}</Paragraph>}
     <Box direction="row" gap="medium" justify="end">
-      <Button color="primary_light_1" label={props.cancelButton} />
-      <Button primary label={props.acceptButton} />
+      <Button color="primary_light_1" label={cancelButton} onClick={onCancel} />
+      <Button primary label={acceptButton} onClick={onAccept} />
     </Box>
   </Box>
 );

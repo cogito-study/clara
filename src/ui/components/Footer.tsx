@@ -1,6 +1,7 @@
-import { Box, BoxProps, Anchor } from 'grommet';
+import { Anchor, Box, BoxProps } from 'grommet';
 import { Facebook, Instagram, Twitter } from 'grommet-icons';
 import React, { FunctionComponent } from 'react';
+import { config } from '../../environment/config';
 
 export const Footer: FunctionComponent<BoxProps> = (props) => (
   <Box
@@ -21,8 +22,8 @@ export const Footer: FunctionComponent<BoxProps> = (props) => (
           href="mailto:contact@cogito.study"
           style={{ fontWeight: 'bold' }}
         />
-        <Anchor alignSelf="center" color="white" label="ÁSZF" href="../../assets/documents/ASZF.pdf" target="_blank" />
-        <Anchor alignSelf="center" color="white" label="Adatvédelem" href="../../assets/documents/ASZF.pdf" download />
+        <Anchor alignSelf="center" color="white" label="ÁSZF" href={config.termsURL} target="_blank" />
+        <Anchor alignSelf="center" color="white" label="Adatvédelem" href={config.privacyURL} />
       </Box>
       <Box basis="1/3" gap="medium" direction="row" justify="center">
         <Anchor icon={<Facebook />} href="https://facebook.com/cogitostudy" target="_blank" color="white" />

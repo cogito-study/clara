@@ -1,5 +1,6 @@
 export * from './Footer';
-export * from './InfoCard';
+export * from './InfoCard/InfoCard';
+export * from './InfoCard/InfoCardTop';
 export * from './Link';
 export * from './NoteCard';
 export * from './Notification';
@@ -7,3 +8,4 @@ export * from './Registration/RegistrationCard';
 export * from './Spinner';
 export * from './NoteComment/NoteComment';
 export * from './SubjectHeader';
+export * from './InfoCard/TeacherInfo';

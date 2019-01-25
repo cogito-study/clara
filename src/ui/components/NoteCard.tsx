@@ -47,7 +47,18 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
                 >
                   {noteNumber < 10 ? '0' + noteNumber : noteNumber}
                 </Heading>
-                <Heading level="4" color="dark" margin="small">
+                <Heading
+                  level="4"
+                  color="dark"
+                  margin="small"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
                   {title}
                 </Heading>
               </Stack>
@@ -80,13 +91,35 @@ const NoteCard: FunctionComponent<BoxProps & Props> = ({
                 <Heading margin="none" color="primary" level="1" style={{ opacity: 0.2, fontSize: '80px' }}>
                   {noteNumber < 10 ? '0' + noteNumber : noteNumber}
                 </Heading>
-                <Heading level="4" color="dark" margin="none">
+                <Heading
+                  level="4"
+                  color="dark"
+                  margin="none"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
                   {title}
                 </Heading>
               </Stack>
             </Box>
-            <Paragraph margin="none" size="small" color="grey">
-              {abstract.substring(0, 100)}
+            <Paragraph
+              margin="none"
+              size="small"
+              color="grey"
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 4,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {abstract}
             </Paragraph>
           </Box>
           {dateLabel && (
