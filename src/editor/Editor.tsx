@@ -5,10 +5,9 @@ import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
 
-import { UserContextState } from '../contexts/user/UserContext';
-
 import commentButtonImage from '../assets/images/commentButton.svg';
 
+import { UserContextState } from '../contexts/user/UserContext';
 import { MarkType } from './enums/MarkType';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';
 import { History } from './plugins/History';
@@ -111,7 +110,6 @@ export default class Editor extends PureComponent<Props, State> {
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
   }
 
-  // tslint:disable:cyclomatic-complexity
   componentDidUpdate(prevProps: Props) {
     const { canShowComments, commentLocations } = this.props;
     if (canShowComments !== prevProps.canShowComments) {
