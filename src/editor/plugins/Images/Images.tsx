@@ -1,8 +1,12 @@
 import React from 'react';
+import { useMutation } from 'react-apollo-hooks';
 import { Editor as CoreEditor } from 'slate';
 import { Editor, Plugin, RenderNodeProps, getEventRange, getEventTransfer } from 'slate-react';
 import { Box } from 'grommet';
 import styled from 'styled-components';
+
+import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
+import { UPLOAD_IMAGE_MUTATION } from './UploadImageMutation';
 
 import isUrl from 'is-url';
 
@@ -15,6 +19,8 @@ const Image = styled.img`
   max-height: 300px;
   max-width: auto;
 `;
+
+const uploadImage = useMutation<UploadImageMutation, UploadImageMutationVariables>(UPLOAD_IMAGE_MUTATION, {});
 
 function isImage(url: string) {
   const [ext] = url.split('.').slice(-1);
@@ -42,15 +48,31 @@ export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor:
   }
 };
 
+const uploadFile = (editor, file) => {
+  const options = {
+    method: 'PUT',
+    body: file,
+  };
+
+  const [fileName, fileType] = file.type.split('/');
+
+  if (file.size < 10000000) {
+    uploadImage({ variables: { fileName, fileType } }).then(({ data, url }) => {
+      fetch(url, options).then(() => insertImage(editor, url, editor.value.selection));
+    });
+  } else {
+    // TODO: add grommet notification
+    alert('file size too large!');
+  }
+};
+
 export const uploadFileFromFS = (event, editor) => {
   event.preventDefault();
   const file = event.target.files[0];
 
   const reader = new FileReader();
-  reader.addEventListener('load', () => alert('Image uploaded! (almost...)'));
+  reader.addEventListener('load', () => uploadFile(editor, reader.result));
   reader.readAsArrayBuffer(file);
-
-  // TODO: send file to image storage
 };
 
 const handleFiles = (files, editor, next) => {
@@ -62,8 +84,7 @@ const handleFiles = (files, editor, next) => {
     }
 
     reader.addEventListener('load', () => {
-      // TODO: send file to image storage
-      editor.command(insertImage, reader.result, editor.value.selection);
+      uploadFile(editor, file);
     });
 
     reader.readAsDataURL(file);
