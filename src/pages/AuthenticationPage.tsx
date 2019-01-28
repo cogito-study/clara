@@ -1,8 +1,8 @@
-import { Box, Image, ResponsiveContext, Paragraph } from 'grommet';
+import { Box, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
-//import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
+// import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
 
 import { LoginContainer } from '../containers/Login/LoginContainer';
 import { RegisterContainer } from '../containers/Register/RegisterContainer';
@@ -13,7 +13,7 @@ import { ForgotPasswordCard } from '../ui/components/ForgotPassword/ForgetPasswo
 import { Link } from '../ui/components/Link';
 
 import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
-//import SmallBetaLogo from '../assets/images/SmallBetaLogo.svg';
+// import SmallBetaLogo from '../assets/images/SmallBetaLogo.svg';
 import { Header2 } from '../landing-page/styles';
 import { colors } from '../ui/theme/global';
 
