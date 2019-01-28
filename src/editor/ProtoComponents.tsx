@@ -24,7 +24,7 @@ const prevented = (event: React.MouseEvent, callback: () => void) => {
   callback();
 };
 
-export const renderEditorToolBox = (editor: Editor) => (
+export const renderEditorToolBox = (editor: Editor, uploadImageMutation: any) => (
   <Box gap="xsmall" pad={{ top: 'large' }}>
     <Button
       label="Szöveg"
@@ -66,7 +66,11 @@ export const renderEditorToolBox = (editor: Editor) => (
       margin={{ bottom: 'medium' }}
     />
 
-    <input type="file" style={{ maxWidth: '110px' }} onChange={(e) => uploadFileFromFS(e, editor)} />
+    <input
+      type="file"
+      style={{ maxWidth: '110px' }}
+      onChange={(e) => uploadFileFromFS(uploadImageMutation, e, editor)}
+    />
 
     <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />
     <Button label="Link" color="gray" onMouseDown={(e) => onClickLink(e, editor)} />

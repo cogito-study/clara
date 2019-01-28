@@ -7,6 +7,8 @@ import BackIcon from '../../assets/images/BackIcon.svg';
 import CloseIcon from '../../assets/images/CloseIcon.svg';
 import CommentIcon from '../../assets/images/CommentIcon.svg';
 
+import { UserContext } from '../../contexts/user/UserContext';
+
 import Editor, { CommentLocation } from '../../editor/Editor';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { NoteRouteParams } from '../../types/RouteParams';
@@ -20,7 +22,8 @@ import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
-import { UserContext } from '../../contexts/user/UserContext';
+import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
+import { UPLOAD_IMAGE_MUTATION } from './UploadImageMutation';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
@@ -59,6 +62,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const updateNote = useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(UPDATE_NOTE_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
+  const uploadImage = useMutation<UploadImageMutation, UploadImageMutationVariables>(UPLOAD_IMAGE_MUTATION, {});
 
   useDocumentTitle(noteQueryData && noteQueryData.note ? noteQueryData.note.title : '');
 
@@ -113,6 +117,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         onSelectionChanged={onSelectionChanged}
         renderEditorToolsCallBack={(container: JSX.Element) => setEditorToolsContainer(container)}
         onNoteUpdate={onNoteUpdate}
+        uploadImageMutation={uploadImage}
       />
     </Box>
   );

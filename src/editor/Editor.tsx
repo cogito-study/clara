@@ -38,6 +38,7 @@ interface Props {
   onSelectionChanged: (cursorY: number) => void;
   renderEditorToolsCallBack: (container: JSX.Element) => void;
   onNoteUpdate: (text: any) => void;
+  uploadImageMutation: any;
 }
 interface State {
   value: Value;
@@ -66,9 +67,9 @@ export default class Editor extends PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const { user } = this.props;
+    const { user, uploadImageMutation } = this.props;
     this.plugins = [
-      Images(),
+      Images(uploadImageMutation),
       Links(),
       RichText(),
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
@@ -90,10 +91,10 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged } = this.props;
+    const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged, uploadImageMutation } = this.props;
     renderEditorToolsCallBack(
       <Box>
-        {renderEditorToolBox(this.editor)}
+        {renderEditorToolBox(this.editor, uploadImageMutation)}
         <Button
           margin={{ top: 'medium' }}
           label="Mentés"

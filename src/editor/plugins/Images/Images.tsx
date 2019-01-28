@@ -1,12 +1,9 @@
 import React from 'react';
-// import { useMutation } from 'react-apollo-hooks';
 import { Editor as CoreEditor } from 'slate';
 import { Editor, Plugin, RenderNodeProps, getEventRange, getEventTransfer } from 'slate-react';
 import { Box } from 'grommet';
 import styled from 'styled-components';
-
-// import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
-// import { UPLOAD_IMAGE_MUTATION } from './UploadImageMutation';
+import { v4 as uuid } from 'uuid';
 
 import isUrl from 'is-url';
 
@@ -19,8 +16,6 @@ const Image = styled.img`
   max-height: 300px;
   max-width: auto;
 `;
-
-// const uploadImage = useMutation<UploadImageMutation, UploadImageMutationVariables>(UPLOAD_IMAGE_MUTATION, {});
 
 function isImage(url: string) {
   const [ext] = url.split('.').slice(-1);
@@ -48,33 +43,42 @@ export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor:
   }
 };
 
-const uploadFile = (editor, file) => {
-  // const options = {
-  //   method: 'PUT',
-  //   body: file,
-  // };
-  // debugger;
-  // const [fileName, fileType] = file.type.split('/');
-  // if (file.size < 10000000) {
-  //   uploadImage({ variables: { fileName, fileType } }).then(({ data, url }) => {
-  //     fetch(url, options).then(() => insertImage(editor, url, editor.value.selection));
-  //   });
-  // } else {
-  //   // TODO: add grommet notification
-  //   alert('file size too large!');
-  // }
+const uploadFile = (uploadImageMutation, editor, file) => {
+  const options = {
+    method: 'PUT',
+    body: file,
+  };
+  const fileType = file.type;
+  const fileName = uuid();
+  // no big files
+  if (file.size < 10000000) {
+    uploadImageMutation({ variables: { fileName, fileType } }).then((result) => {
+      const {
+        data: {
+          uploadImage: { url },
+        },
+      } = result;
+      // Todo: add loading state while waiting for upload to complete
+      fetch(url, options).then(() =>
+        insertImage(editor, `https://cogito-images.s3.amazonaws.com/${fileName}`, editor.value.selection),
+      );
+    });
+  } else {
+    // TODO: add grommet notification
+    alert('file size too large!');
+  }
 };
 
-export const uploadFileFromFS = (event, editor) => {
+export const uploadFileFromFS = (uploadImageMutation, event, editor) => {
   event.preventDefault();
   const file = event.target.files[0];
 
   const reader = new FileReader();
-  reader.addEventListener('load', () => uploadFile(editor, reader.result));
+  reader.addEventListener('load', () => uploadFile(uploadImageMutation, editor, reader.result));
   reader.readAsArrayBuffer(file);
 };
 
-const handleFiles = (files, editor, next) => {
+const handleFiles = (uploadImageMutation, files, editor, next) => {
   for (const file of files) {
     const reader = new FileReader();
     const [mime] = file.type.split('/');
@@ -83,7 +87,7 @@ const handleFiles = (files, editor, next) => {
     }
 
     reader.addEventListener('load', () => {
-      uploadFile(editor, file);
+      uploadFile(uploadImageMutation, editor, file);
     });
 
     reader.readAsDataURL(file);
@@ -97,7 +101,7 @@ const handlePastedText = (text, editor, next) => {
   return editor.command(insertImage, text, editor.value.selection);
 };
 
-const onPaste = (event, editor, next) => {
+const onPaste = (uploadImageMutation, event, editor, next) => {
   const transfer = getEventTransfer(event);
   const { type } = transfer;
   if (type === 'text') {
@@ -106,12 +110,12 @@ const onPaste = (event, editor, next) => {
   }
   if (type === 'files') {
     const files = event.clipboardData.files;
-    return handleFiles(files, editor, next);
+    return handleFiles(uploadImageMutation, files, editor, next);
   }
   return next();
 };
 
-const onDrop = (event, editor, next) => {
+const onDrop = (uploadImageMutation, event, editor, next) => {
   const target = getEventRange(event, editor);
 
   if (!target) {
@@ -123,7 +127,7 @@ const onDrop = (event, editor, next) => {
 
   if (type === 'files') {
     const files = event.dataTransfer.files;
-    return handleFiles(files, editor, next);
+    return handleFiles(uploadImageMutation, files, editor, next);
   }
 
   if (type === 'text') {
@@ -132,7 +136,7 @@ const onDrop = (event, editor, next) => {
   }
 };
 
-export const Images = (): Plugin => ({
+export const Images = (uploadImageMutation: any): Plugin => ({
   renderNode: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => {
     const { attributes, node } = props;
 
@@ -155,6 +159,6 @@ export const Images = (): Plugin => ({
 
     return next();
   },
-  onDrop,
-  onPaste,
+  onDrop: (event, editor, next) => onDrop(uploadImageMutation, event, editor, next),
+  onPaste: (event, editor, next) => onPaste(uploadImageMutation, event, editor, next),
 });
