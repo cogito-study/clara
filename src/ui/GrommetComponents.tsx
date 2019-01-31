@@ -15,10 +15,14 @@ import {
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
 import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
-import { ForgotPasswordCardSent } from './components/ForgotPassword/ForgetPasswordCardSent';
+import { FeedbackCard } from './components/ForgotPassword/FeedbackCard';
 
 import { LoginCard } from './components/Login/LoginCard';
 import { PopUpCard } from './components/PopUpCard';
+
+import mail from '../assets/images/Mail.svg';
+import alertCircle from '../assets/images/alertCircle.svg';
+import checkCircle from '../assets/images/checkCircle.svg';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -132,7 +136,26 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             onRegistration={(password: string) => alert(password)}
           />
           <ForgotPasswordCard onForgotPassword={(password: string) => alert(password)} />
-          <ForgotPasswordCardSent />
+          <FeedbackCard
+            title="E-mail elküldve"
+            icon={mail}
+            paragraph="Üzenetet küldtünk e-mailben a jelszó alaphelyzetbe állítására vonatkozó utasításokkal"
+            ButtonHidden={true}
+          />
+          <FeedbackCard
+            title="A link elavult 😕"
+            icon={alertCircle}
+            paragraph="Amennyiben még mindig vissza szeretnéd állítani jelszavad, kattints a gombra."
+            ButtonHidden={false}
+            ButtonLabel="Jelszó visszaállítás"
+          />
+          <FeedbackCard
+            title="Kész"
+            icon={checkCircle}
+            paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni az új jelszóval."
+            ButtonHidden={false}
+            ButtonLabel="Belépés"
+          />
           <LoginCard onLogin={(password: string) => alert(password)} />
         </Box>
         <Box gap="small" direction="row" wrap alignContent="around">
