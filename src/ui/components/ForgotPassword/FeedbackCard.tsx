@@ -1,6 +1,7 @@
-import { Box, Image, Heading, Paragraph, Button } from 'grommet';
+import { Box, Button, Heading, Image, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import mail from '../../../assets/images/Mail.svg';
+
 import alertCircle from '../../../assets/images/alertCircle.svg';
 import checkCircle from '../../../assets/images/checkCircle.svg';
 
