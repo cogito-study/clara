@@ -1,12 +1,15 @@
 import { Box, Image, Heading, Paragraph, Button } from 'grommet';
 import React, { FunctionComponent } from 'react';
+import mail from '../../../assets/images/Mail.svg';
+import alertCircle from '../../../assets/images/alertCircle.svg';
+import checkCircle from '../../../assets/images/checkCircle.svg';
 
 export interface FeedbackCardProps {
   title: string;
   icon: string;
   paragraph?: string;
-  ButtonHidden: boolean;
-  ButtonLabel?: string;
+  buttonHidden: boolean;
+  buttonLabel?: string;
   onButtonClicked?: () => void;
 }
 
@@ -14,8 +17,8 @@ export const FeedbackCard: FunctionComponent<FeedbackCardProps> = ({
   title,
   icon,
   paragraph,
-  ButtonHidden,
-  ButtonLabel,
+  buttonHidden,
+  buttonLabel,
   onButtonClicked,
 }) => (
   <Box
@@ -36,6 +39,34 @@ export const FeedbackCard: FunctionComponent<FeedbackCardProps> = ({
     <Paragraph textAlign="center" size="medium" margin={{ horizontal: 'medium', top: 'small', bottom: 'medium' }}>
       {paragraph}
     </Paragraph>
-    {ButtonHidden ? <div /> : <Button primary label={ButtonLabel} onClick={() => onButtonClicked} />}
+    {buttonHidden ? <div /> : <Button primary label={buttonLabel} onClick={() => onButtonClicked} />}
   </Box>
+);
+
+export const emailSentFeedbackCard: FunctionComponent = () => (
+  <FeedbackCard
+    title="E-mail elküldve"
+    icon={mail}
+    paragraph="Üzenetet küldtünk e-mailben a jelszó alaphelyzetbe állítására vonatkozó utasításokkal"
+    buttonHidden={true}
+  />
+);
+
+export const expiredFeedbackCard: FunctionComponent = () => (
+  <FeedbackCard
+    title="A link elavult 😕"
+    icon={alertCircle}
+    paragraph="Amennyiben még mindig vissza szeretnéd állítani jelszavad, kattints a gombra."
+    buttonHidden={false}
+    buttonLabel="Jelszó visszaállítás"
+  />
+);
+export const resetDoneFeedbackCard: FunctionComponent = () => (
+  <FeedbackCard
+    title="Kész"
+    icon={checkCircle}
+    paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni az új jelszóval."
+    buttonHidden={false}
+    buttonLabel="Belépés"
+  />
 );

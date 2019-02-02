@@ -2,8 +2,6 @@ import { Box, Image, ResponsiveContext, Paragraph } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
-//import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
-
 import { LoginContainer } from '../containers/Login/LoginContainer';
 import { RegisterContainer } from '../containers/Register/RegisterContainer';
 import { routeBuilder } from '../route/routeBuilder';
@@ -13,13 +11,16 @@ import { ForgotPasswordCard } from '../ui/components/ForgotPassword/ForgetPasswo
 import { Link } from '../ui/components/Link';
 
 import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
-//import SmallBetaLogo from '../assets/images/SmallBetaLogo.svg';
 import { Header2 } from '../landing-page/styles';
 import { colors } from '../ui/theme/global';
+import { emailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { expiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { resetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { ResetPasswordCard } from '../ui/components/ForgotPassword/ResetPasswordCard';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
-  const { register, login, forgetPassword } = routeBuilder;
+  const { register, login, forgetPassword, emailSent, resetPassword, linkExpired, resetDone } = routeBuilder;
 
   return (
     <Box>
@@ -62,6 +63,10 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
             <Route path={register()} component={RegisterContainer} />
             <Route path={login()} component={LoginContainer} />
             <Route path={forgetPassword()} component={ForgotPasswordCard} />
+            <Route path={emailSent()} component={emailSentFeedbackCard} />
+            <Route path={resetPassword()} component={ResetPasswordCard} />
+            <Route path={linkExpired()} component={expiredFeedbackCard} />
+            <Route path={resetDone()} component={resetDoneFeedbackCard} />
           </Box>
         </Box>
       </Box>
