@@ -1,4 +1,4 @@
-import { Box, Image, ResponsiveContext, Paragraph } from 'grommet';
+import { Box, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
@@ -12,11 +12,12 @@ import { Link } from '../ui/components/Link';
 
 import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
 import { Header2 } from '../landing-page/styles';
-import { colors } from '../ui/theme/global';
 import { EmailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { ResetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+
 import { ResetPasswordCard } from '../ui/components/ForgotPassword/ResetPasswordCard';
+import { colors } from '../ui/theme/global';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
