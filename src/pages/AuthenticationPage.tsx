@@ -13,9 +13,9 @@ import { Link } from '../ui/components/Link';
 import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
 import { Header2 } from '../landing-page/styles';
 import { colors } from '../ui/theme/global';
-import { emailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
-import { expiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
-import { resetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { EmailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
+import { ResetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { ResetPasswordCard } from '../ui/components/ForgotPassword/ResetPasswordCard';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
@@ -63,10 +63,10 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
             <Route path={register()} component={RegisterContainer} />
             <Route path={login()} component={LoginContainer} />
             <Route path={forgetPassword()} component={ForgotPasswordCard} />
-            <Route path={emailSent()} component={emailSentFeedbackCard} />
+            <Route path={emailSent()} component={EmailSentFeedbackCard} />
             <Route path={resetPassword()} component={ResetPasswordCard} />
-            <Route path={linkExpired()} component={expiredFeedbackCard} />
-            <Route path={resetDone()} component={resetDoneFeedbackCard} />
+            <Route path={linkExpired()} component={ExpiredFeedbackCard} />
+            <Route path={resetDone()} component={ResetDoneFeedbackCard} />
           </Box>
         </Box>
       </Box>

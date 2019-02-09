@@ -1,9 +1,9 @@
 import { Box, Heading, Image, Text, FormField, TextInput, Form, Button } from 'grommet';
 import React, { FunctionComponent } from 'react';
-
-import profile from '../../../assets/images/Profile.svg';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+import profile from '../../../assets/images/Profile.svg';
 import { Spinner } from '..';
 
 interface RegistrationCardProps extends RegistrationFormProps {

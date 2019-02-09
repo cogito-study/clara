@@ -15,9 +15,9 @@ import {
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
 import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
-import { emailSentFeedbackCard } from './components/ForgotPassword/FeedbackCard';
-import { expiredFeedbackCard } from './components/ForgotPassword/FeedbackCard';
-import { resetDoneFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { EmailSentFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { ExpiredFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { ResetDoneFeedbackCard } from './components/ForgotPassword/FeedbackCard';
 
 import { LoginCard } from './components/Login/LoginCard';
 import { PopUpCard } from './components/PopUpCard';
@@ -142,9 +142,9 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             email={registrationCardEmail}
             onRegistration={(password: string) => alert(password)}
           />
-          {emailSentFeedbackCard}
-          {expiredFeedbackCard}
-          {resetDoneFeedbackCard}
+          <EmailSentFeedbackCard />
+          <ExpiredFeedbackCard />
+          <ResetDoneFeedbackCard />
 
           <LoginCard onLogin={(password: string) => alert(password)} />
         </Box>
