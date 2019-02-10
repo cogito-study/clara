@@ -7,6 +7,7 @@
 
 export enum UserRole {
   ADMIN = "ADMIN",
+  PROFESSOR = "PROFESSOR",
   USER = "USER",
 }
 

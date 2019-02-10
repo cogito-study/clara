@@ -5,16 +5,11 @@
 // GraphQL mutation operation: ActivateUserMutation
 // ====================================================
 
-export interface ActivateUserMutation_activate {
-  __typename: "AuthPayload";
-  token: string;
-}
-
 export interface ActivateUserMutation {
-  activate: ActivateUserMutation_activate;
+  resetPassword: boolean;
 }
 
 export interface ActivateUserMutationVariables {
-  userID: string;
+  token: string;
   password: string;
 }

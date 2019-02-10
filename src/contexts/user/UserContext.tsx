@@ -10,7 +10,7 @@ export interface UserContextState {
   lastName: string;
   fullName: string;
   email: string;
-  neptun: string;
+  neptun: string | null;
   role: string;
 }
 

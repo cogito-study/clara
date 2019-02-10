@@ -1,6 +1,6 @@
 export const routeBuilder = {
   root: () => '/',
-  register: (userID?: string) => `/register/${userID ? userID : ':userID'}`,
+  register: () => `/register`,
   login: () => '/login',
   forgetPassword: () => '/forget-password',
   emailSent: () => '/email-sent',

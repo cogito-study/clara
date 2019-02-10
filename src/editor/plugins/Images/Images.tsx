@@ -58,10 +58,11 @@ const uploadFile = (uploadImageMutation, editor, file) => {
           uploadImage: { url },
         },
       } = result;
-      // Todo: add loading state while waiting for upload to complete
-      fetch(url, options).then(() =>
-        insertImage(editor, `https://cogito-images.s3.amazonaws.com/${fileName}`, editor.value.selection),
-      );
+      // TODO: add loading state while waiting for upload to complete
+      // TODO: error
+      fetch(url, options).then(() => {
+        insertImage(editor, `https://cogito-images.s3.amazonaws.com/${fileName}`, editor.value.selection);
+      });
     });
   } else {
     // TODO: add grommet notification
@@ -73,24 +74,20 @@ export const uploadFileFromFS = (uploadImageMutation, event, editor) => {
   event.preventDefault();
   const file = event.target.files[0];
 
-  const reader = new FileReader();
-  reader.addEventListener('load', () => uploadFile(uploadImageMutation, editor, reader.result));
-  reader.readAsArrayBuffer(file);
+  const [mime] = file.type.split('/');
+  if (mime !== 'image') {
+    return;
+  }
+  uploadFile(uploadImageMutation, editor, file);
 };
 
 const handleFiles = (uploadImageMutation, files, editor, next) => {
   for (const file of files) {
-    const reader = new FileReader();
     const [mime] = file.type.split('/');
     if (mime !== 'image') {
       continue;
     }
-
-    reader.addEventListener('load', () => {
-      uploadFile(uploadImageMutation, editor, file);
-    });
-
-    reader.readAsDataURL(file);
+    uploadFile(uploadImageMutation, editor, file);
   }
   return;
 };
