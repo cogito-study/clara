@@ -57,7 +57,7 @@ export const ExpiredFeedbackCard: FunctionComponent = () => (
     icon={alertCircle}
     paragraph="Amennyiben még mindig vissza szeretnéd állítani jelszavad, kattints a gombra."
     buttonLabel="Jelszó visszaállítás"
-    onButtonClick={() => alert('Még definiálni kell, hogy a loginra vigyen!')}
+    onButtonClick={() => alert('Még definiálni kell, hogy a reset password screenre vigyen!')}
   />
 );
 export const ResetDoneFeedbackCard: FunctionComponent = () => (
