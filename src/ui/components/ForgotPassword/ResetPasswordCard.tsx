@@ -59,7 +59,7 @@ export const ResetPasswordCard: FunctionComponent<RegistrationCardProps> = ({ na
       >
         {(props) => {
           const { values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur } = props;
-
+          // tslint:disable:cyclomatic-complexity
           return (
             <Box fill>
               <Form>

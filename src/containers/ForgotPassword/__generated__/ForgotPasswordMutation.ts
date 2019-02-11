@@ -6,7 +6,7 @@
 // ====================================================
 
 export interface ForgotPasswordMutation {
-  forgotPassword: boolean;
+  sendResetPasswordEmail: boolean;
 }
 
 export interface ForgotPasswordMutationVariables {
