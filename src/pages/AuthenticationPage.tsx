@@ -15,9 +15,9 @@ import { EmailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackC
 import { ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { ResetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 
-import { ResetPasswordCard } from '../ui/components/ForgotPassword/ResetPasswordCard';
 import { colors } from '../ui/theme/global';
 import { ForgotPasswordContainer } from '../containers/ForgotPassword/ForgotPasswordContainer';
+import { ResetPasswordContainer } from '../containers/ResetPassword/ResetPasswordContainer';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
@@ -65,7 +65,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
             <Route path={login()} component={LoginContainer} />
             <Route path={forgetPassword()} component={ForgotPasswordContainer} />
             <Route path={emailSent()} component={EmailSentFeedbackCard} />
-            <Route path={resetPassword()} component={ResetPasswordCard} />
+            <Route path={resetPassword()} component={ResetPasswordContainer} />
             <Route path={linkExpired()} component={ExpiredFeedbackCard} />
             <Route path={resetDone()} component={ResetDoneFeedbackCard} />
           </Box>

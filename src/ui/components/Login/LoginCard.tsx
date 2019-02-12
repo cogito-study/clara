@@ -30,7 +30,9 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
     <Box margin={{ top: 'small' }} fill align="center">
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={({ email, password }, { resetForm }) => onLogin(email, password, resetForm)}
+        onSubmit={({ email, password }, { resetForm }) => {
+          onLogin(email, password, resetForm);
+        }}
         validationSchema={Yup.object({
           email: Yup.string().email('Az e-mail cím formátuma nem megfelelő'),
           password: Yup.string().required('Jelszó megadása kötelező'),

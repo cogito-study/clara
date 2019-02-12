@@ -7,24 +7,26 @@ import { NotificationContext } from '../../contexts/notification/NotificationCon
 import { ResetPasswordMutation, ResetPasswordMutationVariables } from './__generated__/ResetPasswordMutation';
 import { RESET_PASSWORD } from './ResetPasswordMutation';
 import { routeBuilder } from '../../route/routeBuilder';
-import { RegistrationForm } from '../../ui/components/Registration/RegistrationForm';
+import { ResetPasswordCard } from '../../ui/components/ForgotPassword/ResetPasswordCard';
 
-export const ForgotPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history, location }) => {
+export const ResetPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history, location }) => {
   const { showNotification } = useContext(NotificationContext);
   const resetPassword = useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(RESET_PASSWORD);
   const params = new URLSearchParams(location.search);
   const token = params.get('token')!;
-  const onRegistration = (password: string, resetForm: () => void) =>
+
+  const onReset = (password: string, resetForm: () => void) =>
     resetPassword({ variables: { token, password } })
       .then((result) => {
         if (result) {
           showNotification('A jelszó sikeresen vissza lett állítva!');
-          history.push(routeBuilder.login());
+          history.push(routeBuilder.resetDone());
         }
       })
       .catch((error: ApolloError) => {
         error.graphQLErrors.map(({ message }) => showNotification(message, 'error'));
         resetForm();
       });
-  return <RegistrationForm onRegistration={onRegistration} />;
+
+  return <ResetPasswordCard onReset={onReset} />;
 };

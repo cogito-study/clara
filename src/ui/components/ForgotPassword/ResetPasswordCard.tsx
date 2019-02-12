@@ -1,21 +1,16 @@
-import { Box, Heading, Image, Text, FormField, TextInput, Form, Button } from 'grommet';
+import { Form, Formik } from 'formik';
+import { Box, Button, FormField, Heading, Image, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
-import { Formik } from 'formik';
+import { Spinner } from '..';
 import * as Yup from 'yup';
 
 import profile from '../../../assets/images/Profile.svg';
-import { Spinner } from '..';
 
-interface RegistrationCardProps extends RegistrationFormProps {
-  name: string;
-  email: string;
+export interface ResetFormProps {
+  onReset: (password: string, resetForm: () => void) => void;
 }
 
-export interface RegistrationFormProps {
-  onRegistration: (password: string, resetForm: () => void) => void;
-}
-
-export const ResetPasswordCard: FunctionComponent<RegistrationCardProps> = ({ name, email, onRegistration }) => (
+export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }) => (
   <Box
     width="large"
     background="white"
@@ -34,19 +29,14 @@ export const ResetPasswordCard: FunctionComponent<RegistrationCardProps> = ({ na
       <Box align="center">
         <Image src={profile} width="70px" />
       </Box>
-      <Box direction="column" justify="center" pad={{ left: 'medium', vertical: 'small' }}>
-        <Heading textAlign="start" level="4" margin="none" color="primary_dark_2">
-          {name}
-        </Heading>
-        <Text textAlign="start" margin="none" size="small" color="primary">
-          {email}
-        </Text>
-      </Box>
     </Box>
     <Box margin={{ top: 'medium' }} pad={{ horizontal: 'medium' }} fill align="center">
       <Formik
-        initialValues={{ password: '', passwordConfirm: '', legalAccepted: false }}
-        onSubmit={({ password }, { resetForm }) => onRegistration(password, resetForm)}
+        initialValues={{ password: '', passwordConfirm: '' }}
+        onSubmit={({ password }, { resetForm }) => {
+          debugger;
+          onReset(password, resetForm);
+        }}
         validationSchema={Yup.object({
           password: Yup.string()
             .min(7, 'A jelszónak legalább 7 karakter hosszúnak kell lennie.')
@@ -54,7 +44,6 @@ export const ResetPasswordCard: FunctionComponent<RegistrationCardProps> = ({ na
           passwordConfirm: Yup.string()
             .oneOf([Yup.ref('password'), null], 'A két jelszó nem egyezik meg')
             .required('Jelszó megerősítése kötelező'),
-          legalAccepted: Yup.boolean().oneOf([true]),
         })}
       >
         {(props) => {
