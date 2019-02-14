@@ -17,7 +17,6 @@ export const ForgotPasswordContainer: FunctionComponent<RouteComponentProps> = (
     forgotPassword({ variables: { email } })
       .then((result) => {
         if (result) {
-          showNotification('A jelszóváltoztatási instrukciókat a megadott e-mail címre elküldtük.');
           history.push(routeBuilder.emailSent());
         }
       })

@@ -140,7 +140,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           <ResetPasswordCard onReset={(password: string) => alert(password)} />
           <EmailSentFeedbackCard />
           <ExpiredFeedbackCard />
-          <ResetDoneFeedbackCard />
+          <ResetDoneFeedbackCard onButtonClick={() => alert('OnButtonClick event')} />
 
           <LoginCard onLogin={(password: string) => alert(password)} />
         </Box>

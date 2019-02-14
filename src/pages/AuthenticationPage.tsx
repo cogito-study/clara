@@ -13,11 +13,11 @@ import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
 import { Header2 } from '../landing-page/styles';
 import { EmailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
-import { ResetDoneFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 
 import { colors } from '../ui/theme/global';
 import { ForgotPasswordContainer } from '../containers/ForgotPassword/ForgotPasswordContainer';
 import { ResetPasswordContainer } from '../containers/ResetPassword/ResetPasswordContainer';
+import { ResetDoneFeedbackContainer } from '../containers/ResetPassword/ResetDoneFeedbackContainer';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
@@ -67,7 +67,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
             <Route path={emailSent()} component={EmailSentFeedbackCard} />
             <Route path={resetPassword()} component={ResetPasswordContainer} />
             <Route path={linkExpired()} component={ExpiredFeedbackCard} />
-            <Route path={resetDone()} component={ResetDoneFeedbackCard} />
+            <Route path={resetDone()} component={ResetDoneFeedbackContainer} />
           </Box>
         </Box>
       </Box>

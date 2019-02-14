@@ -19,7 +19,6 @@ export const ResetPasswordContainer: FunctionComponent<RouteComponentProps> = ({
     resetPassword({ variables: { token, password } })
       .then((result) => {
         if (result) {
-          showNotification('A jelszó sikeresen vissza lett állítva!');
           history.push(routeBuilder.resetDone());
         }
       })

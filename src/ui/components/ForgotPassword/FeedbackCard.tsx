@@ -14,6 +14,10 @@ export interface FeedbackCardProps {
   onButtonClick?: () => void;
 }
 
+export interface ResetDoneFeedbackCardProps {
+  onButtonClick: () => void;
+}
+
 export const FeedbackCard: FunctionComponent<FeedbackCardProps> = ({
   title,
   icon,
@@ -60,12 +64,12 @@ export const ExpiredFeedbackCard: FunctionComponent = () => (
     onButtonClick={() => alert('Még definiálni kell, hogy a reset password screenre vigyen!')}
   />
 );
-export const ResetDoneFeedbackCard: FunctionComponent = () => (
+export const ResetDoneFeedbackCard: FunctionComponent<ResetDoneFeedbackCardProps> = ({ onButtonClick }) => (
   <FeedbackCard
     title="Kész"
     icon={checkCircle}
     paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni az új jelszóval."
     buttonLabel="Belépés"
-    onButtonClick={() => alert('Még definiálni kell, hogy a loginra vigyen!')}
+    onButtonClick={onButtonClick}
   />
 );
