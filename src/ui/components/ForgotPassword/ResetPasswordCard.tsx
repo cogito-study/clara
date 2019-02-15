@@ -1,9 +1,8 @@
 import { Form, Formik } from 'formik';
 import { Box, Button, FormField, Heading, Image, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
-import { Spinner } from '..';
 import * as Yup from 'yup';
-
+import { Spinner } from '..';
 import profile from '../../../assets/images/Profile.svg';
 
 export interface ResetFormProps {
@@ -34,7 +33,6 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
       <Formik
         initialValues={{ password: '', passwordConfirm: '' }}
         onSubmit={({ password }, { resetForm }) => {
-          debugger;
           onReset(password, resetForm);
         }}
         validationSchema={Yup.object({

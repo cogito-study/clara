@@ -13,8 +13,8 @@ import { ResetPasswordMutation, ResetPasswordMutationVariables } from './__gener
 export const ResetPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history, location }) => {
   const { showNotification } = useContext(NotificationContext);
 
-  const checkToken = useMutation<CheckTokenMutation, CheckTokenMutationVariables>(CHECK_TOKEN_MUTATION);
   const resetPassword = useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(RESET_PASSWORD);
+  const checkToken = useMutation<CheckTokenMutation, CheckTokenMutationVariables>(CHECK_TOKEN_MUTATION);
 
   const params = new URLSearchParams(location.search);
   const token = params.get('token')!;
