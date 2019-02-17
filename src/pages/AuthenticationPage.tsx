@@ -1,23 +1,19 @@
 import { Box, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-
+import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
+import { ForgotPasswordContainer } from '../containers/ForgotPassword/ForgotPasswordContainer';
 import { LoginContainer } from '../containers/Login/LoginContainer';
 import { RegisterContainer } from '../containers/Register/RegisterContainer';
+import { ResetDoneFeedbackContainer } from '../containers/ResetPassword/ResetDoneFeedbackContainer';
+import { ResetPasswordContainer } from '../containers/ResetPassword/ResetPasswordContainer';
+import { Header2 } from '../landing-page/styles';
 import { routeBuilder } from '../route/routeBuilder';
 import { AuthRouteParams } from '../types/RouteParams';
 import { Footer } from '../ui/components';
+import { EmailSentFeedbackCard, ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { Link } from '../ui/components/Link';
-
-import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
-import { Header2 } from '../landing-page/styles';
-import { EmailSentFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
-import { ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
-
 import { colors } from '../ui/theme/global';
-import { ForgotPasswordContainer } from '../containers/ForgotPassword/ForgotPasswordContainer';
-import { ResetPasswordContainer } from '../containers/ResetPassword/ResetPasswordContainer';
-import { ResetDoneFeedbackContainer } from '../containers/ResetPassword/ResetDoneFeedbackContainer';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);

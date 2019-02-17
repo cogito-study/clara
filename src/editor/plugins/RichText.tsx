@@ -11,6 +11,7 @@ import { NodeType } from '../enums/NodeType';
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
 const isUnderlinedHotkey = isKeyHotkey('mod+u');
+const isTabHotkey = isKeyHotkey('tab');
 
 const findMarkForEvent = (event: Event): MarkType | undefined => {
   switch (event) {
@@ -48,7 +49,7 @@ export const RichText = (): Plugin => ({
               fontSize: '16px',
               lineHeight: '1.6em',
               marginBottom: '10px',
-              color: '#1E1E1E',
+              color: '#444444',
             }}
             {...attributes}
           >
@@ -60,8 +61,8 @@ export const RichText = (): Plugin => ({
         return (
           <Heading
             level="2"
-            color="gray_dark_3"
-            margin={{ top: 'medium', bottom: 'small', horizontal: 'none' }}
+            color="gray_dark_4"
+            margin={{ top: 'medium', bottom: 'none', horizontal: 'none' }}
             style={{ fontFamily: 'Merriweather', lineHeight: '1.4em' }}
             {...attributes}
           >
@@ -72,8 +73,8 @@ export const RichText = (): Plugin => ({
         return (
           <Heading
             level="3"
-            color="gray_dark_2"
-            margin={{ top: 'large', bottom: 'small', horizontal: 'none' }}
+            color="gray_dark_3"
+            margin={{ top: 'medium', bottom: 'small', horizontal: 'none' }}
             style={{ fontFamily: 'Merriweather', lineHeight: '1.53em' }}
             {...attributes}
           >
@@ -126,8 +127,12 @@ export const RichText = (): Plugin => ({
     const mark = findMarkForEvent(event);
     if (mark !== undefined) {
       event.preventDefault();
-      editor.toggleMark({ type: mark });
+      return editor.toggleMark({ type: mark });
     }
-    next();
+    if (isTabHotkey(event)) {
+      event.preventDefault();
+      return editor.insertText('\t');
+    }
+    return next();
   },
 });
