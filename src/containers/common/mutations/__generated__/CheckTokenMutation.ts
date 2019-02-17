@@ -2,14 +2,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: ActivateUserMutation
+// GraphQL mutation operation: CheckTokenMutation
 // ====================================================
 
-export interface ActivateUserMutation {
-  activate: boolean;
+export interface CheckTokenMutation {
+  checkTokenValid: boolean;
 }
 
-export interface ActivateUserMutationVariables {
+export interface CheckTokenMutationVariables {
   token: string;
-  password: string;
 }

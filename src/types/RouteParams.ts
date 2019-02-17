@@ -1,5 +1,5 @@
 export interface AuthRouteParams {
-  userID: string;
+  tokenAndUserId: string;
 }
 
 export interface SubjectRouteParams {

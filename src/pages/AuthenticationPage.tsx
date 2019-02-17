@@ -1,25 +1,23 @@
 import { Box, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-
-// import cogitoLandscape from '../assets/images/cogitoLandscape.svg';
-
+import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
+import { ForgotPasswordContainer } from '../containers/ForgotPassword/ForgotPasswordContainer';
 import { LoginContainer } from '../containers/Login/LoginContainer';
 import { RegisterContainer } from '../containers/Register/RegisterContainer';
+import { ResetDoneFeedbackContainer } from '../containers/ResetPassword/ResetDoneFeedbackContainer';
+import { ResetPasswordContainer } from '../containers/ResetPassword/ResetPasswordContainer';
+import { Header2 } from '../landing-page/styles';
 import { routeBuilder } from '../route/routeBuilder';
 import { AuthRouteParams } from '../types/RouteParams';
 import { Footer } from '../ui/components';
-import { ForgotPasswordCard } from '../ui/components/ForgotPassword/ForgetPasswordCard';
+import { EmailSentFeedbackCard, ExpiredFeedbackCard } from '../ui/components/ForgotPassword/FeedbackCard';
 import { Link } from '../ui/components/Link';
-
-import LargeBetaLogo from '../assets/images/LargeBetaLogo.svg';
-// import SmallBetaLogo from '../assets/images/SmallBetaLogo.svg';
-import { Header2 } from '../landing-page/styles';
 import { colors } from '../ui/theme/global';
 
 const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>> = () => {
   const screenSize = useContext(ResponsiveContext);
-  const { register, login, forgetPassword } = routeBuilder;
+  const { register, login, forgetPassword, emailSent, resetPassword, linkExpired, resetDone } = routeBuilder;
 
   return (
     <Box>
@@ -61,7 +59,11 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
           <Box width="400px" align="center">
             <Route path={register()} component={RegisterContainer} />
             <Route path={login()} component={LoginContainer} />
-            <Route path={forgetPassword()} component={ForgotPasswordCard} />
+            <Route path={forgetPassword()} component={ForgotPasswordContainer} />
+            <Route path={emailSent()} component={EmailSentFeedbackCard} />
+            <Route path={resetPassword()} component={ResetPasswordContainer} />
+            <Route path={linkExpired()} component={ExpiredFeedbackCard} />
+            <Route path={resetDone()} component={ResetDoneFeedbackContainer} />
           </Box>
         </Box>
       </Box>

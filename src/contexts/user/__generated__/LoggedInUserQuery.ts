@@ -13,7 +13,7 @@ export interface LoggedInUserQuery_me {
   firstName: string | null;
   lastName: string | null;
   email: string;
-  neptun: string;
+  neptun: string | null;
   role: UserRole;
 }
 

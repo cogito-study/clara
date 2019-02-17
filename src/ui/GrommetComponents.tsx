@@ -15,10 +15,14 @@ import {
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
 import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
-import { ForgotPasswordCardSent } from './components/ForgotPassword/ForgetPasswordCardSent';
+import { EmailSentFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { ExpiredFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { ResetDoneFeedbackCard } from './components/ForgotPassword/FeedbackCard';
 
 import { LoginCard } from './components/Login/LoginCard';
 import { PopUpCard } from './components/PopUpCard';
+
+import { ResetPasswordCard } from './components/ForgotPassword/ResetPasswordCard';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';
@@ -132,7 +136,12 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             onRegistration={(password: string) => alert(password)}
           />
           <ForgotPasswordCard onForgotPassword={(password: string) => alert(password)} />
-          <ForgotPasswordCardSent />
+
+          <ResetPasswordCard onReset={(password: string) => alert(password)} />
+          <EmailSentFeedbackCard />
+          <ExpiredFeedbackCard />
+          <ResetDoneFeedbackCard onButtonClick={() => alert('OnButtonClick event')} />
+
           <LoginCard onLogin={(password: string) => alert(password)} />
         </Box>
         <Box gap="small" direction="row" wrap alignContent="around">

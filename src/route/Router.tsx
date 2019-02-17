@@ -15,7 +15,19 @@ const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
-  const { root, register, components, subjectNote, subject, login, forgetPassword } = routeBuilder;
+  const {
+    root,
+    register,
+    components,
+    subjectNote,
+    subject,
+    login,
+    forgetPassword,
+    emailSent,
+    linkExpired,
+    resetPassword,
+    resetDone,
+  } = routeBuilder;
   const isRoot = location.pathname === root();
 
   return (
@@ -25,7 +37,7 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
       <Suspense fallback={<LoadingPage />}>
         <Switch>
           <Route
-            path={[register(), login(), forgetPassword()]}
+            path={[register(), login(), forgetPassword(), emailSent(), linkExpired(), resetPassword(), resetDone()]}
             component={(props: RouteComponentProps<AuthRouteParams>) => <AuthenticationPage {...props} />}
           />
           <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />

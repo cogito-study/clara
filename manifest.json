@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "operations": [
+    {
+      "signature": "dba0a47f09810e9461bd20cb0ad4ec556659600de641b5d5fc41d343bbcda645",
+      "document": "mutation ForgotPasswordMutation($email:String!){forgotPassword(email:$email)}",
+      "metadata": {
+        "engineSignature": "mutation ForgotPasswordMutation($email:String!){forgotPassword(email:$email)}"
+      }
+    },
+    {
+      "signature": "3d96d220343ad5ff2b053f2dde32ef1bf7662d49e111cee2bde2e46eef9457fb",
+      "document": "mutation LoginUserMutation($email:String!,$password:String!){login(email:$email,password:$password){__typename token}}",
+      "metadata": {
+        "engineSignature": "mutation LoginUserMutation($email:String!,$password:String!){login(email:$email,password:$password){__typename token}}"
+      }
+    },
+    {
+      "signature": "71314ef4d733634d2c77ddfbdfadd018326cf3df4e886041f4697f1dda17a4cb",
+      "document": "query CommentQuery($commentID:ID!){comment(id:$commentID){__typename author{__typename firstName id lastName}createdAt text upvotes{__typename id}}}",
+      "metadata": {
+        "engineSignature": "query CommentQuery($commentID:ID!){comment(id:$commentID){__typename author{__typename firstName id lastName}createdAt text upvotes{__typename id}}}"
+      }
+    },
+    {
+      "signature": "907cb8b5c68befa608e5a5c8ea3951c1f3d22450c7a00e3ee017e91704bdf0a1",
+      "document": "mutation UnvoteCommentMutation($commentID:ID!){unvoteComment(id:$commentID){__typename id upvotes{__typename id}}}",
+      "metadata": {
+        "engineSignature": "mutation UnvoteCommentMutation($commentID:ID!){unvoteComment(id:$commentID){__typename id upvotes{__typename id}}}"
+      }
+    },
+    {
+      "signature": "1b68d969c6f579d0cedc48e012d031e7d444732b36634d3b8be57c497c732f83",
+      "document": "mutation UpvoteCommentMutation($commentID:ID!){upvoteComment(id:$commentID){__typename id upvotes{__typename id}}}",
+      "metadata": {
+        "engineSignature": "mutation UpvoteCommentMutation($commentID:ID!){upvoteComment(id:$commentID){__typename id upvotes{__typename id}}}"
+      }
+    },
+    {
+      "signature": "089c3d5af4579170f4e934c4dc133c2852727ecb5c133a44f5b0ccf576e0f34c",
+      "document": "mutation DeleteCommentMutation($commentID:ID!,$noteID:ID!){deleteComment(id:$commentID,noteID:$noteID)}",
+      "metadata": {
+        "engineSignature": "mutation DeleteCommentMutation($commentID:ID!,$noteID:ID!){deleteComment(id:$commentID,noteID:$noteID)}"
+      }
+    },
+    {
+      "signature": "deecfa5de6803b4079fdc4b8460d3b362531a3e22049e3319f328f6ee51bfa47",
+      "document": "query NoteQuery($noteID:ID!){note(id:$noteID){__typename comments{__typename id locationInText}text title}}",
+      "metadata": {
+        "engineSignature": "query NoteQuery($noteID:ID!){note(id:$noteID){__typename comments{__typename id locationInText}text title}}"
+      }
+    },
+    {
+      "signature": "109a3a4ea5d34328ea2787acc6ada5a7500f09f821f61ebb58542b6236ed77dd",
+      "document": "mutation SubmitCommentMutation($commentData:CommentInput!,$noteID:ID!){submitComment(input:$commentData,noteID:$noteID){__typename note{__typename comments{__typename id locationInText}id}}}",
+      "metadata": {
+        "engineSignature": "mutation SubmitCommentMutation($commentData:CommentInput!,$noteID:ID!){submitComment(input:$commentData,noteID:$noteID){__typename note{__typename comments{__typename id locationInText}id}}}"
+      }
+    },
+    {
+      "signature": "08cb08e842c74f857b466d03e1ee5ecfc652389607c4499e0463a9e60988f3c8",
+      "document": "mutation UpdateNoteMutation($noteID:ID!,$noteText:Json!){updateNote(id:$noteID,text:$noteText){__typename comments{__typename id locationInText}id}}",
+      "metadata": {
+        "engineSignature": "mutation UpdateNoteMutation($noteID:ID!,$noteText:Json!){updateNote(id:$noteID,text:$noteText){__typename comments{__typename id locationInText}id}}"
+      }
+    },
+    {
+      "signature": "b2fea4cf6519e0f0bd6eb7beae3a25b6e04d4a418af317c077802bc801469357",
+      "document": "mutation UploadImageMutation($fileName:String!,$fileType:String!){uploadImage(fileName:$fileName,fileType:$fileType){__typename url}}",
+      "metadata": {
+        "engineSignature": "mutation UploadImageMutation($fileName:String!,$fileType:String!){uploadImage(fileName:$fileName,fileType:$fileType){__typename url}}"
+      }
+    },
+    {
+      "signature": "b9ed97baf953330cb1f55e5029ae677731b5ff39b4ed4642d32612b911706b53",
+      "document": "mutation ActivateUserMutation($password:String!,$token:String!){resetPassword(password:$password,token:$token)}",
+      "metadata": {
+        "engineSignature": "mutation ActivateUserMutation($password:String!,$token:String!){resetPassword(password:$password,token:$token)}"
+      }
+    },
+    {
+      "signature": "c8a9367ff660ae22775ae2849d019fc3636f12190da2e6a5342cfb020207abca",
+      "document": "query UserInfoQuery($userID:ID!){user(id:$userID){__typename email firstName lastName}}",
+      "metadata": {
+        "engineSignature": "query UserInfoQuery($userID:ID!){user(id:$userID){__typename email firstName lastName}}"
+      }
+    },
+    {
+      "signature": "0f603d7892e5d4d42603c3f8f7fef508a8b0caf93fa525905a45c8d56314b077",
+      "document": "query SubjectHeaderQuery($subjectCode:String!){subject(code:$subjectCode){__typename name}}",
+      "metadata": {
+        "engineSignature": "query SubjectHeaderQuery($subjectCode:String!){subject(code:$subjectCode){__typename name}}"
+      }
+    },
+    {
+      "signature": "e74e595467cbcd37142cb5f039ba9ed532cbb149c22ad89cea6f0ce8a00ced17",
+      "document": "query SubjectInfoQuery($subjectCode:String!){subject(code:$subjectCode){__typename info{__typename id subtitle text title}}}",
+      "metadata": {
+        "engineSignature": "query SubjectInfoQuery($subjectCode:String!){subject(code:$subjectCode){__typename info{__typename id subtitle text title}}}"
+      }
+    },
+    {
+      "signature": "ad34f76acaba9c24687a40e78d6ea1f90f9968e28c7f6141ea16aba41008d01f",
+      "document": "query SubjectNoteListQuery($subjectCode:String!){subject(code:$subjectCode){__typename notes(orderBy:number_ASC){__typename createdAt description id number title updatedAt}}}",
+      "metadata": {
+        "engineSignature": "query SubjectNoteListQuery($subjectCode:String!){subject(code:$subjectCode){__typename notes(orderBy:number_ASC){__typename createdAt description id number title updatedAt}}}"
+      }
+    },
+    {
+      "signature": "8081da40e0e48ba334298bdf396add232f066e65d74d043f94af1abd6903ced1",
+      "document": "query LoggedInUserQuery{me{__typename email firstName id lastName neptun role}}",
+      "metadata": {
+        "engineSignature": "query LoggedInUserQuery{me{__typename email firstName id lastName neptun role}}"
+      }
+    }
+  ]
+}

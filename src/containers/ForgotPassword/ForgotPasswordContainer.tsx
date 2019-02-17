@@ -7,22 +7,22 @@ import { NotificationContext } from '../../contexts/notification/NotificationCon
 import { ForgotPasswordCard } from '../../ui/components/ForgotPassword/ForgetPasswordCard';
 import { ForgotPasswordMutation, ForgotPasswordMutationVariables } from './__generated__/ForgotPasswordMutation';
 import { FORGOT_PASSWORD } from './ForgotPasswordMutation';
+import { routeBuilder } from '../../route/routeBuilder';
 
 export const ForgotPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history }) => {
   const { showNotification } = useContext(NotificationContext);
   const forgotPassword = useMutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>(FORGOT_PASSWORD);
 
-  const onForgetPassword = (email: string, resetForm: () => void) =>
+  const onForgotPassword = (email: string, resetForm: () => void) =>
     forgotPassword({ variables: { email } })
-      .then(({ data }) => {
-        if (data.forgotPassword) {
-          showNotification('A jelszóváltoztatási instrukciókat a megadott e-mail címre elküldtük.');
+      .then((result) => {
+        if (result) {
+          history.push(routeBuilder.emailSent());
         }
       })
       .catch((error: ApolloError) => {
         error.graphQLErrors.map(({ message }) => showNotification(message, 'error'));
         resetForm();
       });
-
-  return <ForgotPasswordCard onForgotPassword={onForgetPassword} />;
+  return <ForgotPasswordCard onForgotPassword={onForgotPassword} />;
 };
