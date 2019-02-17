@@ -36,13 +36,13 @@ const noteCardAbstracts = [
 
 const teacherInfoName = 'Jason Evans';
 const teacherInfoRole = 'lecturer';
-const teacherInfoPhoneNumber = '+36 10 355 4432';
+const teacherInfoPhone = '+36 10 355 4432';
 const teacherInfoEmail = 'jasonevans@gmail.com';
 
 const infoCardTeacherInfo: TeacherInfoProps = {
   name: teacherInfoName,
   role: teacherInfoRole,
-  phoneNumber: teacherInfoPhoneNumber,
+  phone: teacherInfoPhone,
   email: teacherInfoEmail,
 };
 
@@ -160,7 +160,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
           <TeacherInfo
             name={teacherInfoName}
             role={teacherInfoRole}
-            phoneNumber={teacherInfoPhoneNumber}
+            phone={teacherInfoPhone}
             email={teacherInfoEmail}
           />
           <InfoCardTop

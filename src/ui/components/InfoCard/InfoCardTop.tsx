@@ -1,4 +1,4 @@
-import { Box, BoxProps, Heading, Paragraph } from 'grommet';
+import { Box, BoxProps, Grid, Heading, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
 import { TeacherInfo, TeacherInfoProps } from './TeacherInfo';
@@ -24,9 +24,9 @@ export const InfoCardTop: FunctionComponent<BoxProps & Props> = ({ institute, ne
     <Paragraph color="gray" margin={{ horizontal: 'xsmall', vertical: 'small' }}>
       {description}
     </Paragraph>
-    <Box wrap direction="row-responsive" align="stretch" justify="between">
+    <Grid justify="center" columns={{ count: 'fill', size: '280px' }}>
       {teacherInfos &&
         teacherInfos.map((teacherInfoProps) => <TeacherInfo key={teacherInfoProps.email} {...teacherInfoProps} />)}
-    </Box>
+    </Grid>
   </Box>
 );
