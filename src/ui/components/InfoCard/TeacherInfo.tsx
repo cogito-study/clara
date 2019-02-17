@@ -6,7 +6,7 @@ import profile from '../../../assets/images/Profile.svg';
 export interface TeacherInfoProps {
   name: string;
   role: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   email: string;
 }
 
@@ -29,7 +29,7 @@ export const TeacherInfo: FunctionComponent<BoxProps & TeacherInfoProps> = ({
         {name}
       </Heading>
       <Paragraph color="gray_light_1" margin="none">
-        {role}
+        {role.toLowerCase()}
       </Paragraph>
       <Paragraph color="primary" size="small" margin="none">
         {phoneNumber}
