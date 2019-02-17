@@ -25,8 +25,22 @@ export const TeacherInfo: FunctionComponent<BoxProps & TeacherInfoProps> = ({ na
       <Paragraph color="gray_light_1" margin="none">
         {role.toLowerCase()}
       </Paragraph>
-      <Anchor color="primary" label={phone} href={`tel:${phone}`} size="small" margin="none" />
-      <Anchor color="primary" label={email} href={`mailto:${email}`} size="small" margin="none" />
+      <Anchor
+        color="primary"
+        label={phone}
+        href={`tel:${phone}`}
+        size="small"
+        margin="none"
+        style={{ fontWeight: 'normal' }}
+      />
+      <Anchor
+        color="primary"
+        label={email}
+        href={`mailto:${email}`}
+        size="small"
+        margin="none"
+        style={{ fontWeight: 'normal' }}
+      />
     </Box>
   </Box>
 );

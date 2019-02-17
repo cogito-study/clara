@@ -24,7 +24,7 @@ export const InfoCardTop: FunctionComponent<BoxProps & Props> = ({ institute, ne
     <Paragraph color="gray" margin={{ horizontal: 'xsmall', vertical: 'small' }}>
       {description}
     </Paragraph>
-    <Grid justify="center" columns={{ count: 'fill', size: '280px' }}>
+    <Grid justify="center" columns={{ count: 'fill', size: '280px' }} margin={{ top: 'small' }}>
       {teacherInfos &&
         teacherInfos.map((teacherInfoProps) => <TeacherInfo key={teacherInfoProps.email} {...teacherInfoProps} />)}
     </Grid>

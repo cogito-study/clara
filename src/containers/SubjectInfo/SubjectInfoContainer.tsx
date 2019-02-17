@@ -38,16 +38,14 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
   );
 
   const renderInfoTop = ({ description, faculty, institute }: SubjectInfoTopQuery_subject) => {
-    console.log(faculty);
     const teacherInfos = faculty
       ? faculty.map(({ firstName, lastName, role, phone, email }) => ({
           name: `${firstName!} ${lastName!}`,
           role: role,
-          phone: phone!,
+          phone: phone || undefined,
           email: email,
         }))
       : [];
-    console.log(teacherInfos);
     return (
       <InfoCardTop
         institute={institute!.name}
