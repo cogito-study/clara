@@ -52,7 +52,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
                       <TextInput
                         id="email"
                         type="email"
-                        placeholder="student@university.com"
+                        placeholder="hallgato@egyetem.hu"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
