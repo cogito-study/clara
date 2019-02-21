@@ -1,14 +1,11 @@
+import { Box } from 'grommet';
+import isUrl from 'is-url';
 import React from 'react';
 import { Editor as CoreEditor } from 'slate';
-import { Editor, Plugin, RenderNodeProps, getEventRange, getEventTransfer } from 'slate-react';
-import { Box } from 'grommet';
+import { Editor, getEventRange, getEventTransfer, Plugin, RenderNodeProps } from 'slate-react';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-
-import isUrl from 'is-url';
-
 import { NodeType } from '../../enums/NodeType';
-
 import { extensions } from './image-extensions';
 
 const Image = styled.img`
@@ -61,7 +58,11 @@ const uploadFile = (uploadImageMutation, editor, file) => {
       // TODO: add loading state while waiting for upload to complete
       // TODO: error
       fetch(url, options).then(() => {
-        insertImage(editor, `https://cogito-images.s3.amazonaws.com/${fileName}`, editor.value.selection);
+        insertImage(
+          editor,
+          `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+          editor.value.selection,
+        );
       });
     });
   } else {
