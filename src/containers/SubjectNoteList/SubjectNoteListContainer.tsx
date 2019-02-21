@@ -36,7 +36,6 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
     if (!notes) {
       return undefined;
     }
-    notes.sort((lhs, rhs) => lhs.number - rhs.number);
 
     const renderDateLabel = (createdAt: string, updatedAt?: string): string =>
       updatedAt
