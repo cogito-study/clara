@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor as CoreEditor, Value } from 'slate';
+import { Value } from 'slate';
 import { Editor, Plugin, RenderNodeProps } from 'slate-react';
 import { NodeType } from '../enums/NodeType';
 
@@ -51,7 +51,7 @@ export const onClickLink = (event: React.MouseEvent<HTMLButtonElement>, editor: 
 };
 
 export const Links = (): Plugin => ({
-  renderNode: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => {
+  renderNode: (props: RenderNodeProps, _, next: () => any) => {
     const {
       attributes,
       node: { type, data },
@@ -59,8 +59,9 @@ export const Links = (): Plugin => ({
     } = props;
 
     if (type === NodeType.Link) {
+      const href = data.get('href')!;
       return (
-        <a href={data.get('href')} {...attributes}>
+        <a onMouseDown={() => (window.location.href = href)} href={href} {...attributes}>
           {children}
         </a>
       );
