@@ -25,7 +25,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
     gap="none"
   >
     <Heading level="2" margin={{ bottom: 'medium', top: 'none' }} color="primary">
-      Tanulj velünk! 🤓
+      Tanulj velünk!
     </Heading>
     <Box margin={{ top: 'small' }} fill align="center">
       <Formik
