@@ -1,3 +1,4 @@
+import { ApolloError } from 'apollo-client';
 import { Box, Button, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
@@ -5,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import BackIcon from '../../assets/images/BackIcon.svg';
 import CloseIcon from '../../assets/images/CloseIcon.svg';
 import CommentIcon from '../../assets/images/CommentIcon.svg';
+import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { UserContext } from '../../contexts/user/UserContext';
 import Editor, { CommentLocation } from '../../editor/Editor';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
@@ -30,6 +32,7 @@ const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocatio
 // tslint:disable:cyclomatic-complexity
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match, history }) => {
   const { noteID } = match.params;
+  const { showNotification } = useContext(NotificationContext);
 
   // tslint:disable:no-null-keyword
   const commentBoxSpacerRef = useRef<HTMLDivElement | null>(null);
@@ -84,7 +87,10 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
   const onCommentDelete = () =>
     deleteComment({ variables: { noteID, commentID } }).then(() => setSelectedCommentID(undefined));
 
-  const onNoteUpdate = (noteText: any) => updateNote({ variables: { noteID, noteText } });
+  const onNoteUpdate = (noteText: any) =>
+    updateNote({ variables: { noteID, noteText } })
+      .then(() => showNotification('Változtatások mentése sikeresen megtörtént.', 'success'))
+      .catch((error: ApolloError) => error.graphQLErrors.map(({ message }) => showNotification(message, 'error')));
 
   const onCommentClick = (id: number, marginTop: number) => {
     setShouldDisplayNewComment(false);
