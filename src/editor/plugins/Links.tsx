@@ -61,7 +61,7 @@ export const Links = (): Plugin => ({
     if (type === NodeType.Link) {
       const href = data.get('href')!;
       return (
-        <a onMouseDown={() => (window.location.href = href)} href={href} {...attributes}>
+        <a onMouseDown={() => window.open(href, '_blank')!.focus()} href={href} {...attributes}>
           {children}
         </a>
       );
