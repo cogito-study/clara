@@ -1,9 +1,9 @@
 import { Box, Button, Heading, Image } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
-import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
+import { Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
-import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
+import { Editor as SlateEditor, Plugin } from 'slate-react';
 import commentButtonImage from '../assets/images/commentButton.svg';
 import { UserContextState } from '../contexts/user/UserContext';
 import { MarkType } from './enums/MarkType';
@@ -99,6 +99,7 @@ export default class Editor extends PureComponent<Props, State> {
           onClick={() => {
             const val = this.setCommentVisibility(this.props.commentLocations, false).toJSON();
             onNoteUpdate(val);
+            this.setState({ edited: false });
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
         />
@@ -106,6 +107,16 @@ export default class Editor extends PureComponent<Props, State> {
     );
 
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
+    window.onbeforeunload = (e) => {
+      const { canShowComments } = this.props;
+      console.log(this.state.edited);
+      if (this.state.edited && canShowComments) {
+        const message = 'Are you sure?';
+        e.returnValue = message;
+        return message;
+      }
+      return null;
+    };
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -134,10 +145,6 @@ export default class Editor extends PureComponent<Props, State> {
       });
     }
   }
-
-  notifySaveChanges = () => {
-    alert('Akarod menteni a változásokat?');
-  };
 
   calculateSelectionPosition = () =>
     window
@@ -178,8 +185,26 @@ export default class Editor extends PureComponent<Props, State> {
     return this.editor.value;
   };
 
-  onChange = ({ value }) => {
-    this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value) });
+  isMutatingEdit = (operations) => {
+    const mutatingOps = operations
+      .filter((op) => op.type !== 'set_selection')
+      .filter(
+        (op) => !(['add_mark', 'set_mark', 'remove_mark'].includes(op.type) && op.mark.type === MarkType.Comment),
+      );
+    console.log(mutatingOps.map((op) => op.type).toJS());
+    return mutatingOps.size > 0;
+  };
+
+  onChange = (editor) => {
+    const { user, canShowComments } = this.props;
+    const { edited } = this.state;
+    const { value, operations } = editor;
+    const shouldSetEdited =
+      (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(user.role) && canShowComments) || edited;
+    this.setState(
+      { value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited },
+      () => console.log(this.state.edited),
+    );
   };
 
   onCreateComment = (event: MouseEvent<any>) => {
@@ -189,7 +214,7 @@ export default class Editor extends PureComponent<Props, State> {
     this.props.onCreateComment(JSON.stringify(selectionJSON), marginTop + window.scrollY);
   };
 
-  renderEditor = (props: SlateEditorProps, editor: CoreEditor, next: () => any) => {
+  renderEditor = (_props, _editor, next: () => any) => {
     const children = next();
 
     const { left, top, show } = this.state.commentButtonPosition;

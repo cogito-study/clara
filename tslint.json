@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-prettier",
-    "tslint-config-palmerhq"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-palmerhq"],
   "rules": {
     "arrow-parens": false,
     "arrow-return-shorthand": [true],
@@ -14,9 +9,12 @@
     "interface-over-type-literal": false,
     "interface-name": false,
     "member-access": false,
-    "member-ordering": [true, {
-      "order": "fields-first"
-    }],
+    "member-ordering": [
+      true,
+      {
+        "order": "fields-first"
+      }
+    ],
     "newline-before-return": false,
     "no-console": false,
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
@@ -24,9 +22,12 @@
     "no-null-keyword": true,
     "no-require-imports": false,
     "no-submodule-imports": [true, "@src", "rxjs", "date-fns"],
-    "no-this-assignment": [true, {
-      "allow-destructuring": true
-    }],
+    "no-this-assignment": [
+      true,
+      {
+        "allow-destructuring": true
+      }
+    ],
     "no-trailing-whitespace": true,
     "object-literal-sort-keys": false,
     "object-literal-shorthand": false,
@@ -50,12 +51,7 @@
     ],
     "no-unused-variable": [true],
     "cyclomatic-complexity": [true, 6],
-    "variable-name": [
-      true,
-      "ban-keywords",
-      "check-format",
-      "allow-pascal-case"
-    ],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"],
     // tslint-react
     "jsx-no-lambda": false,
     "jsx-boolean-value": false

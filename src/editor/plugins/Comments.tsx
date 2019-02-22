@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { Node, Range } from 'slate';
 import { Editor, Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
-
 import { MarkType } from '../enums/MarkType';
 
 const CommentContainer = styled.span`
@@ -18,9 +17,14 @@ interface CommentProps {
 }
 
 export const toggleCommentMark = (editor: Editor, range: Range, id: string, show: boolean) => {
-  editor
-    .select(range)
-    .replaceMark({ type: MarkType.Comment, data: { id, show: !show } }, { type: MarkType.Comment, data: { id, show } });
+  editor.withoutSaving(() =>
+    editor
+      .select(range)
+      .replaceMark(
+        { type: MarkType.Comment, data: { id, show: !show } },
+        { type: MarkType.Comment, data: { id, show } },
+      ),
+  );
 };
 
 const Comment: FunctionComponent<CommentProps> = ({ children, onClickCallback }) => {
