@@ -9,6 +9,7 @@ publish = "build"
   command = "npm run build"
   REACT_APP_ENVIRONMENT = "production"
   REACT_APP_API_URL = "https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-prod"
 
 # Deploy Preview context: all deploys resulting from a pull/merge request will
 # inherit these settings.
@@ -16,6 +17,7 @@ publish = "build"
   command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "review"
   REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-staging"
 
 # Specific branch context: all deploys from this specific branch will inherit
 # these settings.
@@ -23,3 +25,4 @@ publish = "build"
   command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "staging"
   REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-staging"
