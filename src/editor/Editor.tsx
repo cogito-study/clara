@@ -4,9 +4,7 @@ import { Editor as CoreEditor, Range as SlateRange, RangeJSON, SchemaProperties,
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, EditorProps as SlateEditorProps, Plugin } from 'slate-react';
-
 import commentButtonImage from '../assets/images/commentButton.svg';
-
 import { UserContextState } from '../contexts/user/UserContext';
 import { MarkType } from './enums/MarkType';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';

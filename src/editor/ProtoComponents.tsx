@@ -1,8 +1,7 @@
+import { Box, Button } from 'grommet';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Editor } from 'slate-react';
-import { Button, Box } from 'grommet';
-
+import { Editor as CoreEditor } from 'slate-react';
 import { MarkType } from './enums/MarkType';
 import { NodeType } from './enums/NodeType';
 import { onClickImage, uploadFileFromFS } from './plugins/Images/Images';
@@ -24,7 +23,7 @@ const prevented = (event: React.MouseEvent, callback: () => void) => {
   callback();
 };
 
-export const renderEditorToolBox = (editor: Editor, uploadImageMutation: any) => (
+export const renderEditorToolBox = (editor: CoreEditor, uploadImageMutation: any) => (
   <Box gap="xsmall" pad={{ top: 'large' }}>
     <Button
       label="Szöveg"
@@ -69,7 +68,9 @@ export const renderEditorToolBox = (editor: Editor, uploadImageMutation: any) =>
     <input
       type="file"
       style={{ maxWidth: '110px' }}
-      onChange={(e) => uploadFileFromFS(uploadImageMutation, e, editor)}
+      onChange={(e) => {
+        uploadFileFromFS(uploadImageMutation, e, editor);
+      }}
     />
 
     <Button label="Kép (link)" color="gray" onMouseDown={(e) => onClickImage(e, editor)} />

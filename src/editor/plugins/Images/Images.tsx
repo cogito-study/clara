@@ -19,28 +19,22 @@ function isImage(url: string) {
   return !!extensions.find((e) => e === ext);
 }
 
-const insertImage = (editor: Editor, src: string, target): CoreEditor => {
-  if (editor.value.selection.isBlurred) {
-    return editor.blur();
-  }
-  return editor
-    .select(target)
-    .insertBlock({
-      type: NodeType.Image,
-      data: { src },
-    })
-    .blur();
+const insertImage = (editor: Editor, src: string): CoreEditor => {
+  return editor.insertBlock({
+    type: NodeType.Image,
+    data: { src },
+  });
 };
 
 export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor: Editor) => {
   event.preventDefault();
   const src = window.prompt('Enter the URL of the image:');
   if (src) {
-    insertImage(editor, src, editor.value.selection);
+    insertImage(editor, src);
   }
 };
 
-const uploadFile = (uploadImageMutation, editor, file) => {
+const uploadFile = (uploadImageMutation, file: File, callback: (name: string) => void) => {
   const options = {
     method: 'PUT',
     body: file,
@@ -57,13 +51,7 @@ const uploadFile = (uploadImageMutation, editor, file) => {
       } = result;
       // TODO: add loading state while waiting for upload to complete
       // TODO: error
-      fetch(url, options).then(() => {
-        insertImage(
-          editor,
-          `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`,
-          editor.value.selection,
-        );
-      });
+      fetch(url, options).then(() => callback(fileName));
     });
   } else {
     // TODO: add grommet notification
@@ -71,7 +59,7 @@ const uploadFile = (uploadImageMutation, editor, file) => {
   }
 };
 
-export const uploadFileFromFS = (uploadImageMutation, event, editor) => {
+export const uploadFileFromFS = (uploadImageMutation, event, editor: Editor) => {
   event.preventDefault();
   const file = event.target.files[0];
 
@@ -79,16 +67,20 @@ export const uploadFileFromFS = (uploadImageMutation, event, editor) => {
   if (mime !== 'image') {
     return;
   }
-  uploadFile(uploadImageMutation, editor, file);
+  uploadFile(uploadImageMutation, file, (fileName) =>
+    insertImage(editor, `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`),
+  );
 };
 
-const handleFiles = (uploadImageMutation, files, editor, next) => {
+const handleFiles = (uploadImageMutation, files: File[], editor: Editor) => {
   for (const file of files) {
     const [mime] = file.type.split('/');
     if (mime !== 'image') {
       continue;
     }
-    uploadFile(uploadImageMutation, editor, file);
+    uploadFile(uploadImageMutation, file, (fileName) =>
+      insertImage(editor, `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`),
+    );
   }
   return;
 };
@@ -108,7 +100,7 @@ const onPaste = (uploadImageMutation, event, editor, next) => {
   }
   if (type === 'files') {
     const files = event.clipboardData.files;
-    return handleFiles(uploadImageMutation, files, editor, next);
+    return handleFiles(uploadImageMutation, files, editor);
   }
   return next();
 };
@@ -125,7 +117,7 @@ const onDrop = (uploadImageMutation, event, editor, next) => {
 
   if (type === 'files') {
     const files = event.dataTransfer.files;
-    return handleFiles(uploadImageMutation, files, editor, next);
+    return handleFiles(uploadImageMutation, files, editor);
   }
 
   if (type === 'text') {
@@ -135,7 +127,7 @@ const onDrop = (uploadImageMutation, event, editor, next) => {
 };
 
 export const Images = (uploadImageMutation: any): Plugin => ({
-  renderNode: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => {
+  renderNode: (props: RenderNodeProps, _, next: () => any) => {
     const { attributes, node } = props;
 
     if (node.type === NodeType.Image) {

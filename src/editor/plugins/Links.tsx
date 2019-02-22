@@ -12,7 +12,7 @@ export const wrapLink = (editor, href) => {
   editor.moveToEnd();
 };
 
-export const unwrapLink = (editor) => {
+export const unwrapLink = (editor: Editor) => {
   editor.unwrapInline(NodeType.Link);
 };
 
