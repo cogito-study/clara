@@ -39,6 +39,7 @@ interface Props {
 }
 interface State {
   value: Value;
+  lastValue: Value;
   commentButtonPosition: CommentButtonPosition;
   edited: boolean;
 }
@@ -58,6 +59,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   state = {
     value: Value.fromJSON(this.props.initialValue),
+    lastValue: Value.fromJSON(this.props.initialValue),
     commentButtonPosition: { top: -10000, left: -10000, show: false },
     edited: false,
   };
@@ -97,9 +99,9 @@ export default class Editor extends PureComponent<Props, State> {
           label="Mentés"
           color="primary"
           onClick={() => {
-            const val = this.setCommentVisibility(this.props.commentLocations, false).toJSON();
-            onNoteUpdate(val);
-            this.setState({ edited: false });
+            const val = this.setCommentVisibility(this.props.commentLocations, false);
+            onNoteUpdate(val.toJSON());
+            this.setState({ edited: false, value: val, lastValue: val });
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
         />
@@ -175,6 +177,13 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   setCommentVisibility = (commentLocations: CommentLocation[], show: boolean) => {
+    if (show === false && this.state.edited) {
+      // TODO: show popup here
+      if (!confirm('Are you sure?')) {
+        this.setState({ edited: false, value: this.state.lastValue });
+        return this.state.lastValue;
+      }
+    }
     this.editor.focus();
     commentLocations.forEach(({ id, range }: CommentLocation) => {
       const commentRange = SlateRange.fromJSON(range);
@@ -247,9 +256,12 @@ export default class Editor extends PureComponent<Props, State> {
 
     return (
       <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
-        <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
-          {title}
-        </Heading>
+        <div style={{ display: 'flex' }}>
+          <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
+            {title}
+          </Heading>
+          {this.state.edited && <pre>unsaved</pre>}
+        </div>
         <Box
           background="white"
           elevation="small"
