@@ -107,6 +107,10 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setToolBoxMarginTop(cursorY);
   };
 
+  const goBack = () => {
+    history.goBack();
+  };
+
   const renderEditor = ({ title, text, comments }: NoteQuery_note) => (
     <Box width="xlarge" justify="center" align="center">
       <Editor
@@ -142,7 +146,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
             color="gray"
             label={true}
             icon={<Image src={BackIcon} width="20px" />}
-            onClick={history.goBack}
+            onClick={goBack}
           />
           <div ref={editorToolBoxSpacerRef}>
             {canShowUI && user.role === 'ADMIN' && editorToolBoxSpacerRef.current && (

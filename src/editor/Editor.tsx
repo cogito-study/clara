@@ -148,6 +148,8 @@ export default class Editor extends PureComponent<Props, State> {
     }
   }
 
+  canSave = () => true;
+
   calculateSelectionPosition = () =>
     window
       .getSelection()
@@ -179,7 +181,7 @@ export default class Editor extends PureComponent<Props, State> {
   setCommentVisibility = (commentLocations: CommentLocation[], show: boolean) => {
     if (show === false && this.state.edited) {
       // TODO: show popup here
-      if (!confirm('Are you sure?')) {
+      if (confirm('Are you sure?')) {
         this.setState({ edited: false, value: this.state.lastValue });
         return this.state.lastValue;
       }
@@ -260,7 +262,6 @@ export default class Editor extends PureComponent<Props, State> {
           <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
             {title}
           </Heading>
-          {this.state.edited && <pre>unsaved</pre>}
         </div>
         <Box
           background="white"
