@@ -3,7 +3,6 @@ import { Box, Button, Image, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import BackIcon from '../../assets/images/BackIcon.svg';
 import CloseIcon from '../../assets/images/CloseIcon.svg';
 import CommentIcon from '../../assets/images/CommentIcon.svg';
 import { NotificationContext } from '../../contexts/notification/NotificationContext';
@@ -107,10 +106,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setToolBoxMarginTop(cursorY);
   };
 
-  const goBack = () => {
-    history.goBack();
-  };
-
   const renderEditor = ({ title, text, comments }: NoteQuery_note) => (
     <Box width="xlarge" justify="center" align="center">
       <Editor
@@ -141,13 +136,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         <div />
       ) : (
         <Box direction="column" align="start" margin={{ horizontal: 'small' }} pad="none">
-          <Button
-            margin={{ vertical: 'xlarge' }}
-            color="gray"
-            label={true}
-            icon={<Image src={BackIcon} width="20px" />}
-            onClick={goBack}
-          />
           <div ref={editorToolBoxSpacerRef}>
             {canShowUI && user.role === 'ADMIN' && editorToolBoxSpacerRef.current && (
               <div
