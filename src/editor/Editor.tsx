@@ -189,7 +189,7 @@ export default class Editor extends PureComponent<Props, State> {
   setCommentVisibility = (commentLocations: CommentLocation[], show: boolean) => {
     if (show === false && this.state.edited) {
       // TODO: show popup here
-      if (confirm('Are you sure?')) {
+      if (!confirm('Are you sure?')) {
         this.props.canToggleCallback(true);
         this.setState({ edited: false, value: this.state.lastValue });
         return this.state.lastValue;
