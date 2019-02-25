@@ -1,5 +1,5 @@
 import { ApolloError } from 'apollo-client';
-import { Box, Button, Image, ResponsiveContext } from 'grommet';
+import { Box, Button, Image, ResponsiveContext, Paragraph } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
@@ -41,6 +41,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const user = useContext(UserContext)!;
 
+  const [canToggleComments, setToggleComments] = useState<boolean>(true);
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
   const [canShowUI, setShowUI] = useState(false);
   const [shouldDisplayNewComment, setShouldDisplayNewComment] = useState(false);
@@ -120,6 +121,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         renderEditorToolsCallBack={(container: JSX.Element) => setEditorToolsContainer(container)}
         onNoteUpdate={onNoteUpdate}
         uploadImageMutation={uploadImage}
+        canToggleCallback={setToggleComments}
       />
     </Box>
   );
@@ -161,15 +163,17 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         <div />
       ) : (
         <Box direction="column" align="start" margin={{ horizontal: 'small' }} width="320px">
-          <Button
-            reverse
-            style={{ position: 'fixed' }}
-            margin={{ top: 'xlarge' }}
-            color={canShowUI ? 'error' : 'primary'}
-            label={canShowUI ? 'Elrejtés' : 'Javaslatok'}
-            icon={canShowUI ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
-            onClick={toggleComments}
-          />
+          <Box style={{ position: 'fixed' }} margin={{ top: 'xlarge' }}>
+            <Button
+              reverse
+              color={canShowUI ? 'error' : 'primary'}
+              disabled={!canToggleComments}
+              label={canShowUI ? 'Elrejtés' : 'Javaslatok'}
+              icon={canShowUI ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
+              onClick={toggleComments}
+            />
+            {!canToggleComments && <Paragraph>Mentetlen változtatások</Paragraph>}
+          </Box>
           <Box justify="center" align="start" pad="none">
             <div ref={commentBoxSpacerRef}>
               <Suspense fallback={renderCommentLoading()}>

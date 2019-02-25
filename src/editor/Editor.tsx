@@ -36,6 +36,7 @@ interface Props {
   renderEditorToolsCallBack: (container: JSX.Element) => void;
   onNoteUpdate: (text: any) => void;
   uploadImageMutation: any;
+  canToggleCallback: (toggle: boolean) => void;
 }
 interface State {
   value: Value;
@@ -90,7 +91,13 @@ export default class Editor extends PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    const { onNoteUpdate, renderEditorToolsCallBack, onSelectionChanged, uploadImageMutation } = this.props;
+    const {
+      onNoteUpdate,
+      renderEditorToolsCallBack,
+      onSelectionChanged,
+      uploadImageMutation,
+      canToggleCallback,
+    } = this.props;
     renderEditorToolsCallBack(
       <Box>
         {renderEditorToolBox(this.editor, uploadImageMutation)}
@@ -101,6 +108,7 @@ export default class Editor extends PureComponent<Props, State> {
           onClick={() => {
             const val = this.setCommentVisibility(this.props.commentLocations, false);
             onNoteUpdate(val.toJSON());
+            canToggleCallback(true);
             this.setState({ edited: false, value: val, lastValue: val });
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
@@ -182,6 +190,7 @@ export default class Editor extends PureComponent<Props, State> {
     if (show === false && this.state.edited) {
       // TODO: show popup here
       if (confirm('Are you sure?')) {
+        this.props.canToggleCallback(true);
         this.setState({ edited: false, value: this.state.lastValue });
         return this.state.lastValue;
       }
@@ -207,15 +216,13 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   onChange = (editor) => {
-    const { user, canShowComments } = this.props;
+    const { user, canShowComments, canToggleCallback } = this.props;
     const { edited } = this.state;
     const { value, operations } = editor;
     const shouldSetEdited =
       (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(user.role) && canShowComments) || edited;
-    this.setState(
-      { value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited },
-      () => console.log(this.state.edited),
-    );
+    canToggleCallback(!shouldSetEdited);
+    this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited });
   };
 
   onCreateComment = (event: MouseEvent<any>) => {
