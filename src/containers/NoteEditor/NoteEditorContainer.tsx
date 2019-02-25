@@ -1,27 +1,29 @@
-import { ApolloError } from 'apollo-client';
-import { Box, Button, Image, ResponsiveContext, Paragraph } from 'grommet';
+import { Box, Button, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import CloseIcon from '../../assets/images/CloseIcon.svg';
-import CommentIcon from '../../assets/images/CommentIcon.svg';
+
 import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { UserContext } from '../../contexts/user/UserContext';
 import Editor, { CommentLocation } from '../../editor/Editor';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
 import { NoteRouteParams } from '../../types/RouteParams';
 import { Spinner } from '../../ui/components';
 import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
+import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
+import { NoteQuery, NoteQuery_note, NoteQuery_note_comments, NoteQueryVariables } from './__generated__/NoteQuery';
+import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
+import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
+import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
 import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
 import { UPLOAD_IMAGE_MUTATION } from './UploadImageMutation';
-import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
-import { NoteQuery, NoteQueryVariables, NoteQuery_note, NoteQuery_note_comments } from './__generated__/NoteQuery';
-import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
-import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
-import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
+
+import CloseIcon from '../../assets/images/CloseIcon.svg';
+import CommentIcon from '../../assets/images/CommentIcon.svg';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
@@ -31,15 +33,14 @@ const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocatio
 // tslint:disable:cyclomatic-complexity
 export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match, history }) => {
   const { noteID } = match.params;
+  const displayGraphQLError = useGraphQLErrorNotification();
   const { showNotification } = useContext(NotificationContext);
+  const screenSize = useContext(ResponsiveContext);
+  const user = useContext(UserContext)!;
 
   // tslint:disable:no-null-keyword
   const commentBoxSpacerRef = useRef<HTMLDivElement | null>(null);
   const editorToolBoxSpacerRef = useRef<HTMLDivElement | null>(null);
-
-  const screenSize = useContext(ResponsiveContext);
-
-  const user = useContext(UserContext)!;
 
   const [canToggleComments, setToggleComments] = useState<boolean>(true);
   const [selectedCommentID, setSelectedCommentID] = useState<number | undefined>(undefined);
@@ -76,21 +77,23 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setNewCommentLocationInText(locationInText);
   };
 
-  const onCreateCommentDone = (commentText: string) => {
-    if (commentText) {
-      submitComment({
-        variables: { noteID, commentData: { text: commentText, locationInText: newCommentLocationInText } },
-      }).then(() => setShouldDisplayNewComment(false));
+  const onCreateCommentDone = (text: string) => {
+    if (text) {
+      submitComment({ variables: { noteID, commentData: { text, locationInText: newCommentLocationInText } } })
+        .then(() => setShouldDisplayNewComment(false))
+        .catch(displayGraphQLError);
     }
   };
 
   const onCommentDelete = () =>
-    deleteComment({ variables: { noteID, commentID } }).then(() => setSelectedCommentID(undefined));
+    deleteComment({ variables: { noteID, commentID } })
+      .then(() => setSelectedCommentID(undefined))
+      .catch(displayGraphQLError);
 
   const onNoteUpdate = (noteText: any) =>
     updateNote({ variables: { noteID, noteText } })
       .then(() => showNotification('Változtatások mentése sikeresen megtörtént.', 'success'))
-      .catch((error: ApolloError) => error.graphQLErrors.map(({ message }) => showNotification(message, 'error')));
+      .catch(displayGraphQLError);
 
   const onCommentClick = (id: number, marginTop: number) => {
     setShouldDisplayNewComment(false);
@@ -118,7 +121,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         onCreateComment={onCreateComment}
         onCommentClick={onCommentClick}
         onSelectionChanged={onSelectionChanged}
-        renderEditorToolsCallBack={(container: JSX.Element) => setEditorToolsContainer(container)}
+        renderEditorToolsCallBack={setEditorToolsContainer}
         onNoteUpdate={onNoteUpdate}
         uploadImageMutation={uploadImage}
         canToggleCallback={setToggleComments}
