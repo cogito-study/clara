@@ -28,12 +28,20 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
     resetPassword,
     resetDone,
   } = routeBuilder;
-  const isRoot = location.pathname === root();
+
+  function insertDrift() {
+    const isRoot = location.pathname === root();
+    //! TODO: FIX ME
+    if (isRoot) {
+      const removeDriftButtonString = `document.querySelector('#drift-widget-container').hidden = true;`;
+      return <Helmet script={[{ async: true, innerHTML: removeDriftButtonString }]} />;
+    }
+    return <Helmet script={[{ async: true, innerHTML: driftString }]} />;
+  }
 
   return (
     <Fragment>
-      {!isRoot && <Helmet script={[{ async: true, innerHTML: driftString }]} />}
-
+      {insertDrift()}
       <Suspense fallback={<LoadingPage />}>
         <Switch>
           <Route

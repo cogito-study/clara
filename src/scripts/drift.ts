@@ -20,6 +20,8 @@ export const driftString = `"use strict";
         var i = document.getElementsByTagName("script")[0];
         i.parentNode.insertBefore(o, i);
       };
+  } else {
+    document.querySelector('#drift-widget-container').hidden = false;
   }
 }();
 drift.SNIPPET_VERSION = '0.3.1';
