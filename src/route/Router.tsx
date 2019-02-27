@@ -14,6 +14,8 @@ const NotePage = lazy(() => import('../pages/NotePage'));
 const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
 
+import { isProduction } from '../environment/config';
+
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
   const {
     root,
@@ -48,7 +50,9 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
             path={[register(), login(), forgetPassword(), emailSent(), linkExpired(), resetPassword(), resetDone()]}
             component={(props: RouteComponentProps<AuthRouteParams>) => <AuthenticationPage {...props} />}
           />
-          <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />
+          {isProduction && (
+            <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />
+          )}
           <PrivateRoute
             exact
             path={subjectNote()}
