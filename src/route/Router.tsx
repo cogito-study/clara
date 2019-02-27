@@ -50,7 +50,7 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
             path={[register(), login(), forgetPassword(), emailSent(), linkExpired(), resetPassword(), resetDone()]}
             component={(props: RouteComponentProps<AuthRouteParams>) => <AuthenticationPage {...props} />}
           />
-          {isProduction && (
+          {!isProduction && (
             <Route path={components()} component={(props: RouteComponentProps) => <GrommetComponents {...props} />} />
           )}
           <PrivateRoute
