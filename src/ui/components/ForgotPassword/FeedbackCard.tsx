@@ -51,7 +51,7 @@ export const EmailSentFeedbackCard: FunctionComponent = () => (
   <FeedbackCard
     title="E-mail elküldve"
     icon={mail}
-    paragraph="Üzenetet küldtünk e-mailben a jelszó alaphelyzetbe állítására vonatkozó utasításokkal"
+    paragraph="Elküldtük a megadott e-mail címre az új jelszó beállításához szükséges linket."
   />
 );
 
@@ -68,7 +68,7 @@ export const ResetDoneFeedbackCard: FunctionComponent<ResetDoneFeedbackCardProps
   <FeedbackCard
     title="Kész"
     icon={checkCircle}
-    paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni az új jelszóval."
+    paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni új jelszavaddal."
     buttonLabel="Belépés"
     onButtonClick={onButtonClick}
   />

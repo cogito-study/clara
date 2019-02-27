@@ -21,7 +21,7 @@ export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({
       Jelszó visszaállítása
     </Heading>
     <Paragraph textAlign="center" size="medium" margin={{ horizontal: 'medium', vertical: 'small' }}>
-      E-mailben el fogunk küldeni egy hivatkozást, amellyel alaphelyzetbe állíthatod a jelszavad.
+      E-mailben küldünk egy linket, amin keresztül új jelszót adhatsz meg.
     </Paragraph>
 
     <Box fill="horizontal" pad="small" align="center">

@@ -51,7 +51,7 @@ const AuthenticationPage: FunctionComponent<RouteComponentProps<AuthRouteParams>
           ) : (
             <Box justify="center" width="370px" margin={{ right: 'large' }}>
               <Header2 style={{ color: `${colors.primary_dark_1}` }}>
-                Az oktatás velünk nem csak intézmény, hanem közösség is
+                Az oktatás velünk nem csak intézmény hanem közösség is
               </Header2>
               <Paragraph style={{ color: `${colors.gray}` }}>Tudás és inspiráció egy helyen, Cogito.</Paragraph>
             </Box>
