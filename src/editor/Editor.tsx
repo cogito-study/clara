@@ -14,7 +14,7 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-
+import { Prompt } from 'react-router';
 export interface CommentButtonPosition {
   top: number;
   left: number;
@@ -109,6 +109,7 @@ export default class Editor extends PureComponent<Props, State> {
             const val = this.setCommentVisibility(this.props.commentLocations, false);
             onNoteUpdate(val.toJSON());
             canToggleCallback(true);
+            this.shouldReloadWarn(false);
             this.setState({ edited: false, value: val, lastValue: val });
             this.setCommentVisibility(this.props.commentLocations, true);
           }}
@@ -116,17 +117,11 @@ export default class Editor extends PureComponent<Props, State> {
       </Box>,
     );
 
+    // Comment button & comment box position adjustment
     window.addEventListener('scroll', () => onSelectionChanged(window.scrollY));
-    window.onbeforeunload = (e) => {
-      const { canShowComments } = this.props;
-      console.log(this.state.edited);
-      if (this.state.edited && canShowComments) {
-        const message = 'Are you sure?';
-        e.returnValue = message;
-        return message;
-      }
-      return null;
-    };
+
+    // Confirm changes
+    this.shouldReloadWarn(false);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -156,7 +151,17 @@ export default class Editor extends PureComponent<Props, State> {
     }
   }
 
-  canSave = () => true;
+  warnUser = (e) => {
+    console.log(this.state.edited);
+    if (this.state.edited) {
+      const message = 'Are you sure?';
+      e.returnValue = message;
+      return message;
+    }
+    return void 0;
+  };
+
+  shouldReloadWarn = (should: boolean) => (window.onbeforeunload = (e) => (should ? this.warnUser : undefined));
 
   calculateSelectionPosition = () =>
     window
@@ -191,6 +196,7 @@ export default class Editor extends PureComponent<Props, State> {
       // TODO: show popup here
       if (!confirm('Are you sure?')) {
         this.props.canToggleCallback(true);
+        this.shouldReloadWarn(false);
         this.setState({ edited: false, value: this.state.lastValue });
         return this.state.lastValue;
       }
@@ -211,7 +217,6 @@ export default class Editor extends PureComponent<Props, State> {
       .filter(
         (op) => !(['add_mark', 'set_mark', 'remove_mark'].includes(op.type) && op.mark.type === MarkType.Comment),
       );
-    console.log(mutatingOps.map((op) => op.type).toJS());
     return mutatingOps.size > 0;
   };
 
@@ -222,6 +227,7 @@ export default class Editor extends PureComponent<Props, State> {
     const shouldSetEdited =
       (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(user.role) && canShowComments) || edited;
     canToggleCallback(!shouldSetEdited);
+    this.shouldReloadWarn(shouldSetEdited);
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited });
   };
 
@@ -264,35 +270,39 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
-        <div style={{ display: 'flex' }}>
-          <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
-            {title}
-          </Heading>
-        </div>
-        <Box
-          background="white"
-          elevation="small"
-          align="center"
-          round="medium"
-          pad="large"
-          margin={{ top: 'medium' }}
-          gap="medium"
-        >
-          <SlateEditor
-            spellCheck
-            autoFocus
-            ref={(editor: SlateEditor) => (this.editor = editor)}
-            onChange={this.onChange}
-            value={value}
-            plugins={this.plugins}
-            schema={schema}
-            readOnly={!canShowComments}
-            renderEditor={this.renderEditor}
-            role="editor"
-          />
+      <React.Fragment>
+        // TODO: magyar
+        <Prompt when={this.state.edited} message="Are you sure?" />
+        <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
+          <div style={{ display: 'flex' }}>
+            <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
+              {title}
+            </Heading>
+          </div>
+          <Box
+            background="white"
+            elevation="small"
+            align="center"
+            round="medium"
+            pad="large"
+            margin={{ top: 'medium' }}
+            gap="medium"
+          >
+            <SlateEditor
+              spellCheck
+              autoFocus
+              ref={(editor: SlateEditor) => (this.editor = editor)}
+              onChange={this.onChange}
+              value={value}
+              plugins={this.plugins}
+              schema={schema}
+              readOnly={!canShowComments}
+              renderEditor={this.renderEditor}
+              role="editor"
+            />
+          </Box>
         </Box>
-      </Box>
+      </React.Fragment>
     );
   }
 }
