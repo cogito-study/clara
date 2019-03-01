@@ -271,7 +271,7 @@ export default class Editor extends PureComponent<Props, State> {
 
     return (
       <React.Fragment>
-        // TODO: magyar
+        {/* TODO:magyar */}
         <Prompt when={this.state.edited} message="Are you sure?" />
         <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
           <div style={{ display: 'flex' }}>
