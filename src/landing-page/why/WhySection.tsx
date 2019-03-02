@@ -8,7 +8,7 @@ import { ContactCard } from '../contact/ContactCard';
 import { color, Header1, Paragraph } from '../styles';
 
 export const WhySection = () => (
-  <Flex justifyContent="center" alignItems="center" pt={['20px', '40px', '60px', '140px', '150px']} name="Why">
+  <Flex justifyContent="center" alignItems="center" pt={['20px', '40px', '60px', '140px', '250px']} name="Why">
     <Flex
       width={['100%', '100%', '100%', '85%', '70%']}
       justifyContent="center"
