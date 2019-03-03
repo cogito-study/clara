@@ -1,4 +1,10 @@
 {
+  "general": {
+    "cookie": {
+      "description": "Sütiket és egyéb technológiákat használunk, hogy személyre szabott tartalmat mutathassunk és ezzel javíthassuk a felhasználói élményt oldalunkon. Ez lehetővé teszi a forgalom figyelését és hogy megértsük a felhasználóink honnan jönnek.",
+      "button": "Elfogadás"
+    }
+  },
   "nav": {
     "about": "RÓLUNK",
     "why": "MIÉRT MI?",
