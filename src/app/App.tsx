@@ -1,8 +1,9 @@
-import { init as initSentry } from '@sentry/browser';
+import { captureException, init as initSentry } from '@sentry/browser';
 import { Grommet } from 'grommet';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -34,9 +35,11 @@ export const App = () => {
       <NotificationProvider>
         <ApolloProvider client={client}>
           <ApolloHooksProvider client={client}>
-            <BrowserRouter>
-              <Route path={routeBuilder.root()} component={Router} />
-            </BrowserRouter>
+            <ErrorBoundary onError={captureException}>
+              <BrowserRouter>
+                <Route path={routeBuilder.root()} component={Router} />
+              </BrowserRouter>
+            </ErrorBoundary>
           </ApolloHooksProvider>
         </ApolloProvider>
       </NotificationProvider>
