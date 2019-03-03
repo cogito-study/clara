@@ -86,3 +86,7 @@ export const deviceBreakpoints = {
   tablet: 'medium',
   computer: 'large',
 };
+
+export const opacity = {
+  strong: 0.85,
+};

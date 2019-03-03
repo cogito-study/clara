@@ -3,7 +3,7 @@ import { button } from './button';
 import { checkBox } from './checkBox';
 import { elevation } from './elevation';
 import { formField } from './formField';
-import { breakpoints, colors, control, deviceBreakpoints, font } from './global';
+import { breakpoints, colors, control, deviceBreakpoints, font, opacity } from './global';
 import { input } from './input';
 import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
@@ -16,6 +16,7 @@ export const theme = {
     font: { ...font },
     elevation: { ...elevation },
     input: { ...input },
+    opacity: { ...opacity },
   },
   anchor: { ...anchor },
   breakpoints: { ...breakpoints },

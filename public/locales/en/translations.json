@@ -1,4 +1,10 @@
 {
+  "general": {
+    "cookie": {
+      "description": "We use cookies and other tracking technologies to improve your browsing experience on our site, show personalized content, analyze site traffic, and understand where our audience is coming from.",
+      "button": "Accept"
+    }
+  },
   "nav": {
     "about": "ABOUT",
     "features": "FEATURES",

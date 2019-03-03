@@ -9,3 +9,4 @@ export * from './Spinner';
 export * from './NoteComment/NoteComment';
 export * from './SubjectHeader';
 export * from './InfoCard/TeacherInfo';
+export * from './CookieBanner';
