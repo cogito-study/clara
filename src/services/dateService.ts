@@ -1,4 +1,4 @@
-import { format, formatDistance } from 'date-fns';
+import { format, formatDistance, parseISO } from 'date-fns';
 import { hu } from 'date-fns/locale';
 
 enum DateFormat {
@@ -6,6 +6,6 @@ enum DateFormat {
 }
 
 export const dateService = {
-  yearMonthDay: (date: Date | string): string => format(date, DateFormat.short, { locale: hu }),
-  sinceNow: (date: Date | string): string => formatDistance(date, new Date(), { addSuffix: true, locale: hu }),
+  yearMonthDay: (date: string): string => format(parseISO(date), DateFormat.short, { locale: hu }),
+  sinceNow: (date: string): string => formatDistance(parseISO(date), new Date(), { addSuffix: true, locale: hu }),
 };

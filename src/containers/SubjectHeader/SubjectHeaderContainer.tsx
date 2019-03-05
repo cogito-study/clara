@@ -6,7 +6,8 @@ import { UserContext } from '../../contexts/user/UserContext';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { authService } from '../../services/authService';
 import { SubjectRouteParams } from '../../types/RouteParams';
-import { SubjectHeader } from '../../ui/components/SubjectHeader';
+import { SubjectHeader } from '../../ui/components/SubjectHeader/SubjectHeader';
+import { SubjectHeaderPlaceholder } from '../../ui/components/SubjectHeader/SubjectHeaderPlaceholder';
 import { SUBJECT_HEADER_QUERY } from './SubjectHeaderQuery';
 import { SubjectHeaderQuery, SubjectHeaderQueryVariables } from './__generated__/SubjectHeaderQuery';
 
@@ -14,7 +15,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
   const { subjectCode } = props.match.params;
   const client = useApolloClient();
   const loggedInUser = useContext(UserContext);
-  const { data } = useQuery<SubjectHeaderQuery, SubjectHeaderQueryVariables>(SUBJECT_HEADER_QUERY, {
+  const { data, loading } = useQuery<SubjectHeaderQuery, SubjectHeaderQueryVariables>(SUBJECT_HEADER_QUERY, {
     variables: { subjectCode },
   });
 
@@ -32,6 +33,7 @@ export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<Subje
 
   return (
     <Box fill="horizontal" background="horizontalGradient" align="center" justify="center">
+      {loading && <SubjectHeaderPlaceholder />}
       {data && renderHeader(data)}
     </Box>
   );

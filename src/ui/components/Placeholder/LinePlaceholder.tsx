@@ -1,17 +1,15 @@
 import { Box } from 'grommet';
 import React from 'react';
-
 import { DefaultPlaceholderProps, defaultPlaceholderProps } from './DefaultPlaceholderProps';
 
-interface LinePlaceholderProps extends DefaultPlaceholderProps {
+export interface LinePlaceholderProps extends DefaultPlaceholderProps {
   height: number;
   width?: string | number;
-  align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 }
 
-export const LinePlaceholder = ({ height, width, align, startColor, endColor }: LinePlaceholderProps) => {
+export const LinePlaceholder = ({ height, width, startColor, endColor }: LinePlaceholderProps) => {
   return (
-    <Box margin={{ vertical: 'xsmall' }} align={align}>
+    <Box fill="horizontal" margin={{ vertical: 'xsmall' }}>
       <svg width={width || '100%'} height={height} fill="none">
         <defs>
           <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%">

@@ -9,6 +9,7 @@ import { dateService } from '../../services/dateService';
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { NoteCard } from '../../ui/components';
 import { Link } from '../../ui/components/Link';
+import { NoteCardPlaceholder } from '../../ui/components/NoteCard/NoteCardPlaceholder';
 import { SUBJECT_NOTE_LIST_QUERY } from './SubjectNoteListQuery';
 import {
   SubjectNoteListQuery,
@@ -27,7 +28,7 @@ const HoveredNoteCard = styled(NoteCard)`
 /* eslint-disable complexity */
 export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
-  const { data } = useQuery<SubjectNoteListQuery, SubjectNoteListQueryVariables>(SUBJECT_NOTE_LIST_QUERY, {
+  const { data, loading } = useQuery<SubjectNoteListQuery, SubjectNoteListQueryVariables>(SUBJECT_NOTE_LIST_QUERY, {
     variables: { subjectCode },
   });
   const screenSize = useContext(ResponsiveContext);
@@ -58,6 +59,11 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
     ));
   };
 
+  const renderNoteCardPlaceholder = () =>
+    Array.from({ length: 12 }).map((_, index) =>
+      screenSize === 'small' ? <NoteCardPlaceholder.Mobile key={index} /> : <NoteCardPlaceholder.Desktop key={index} />,
+    );
+
   return (
     <Box
       justify="center"
@@ -70,12 +76,14 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
       {screenSize === 'small' ? (
         // TODO: align items to center without margin
         <Box direction="column" gap="xsmall" margin={{ right: 'medium' }}>
+          {loading && renderNoteCardPlaceholder()}
           {data && data.subject && renderNoteList(data.subject)}
         </Box>
       ) : (
         // TODO: use grid instead
         <Box direction="row" width="xlarge" align="center" justify="between" pad="none">
           <Box wrap fill={true} direction="row" justify="center">
+            {loading && renderNoteCardPlaceholder()}
             {data && data.subject && renderNoteList(data.subject)}
             <Box width="280px" height="0px" margin="small" />
             <Box width="280px" height="0px" margin="small" />

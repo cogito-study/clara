@@ -1,13 +1,12 @@
 import { Box } from 'grommet';
-import React, { Fragment } from 'react';
-
+import React from 'react';
 import { HeadingPlaceholder } from '../Placeholder/HeadingPlaceholder';
 import { LinePlaceholder } from '../Placeholder/LinePlaceholder';
 import { ParagraphPlaceholder } from '../Placeholder/ParagraphPlaceholder';
 import { TeacherInfoGrid } from '../TeacherInfo/TeacherInfoGrid';
 
 export const SubjectInfoCardPlaceholder = () => (
-  <Fragment>
+  <Box pad="large" background="white" round="small" elevation="medium" width="large">
     <Box direction="row" justify="between" align="baseline">
       <HeadingPlaceholder level={3} />
       <Box justify="end">
@@ -16,5 +15,5 @@ export const SubjectInfoCardPlaceholder = () => (
     </Box>
     <ParagraphPlaceholder numberOfLines={6} lineHeight={20} />
     <TeacherInfoGrid isLoading={true} />
-  </Fragment>
+  </Box>
 );

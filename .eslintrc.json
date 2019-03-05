@@ -30,6 +30,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/camelcase": "off",
+    "react/display-name": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

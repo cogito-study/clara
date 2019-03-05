@@ -16,5 +16,7 @@ export const useTokenValidation = (token: string, history: H.History) => {
     }
   };
 
-  useEffect(() => validateToken, [validateToken, token]);
+  useEffect(() => {
+    validateToken;
+  }, [validateToken, token]);
 };

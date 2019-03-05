@@ -153,7 +153,6 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
               title={noteCardTitle}
               abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
               dateLabel={new Date().toLocaleString()}
-              isLoading={false}
             />
           ))}
         </Box>
