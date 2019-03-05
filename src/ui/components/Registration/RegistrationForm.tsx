@@ -1,8 +1,10 @@
 import { Form, Formik } from 'formik';
-import { Box, Button, CheckBox, FormField, TextInput } from 'grommet';
+import { Box, Button, CheckBox, FormField, TextInput, Paragraph, Anchor } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
 import { Spinner } from '../Spinner';
+
+import { config } from '../../../environment/config';
 
 export interface RegistrationFormProps {
   onRegistration: (password: string, resetForm: () => void) => void;
@@ -66,13 +68,13 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                   </FormField>
                 </Box>
 
-                <Box align="center" margin="small">
-                  <CheckBox
-                    id="legalAccepted"
-                    checked={values.legalAccepted}
-                    onChange={handleChange}
-                    label="Elfogadok mindent"
-                  />
+                <Box direction="row" align="center" margin="small">
+                  <CheckBox id="legalAccepted" checked={values.legalAccepted} onChange={handleChange} />
+                  <Paragraph textAlign="center" size="small">
+                    Elfogadom az{' '}
+                    <Anchor alignSelf="center" color="primary" label="ÁSZF" href={config.termsURL} target="_blank" />
+                    -et
+                  </Paragraph>
                 </Box>
 
                 {isSubmitting ? (
