@@ -175,7 +175,9 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
               icon={canShowUI ? <Image src={CloseIcon} width="20px" /> : <Image src={CommentIcon} width="20px" />}
               onClick={toggleComments}
             />
-            {!canToggleComments && <Paragraph>Mentetlen változtatások</Paragraph>}
+            {!canToggleComments && (
+              <Paragraph style={{ maxWidth: '150px' }}>Navigálás előtt mentsd el változtatásaidat!</Paragraph>
+            )}
           </Box>
           <Box justify="center" align="start" pad="none">
             <div ref={commentBoxSpacerRef}>
