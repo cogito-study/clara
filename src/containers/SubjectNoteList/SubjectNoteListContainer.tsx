@@ -4,18 +4,17 @@ import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 import Tilt from 'react-tilt';
 import styled from 'styled-components';
-
 import { routeBuilder } from '../../route/routeBuilder';
 import { dateService } from '../../services/dateService';
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { NoteCard } from '../../ui/components';
 import { Link } from '../../ui/components/Link';
+import { SUBJECT_NOTE_LIST_QUERY } from './SubjectNoteListQuery';
 import {
   SubjectNoteListQuery,
-  SubjectNoteListQuery_subject,
   SubjectNoteListQueryVariables,
+  SubjectNoteListQuery_subject,
 } from './__generated__/SubjectNoteListQuery';
-import { SUBJECT_NOTE_LIST_QUERY } from './SubjectNoteListQuery';
 
 const HoveredNoteCard = styled(NoteCard)`
   transition: all 0.2s ease-in-out;
@@ -25,6 +24,7 @@ const HoveredNoteCard = styled(NoteCard)`
   }
 `;
 
+/* eslint-disable complexity */
 export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
   const { data } = useQuery<SubjectNoteListQuery, SubjectNoteListQueryVariables>(SUBJECT_NOTE_LIST_QUERY, {

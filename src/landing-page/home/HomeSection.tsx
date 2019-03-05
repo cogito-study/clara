@@ -1,17 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { Parallax } from 'react-parallax';
 import { withRouter } from 'react-router';
-import Scroll from 'react-scroll';
-import { SubscribeButton } from '../subscribe';
-import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
 import { RouteComponentProps } from 'react-router-dom';
+import Scroll from 'react-scroll';
+import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
 import styled from 'styled-components';
-
 import downArrow from '../../assets/images/down.svg';
 import { scrollOptions } from '../../constants';
+import { routeBuilder } from '../../route/routeBuilder';
 import i18n from '../../services/i18n';
 import { color, Header1, Header3 } from '../styles';
-import { routeBuilder } from '../../route/routeBuilder';
+import { SubscribeButton } from '../subscribe';
 
 const { scroller } = Scroll;
 
@@ -70,9 +69,10 @@ const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {
                     maxWidth={200}
                     fontSize={20}
                     color={color.darkBlue}
-                    children={i18n.t('home.buttontitle')}
                     borderRadius={10}
-                  />
+                  >
+                    {i18n.t('home.buttontitle')}
+                  </SubscribeButton>
                 </Flex>
               </Flex>
             </Flex>

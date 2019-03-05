@@ -2,23 +2,22 @@ import { Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { GeneralInfoCard, SubjectInfoCard } from '../../ui/components';
+import { GENERAL_SUBJECT_INFO_QUERY } from './GeneralSubjectInfoQuery';
+import { SUBJECT_INFO_QUERY } from './SubjectInfoQuery';
 import {
   GeneralSubjectInfoQuery,
-  GeneralSubjectInfoQuery_subject,
   GeneralSubjectInfoQueryVariables,
+  GeneralSubjectInfoQuery_subject,
 } from './__generated__/GeneralSubjectInfoQuery';
 import {
   SubjectInfoQuery,
-  SubjectInfoQuery_subject,
   SubjectInfoQueryVariables,
+  SubjectInfoQuery_subject,
 } from './__generated__/SubjectInfoQuery';
-import { GENERAL_SUBJECT_INFO_QUERY } from './GeneralSubjectInfoQuery';
-import { SUBJECT_INFO_QUERY } from './SubjectInfoQuery';
 
-// tslint:disable:cyclomatic-complexity
+/* eslint-disable */
 
 export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
@@ -44,7 +43,7 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
 
     return (
       <SubjectInfoCard
-        institute={institute!.name}
+        institute={institute ? institute.name : ''}
         neptun={subjectCode}
         description={description}
         teacherInfos={teacherInfos}

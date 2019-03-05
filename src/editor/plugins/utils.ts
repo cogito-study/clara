@@ -2,6 +2,8 @@ import { Editor } from 'slate-react';
 import { MarkType } from '../enums/MarkType';
 import { NodeType } from '../enums/NodeType';
 
+/* eslint-disable */
+
 export const onClickMark = (editor: Editor, type: MarkType) => {
   editor.toggleMark(type);
 };

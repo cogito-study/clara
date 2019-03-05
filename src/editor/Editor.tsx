@@ -1,11 +1,11 @@
 import { Box, Button, Heading, Image } from 'grommet';
 import React, { Fragment, MouseEvent, PureComponent } from 'react';
+import { Prompt } from 'react-router';
 import { Range as SlateRange, RangeJSON, SchemaProperties, Value, ValueJSON } from 'slate';
 import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, Plugin } from 'slate-react';
 import commentButtonImage from '../assets/images/commentButton.svg';
-import { UserContextState } from '../contexts/user/UserContext';
 import { MarkType } from './enums/MarkType';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/Comments';
 import { History } from './plugins/History';
@@ -14,7 +14,9 @@ import { isLinkActive, Links, unwrapLink, wrapLink } from './plugins/Links';
 import { ReadOnlyPlugin } from './plugins/ReadOnlyPlugin';
 import { RichText } from './plugins/RichText';
 import { HoverContainer, renderEditorToolBox } from './ProtoComponents';
-import { Prompt } from 'react-router';
+
+/* eslint-disable @typescript-eslint/no-explicit-any, complexity */
+
 export interface CommentButtonPosition {
   top: number;
   left: number;
@@ -29,12 +31,12 @@ interface Props {
   canShowComments: boolean;
   initialValue: ValueJSON;
   commentLocations: CommentLocation[];
-  user: UserContextState;
+  userRole: string;
   onCommentClick: (id: number, marginTop: number) => void;
   onCreateComment: (locationInText: string, marginTop: number) => void;
   onSelectionChanged: (cursorY: number) => void;
   renderEditorToolsCallBack: (container: JSX.Element) => void;
-  onNoteUpdate: (text: any) => void;
+  onNoteUpdate: (text: JSON) => void;
   uploadImageMutation: any;
   canToggleCallback: (toggle: boolean) => void;
 }
@@ -67,7 +69,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const { user, uploadImageMutation } = this.props;
+    const { userRole, uploadImageMutation } = this.props;
     this.plugins = [
       Images(uploadImageMutation),
       Links(),
@@ -75,7 +77,7 @@ export default class Editor extends PureComponent<Props, State> {
       Comments((id: number, top: number) => props.onCommentClick(id, top)),
       CollapseOnEscape(),
     ];
-    if (user.role === 'ADMIN') {
+    if (userRole === 'ADMIN') {
       this.plugins = [
         History(),
         PasteLinkify({
@@ -85,7 +87,7 @@ export default class Editor extends PureComponent<Props, State> {
         }),
         ...this.plugins,
       ];
-    } else if (user.role === 'USER') {
+    } else if (userRole === 'USER') {
       this.plugins = [ReadOnlyPlugin(), ...this.plugins];
     }
   }
@@ -107,7 +109,7 @@ export default class Editor extends PureComponent<Props, State> {
           color="primary"
           onClick={() => {
             const val = this.setCommentVisibility(this.props.commentLocations, false);
-            onNoteUpdate(val.toJSON());
+            onNoteUpdate(val.toJSON() as JSON);
             canToggleCallback(true);
             this.shouldReloadWarn(false);
             this.setState({ edited: false, value: val, lastValue: val });
@@ -151,17 +153,17 @@ export default class Editor extends PureComponent<Props, State> {
     }
   }
 
-  warnUser = (e) => {
+  warnUser = (event: BeforeUnloadEvent) => {
     console.log(this.state.edited);
     if (this.state.edited) {
       const message = 'Are you sure?';
-      e.returnValue = message;
+      event.returnValue = message;
       return message;
     }
     return void 0;
   };
 
-  shouldReloadWarn = (should: boolean) => (window.onbeforeunload = (e) => (should ? this.warnUser : undefined));
+  shouldReloadWarn = (should: boolean) => (window.onbeforeunload = () => (should ? this.warnUser : undefined));
 
   calculateSelectionPosition = () =>
     window
@@ -221,11 +223,11 @@ export default class Editor extends PureComponent<Props, State> {
   };
 
   onChange = (editor) => {
-    const { user, canShowComments, canToggleCallback } = this.props;
+    const { userRole, canShowComments, canToggleCallback } = this.props;
     const { edited } = this.state;
     const { value, operations } = editor;
     const shouldSetEdited =
-      (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(user.role) && canShowComments) || edited;
+      (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(userRole) && canShowComments) || edited;
     canToggleCallback(!shouldSetEdited);
     this.shouldReloadWarn(shouldSetEdited);
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited });

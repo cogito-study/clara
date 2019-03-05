@@ -1,6 +1,5 @@
 import { Box, Button, Image, Layer, Paragraph, Stack } from 'grommet';
 import React, { FunctionComponent } from 'react';
-
 import errorIcon from '../../assets/images/errorIcon.svg';
 import infoIcon from '../../assets/images/infoIcon.svg';
 import successIcon from '../../assets/images/successIcon.svg';

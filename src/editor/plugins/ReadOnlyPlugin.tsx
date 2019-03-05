@@ -5,7 +5,7 @@ export const ReadOnlyPlugin = () => ({
     event.preventDefault();
     return editor;
   },
-  onKeyDown(event: Event, editor: CoreEditor, next: VoidFunction) {
+  onKeyDown(event: Event, editor: CoreEditor) {
     event.preventDefault();
     return editor;
   },

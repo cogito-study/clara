@@ -1,12 +1,14 @@
+import { Heading, Paragraph } from 'grommet';
 import { isKeyHotkey } from 'is-hotkey';
 import React from 'react';
-import { Heading, Paragraph } from 'grommet';
 import { Editor as CoreEditor, Value } from 'slate';
 import { Plugin, RenderMarkProps, RenderNodeProps } from 'slate-react';
-
 import { MarkType } from '../enums/MarkType';
 import { NodeType } from '../enums/NodeType';
+
 //import { colors } from '../../ui/theme/global';
+
+/* eslint-disable */
 
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
@@ -35,7 +37,6 @@ export const hasMark = (type: MarkType, value: Value) =>
 export const hasBlock = (type: NodeType, value: Value) =>
   value.blocks.some((node) => (node ? node.type === type : false));
 
-// tslint:disable:cyclomatic-complexity
 export const RichText = (): Plugin => ({
   renderNode: (props: RenderNodeProps, _, next: () => any) => {
     const { attributes, children, node } = props;

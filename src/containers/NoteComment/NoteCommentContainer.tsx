@@ -1,16 +1,15 @@
 import { Box } from 'grommet';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
-
 import { UserContext } from '../../contexts/user/UserContext';
 import { dateService } from '../../services/dateService';
 import { NoteComment } from '../../ui/components';
-import { CommentQuery, CommentQuery_comment, CommentQueryVariables } from './__generated__/CommentQuery';
-import { UnvoteCommentMutation, UnvoteCommentMutationVariables } from './__generated__/UnvoteCommentMutation';
-import { UpvoteCommentMutation, UpvoteCommentMutationVariables } from './__generated__/UpvoteCommentMutation';
 import { COMMENT_QUERY } from './CommentQuery';
 import { UNVOTE_COMMENT_MUTATION } from './UnvoteCommentMutation';
 import { UPVOTE_COMMENT_MUTATION } from './UpvoteCommentMutation';
+import { CommentQuery, CommentQueryVariables, CommentQuery_comment } from './__generated__/CommentQuery';
+import { UnvoteCommentMutation, UnvoteCommentMutationVariables } from './__generated__/UnvoteCommentMutation';
+import { UpvoteCommentMutation, UpvoteCommentMutationVariables } from './__generated__/UpvoteCommentMutation';
 
 export interface Props {
   marginTop: number;
@@ -22,7 +21,7 @@ export interface Props {
   onNewCommentDone: (text: string) => void;
 }
 
-// tslint:disable:cyclomatic-complexity
+/* eslint-disable complexity */
 export const NoteCommentContainer: FunctionComponent<Props> = ({
   marginTop,
   canShowComments,

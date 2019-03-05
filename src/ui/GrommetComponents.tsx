@@ -1,6 +1,8 @@
 import { Box, Button, FormField, Grommet, TextInput } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
+import { NotificationContext } from '../contexts/notification/NotificationContext';
+import { theme } from '../ui/theme';
 import {
   Footer,
   GeneralInfoCard,
@@ -9,20 +11,17 @@ import {
   RegistrationCard,
   SubjectInfoCard,
   TeacherInfo,
-  TeacherInfoProps,
+  TeacherInfoProps
 } from './components';
-
-import { NotificationContext } from '../contexts/notification/NotificationContext';
-import { theme } from '../ui/theme';
-import { EmailSentFeedbackCard } from './components/ForgotPassword/FeedbackCard';
-import { ExpiredFeedbackCard } from './components/ForgotPassword/FeedbackCard';
-import { ResetDoneFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import {
+  EmailSentFeedbackCard,
+  ExpiredFeedbackCard,
+  ResetDoneFeedbackCard
+} from './components/ForgotPassword/FeedbackCard';
 import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
-
+import { ResetPasswordCard } from './components/ForgotPassword/ResetPasswordCard';
 import { LoginCard } from './components/Login/LoginCard';
 import { PopUpCard } from './components/PopUpCard';
-
-import { ResetPasswordCard } from './components/ForgotPassword/ResetPasswordCard';
 
 const registrationCardName = 'Körmendy Bertalan';
 const registrationCardEmail = 'berci.kormendy@cogito.study';

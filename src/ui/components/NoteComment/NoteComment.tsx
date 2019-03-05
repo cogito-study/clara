@@ -1,10 +1,10 @@
 import { Box } from 'grommet';
-import React, { FunctionComponent, Fragment } from 'react';
-
+import React, { Fragment, FunctionComponent } from 'react';
 import { NoteCommentContent, NoteCommentContentProps } from './NoteCommentContent';
 import { NoteCommentFooter, NoteCommentFooterProps } from './NoteCommentFooter';
 import { NoteCommentHeader, NoteCommentHeaderProps } from './NoteCommentHeader';
 import { NoteCommentPlaceholder } from './NoteCommentPlaceholder';
+
 export type NoteCommentProps = NoteCommentHeaderProps &
   NoteCommentContentProps &
   NoteCommentFooterProps & { isLoading?: boolean };
@@ -34,9 +34,9 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
         <Fragment>
           <NoteCommentHeader authorName={authorName} date={date} />
           <NoteCommentContent paragraph={paragraph} onNewCommentChange={onNewCommentChange} />
+          <NoteCommentFooter {...rest} />
         </Fragment>
       )}
-      <NoteCommentFooter {...rest} />
     </Box>
   );
 };

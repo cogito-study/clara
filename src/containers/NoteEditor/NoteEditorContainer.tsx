@@ -2,7 +2,8 @@ import { Box, Button, Image, Paragraph, ResponsiveContext } from 'grommet';
 import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-
+import CloseIcon from '../../assets/images/CloseIcon.svg';
+import CommentIcon from '../../assets/images/CommentIcon.svg';
 import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { UserContext } from '../../contexts/user/UserContext';
 import Editor, { CommentLocation } from '../../editor/Editor';
@@ -11,34 +12,32 @@ import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotifica
 import { NoteRouteParams } from '../../types/RouteParams';
 import { Spinner } from '../../ui/components';
 import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
-import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
-import { NoteQuery, NoteQuery_note, NoteQuery_note_comments, NoteQueryVariables } from './__generated__/NoteQuery';
-import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
-import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
-import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
 import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
 import { SUBMIT_COMMENT_MUTATION } from './SubmitCommentMutation';
 import { UPDATE_NOTE_MUTATION } from './UpdateNoteMutation';
 import { UPLOAD_IMAGE_MUTATION } from './UploadImageMutation';
-
-import CloseIcon from '../../assets/images/CloseIcon.svg';
-import CommentIcon from '../../assets/images/CommentIcon.svg';
+import { DeleteCommentMutation, DeleteCommentMutationVariables } from './__generated__/DeleteCommentMutation';
+import { NoteQuery, NoteQueryVariables, NoteQuery_note, NoteQuery_note_comments } from './__generated__/NoteQuery';
+import { SubmitCommentMutation, SubmitCommentMutationVariables } from './__generated__/SubmitCommentMutation';
+import { UpdateNoteMutation, UpdateNoteMutationVariables } from './__generated__/UpdateNoteMutation';
+import { UploadImageMutation, UploadImageMutationVariables } from './__generated__/UploadImageMutation';
 
 const mapCommentToLocations = (comment: NoteQuery_note_comments): CommentLocation => ({
   id: comment.id,
   range: comment.locationInText,
 });
 
-// tslint:disable:cyclomatic-complexity
-export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match, history }) => {
+/* eslint-disable complexity */
+
+export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRouteParams>> = ({ match }) => {
   const { noteID } = match.params;
   const displayGraphQLError = useGraphQLErrorNotification();
   const { showNotification } = useContext(NotificationContext);
   const screenSize = useContext(ResponsiveContext);
-  const user = useContext(UserContext)!;
+  const user = useContext(UserContext);
+  const userRole = user ? user.role : '';
 
-  // tslint:disable:no-null-keyword
   const commentBoxSpacerRef = useRef<HTMLDivElement | null>(null);
   const editorToolBoxSpacerRef = useRef<HTMLDivElement | null>(null);
 
@@ -90,6 +89,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       .then(() => setSelectedCommentID(undefined))
       .catch(displayGraphQLError);
 
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const onNoteUpdate = (noteText: any) =>
     updateNote({ variables: { noteID, noteText } })
       .then(() => showNotification('Változtatások mentése sikeresen megtörtént.', 'success'))
@@ -114,7 +114,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     <Box width="xlarge" justify="center" align="center">
       <Editor
         title={title}
-        user={user}
+        userRole={userRole}
         canShowComments={canShowUI}
         initialValue={text}
         commentLocations={comments ? comments.map(mapCommentToLocations) : []}
@@ -142,7 +142,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
       ) : (
         <Box direction="column" align="start" margin={{ horizontal: 'small' }} pad="none">
           <div ref={editorToolBoxSpacerRef}>
-            {canShowUI && user.role === 'ADMIN' && editorToolBoxSpacerRef.current && (
+            {canShowUI && userRole === 'ADMIN' && editorToolBoxSpacerRef.current && (
               <div
                 style={{
                   // TODO: grommetize

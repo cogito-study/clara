@@ -1,13 +1,14 @@
 import { Box, Button, Image, Layer, ResponsiveContext, Text } from 'grommet';
 import Cookies from 'js-cookie';
 import React, { FunctionComponent, useContext, useState } from 'react';
-
 import cookie from '../../assets/images/cookie.svg';
 
 export interface Props {
   descriptionText: string;
   buttonText: string;
 }
+
+/* eslint-disable complexity */
 
 export const CookieBanner: FunctionComponent<Props> = ({ descriptionText, buttonText }) => {
   const screenSize = useContext(ResponsiveContext);

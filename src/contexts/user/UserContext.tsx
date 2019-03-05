@@ -1,8 +1,7 @@
 import React, { createContext, FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
-
-import { LoggedInUserQuery, LoggedInUserQuery_me } from './__generated__/LoggedInUserQuery';
 import { LOGGED_IN_USER_QUERY } from './LoggedInUserQuery';
+import { LoggedInUserQuery, LoggedInUserQuery_me } from './__generated__/LoggedInUserQuery';
 
 export interface UserContextState {
   id: string;
@@ -21,6 +20,7 @@ export const UserConsumer = UserContext.Consumer;
 export const UserProvider: FunctionComponent = ({ children }) => {
   const { data } = useQuery<LoggedInUserQuery>(LOGGED_IN_USER_QUERY);
 
+  /* eslint-disable complexity */
   const userContextState = ({ firstName, lastName, ...rest }: LoggedInUserQuery_me): UserContextState => ({
     ...rest,
     firstName: firstName || '',

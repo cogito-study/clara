@@ -1,6 +1,5 @@
 import { Box, Button, Heading, Image, ResponsiveContext, Text } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
-
 import LargeBetaLogo from '../../assets/images/LargeBetaLogo.svg';
 import logout from '../../assets/images/Log-out.svg';
 import profile from '../../assets/images/Profile.svg';

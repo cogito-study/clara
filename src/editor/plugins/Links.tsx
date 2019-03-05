@@ -3,6 +3,8 @@ import { Value } from 'slate';
 import { Editor, Plugin, RenderNodeProps } from 'slate-react';
 import { NodeType } from '../enums/NodeType';
 
+/* eslint-disable */
+
 export const wrapLink = (editor, href) => {
   editor.wrapInline({
     type: NodeType.Link,

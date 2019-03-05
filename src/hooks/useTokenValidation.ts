@@ -1,9 +1,8 @@
 import * as H from 'history';
 import { useEffect } from 'react';
 import { useMutation } from 'react-apollo-hooks';
-
-import { CheckTokenMutation, CheckTokenMutationVariables } from '../graphql/mutations/__generated__/CheckTokenMutation';
 import { CHECK_TOKEN_MUTATION } from '../graphql/mutations/CheckTokenMutation';
+import { CheckTokenMutation, CheckTokenMutationVariables } from '../graphql/mutations/__generated__/CheckTokenMutation';
 import { routeBuilder } from '../route/routeBuilder';
 
 export const useTokenValidation = (token: string, history: H.History) => {
@@ -17,5 +16,5 @@ export const useTokenValidation = (token: string, history: H.History) => {
     }
   };
 
-  useEffect(() => validateToken, [token]);
+  useEffect(() => validateToken, [validateToken, token]);
 };

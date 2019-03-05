@@ -1,7 +1,6 @@
 import { Box, Tab, Tabs } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-
 import { routeBuilder } from '../../route/routeBuilder';
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { SubjectInfoContainer } from '../SubjectInfo/SubjectInfoContainer';

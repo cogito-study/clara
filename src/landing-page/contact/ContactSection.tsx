@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Absolute, Flex, Image, Toolbar } from 'rebass';
-
-import i18n from '../../services/i18n';
-import { color, gradientText, Header1, Header2, Header3, Paragraph } from '../styles';
-import { SubscribeButton, SubscribeInput } from '../subscribe';
-import { ContactCard } from './ContactCard';
-import { SocialImage } from './SocialImage';
-
 import facebook from '../../assets/images/facebook.svg';
 import instagram from '../../assets/images/instagram.svg';
 import StudentIcon from '../../assets/images/student_icon.svg';
 import twitter from '../../assets/images/twitter.svg';
 import UniversityIcon from '../../assets/images/university_icon.svg';
+import i18n from '../../services/i18n';
+import { color, gradientText, Header1, Header2, Header3, Paragraph } from '../styles';
+import { SubscribeButton, SubscribeInput } from '../subscribe';
+import { ContactCard } from './ContactCard';
+import { SocialImage } from './SocialImage';
 
 const API_URL = 'https://peaceful-mesa-85182.herokuapp.com/register/';
 
@@ -97,13 +95,12 @@ export class ContactSection extends Component<{}, { subscribed: boolean }> {
                       fontSize={[1, 2, 2, '24px', '24px']}
                       bg={'#F5FBFF'}
                       color={color.almostWhite}
-                      children={
-                        this.state.subscribed
-                          ? i18n.t('contact.subscribe.reassure')
-                          : i18n.t('contact.subscribe.button')
-                      }
                       borderRadius={20}
-                    />
+                    >
+                      {this.state.subscribed
+                        ? i18n.t('contact.subscribe.reassure')
+                        : i18n.t('contact.subscribe.button')}
+                    </SubscribeButton>
                   </Flex>
                 </form>
               </Flex>
@@ -146,10 +143,11 @@ export class ContactSection extends Component<{}, { subscribed: boolean }> {
                 >
                   <SubscribeButton
                     css={['background: linear-gradient(101.81deg, #63B6F6 1%, #4A8CD7 136.47%);']}
-                    children={i18n.t('contact.universities.button')}
                     mt={['30px', '60px']}
                     fontSize={[1, 2, 2, '24px', '24px']}
-                  />
+                  >
+                    {i18n.t('contact.universities.button')}
+                  </SubscribeButton>
                 </a>
               </Flex>
             </ContactCard>

@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-
 import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
 import { routeBuilder } from '../../route/routeBuilder';
 import { ForgotPasswordCard } from '../../ui/components/ForgotPassword/ForgetPasswordCard';
-import { ForgotPasswordMutation, ForgotPasswordMutationVariables } from './__generated__/ForgotPasswordMutation';
 import { FORGOT_PASSWORD } from './ForgotPasswordMutation';
+import { ForgotPasswordMutation, ForgotPasswordMutationVariables } from './__generated__/ForgotPasswordMutation';
 
 export const ForgotPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history }) => {
   const displayGraphQLError = useGraphQLErrorNotification();

@@ -1,5 +1,4 @@
 import React, { createContext, FunctionComponent, useState } from 'react';
-
 import { Notification, NotificationType } from '../../ui/components/Notification';
 
 interface NotificationContextState {
@@ -17,6 +16,8 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
   const [notificationMessage, setNotificationMessage] = useState<string | undefined>(undefined);
   const [notificationType, setNotificationType] = useState<NotificationType | undefined>(undefined);
 
+  const hideNotification = () => setIsNotificationOpen(false);
+
   const showNotification = (
     message: string,
     type: NotificationType = 'success',
@@ -28,8 +29,6 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
 
     setTimeout(hideNotification, duration);
   };
-
-  const hideNotification = () => setIsNotificationOpen(false);
 
   return (
     <NotificationContext.Provider value={{ showNotification }}>
