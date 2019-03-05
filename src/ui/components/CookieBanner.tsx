@@ -37,7 +37,19 @@ export const CookieBanner: FunctionComponent<Props> = ({ descriptionText, button
         <Box direction="row-responsive" align="center" justify="center" gap={'large'} style={{ maxWidth: '1300px' }}>
           {screenSize === ('small' || 'xsmall') ? undefined : <Image src={cookie} />}
           <Text size="medium">{descriptionText}</Text>
-          <Button primary color="primary" label={buttonText} onClick={() => hideCookieBanner()} />
+          {screenSize === ('small' || 'xsmall') ? (
+            <Button
+              alignSelf="center"
+              primary
+              color="primary"
+              label={buttonText}
+              margin={{ bottom: 'small' }}
+              style={{ minWidth: '280px' }}
+              onClick={() => hideCookieBanner()}
+            />
+          ) : (
+            <Button alignSelf="center" primary color="primary" label={buttonText} onClick={() => hideCookieBanner()} />
+          )}
         </Box>
       </Box>
     </Layer>
