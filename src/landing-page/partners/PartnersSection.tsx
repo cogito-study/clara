@@ -1,11 +1,11 @@
 import React from 'react';
 import { Flex, Image, Link } from 'rebass';
 
-import { color, Header1 } from '../styles';
-import startitkhwhite from '../../assets/images/startitkhwhite.svg';
 import designterminal from '../../assets/images/designterminal.svg';
 import inputprogram from '../../assets/images/inputprogram.png';
-import i18n from '../../services/localization/i18n';
+import startitkhwhite from '../../assets/images/startitkhwhite.svg';
+import i18n from '../../services/i18n';
+import { color, Header1 } from '../styles';
 
 export const PartnersSection = () => (
   <Flex

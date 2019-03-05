@@ -1,22 +1,32 @@
 {
+  "general": {
+    "cookie": {
+      "description": "Sütiket és egyéb technológiákat használunk, hogy személyre szabott tartalmat mutathassunk és ezzel javíthassuk a felhasználói élményt oldalunkon. Ez lehetővé teszi a forgalom figyelését és hogy megértsük a felhasználóink honnan jönnek.",
+      "button": "Elfogadás"
+    }
+  },
   "nav": {
     "about": "RÓLUNK",
     "why": "MIÉRT MI?",
-    "partners": "PARTNEREK",
+    "partners": "PARTNEREINK",
     "contact": "KAPCSOLAT"
   },
   "home": {
+    "buttontitle": "BEJELENTKEZÉS",
     "motto": {
-      "part1": "Az oktatás velünk nem csak intézmény, hanem ",
+      "part1": "Az oktatás velünk nem csak intézmény hanem ",
       "span": "közösség ",
       "part2": "is",
       "width": "779px"
     },
     "card": {
       "title": "Belépés",
-      "placeholder": "Hamarosan... ;)",
-      "passwordTitle": "Írd be a jelszavad",
-      "passwordForgot": "Elfelejtetted a jelszavad?"
+      "placeholder": "Hamarosan...",
+      "emailtitle": "Email címed",
+      "emailplaceholder": "ilovelearning@somuch.com",
+      "passwordtitle": "Írd be a jelszavad",
+      "passwordplaceholder": "*******",
+      "passwordforgot": "Elfelejtetted a jelszavad?"
     },
     "subtitle": "Tudás és inspiráció egy helyen, Cogito.",
     "button": "Iratkozz fel!"
@@ -33,7 +43,7 @@
   },
   "why": {
     "title": "Miért a Cogito?",
-    "content": "Unod már, hogy állandóan Google Driveokban keresel jegyzeteket? Végigpörgetted már az összes Facebook csoportot a vizsga előtt? Felejtsd el többé ezeket és találd meg a tantárgyaid lektorált forrásait itt a Cogiton. Tudás és inspiráció egy helyen."
+    "content": "Unod már, hogy állandóan Google Driveokban keresel jegyzeteket? Végigpörgetted már az összes Facebook csoportot a vizsga előtt? Felejtsd el többé ezeket és találd meg a tantárgyaid lektorált forrásait, itt a Cogiton. Tudás és inspiráció egy helyen."
   },
   "partners": {
     "title": "Partnereink"
@@ -54,8 +64,8 @@
     },
     "universities": {
       "title": "Egyetemeknek",
-      "content": "Amennyiben egyetemi oktatóként vagy döntéshozóként egy olyan, designjában és szemléletében fiatalos terméket keres, amellyel minőségi online oktatást folytathat, a Cogito a megfelelő termék Önnek és Intézményének. A munkát megosztva a közösség erejével levesszük az oktatók válláról a terheket megkönnyítve a munkájukat. Ha Ön is egyetemének innovátora szeretne lenni, keressen fel minket és első intézményeink között részesül kedvezményes árban!",
-      "button": "Keressen fel!"
+      "content": "Amennyiben egyetemi oktatóként vagy döntéshozóként egy olyan, designjában és szemléletében fiatalos terméket keres, amellyel minőségi online oktatást folytathat, a Cogito a megfelelő termék Önnek és Intézményének. A munkát megosztva, a közösség erejével csökkentjük az oktatók vállára nehezedő terhet, megkönnyítve a munkájukat. Ha Ön is egyetemének innovátora szeretne lenni, keressen fel minket és részesüljün kedvezményes árainkban első partner intézményeink között!",
+      "button": "Érdekel!"
     },
     "footer": {
       "email": "contact@cogito.study",

@@ -1,34 +1,47 @@
-import * as React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { captureException, init as initSentry } from '@sentry/browser';
 import { Grommet } from 'grommet';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import ErrorBoundary from 'react-error-boundary';
+import ReactGA from 'react-ga';
+import { Helmet } from 'react-helmet';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { NotificationProvider } from '../contexts/notification/NotificationContext';
+import { config, isProduction } from '../environment/config';
+import { client } from '../graphql/client';
+import { routeBuilder } from '../route/routeBuilder';
+import { Router } from '../route/Router';
+import { hotjarString } from '../scripts/hotjar';
+import { theme } from '../ui/theme';
 
-import { client } from '../services/client';
-import { theme } from '../ui-kit/theme/theme';
-import { PATH } from '../constants/path';
-import { CONFIG } from '../environment/config';
-import LandingPage from '../landing-page/LandingPage';
+const initializeGA = () => {
+  ReactGA.initialize(config.googleAnalyticsKey);
+  ReactGA.pageview(window.location.pathname + window.location.search);
+};
+
+const initializeErrorReporter = () => initSentry({ dsn: config.sentryDSN });
 
 export const App = () => {
-  console.log('ENVIRONMENT', CONFIG.ENVIRONMENT);
-  console.log('API_URL', CONFIG.API_URL);
-  console.log('REPOSITORY_URL', CONFIG.REPOSITORY_URL);
-  console.log('BRANCH', CONFIG.BRANCH);
-  console.log('PULL_REQUEST', CONFIG.PULL_REQUEST);
-  console.log('HEAD', CONFIG.HEAD);
-  console.log('COMMIT_REF', CONFIG.COMMIT_REF);
-  console.log('CONTEXT', CONFIG.CONTEXT);
-  console.log('URL', CONFIG.URL);
-  console.log('DEPLOY_URL', CONFIG.DEPLOY_URL);
-  console.log('DEPLOY_PRIME_URL', CONFIG.DEPLOY_PRIME_URL);
+  if (isProduction) {
+    initializeGA();
+    initializeErrorReporter();
+  }
 
   return (
-    <ApolloProvider client={client}>
-      <Grommet theme={theme}>
-        <Router>
-          <Route exact path={PATH.ROOT} component={LandingPage} />
-        </Router>
-      </Grommet>
-    </ApolloProvider>
+    <Grommet theme={theme} style={{ overflow: 'visible' }} full>
+      {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
+      <NotificationProvider>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            <ErrorBoundary onError={captureException}>
+              <BrowserRouter>
+                <Route path={routeBuilder.root()} component={Router} />
+              </BrowserRouter>
+            </ErrorBoundary>
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      </NotificationProvider>
+    </Grommet>
   );
 };

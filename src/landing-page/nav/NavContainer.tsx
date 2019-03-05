@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 import { Fixed, Hide } from 'rebass';
 
+import { scrollOptions } from '../../constants';
+import { english, hungarian, Language } from '../../types/Language';
 import { NavButton } from './NavButton';
 import { NavLink } from './NavLink';
 import { NavLogo } from './NavLogo';
 import { NavToolbar } from './NavToolbar';
-import { scrollOptions } from '../../constants/scrollOptions';
-import { Language, english, hungarian } from '../../types/language';
 
-import i18n from '../../services/localization/i18n';
+import i18n from '../../services/i18n';
 
 const { scroller } = Scroll;
 

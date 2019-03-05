@@ -1,4 +1,10 @@
 {
+  "general": {
+    "cookie": {
+      "description": "We use cookies and other tracking technologies to improve your browsing experience on our site, show personalized content, analyze site traffic, and understand where our audience is coming from.",
+      "button": "Accept"
+    }
+  },
   "nav": {
     "about": "ABOUT",
     "features": "FEATURES",
@@ -7,6 +13,7 @@
     "contact": "CONTACT"
   },
   "home": {
+    "buttontitle": "LOG-IN",
     "motto": {
       "part1": "Making education a ",
       "span": "community ",
@@ -16,8 +23,11 @@
     "card": {
       "title": "Login",
       "placeholder": "Coming soon...",
-      "passwordTitle": "Enter your password",
-      "passwordForgot": "Forgot your password?"
+      "emailtitle": "Enter your email address",
+      "emailplaceholder": "ilovelearning@somuch.com",
+      "passwordtitle": "Enter your password",
+      "passwordplaceholder": "*******",
+      "passwordforgot": "Forgot your password?"
     },
     "subtitle": "Your social platform for perfect notes and inspiration.",
     "button": "Subscribe!"

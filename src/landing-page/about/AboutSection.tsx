@@ -1,21 +1,21 @@
 import React from 'react';
 import { Flex, Image } from 'rebass';
 
-import { Paragraph, Header1, color, gradientText } from '../styles';
+import { color, gradientText, Header1, Paragraph } from '../styles';
 
-import i18n from '../../services/localization/i18n';
-import NotesViewHun from '../../assets/images/NotesView(HUN).png';
 import NotesViewEN from '../../assets/images/NotesView(EN).png';
-import SubjectNewsHun from '../../assets/images/SubjectNews(HUN).png';
+import NotesViewHun from '../../assets/images/NotesView(HUN).png';
 import SubjectNewsEn from '../../assets/images/SubjectNews(EN).png';
+import SubjectNewsHun from '../../assets/images/SubjectNews(HUN).png';
+import i18n from '../../services/i18n';
 
 export const AboutSection = () => (
-  <Flex flexDirection="column" pt={60} name="About">
-    <Flex flexDirection="row">
-      <Flex justifyContent="flex-end" />
-      <Flex justifyContent="flex-end">
+  <Flex flexDirection="column" name="About">
+    <Flex flexDirection="row" alignItems="flex-start" justifyContent="flex-end" className="LearnFrom">
+      <Flex alignItems="flex-end" mt={['60px', '60px', '60px', '80px', '200px']} justifyContent="flex-end">
         <Flex
           flexDirection="column"
+          alignItems="flex-end"
           justifyContent="flex-end"
           width={['100%', '100%', '100%', '97%', '95%']}
           className="dotted"
@@ -24,7 +24,7 @@ export const AboutSection = () => (
           <Flex
             flexDirection={['column-reverse', 'column-reverse', 'column-reverse', 'row']}
             alignItems="center"
-            justifyContent="flex-end"
+            justifyContent="center"
           >
             <Flex
               width={['95%', '85%', '65%', '100%']}
@@ -57,8 +57,8 @@ export const AboutSection = () => (
               <Image
                 mt={['40px', '20px', '50px', '50px', '-50px']}
                 mb={['0px', '0px', '0px', '50px', '-50px']}
-                css={['border-radius:10px 0px 0px 10px;', 'box-shadow: 0px 20px 40px rgba(71, 135, 211, 0.4);']}
-                width={['90%', '80%', '75%', '1500px', '1400px']}
+                css={['border-radius:10px 0px 0px 10px;', 'box-shadow: 0px 5px 10px rgba(71, 135, 211, 0.4);']}
+                width={['90%', '80%', '75%', '1400px', '1400px']}
                 src={i18n.language === 'hu' ? NotesViewHun : NotesViewEN}
               />
             </Flex>
@@ -67,7 +67,7 @@ export const AboutSection = () => (
       </Flex>
     </Flex>
 
-    <Flex flexDirection="row">
+    <Flex flexDirection="row" className="ConnectWith">
       <Flex justifyContent="flex-start" />
       <Flex justifyContent="flex-start" mt={['20px', '50px', '80px', '150px', '250px']}>
         <Flex
@@ -109,8 +109,8 @@ export const AboutSection = () => (
               <Image
                 mt={['40px', '20px', '50px', '50px', '-50px']}
                 mb={['0px', '0px', '0px', '50px', '-50px']}
-                css={['border-radius:0px 10px 10px 0px;', 'box-shadow: 0px 20px 40px rgba(71, 135, 211, 0.4);']}
-                width={['90%', '80%', '75%', '1500px', '1100px']}
+                css={['border-radius:0px 10px 10px 0px;', 'box-shadow: 0px 5px 10px rgba(71, 135, 211, 0.4);']}
+                width={['90%', '80%', '75%', '1300px', '1300px']}
                 src={i18n.language === 'hu' ? SubjectNewsHun : SubjectNewsEn}
               />
             </Flex>

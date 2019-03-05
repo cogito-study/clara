@@ -2,30 +2,27 @@
 # unless otherwise overridden by more specific contexts.
 [build]
 publish = "build"
-command = "yarn build:netlify"
 
 # Production context: all deploys from the Production branch set in your site's
 # deploy settings will inherit these settings.
 [context.production.environment]
+  command = "npm run build"
   REACT_APP_ENVIRONMENT = "production"
-  REACT_APP_API_URL = "https://api.cogito.study/graphql"
-  REACT_APP_SOME_KEY = "prod_abcd1234"
+  REACT_APP_API_URL = "https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-prod"
 
 # Deploy Preview context: all deploys resulting from a pull/merge request will
 # inherit these settings.
 [context.deploy-preview.environment]
+  command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "review"
-  REACT_APP_API_URL="https://staging.api.cogito.study/graphql"
-  REACT_APP_SOME_KEY = "review_abcd1234"
+  REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-staging"
 
 # Specific branch context: all deploys from this specific branch will inherit
 # these settings.
 [context.development.environment]
+  command = "npm run build:staging"
   REACT_APP_ENVIRONMENT = "staging"
-  REACT_APP_API_URL="https://staging.api.cogito.study/graphql"
-  REACT_APP_SOME_KEY = "staging_abcd1234"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  REACT_APP_API_URL="https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_S3_BUCKET="cogito-images-staging"
