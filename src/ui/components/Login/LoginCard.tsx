@@ -2,7 +2,6 @@ import { Form, Formik } from 'formik';
 import { Box, Button, FormField, Heading, Text, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
-
 import { routeBuilder } from '../../../route/routeBuilder';
 import { Link } from '../Link';
 import { Spinner } from '../Spinner';
@@ -11,7 +10,7 @@ interface LoginCardProps {
   onLogin: (email: string, password: string, resetForm: () => void) => void;
 }
 
-// tslint:disable:cyclomatic-complexity
+/* eslint-disable complexity */
 export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
   <Box
     width="large"

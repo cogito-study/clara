@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
-
+import { isProduction } from '../environment/config';
 import { LoadingPage } from '../pages/LoadingPage';
 import { routeBuilder } from '../route/routeBuilder';
 import { driftString } from '../scripts/drift';
@@ -13,8 +13,6 @@ const SubjectPage = lazy(() => import('../pages/SubjectPage'));
 const NotePage = lazy(() => import('../pages/NotePage'));
 const LandingPage = lazy(() => import('../landing-page/LandingPage'));
 const GrommetComponents = lazy(() => import('../ui/GrommetComponents'));
-
-import { isProduction } from '../environment/config';
 
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
   const {

@@ -31,6 +31,7 @@ export const PopUpCard: FunctionComponent<BoxProps & PopUpCardProps> = ({
     {details && <Paragraph margin={{ vertical: 'small' }}>{details}</Paragraph>}
     <Box direction="row" gap="medium" justify="end">
       <Button color="primary_light_1" label={cancelButton} onClick={onCancel} />
+
       <Button primary label={acceptButton} onClick={onAccept} />
     </Box>
   </Box>

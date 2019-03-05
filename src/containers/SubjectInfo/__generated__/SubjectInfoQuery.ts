@@ -1,19 +1,19 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { UserRole } from "./../../../../__generated__/globalTypes";
+import { UserRole } from './../../../__generated__/globalTypes';
 
 // ====================================================
 // GraphQL query operation: SubjectInfoQuery
 // ====================================================
 
 export interface SubjectInfoQuery_subject_institute {
-  __typename: "Institute";
+  __typename: 'Institute';
   name: string;
 }
 
 export interface SubjectInfoQuery_subject_faculty {
-  __typename: "User";
+  __typename: 'User';
   firstName: string | null;
   lastName: string | null;
   role: UserRole;
@@ -22,7 +22,7 @@ export interface SubjectInfoQuery_subject_faculty {
 }
 
 export interface SubjectInfoQuery_subject {
-  __typename: "Subject";
+  __typename: 'Subject';
   institute: SubjectInfoQuery_subject_institute | null;
   description: string;
   faculty: SubjectInfoQuery_subject_faculty[] | null;

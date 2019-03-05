@@ -7,7 +7,6 @@ import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
-
 import { NotificationProvider } from '../contexts/notification/NotificationContext';
 import { config, isProduction } from '../environment/config';
 import { client } from '../graphql/client';

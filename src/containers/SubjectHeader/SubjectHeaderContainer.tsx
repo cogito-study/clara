@@ -2,14 +2,13 @@ import { Box } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { useApolloClient, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-
 import { UserContext } from '../../contexts/user/UserContext';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { authService } from '../../services/authService';
 import { SubjectRouteParams } from '../../types/RouteParams';
 import { SubjectHeader } from '../../ui/components/SubjectHeader';
-import { SubjectHeaderQuery, SubjectHeaderQueryVariables } from './__generated__/SubjectHeaderQuery';
 import { SUBJECT_HEADER_QUERY } from './SubjectHeaderQuery';
+import { SubjectHeaderQuery, SubjectHeaderQueryVariables } from './__generated__/SubjectHeaderQuery';
 
 export const SubjectHeaderContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = (props) => {
   const { subjectCode } = props.match.params;

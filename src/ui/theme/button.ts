@@ -1,5 +1,7 @@
 import { colors } from './global';
 
+/* eslint-disable complexity */
+
 export const button = {
   border: {
     radius: '10px',
@@ -47,8 +49,4 @@ export const button = {
       ${extraStylesHover}
     `;
   },
-
-  // extend: (props) => `
-  //   color: ${props.primary ? 'white' : props.color};
-  //   `,
 };

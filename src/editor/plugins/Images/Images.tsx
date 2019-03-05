@@ -8,6 +8,9 @@ import { v4 as uuid } from 'uuid';
 import { NodeType } from '../../enums/NodeType';
 import { extensions } from './image-extensions';
 
+/* eslint-disable */
+// TODO: Throw out this whole shit...
+
 const Image = styled.img`
   display: block;
   max-height: 300px;

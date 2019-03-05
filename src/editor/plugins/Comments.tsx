@@ -4,6 +4,8 @@ import { Editor, Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
 import { MarkType } from '../enums/MarkType';
 
+/* eslint-disable */
+
 const CommentContainer = styled.span`
   background-color: rgba(71, 135, 211, 0.7);
   color: white;

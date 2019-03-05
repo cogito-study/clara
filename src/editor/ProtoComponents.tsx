@@ -8,6 +8,8 @@ import { onClickImage, uploadFileFromFS } from './plugins/Images/Images';
 import { onClickLink } from './plugins/Links';
 import { onClickBlock, onClickMark } from './plugins/utils';
 
+/* eslint-disable */
+
 export const HoverContainer = ({ top, left, children, shown, innerRef }) => {
   const root = window.document.getElementById('root');
   return ReactDOM.createPortal(

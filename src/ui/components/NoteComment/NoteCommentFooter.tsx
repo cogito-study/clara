@@ -1,6 +1,5 @@
 import { Box, Button, Image } from 'grommet';
 import React, { Fragment, FunctionComponent } from 'react';
-
 import trash from '../../../assets/images/Trash.svg';
 import upvote from '../../../assets/images/Upvote.svg';
 import upvoted from '../../../assets/images/Upvoted.svg';
@@ -13,7 +12,7 @@ interface ExistingCommentFooterProps {
   isLoading?: boolean;
 }
 
-// tslint:disable
+/* eslint-disable complexity */
 const ExistingCommentFooter: FunctionComponent<ExistingCommentFooterProps> = ({
   isUpvoted,
   onVote,

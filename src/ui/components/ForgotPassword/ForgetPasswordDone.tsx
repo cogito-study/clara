@@ -1,4 +1,4 @@
-import { Box, Image, Heading, Paragraph } from 'grommet';
+import { Box, Heading, Image, Paragraph } from 'grommet';
 import React from 'react';
 import mail from '../../../assets/images/Mail.svg';
 

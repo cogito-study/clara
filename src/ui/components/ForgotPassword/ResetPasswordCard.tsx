@@ -9,6 +9,8 @@ export interface ResetFormProps {
   onReset: (password: string, resetForm: () => void) => void;
 }
 
+/* eslint-disable complexity */
+
 export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }) => (
   <Box
     width="large"
@@ -46,7 +48,6 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
       >
         {(props) => {
           const { values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur } = props;
-          // tslint:disable:cyclomatic-complexity
           return (
             <Box fill>
               <Form>

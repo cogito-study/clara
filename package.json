@@ -58,7 +58,7 @@
     "eject": "react-scripts eject",
     "postinstall": "patch-package",
     "lint:css": "stylelint './src/**/*.tsx'",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json"
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "devDependencies": {
     "@types/i18next": "^12.1.0",
@@ -76,7 +76,13 @@
     "@types/slate-react": "^0.20.3",
     "@types/styled-components": "^4.1.4",
     "@types/yup": "^0.26.4",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
     "date-fns": "^2.0.0-alpha.26",
+    "eslint": "^5.15.1",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-graphql": "^3.0.3",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.4.0",
     "patch-package": "^5.1.1",
     "prettier": "^1.15.3",
     "react-scroll": "^1.7.10",
@@ -85,11 +91,7 @@
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.1",
-    "tslint": "^5.12.0",
-    "tslint-config-palmerhq": "^1.0.2",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.3.3333"
   },
   "browserslist": [
     ">0.2%",

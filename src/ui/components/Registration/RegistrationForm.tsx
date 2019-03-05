@@ -2,14 +2,13 @@ import { Form, Formik } from 'formik';
 import { Box, Button, CheckBox, FormField, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
-
 import { Spinner } from '../Spinner';
 
 export interface RegistrationFormProps {
   onRegistration: (password: string, resetForm: () => void) => void;
 }
 
-// tslint:disable:cyclomatic-complexity
+/* eslint-disable complexity */
 
 export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onRegistration }) => {
   return (

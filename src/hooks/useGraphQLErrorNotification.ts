@@ -1,6 +1,5 @@
 import { ApolloError } from 'apollo-client';
 import { useContext } from 'react';
-
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 
 export const useGraphQLErrorNotification = () => {

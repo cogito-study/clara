@@ -1,6 +1,5 @@
 import { Anchor, Box, BoxProps, Heading, Image, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
-
 import profile from '../../../assets/images/Profile.svg';
 
 export interface TeacherInfoProps {
