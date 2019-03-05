@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'react-apollo-hooks';
 import { UserContext } from '../../contexts/user/UserContext';
 import { dateService } from '../../services/dateService';
 import { NoteComment } from '../../ui/components';
+import { NoteCommentPlaceholder } from '../../ui/components/NoteComment/NoteCommentPlaceholder';
 import { COMMENT_QUERY } from './CommentQuery';
 import { UNVOTE_COMMENT_MUTATION } from './UnvoteCommentMutation';
 import { UPVOTE_COMMENT_MUTATION } from './UpvoteCommentMutation';
@@ -34,10 +35,13 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
   const commentID = selectedCommentID ? selectedCommentID.toString() : '';
   const loggedInUser = useContext(UserContext);
   const [newCommentText, setNewCommentText] = useState('');
-  const { data: commentQueryData } = useQuery<CommentQuery, CommentQueryVariables>(COMMENT_QUERY, {
-    variables: { commentID },
-    skip: !commentID,
-  });
+  const { data: commentQueryData, loading: commentLoading } = useQuery<CommentQuery, CommentQueryVariables>(
+    COMMENT_QUERY,
+    {
+      variables: { commentID },
+      skip: !commentID,
+    },
+  );
 
   const upvoteComment = useMutation<UpvoteCommentMutation, UpvoteCommentMutationVariables>(UPVOTE_COMMENT_MUTATION, {
     refetchQueries: [{ query: COMMENT_QUERY, variables: { commentID } }],
@@ -83,6 +87,7 @@ export const NoteCommentContainer: FunctionComponent<Props> = ({
 
   return (
     <Box margin={{ top: `${marginTop}px` }} animation="slideLeft">
+      {commentLoading && <NoteCommentPlaceholder />}
       {shouldDisplayNewComment
         ? renderNewCommentBox()
         : commentQueryData &&

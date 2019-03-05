@@ -1,5 +1,5 @@
 import { Box, Button, Image, Paragraph, ResponsiveContext } from 'grommet';
-import React, { FunctionComponent, Suspense, useContext, useRef, useState } from 'react';
+import React, { FunctionComponent, useContext, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 import CloseIcon from '../../assets/images/CloseIcon.svg';
@@ -7,10 +7,10 @@ import CommentIcon from '../../assets/images/CommentIcon.svg';
 import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { UserContext } from '../../contexts/user/UserContext';
 import Editor, { CommentLocation } from '../../editor/Editor';
+import { EditorPlaceholder } from '../../editor/plugins/EditorPlaceholder';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
 import { NoteRouteParams } from '../../types/RouteParams';
-import { Spinner } from '../../ui/components';
 import { NoteCommentContainer } from '../NoteComment/NoteCommentContainer';
 import { DELETE_COMMENT_MUTATION } from './DeleteCommentMutation';
 import { NOTE_QUERY } from './NoteQuery';
@@ -52,16 +52,22 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
 
   const commentID = selectedCommentID ? selectedCommentID.toString() : '';
 
-  const { data: noteQueryData } = useQuery<NoteQuery, NoteQueryVariables>(NOTE_QUERY, { variables: { noteID } });
+  const { data: noteQueryData, loading: noteLoading } = useQuery<NoteQuery, NoteQueryVariables>(NOTE_QUERY, {
+    variables: { noteID },
+  });
+
   const submitComment = useMutation<SubmitCommentMutation, SubmitCommentMutationVariables>(SUBMIT_COMMENT_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
+
   const deleteComment = useMutation<DeleteCommentMutation, DeleteCommentMutationVariables>(DELETE_COMMENT_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
+
   const updateNote = useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(UPDATE_NOTE_MUTATION, {
     refetchQueries: [{ query: NOTE_QUERY, variables: { noteID } }],
   });
+
   const uploadImage = useMutation<UploadImageMutation, UploadImageMutationVariables>(UPLOAD_IMAGE_MUTATION, {});
 
   useDocumentTitle(noteQueryData && noteQueryData.note ? noteQueryData.note.title : '');
@@ -129,12 +135,6 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     </Box>
   );
 
-  const renderCommentLoading = () => (
-    <Box margin={{ top: `${calculateRelativeMarginTop(commentBoxSpacerRef, commentMarginTop)}px` }}>
-      <Spinner primary />
-    </Box>
-  );
-
   return (
     <Box justify="center" alignContent="center" margin="none" align="start" direction="row">
       {screenSize === 'small' ? (
@@ -160,6 +160,7 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
         </Box>
       )}
       <Box width="800px" justify="center">
+        {noteLoading && <EditorPlaceholder />}
         {noteQueryData && noteQueryData.note && renderEditor(noteQueryData.note)}
       </Box>
       {screenSize === 'small' ? (
@@ -181,17 +182,15 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
           </Box>
           <Box justify="center" align="start" pad="none">
             <div ref={commentBoxSpacerRef}>
-              <Suspense fallback={renderCommentLoading()}>
-                <NoteCommentContainer
-                  marginTop={calculateRelativeMarginTop(commentBoxSpacerRef, commentMarginTop)}
-                  selectedCommentID={selectedCommentID}
-                  canShowComments={canShowUI}
-                  shouldDisplayNewComment={shouldDisplayNewComment}
-                  onCommentDelete={onCommentDelete}
-                  onNewCommentCancel={() => setShouldDisplayNewComment(false)}
-                  onNewCommentDone={onCreateCommentDone}
-                />
-              </Suspense>
+              <NoteCommentContainer
+                marginTop={calculateRelativeMarginTop(commentBoxSpacerRef, commentMarginTop)}
+                selectedCommentID={selectedCommentID}
+                canShowComments={canShowUI}
+                shouldDisplayNewComment={shouldDisplayNewComment}
+                onCommentDelete={onCommentDelete}
+                onNewCommentCancel={() => setShouldDisplayNewComment(false)}
+                onNewCommentDone={onCreateCommentDone}
+              />
             </div>
           </Box>
         </Box>

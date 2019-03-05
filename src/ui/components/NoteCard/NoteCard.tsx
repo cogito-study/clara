@@ -1,14 +1,11 @@
 import { Box, Heading, Paragraph, ResponsiveContext, Stack } from 'grommet';
 import React, { CSSProperties, Fragment, FunctionComponent, useContext } from 'react';
-
-import { NoteCardPlaceholder } from './NoteCardPlaceholder';
 import { ResponsiveNoteCard } from './ResponsiveNoteCard';
 
 interface MobileNoteCardProps {
   noteNumber: number;
   title: string;
   dateLabel?: string;
-  isLoading?: boolean;
 }
 
 interface NoteCardProps extends MobileNoteCardProps {
@@ -23,8 +20,8 @@ const truncateLineStyle = (numberOfLines: number): CSSProperties => ({
   textOverflow: 'ellipsis',
 });
 
-const NoteCardWrapper: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = {
-  Mobile: ({ isLoading, ...rest }) => (
+const NoteCard: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = {
+  Mobile: ({ title, dateLabel, noteNumber }) => (
     <Box
       width="100%"
       align="start"
@@ -37,31 +34,6 @@ const NoteCardWrapper: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = 
       gap="medium"
       elevation="medium"
     >
-      {isLoading ? <NoteCardPlaceholder.Mobile /> : <NoteCard.Mobile {...rest} />}
-    </Box>
-  ),
-
-  Desktop: ({ isLoading, ...rest }) => (
-    <Box
-      align="center"
-      background="white"
-      elevation="large"
-      gap="small"
-      height="270px"
-      justify="between"
-      margin="small"
-      pad="medium"
-      round="medium"
-      width="280px"
-    >
-      {isLoading ? <NoteCardPlaceholder.Desktop /> : <NoteCard.Desktop {...rest} />}
-    </Box>
-  ),
-};
-
-const NoteCard: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = {
-  Mobile: ({ title, dateLabel, noteNumber }) => (
-    <Fragment>
       <Box fill direction="column" margin="none" align="start" gap="xsmall">
         <Box fill="horizontal" margin="none">
           <Stack anchor="right" guidingChild="last">
@@ -84,11 +56,22 @@ const NoteCard: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = {
           {dateLabel}
         </Paragraph>
       )}
-    </Fragment>
+    </Box>
   ),
 
   Desktop: ({ title, dateLabel, noteNumber, abstract }) => (
-    <Fragment>
+    <Box
+      align="center"
+      background="white"
+      elevation="large"
+      gap="small"
+      height="270px"
+      justify="between"
+      margin="small"
+      pad="medium"
+      round="medium"
+      width="280px"
+    >
       <Box fill direction="column" align="start" justify="start" gap="xsmall">
         <Box fill="horizontal">
           <Stack anchor="top-right" margin={{ top: '12px', horizontal: 'none' }} guidingChild="last">
@@ -109,22 +92,18 @@ const NoteCard: ResponsiveNoteCard<MobileNoteCardProps, NoteCardProps> = {
           {dateLabel}
         </Paragraph>
       )}
-    </Fragment>
+    </Box>
   ),
 };
 
-const NoteCardContainer: FunctionComponent<NoteCardProps> = ({ abstract, isLoading, ...rest }) => {
+const NoteCardWrapper: FunctionComponent<NoteCardProps> = ({ abstract, ...rest }) => {
   const screenSize = useContext(ResponsiveContext);
 
   return (
     <Fragment>
-      {screenSize === 'small' ? (
-        <NoteCardWrapper.Mobile isLoading={isLoading} {...rest} />
-      ) : (
-        <NoteCardWrapper.Desktop isLoading={isLoading} abstract={abstract} {...rest} />
-      )}
+      {screenSize === 'small' ? <NoteCard.Mobile {...rest} /> : <NoteCard.Desktop abstract={abstract} {...rest} />}
     </Fragment>
   );
 };
 
-export { NoteCardContainer as NoteCard };
+export { NoteCardWrapper as NoteCard };

@@ -272,9 +272,12 @@ export default class Editor extends PureComponent<Props, State> {
     const { title, canShowComments } = this.props;
 
     return (
-      <React.Fragment>
+      <Fragment>
         {/* TODO:magyar */}
-        <Prompt when={this.state.edited} message="Are you sure?" />
+        <Prompt
+          when={this.state.edited}
+          message="Biztosan szeretnéd elhagyni az oldalt? Mentetlen változtatásaid vannak."
+        />
         <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
           <div style={{ display: 'flex' }}>
             <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
@@ -304,7 +307,7 @@ export default class Editor extends PureComponent<Props, State> {
             />
           </Box>
         </Box>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
