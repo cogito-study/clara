@@ -10,6 +10,7 @@ interface ExistingCommentFooterProps {
   isUpvoted?: boolean;
   onVote?: (isUpvoted: boolean) => void;
   onDelete?: () => void;
+  isLoading?: boolean;
 }
 
 // tslint:disable
@@ -18,31 +19,34 @@ const ExistingCommentFooter: FunctionComponent<ExistingCommentFooterProps> = ({
   onVote,
   onDelete,
   upvoteCounts,
-}) => (
-  <Box align="stretch" justify="end" direction="row" pad="none" gap="small">
-    {onDelete && (
-      <Button
-        reverse
-        plain={false}
-        color="error"
-        label="Törlés"
-        onClick={onDelete}
-        icon={<Image src={trash} width="16px" />}
-      />
-    )}
-    {isUpvoted !== undefined && upvoteCounts !== undefined && onVote && (
-      <Button
-        reverse
-        plain={false}
-        active={isUpvoted}
-        color="primary"
-        icon={<Image src={isUpvoted ? upvoted : upvote} width="16px" />}
-        label={upvoteCounts === 0 ? true : upvoteCounts} // temporary workaround to handle 0 not a falsy value
-        onClick={() => onVote(isUpvoted)}
-      />
-    )}
-  </Box>
-);
+  isLoading,
+}) => {
+  return (
+    <Box align="stretch" justify="end" direction="row" pad="none" gap="small">
+      {onDelete && (
+        <Button
+          reverse
+          plain={false}
+          color="error"
+          label="Törlés"
+          onClick={onDelete}
+          icon={<Image src={trash} width="16px" />}
+        />
+      )}
+      {isUpvoted !== undefined && upvoteCounts !== undefined && onVote && (
+        <Button
+          reverse
+          plain={false}
+          active={isUpvoted}
+          color="primary"
+          icon={<Image src={isUpvoted ? upvoted : upvote} width="16px" />}
+          label={isLoading ? '--' : upvoteCounts === 0 ? true : upvoteCounts} // temporary workaround to handle 0 not a falsy value
+          onClick={() => onVote(isUpvoted)}
+        />
+      )}
+    </Box>
+  );
+};
 
 interface NewCommentFooterProps {
   onNewCommentCancel?: () => void;

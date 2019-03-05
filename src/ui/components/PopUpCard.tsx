@@ -1,4 +1,4 @@
-import { Box, BoxProps, Heading, Button, Paragraph } from 'grommet';
+import { Box, BoxProps, Button, Heading, Paragraph } from 'grommet';
 import React, { FunctionComponent } from 'react';
 
 interface PopUpCardProps {
