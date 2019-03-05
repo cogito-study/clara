@@ -6,15 +6,17 @@ export interface NoteCommentHeaderProps {
   date?: string;
 }
 
-export const NoteCommentHeader: FunctionComponent<NoteCommentHeaderProps> = ({ authorName, date }) => (
-  <Box direction="column" align="start" justify="start">
-    <Heading level="4" margin="none">
-      {authorName}
-    </Heading>
-    {date && (
-      <Text color="gray" size="xsmall" margin="none">
-        {date}
-      </Text>
-    )}
-  </Box>
-);
+export const NoteCommentHeader: FunctionComponent<NoteCommentHeaderProps> = ({ authorName, date }) => {
+  return (
+    <Box direction="column" align="start" justify="start">
+      <Heading level="4" margin="none">
+        {authorName}
+      </Heading>
+      {date && (
+        <Text color="gray" size="xsmall" margin="none">
+          {date}
+        </Text>
+      )}
+    </Box>
+  );
+};

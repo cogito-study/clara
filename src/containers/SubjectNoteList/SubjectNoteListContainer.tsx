@@ -52,7 +52,6 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
             title={note.title}
             abstract={note.description ? note.description : ''}
             dateLabel={renderDateLabel(note.createdAt, note.updatedAt)}
-            margin="small"
           />
         </Link>
       </Tilt>

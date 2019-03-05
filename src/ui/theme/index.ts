@@ -4,10 +4,10 @@ import { checkBox } from './checkBox';
 import { elevation } from './elevation';
 import { formField } from './formField';
 import { breakpoints, colors, control, deviceBreakpoints, font, opacity } from './global';
+import { heading } from './heading';
 import { input } from './input';
 import { paragraph } from './paragraph';
 import { tab, tabs } from './tabs';
-import { heading } from './heading';
 
 export const theme = {
   global: {

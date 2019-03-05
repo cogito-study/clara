@@ -1,43 +1,38 @@
 import { Box } from 'grommet';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { NotificationContext } from '../../contexts/notification/NotificationContext';
 import { SubjectRouteParams } from '../../types/RouteParams';
-import { InfoCard, InfoCardTop } from '../../ui/components';
+import { GeneralInfoCard, SubjectInfoCard } from '../../ui/components';
+import {
+  GeneralSubjectInfoQuery,
+  GeneralSubjectInfoQuery_subject,
+  GeneralSubjectInfoQueryVariables,
+} from './__generated__/GeneralSubjectInfoQuery';
 import {
   SubjectInfoQuery,
   SubjectInfoQuery_subject,
   SubjectInfoQueryVariables,
 } from './__generated__/SubjectInfoQuery';
+import { GENERAL_SUBJECT_INFO_QUERY } from './GeneralSubjectInfoQuery';
 import { SUBJECT_INFO_QUERY } from './SubjectInfoQuery';
-import {
-  SubjectInfoTopQuery,
-  SubjectInfoTopQuery_subject,
-  SubjectInfoTopQueryVariables,
-} from './__generated__/SubjectInfoTopQuery';
-import { SUBJECT_INFO_TOP_QUERY } from './SubjectInfoTopQuery';
 
 // tslint:disable:cyclomatic-complexity
 
 export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = ({ match }) => {
   const { subjectCode } = match.params;
-  const { showNotification } = useContext(NotificationContext);
-  const { data: infoData, errors: infoError } = useQuery<SubjectInfoQuery, SubjectInfoQueryVariables>(
-    SUBJECT_INFO_QUERY,
-    {
-      variables: { subjectCode },
-    },
-  );
-  const { data: infoTopData, errors: infoTopError } = useQuery<SubjectInfoTopQuery, SubjectInfoTopQueryVariables>(
-    SUBJECT_INFO_TOP_QUERY,
-    {
-      variables: { subjectCode },
-    },
+
+  const { data: generalInfoData } = useQuery<GeneralSubjectInfoQuery, GeneralSubjectInfoQueryVariables>(
+    GENERAL_SUBJECT_INFO_QUERY,
+    { variables: { subjectCode } },
   );
 
-  const renderInfoTop = ({ description, faculty, institute }: SubjectInfoTopQuery_subject) => {
+  const { data: subjectInfoData } = useQuery<SubjectInfoQuery, SubjectInfoQueryVariables>(SUBJECT_INFO_QUERY, {
+    variables: { subjectCode },
+  });
+
+  const renderSubjectInfos = ({ description, faculty, institute }: SubjectInfoQuery_subject) => {
     const teacherInfos = faculty
       ? faculty.map(({ firstName, lastName, role, phone, email }) => ({
           name: `${firstName!} ${lastName!}`,
@@ -46,8 +41,9 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
           email: email,
         }))
       : [];
+
     return (
-      <InfoCardTop
+      <SubjectInfoCard
         institute={institute!.name}
         neptun={subjectCode}
         description={description}
@@ -56,20 +52,17 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
     );
   };
 
-  const renderInfos = ({ info }: SubjectInfoQuery_subject) =>
+  const renderGeneralInfos = ({ info }: GeneralSubjectInfoQuery_subject) =>
     info
       ? info.map(({ id, title, subtitle, text }) => (
-          <InfoCard key={id} title={title} subtitle={subtitle} content={text} />
+          <GeneralInfoCard key={id} title={title} subtitle={subtitle} content={text} />
         ))
       : undefined;
 
   return (
     <Box background="light" fill="vertical" align="center" gap="medium" pad="medium" margin="medium">
-      {infoTopError && showNotification(infoTopError[0].message, 'error')}
-      {infoError && showNotification(infoError[0].message, 'error')}
-
-      {infoTopData && infoTopData.subject && renderInfoTop(infoTopData.subject)}
-      {infoData && infoData.subject && renderInfos(infoData.subject)}
+      {subjectInfoData && subjectInfoData.subject && renderSubjectInfos(subjectInfoData.subject)}
+      {generalInfoData && generalInfoData.subject && renderGeneralInfos(generalInfoData.subject)}
     </Box>
   );
 };

@@ -1,17 +1,20 @@
 import { Box } from 'grommet';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 
 import { NoteCommentContent, NoteCommentContentProps } from './NoteCommentContent';
 import { NoteCommentFooter, NoteCommentFooterProps } from './NoteCommentFooter';
 import { NoteCommentHeader, NoteCommentHeaderProps } from './NoteCommentHeader';
-
-export type NoteCommentProps = NoteCommentHeaderProps & NoteCommentContentProps & NoteCommentFooterProps;
+import { NoteCommentPlaceholder } from './NoteCommentPlaceholder';
+export type NoteCommentProps = NoteCommentHeaderProps &
+  NoteCommentContentProps &
+  NoteCommentFooterProps & { isLoading?: boolean };
 
 export const NoteComment: FunctionComponent<NoteCommentProps> = ({
   authorName,
   date,
   paragraph,
   onNewCommentChange,
+  isLoading,
   ...rest
 }) => {
   return (
@@ -25,8 +28,14 @@ export const NoteComment: FunctionComponent<NoteCommentProps> = ({
       pad="medium"
       gap="small"
     >
-      <NoteCommentHeader authorName={authorName} date={date} />
-      <NoteCommentContent paragraph={paragraph} onNewCommentChange={onNewCommentChange} />
+      {isLoading ? (
+        <NoteCommentPlaceholder />
+      ) : (
+        <Fragment>
+          <NoteCommentHeader authorName={authorName} date={date} />
+          <NoteCommentContent paragraph={paragraph} onNewCommentChange={onNewCommentChange} />
+        </Fragment>
+      )}
       <NoteCommentFooter {...rest} />
     </Box>
   );

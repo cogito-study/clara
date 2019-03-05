@@ -1,23 +1,23 @@
-import { Box, Button, Grommet, TextInput, FormField } from 'grommet';
+import { Box, Button, FormField, Grommet, TextInput } from 'grommet';
 import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from 'react-router';
 import {
   Footer,
-  InfoCard,
-  InfoCardTop,
+  GeneralInfoCard,
   NoteCard,
   NoteComment,
   RegistrationCard,
+  SubjectInfoCard,
   TeacherInfo,
   TeacherInfoProps,
 } from './components';
 
 import { NotificationContext } from '../contexts/notification/NotificationContext';
 import { theme } from '../ui/theme';
-import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
 import { EmailSentFeedbackCard } from './components/ForgotPassword/FeedbackCard';
 import { ExpiredFeedbackCard } from './components/ForgotPassword/FeedbackCard';
 import { ResetDoneFeedbackCard } from './components/ForgotPassword/FeedbackCard';
+import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
 
 import { LoginCard } from './components/Login/LoginCard';
 import { PopUpCard } from './components/PopUpCard';
@@ -85,11 +85,13 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             showNotification('There is an info with multiple lines let us see how this looks like', 'info')
           }
         />
+
         <Button primary label="Primary Button" onClick={() => {}} />
         <Button color="primary" label="Default blue Button" onClick={() => {}} />
         <Button color="error" label="Default red Button" onClick={() => {}} />
         <Button color="success" label="Default green Button" onClick={() => {}} />
         <Button plain label="Plain Button" onClick={() => alert('Rakatintottal a gombra!')} />
+
         <NoteComment
           authorName="Mate Papp"
           date="12 minutes ago"
@@ -152,7 +154,7 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
               title={noteCardTitle}
               abstract={noteCardAbstracts[number % noteCardAbstracts.length]}
               dateLabel={new Date().toLocaleString()}
-              margin="small"
+              isLoading={false}
             />
           ))}
         </Box>
@@ -163,14 +165,14 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
             phone={teacherInfoPhone}
             email={teacherInfoEmail}
           />
-          <InfoCardTop
+          <SubjectInfoCard
             institute={infoCardTopInstitute}
             neptun={infoCardTopNeptun}
             description={infoCardTopDescription}
             teacherInfos={[infoCardTeacherInfo, infoCardTeacherInfo, infoCardTeacherInfo]}
           />
-          <InfoCard title={infoCardTitle} subtitle={infoCardSubtitle} content={infoCardContent} />
-          <InfoCard title={infoCardTitle} content={infoCardContent} />
+          <GeneralInfoCard title={infoCardTitle} subtitle={infoCardSubtitle} content={infoCardContent} />
+          <GeneralInfoCard title={infoCardTitle} content={infoCardContent} />
         </Box>
         <Footer />
       </Box>
