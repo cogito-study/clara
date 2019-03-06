@@ -8,7 +8,7 @@ publish = "build"
 [context.production.environment]
   command = "npm run build"
   REACT_APP_ENVIRONMENT = "production"
-  REACT_APP_API_URL = "https://cogito-graphql-staging.herokuapp.com/"
+  REACT_APP_API_URL = "https://cogito-graphql-prod.herokuapp.com/"
   REACT_APP_S3_BUCKET="cogito-images-prod"
 
 # Deploy Preview context: all deploys resulting from a pull/merge request will
