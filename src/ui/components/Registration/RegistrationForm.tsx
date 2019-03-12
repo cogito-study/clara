@@ -3,7 +3,6 @@ import { Box, Button, CheckBox, FormField, TextInput, Paragraph, Anchor } from '
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
 import { Spinner } from '../Spinner';
-
 import { config } from '../../../environment/config';
 
 export interface RegistrationFormProps {
@@ -11,10 +10,11 @@ export interface RegistrationFormProps {
 }
 
 /* eslint-disable complexity */
-
 export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onRegistration }) => {
   return (
     <Formik
+      validateOnChange={false}
+      validateOnBlur={false}
       initialValues={{ password: '', passwordConfirm: '', legalAccepted: false }}
       onSubmit={({ password }, { resetForm }) => onRegistration(password, resetForm)}
       validationSchema={Yup.object({
@@ -27,9 +27,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
         legalAccepted: Yup.boolean().oneOf([true]),
       })}
     >
-      {(props) => {
-        const { values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur } = props;
-
+      {({ values, touched, errors, isSubmitting, isValidating, handleChange, handleBlur }) => {
         return (
           <Box fill>
             <Form>
@@ -80,13 +78,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
                 {isSubmitting ? (
                   <Spinner primary />
                 ) : (
-                  <Button
-                    primary
-                    type="submit"
-                    disabled={!isValid || isValidating}
-                    label="Regisztráció"
-                    margin="small"
-                  />
+                  <Button primary type="submit" disabled={isValidating} label="Regisztráció" margin="small" />
                 )}
               </Box>
             </Form>

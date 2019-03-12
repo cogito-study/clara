@@ -24,7 +24,4 @@
   "javascript.format.enable": false,
   "tslint.enable": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
 }
