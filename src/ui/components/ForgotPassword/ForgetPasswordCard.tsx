@@ -26,13 +26,15 @@ export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({
 
     <Box fill="horizontal" pad="small" align="center">
       <Formik
+        validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{ email: '' }}
         onSubmit={({ email }, { resetForm }) => onForgotPassword(email, resetForm)}
         validationSchema={Yup.object({
           email: Yup.string().email('Az e-mail cím formátuma nem megfelelő'),
         })}
       >
-        {({ values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur }) => {
+        {({ values, touched, errors, isSubmitting, isValidating, handleChange, handleBlur }) => {
           return (
             <Box fill align="center">
               <Form>
@@ -40,23 +42,22 @@ export const ForgotPasswordCard: FunctionComponent<ForgotPasswordCardProps> = ({
                   <Box fill="horizontal" margin="small">
                     <FormField
                       label="Email"
-                      htmlFor="email"
+                      onBlur={handleBlur}
                       error={errors.email && touched.email ? errors.email : undefined}
                     >
                       <TextInput
-                        id="email"
+                        name="email"
                         type="email"
                         placeholder="hallgato@egyetem.hu"
                         value={values.email}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                       />
                     </FormField>
                   </Box>
                   <Button
                     primary
                     type="submit"
-                    disabled={!isValid || isValidating || isSubmitting}
+                    disabled={isValidating || isSubmitting}
                     label="E-mail küldése"
                     margin="small"
                   />

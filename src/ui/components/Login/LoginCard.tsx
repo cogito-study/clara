@@ -28,6 +28,8 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
     </Heading>
     <Box margin={{ top: 'small' }} fill align="center">
       <Formik
+        validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{ email: '', password: '' }}
         onSubmit={({ email, password }, { resetForm }) => {
           onLogin(email, password, resetForm);
@@ -37,7 +39,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
           password: Yup.string().required('Jelszó megadása kötelező'),
         })}
       >
-        {({ values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur }) => {
+        {({ values, touched, errors, isSubmitting, isValidating, handleChange, handleBlur }) => {
           return (
             <Box fill>
               <Form>
@@ -45,16 +47,15 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
                   <Box fill="horizontal" margin="none">
                     <FormField
                       label="Email"
-                      htmlFor="email"
+                      onBlur={handleBlur}
                       error={errors.email && touched.email ? errors.email : undefined}
                     >
                       <TextInput
-                        id="email"
+                        name="email"
                         type="email"
                         placeholder="hallgato@egyetem.hu"
                         value={values.email}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                       />
                     </FormField>
                   </Box>
@@ -62,16 +63,15 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
                   <Box fill="horizontal" margin="none">
                     <FormField
                       label="Jelszó"
-                      htmlFor="password"
+                      onBlur={handleBlur}
                       error={errors.password && touched.password ? errors.password : undefined}
                     >
                       <TextInput
-                        id="password"
+                        name="password"
                         type="password"
                         placeholder="*******"
                         value={values.password}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                       />
                     </FormField>
                   </Box>
@@ -79,13 +79,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => (
                   {isSubmitting ? (
                     <Spinner primary />
                   ) : (
-                    <Button
-                      primary
-                      type="submit"
-                      disabled={!isValid || isValidating}
-                      label="Bejelentkezés"
-                      margin="small"
-                    />
+                    <Button primary type="submit" disabled={isValidating} label="Bejelentkezés" margin="small" />
                   )}
                 </Box>
               </Form>

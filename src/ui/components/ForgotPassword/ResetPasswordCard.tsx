@@ -33,6 +33,8 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
     </Box>
     <Box margin={{ top: 'medium' }} pad={{ horizontal: 'medium' }} fill align="center">
       <Formik
+        validateOnChange={false}
+        validateOnBlur={false}
         initialValues={{ password: '', passwordConfirm: '' }}
         onSubmit={({ password }, { resetForm }) => {
           onReset(password, resetForm);
@@ -47,7 +49,7 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
         })}
       >
         {(props) => {
-          const { values, touched, errors, isSubmitting, isValidating, isValid, handleChange, handleBlur } = props;
+          const { values, touched, errors, isSubmitting, isValidating, handleChange, handleBlur } = props;
           return (
             <Box fill>
               <Form>
@@ -55,16 +57,15 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
                   <Box fill="horizontal" margin="none">
                     <FormField
                       label="Új Jelszó"
-                      htmlFor="password"
+                      onBlur={handleBlur}
                       error={errors.password && touched.password ? errors.password : undefined}
                     >
                       <TextInput
-                        id="password"
+                        name="password"
                         type="password"
                         placeholder="*******"
                         value={values.password}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                       />
                     </FormField>
                   </Box>
@@ -72,16 +73,15 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
                   <Box fill="horizontal" margin="none">
                     <FormField
                       label="Jelszó megerősítése"
-                      htmlFor="passwordConfirm"
+                      onBlur={handleBlur}
                       error={errors.passwordConfirm && touched.passwordConfirm ? errors.passwordConfirm : undefined}
                     >
                       <TextInput
-                        id="passwordConfirm"
+                        name="passwordConfirm"
                         type="password"
                         placeholder="*******"
                         value={values.passwordConfirm}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                       />
                     </FormField>
                   </Box>
@@ -91,7 +91,7 @@ export const ResetPasswordCard: FunctionComponent<ResetFormProps> = ({ onReset }
                     <Button
                       primary
                       type="submit"
-                      disabled={!isValid || isValidating}
+                      disabled={isValidating}
                       label="Jelszó visszaállítása"
                       margin="small"
                     />
