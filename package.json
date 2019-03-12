@@ -82,7 +82,7 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-graphql": "^3.0.3",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.4.0",
+    "eslint-plugin-react-hooks": "^1.5.0",
     "patch-package": "^6.0.5",
     "prettier": "^1.16.4",
     "react-scroll": "^1.7.11",

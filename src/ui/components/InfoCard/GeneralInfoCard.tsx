@@ -8,7 +8,7 @@ interface GeneralInfoCardProps {
   isLoading?: boolean;
 }
 
-export const GeneralInfoCard: FunctionComponent<GeneralInfoCardProps> = ({ title, subtitle, content, isLoading }) => {
+export const GeneralInfoCard: FunctionComponent<GeneralInfoCardProps> = ({ title, subtitle, content }) => {
   return (
     <Box pad="medium" background="white" round="small" elevation="medium" width="large">
       <Heading color="primary" level="3" margin="xsmall" style={{ textTransform: 'uppercase' }}>
