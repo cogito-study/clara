@@ -9,6 +9,10 @@
       "dom",
       "esnext"
     ],
+    "types": [
+      "node",
+      "react"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
