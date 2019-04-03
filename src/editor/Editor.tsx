@@ -227,7 +227,7 @@ export default class Editor extends PureComponent<Props, State> {
     const { edited } = this.state;
     const { value, operations } = editor;
     const shouldSetEdited =
-      (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(userRole) && canShowComments) || edited;
+      (this.isMutatingEdit(operations) && ['ADMIN'].includes(userRole) && canShowComments) || edited;
     canToggleCallback(!shouldSetEdited);
     this.shouldReloadWarn(shouldSetEdited);
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited });

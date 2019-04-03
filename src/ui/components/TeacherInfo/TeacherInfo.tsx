@@ -4,15 +4,23 @@ import profile from '../../../assets/images/Profile.svg';
 
 export interface TeacherInfoProps {
   name: string;
-  role: string;
+  roleName: string;
   phone?: string;
   email: string;
+  profilePicURL?: string;
 }
 
-export const TeacherInfo: FunctionComponent<BoxProps & TeacherInfoProps> = ({ name, role, phone, email, ...rest }) => (
+export const TeacherInfo: FunctionComponent<BoxProps & TeacherInfoProps> = ({
+  name,
+  roleName,
+  phone,
+  email,
+  profilePicURL,
+  ...rest
+}) => (
   <Box direction="row" align="center" margin={{ vertical: 'medium' }} style={{ maxWidth: '320px' }} {...rest}>
     <Image
-      src={profile}
+      src={profilePicURL || profile}
       width="80px"
       margin={{ right: 'medium' }}
       style={{ boxShadow: 'inset 0px 3px 6px rgba(0, 0, 0, 0.4)', borderRadius: '100%' }}
@@ -22,7 +30,7 @@ export const TeacherInfo: FunctionComponent<BoxProps & TeacherInfoProps> = ({ na
         {name}
       </Heading>
       <Paragraph color="gray_light_1" margin="none">
-        {role.toLowerCase()}
+        {roleName.toLowerCase()}
       </Paragraph>
       <Anchor
         color="primary"
