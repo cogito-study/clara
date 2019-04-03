@@ -11,12 +11,12 @@ import {
   RegistrationCard,
   SubjectInfoCard,
   TeacherInfo,
-  TeacherInfoProps
+  TeacherInfoProps,
 } from './components';
 import {
   EmailSentFeedbackCard,
   ExpiredFeedbackCard,
-  ResetDoneFeedbackCard
+  ResetDoneFeedbackCard,
 } from './components/ForgotPassword/FeedbackCard';
 import { ForgotPasswordCard } from './components/ForgotPassword/ForgetPasswordCard';
 import { ResetPasswordCard } from './components/ForgotPassword/ResetPasswordCard';
@@ -37,12 +37,15 @@ const teacherInfoName = 'Jason Evans';
 const teacherInfoRole = 'lecturer';
 const teacherInfoPhone = '+36 10 355 4432';
 const teacherInfoEmail = 'jasonevans@gmail.com';
+const teacherInfoProfilePicURL =
+  'https://i2.wp.com/www.marketingscience.info/wp-content/uploads/2017/11/Byron-Sharp-800x800.jpg?resize=800%2C800&ssl=1';
 
 const infoCardTeacherInfo: TeacherInfoProps = {
   name: teacherInfoName,
-  role: teacherInfoRole,
+  roleName: teacherInfoRole,
   phone: teacherInfoPhone,
   email: teacherInfoEmail,
+  profilePicURL: teacherInfoProfilePicURL,
 };
 
 const infoCardTopInstitute = 'Institute of this subject';
@@ -159,9 +162,10 @@ export const GrommetComponents: FunctionComponent<RouteComponentProps> = () => {
         <Box direction="column" gap="medium">
           <TeacherInfo
             name={teacherInfoName}
-            role={teacherInfoRole}
+            roleName={teacherInfoRole}
             phone={teacherInfoPhone}
             email={teacherInfoEmail}
+            profilePicURL={teacherInfoProfilePicURL}
           />
           <SubjectInfoCard
             institute={infoCardTopInstitute}

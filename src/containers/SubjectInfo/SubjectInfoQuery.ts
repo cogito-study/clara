@@ -8,11 +8,12 @@ export const SUBJECT_INFO_QUERY = gql`
       }
       description
       faculty {
+        email
         firstName
         lastName
-        role
+        roleName
+        profilePicURL
         phone
-        email
       }
     }
   }

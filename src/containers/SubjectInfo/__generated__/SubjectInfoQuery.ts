@@ -1,7 +1,6 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
-
-import { UserRole } from './../../../__generated__/globalTypes';
 
 // ====================================================
 // GraphQL query operation: SubjectInfoQuery
@@ -14,11 +13,12 @@ export interface SubjectInfoQuery_subject_institute {
 
 export interface SubjectInfoQuery_subject_faculty {
   __typename: 'User';
+  email: string;
   firstName: string | null;
   lastName: string | null;
-  role: UserRole;
+  roleName: string | null;
+  profilePicURL: string | null;
   phone: string | null;
-  email: string;
 }
 
 export interface SubjectInfoQuery_subject {

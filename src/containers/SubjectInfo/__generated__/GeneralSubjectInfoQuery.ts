@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* eslint-disable */
 // This file was automatically generated and should not be edited.
 
 // ====================================================
@@ -6,7 +7,7 @@
 // ====================================================
 
 export interface GeneralSubjectInfoQuery_subject_info {
-  __typename: "SubjectInfo";
+  __typename: 'SubjectInfo';
   id: string;
   title: string;
   subtitle: string | null;
@@ -14,7 +15,7 @@ export interface GeneralSubjectInfoQuery_subject_info {
 }
 
 export interface GeneralSubjectInfoQuery_subject {
-  __typename: "Subject";
+  __typename: 'Subject';
   info: GeneralSubjectInfoQuery_subject_info[] | null;
 }
 
