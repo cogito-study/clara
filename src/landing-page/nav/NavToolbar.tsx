@@ -3,8 +3,8 @@ import { Toolbar as RebassToolbar } from 'rebass';
 import styled from 'styled-components';
 
 export const Toolbar = styled(RebassToolbar)`
-  box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.02), 0 6px 20px 0 rgba(0, 0, 0, 0.03);
   background-color: #4787d3;
+  box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.02), 0 6px 20px 0 rgba(0, 0, 0, 0.03);
 `;
 
 export const NavToolbar: FunctionComponent = ({ children }) => (

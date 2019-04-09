@@ -15,14 +15,14 @@ import { SubscribeButton } from '../subscribe';
 const { scroller } = Scroll;
 
 export const LoginInput = styled(Input)`
-  color: ${color.darkBlue};
   height: 50px;
+  padding-left: 15px;
   border: 1px solid ${color.CogitoBlue};
   background-color: ${color.almostWhite};
-  box-shadow: 0;
-  font-weight: medium;
-  padding-left: 15px;
   border-radius: 15px;
+  box-shadow: 0;
+  color: ${color.darkBlue};
+  font-weight: medium;
 `;
 
 const Home: FunctionComponent<RouteComponentProps> = ({ history }) => {

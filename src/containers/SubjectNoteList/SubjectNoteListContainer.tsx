@@ -17,6 +17,12 @@ import {
   SubjectNoteListQuery_subject,
 } from './__generated__/SubjectNoteListQuery';
 
+// const lofasz = styled.div`
+//   background-color: red;
+// `;
+
+// console.log(lofasz);
+
 const HoveredNoteCard = styled(NoteCard)`
   transition: all 0.2s ease-in-out;
 
@@ -61,7 +67,13 @@ export const SubjectNoteListContainer: FunctionComponent<RouteComponentProps<Sub
 
   const renderNoteCardPlaceholder = () =>
     Array.from({ length: 12 }).map((_, index) =>
-      screenSize === 'small' ? <NoteCardPlaceholder.Mobile key={index} /> : <NoteCardPlaceholder.Desktop key={index} />,
+      screenSize === 'small' ? (
+        <Box width="100%">
+          <NoteCardPlaceholder.Mobile key={index} />
+        </Box>
+      ) : (
+        <NoteCardPlaceholder.Desktop key={index} />
+      ),
     );
 
   return (
