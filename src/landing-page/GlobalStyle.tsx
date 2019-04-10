@@ -19,21 +19,21 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
   }
 
   body,
   html {
-    text-align: left;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    margin: 0 auto;
+    text-align: left;
   }
 
   span {
@@ -62,8 +62,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .downButton {
-    transform: translatey(0px);
     animation: float 2s ease-in-out infinite;
+    transform: translatey(0px);
   }
 
   .about {

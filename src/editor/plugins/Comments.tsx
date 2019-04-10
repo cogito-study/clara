@@ -7,10 +7,10 @@ import { MarkType } from '../enums/MarkType';
 /* eslint-disable */
 
 const CommentContainer = styled.span`
-  background-color: rgba(71, 135, 211, 0.7);
-  color: white;
   padding: 2px 0px 2px 0px;
   border: 1px solid rgba(71, 135, 211, 1);
+  background-color: rgba(71, 135, 211, 0.7);
+  color: white;
 `;
 
 interface CommentProps {

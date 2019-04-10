@@ -13,8 +13,8 @@ import { extensions } from './image-extensions';
 
 const Image = styled.img`
   display: block;
-  max-height: 300px;
   max-width: auto;
+  max-height: 300px;
 `;
 
 function isImage(url: string) {
