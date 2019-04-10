@@ -38,11 +38,12 @@ export const SubjectInfoContainer: FunctionComponent<RouteComponentProps<Subject
 
   const renderSubjectInfos = ({ description, faculty, institute }: SubjectInfoQuery_subject) => {
     const teacherInfos = faculty
-      ? faculty.map(({ firstName, lastName, role, phone, email }) => ({
+      ? faculty.map(({ firstName, lastName, roleName, phone, profilePicURL, email }) => ({
           name: `${firstName!} ${lastName!}`,
-          role: role,
+          roleName: roleName || 'professzor',
           phone: phone || undefined,
           email: email,
+          profilePicURL: profilePicURL!,
         }))
       : [];
 

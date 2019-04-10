@@ -1,6 +1,6 @@
 {
   "name": "cogito-frontend",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "private": true,
   "dependencies": {
     "@sentry/browser": "^4.6.4",
@@ -42,7 +42,7 @@
     "slate-paste-linkify": "^0.7.0",
     "slate-react": "^0.21.16",
     "slate-soft-break": "^0.9.0",
-    "styled-components": "^4.1.3",
+    "styled-components": "^4.2.0",
     "uuid": "^3.3.2",
     "yup": "^0.26.10"
   },
@@ -74,7 +74,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/slate": "^0.44.0",
     "@types/slate-react": "^0.21.0",
-    "@types/styled-components": "^4.1.12",
+    "@types/styled-components": "^4.1.14",
     "@types/yup": "^0.26.11",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "date-fns": "^2.0.0-alpha.27",
@@ -82,21 +82,42 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-graphql": "^3.0.3",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^1.4.0",
+    "eslint-plugin-react-hooks": "^1.5.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
     "patch-package": "^6.0.5",
     "prettier": "^1.16.4",
     "react-scroll": "^1.7.11",
     "rebass": "2.3.4",
     "stylelint": "^9.10.1",
+    "stylelint-config-idiomatic-order": "^6.2.0",
+    "stylelint-config-prettier": "^5.0.0",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.5.2",
-    "typescript": "^3.3.3333"
+    "stylelint-prettier": "^1.0.6",
+    "stylelint-processor-styled-components": "^1.6.0",
+    "typescript": "^3.4.1"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.tsx": [
+      "stylelint --fix",
+      "git add"
+    ]
+  }
 }

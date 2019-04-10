@@ -165,11 +165,10 @@ export default class Editor extends PureComponent<Props, State> {
 
   shouldReloadWarn = (should: boolean) => (window.onbeforeunload = () => (should ? this.warnUser : undefined));
 
-  calculateSelectionPosition = () =>
-    window
-      .getSelection()
-      .getRangeAt(0)
-      .getBoundingClientRect();
+  calculateSelectionPosition = (): ClientRect | DOMRect | undefined => {
+    const selection = window.getSelection();
+    return selection ? selection.getRangeAt(0).getBoundingClientRect() : undefined;
+  };
 
   updateCommentButtonPosition = (value: Value) => {
     const { canShowComments } = this.props;
@@ -180,14 +179,13 @@ export default class Editor extends PureComponent<Props, State> {
       return this.state.commentButtonPosition;
     }
 
-    if (selection.isBlurred || selection.isCollapsed || fragment.text === '') {
+    const selectionRect = this.calculateSelectionPosition();
+    if (selection.isBlurred || selection.isCollapsed || fragment.text === '' || !selectionRect) {
       return { ...commentButtonPosition, show: false };
     } else {
-      const rect = this.calculateSelectionPosition();
-
       return {
-        top: rect.top + window.pageYOffset - 53,
-        left: rect.left + window.pageXOffset + rect.width - 16,
+        top: selectionRect.top + window.pageYOffset - 53,
+        left: selectionRect.left + window.pageXOffset + selectionRect.width - 16,
         show: true,
       };
     }
@@ -227,7 +225,7 @@ export default class Editor extends PureComponent<Props, State> {
     const { edited } = this.state;
     const { value, operations } = editor;
     const shouldSetEdited =
-      (this.isMutatingEdit(operations) && ['ADMIN', 'PROFESSOR'].includes(userRole) && canShowComments) || edited;
+      (this.isMutatingEdit(operations) && ['ADMIN'].includes(userRole) && canShowComments) || edited;
     canToggleCallback(!shouldSetEdited);
     this.shouldReloadWarn(shouldSetEdited);
     this.setState({ value, commentButtonPosition: this.updateCommentButtonPosition(value), edited: shouldSetEdited });
@@ -236,8 +234,10 @@ export default class Editor extends PureComponent<Props, State> {
   onCreateComment = (event: MouseEvent<any>) => {
     event.preventDefault();
     const selectionJSON = this.editor.value.selection.toJSON();
-    const marginTop = this.calculateSelectionPosition().top;
-    this.props.onCreateComment(JSON.stringify(selectionJSON), marginTop + window.scrollY);
+    const selectionRect = this.calculateSelectionPosition();
+    if (selectionRect) {
+      this.props.onCreateComment(JSON.stringify(selectionJSON), selectionRect.top + window.scrollY);
+    }
   };
 
   renderEditor = (_props, _editor, next: () => any) => {
