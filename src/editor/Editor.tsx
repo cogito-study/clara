@@ -22,12 +22,15 @@ export interface CommentButtonPosition {
   left: number;
   show: boolean;
 }
+
 export interface CommentLocation {
   id: string;
   range: RangeJSON;
 }
-interface Props {
+
+interface EditorProps {
   title: string;
+  authors: string[];
   canShowComments: boolean;
   initialValue: ValueJSON;
   commentLocations: CommentLocation[];
@@ -55,7 +58,7 @@ const schema: SchemaProperties = {
   },
 };
 
-export default class Editor extends PureComponent<Props, State> {
+export default class Editor extends PureComponent<EditorProps, State> {
   editor!: SlateEditor;
   commentButton!: HTMLElement;
   plugins: Plugin[];
@@ -67,7 +70,7 @@ export default class Editor extends PureComponent<Props, State> {
     edited: false,
   };
 
-  constructor(props: Props) {
+  constructor(props: EditorProps) {
     super(props);
     const { userRole, uploadImageMutation } = this.props;
     this.plugins = [
@@ -126,7 +129,7 @@ export default class Editor extends PureComponent<Props, State> {
     this.shouldReloadWarn(false);
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: EditorProps) {
     const { canShowComments, commentLocations } = this.props;
     if (canShowComments !== prevProps.canShowComments) {
       this.setCommentVisibility(this.props.commentLocations, this.props.canShowComments);
@@ -269,7 +272,7 @@ export default class Editor extends PureComponent<Props, State> {
 
   render() {
     const { value } = this.state;
-    const { title, canShowComments } = this.props;
+    const { title, canShowComments, authors } = this.props;
 
     return (
       <Fragment>
@@ -282,6 +285,9 @@ export default class Editor extends PureComponent<Props, State> {
           <div style={{ display: 'flex' }}>
             <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
               {title}
+            </Heading>
+            <Heading level="4" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
+              `${authors.length > 1 ? 'Szerzők' : 'Szerző'}: ${authors.join(', ')}`
             </Heading>
           </div>
           <Box
