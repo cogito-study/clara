@@ -273,23 +273,24 @@ export default class Editor extends PureComponent<EditorProps, State> {
   render() {
     const { value } = this.state;
     const { title, canShowComments, authors } = this.props;
+    const hasAuthors = authors.length > 0;
+    const authorLabel = `${authors.length > 1 ? 'Szerzők' : 'Szerző'}: ${authors.join(', ')}`;
 
     return (
       <Fragment>
-        {/* TODO:magyar */}
         <Prompt
           when={this.state.edited}
           message="Biztosan szeretnéd elhagyni az oldalt? Mentetlen változtatásaid vannak."
         />
         <Box margin={{ vertical: 'medium', horizontal: 'xsmall' }} style={{ maxWidth: '1000px' }}>
-          <div style={{ display: 'flex' }}>
-            <Heading level="2" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
-              {title}
+          <Heading level="2" margin={{ horizontal: 'none', vertical: 'small' }}>
+            {title}
+          </Heading>
+          {hasAuthors && (
+            <Heading level="4" margin="none" style={{ maxWidth: '800px' }}>
+              {authorLabel}
             </Heading>
-            <Heading level="4" margin={{ left: 'small', right: 'none', vertical: 'none' }}>
-              `${authors.length > 1 ? 'Szerzők' : 'Szerző'}: ${authors.join(', ')}`
-            </Heading>
-          </div>
+          )}
           <Box
             background="white"
             elevation="small"
