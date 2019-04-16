@@ -6,14 +6,21 @@
 // GraphQL query operation: NoteQuery
 // ====================================================
 
+export interface NoteQuery_note_authors {
+  __typename: 'User';
+  firstName: string | null;
+  lastName: string | null;
+}
+
 export interface NoteQuery_note_comments {
-  __typename: "Comment";
+  __typename: 'Comment';
   id: string;
   locationInText: any;
 }
 
 export interface NoteQuery_note {
-  __typename: "Note";
+  __typename: 'Note';
+  authors: NoteQuery_note_authors[] | null;
   title: string;
   text: any;
   comments: NoteQuery_note_comments[] | null;

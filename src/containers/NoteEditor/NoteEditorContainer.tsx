@@ -116,10 +116,11 @@ export const NoteEditorContainer: FunctionComponent<RouteComponentProps<NoteRout
     setToolBoxMarginTop(cursorY);
   };
 
-  const renderEditor = ({ title, text, comments }: NoteQuery_note) => (
+  const renderEditor = ({ title, authors, text, comments }: NoteQuery_note) => (
     <Box width="xlarge" justify="center" align="center">
       <Editor
         title={title}
+        authors={authors ? authors.map(({ lastName, firstName }) => `${lastName} ${firstName}`) : []}
         userRole={userRole}
         canShowComments={canShowUI}
         initialValue={text}
