@@ -47,18 +47,20 @@
     "yup": "^0.26.10"
   },
   "scripts": {
-    "start": "npm run start:dev",
-    "start:dev": "env-cmd .env.dev react-scripts start",
-    "start:staging": "env-cmd .env.staging react-scripts start",
-    "start:prod": "env-cmd .env.prod react-scripts start",
-    "build": "react-scripts build",
-    "build:staging": "env-cmd .env.staging npm run build",
     "build:prod": "env-cmd .env.prod npm run build",
-    "test": "react-scripts test",
+    "build:staging": "env-cmd .env.staging npm run build",
+    "build": "react-scripts build",
+    "codegen": "apollo client:codegen --target=typescript --globalTypesFile=./src/__generated__/globalTypes.ts",
     "eject": "react-scripts eject",
-    "postinstall": "patch-package",
+    "format": "prettier --write './src/**/*.{ts,tsx}'",
     "lint:css": "stylelint './src/**/*.tsx'",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "postinstall": "patch-package",
+    "start:dev": "env-cmd .env.dev react-scripts start",
+    "start:prod": "env-cmd .env.prod react-scripts start",
+    "start:staging": "env-cmd .env.staging react-scripts start",
+    "start": "npm run start:dev",
+    "test": "react-scripts test"
   },
   "devDependencies": {
     "@types/i18next": "^12.1.0",
