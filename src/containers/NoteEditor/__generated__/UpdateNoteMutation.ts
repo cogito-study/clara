@@ -7,13 +7,13 @@
 // ====================================================
 
 export interface UpdateNoteMutation_updateNote_comments {
-  __typename: "Comment";
+  __typename: 'Comment';
   id: string;
   locationInText: any;
 }
 
 export interface UpdateNoteMutation_updateNote {
-  __typename: "Note";
+  __typename: 'Note';
   id: string;
   comments: UpdateNoteMutation_updateNote_comments[] | null;
 }

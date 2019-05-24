@@ -4,7 +4,6 @@ import React from 'react';
 import { Editor as CoreEditor } from 'slate';
 import { Editor, getEventRange, getEventTransfer, Plugin, RenderNodeProps } from 'slate-react';
 import styled from 'styled-components';
-import { v4 as uuid } from 'uuid';
 import { NodeType } from '../../enums/NodeType';
 import { extensions } from './image-extensions';
 
@@ -37,25 +36,17 @@ export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor:
   }
 };
 
-const uploadFile = (uploadImageMutation, file: File, callback: (name: string) => void) => {
-  const options = {
-    method: 'PUT',
-    body: file,
-  };
-  const fileType = file.type;
-  const fileName = uuid();
-  // no big files
-  if (file.size < 10000000) {
-    uploadImageMutation({ variables: { fileName, fileType } }).then((result) => {
-      const {
-        data: {
-          uploadImage: { url },
-        },
-      } = result;
-      // TODO: add loading state while waiting for upload to complete
-      // TODO: error
-      fetch(url, options).then(() => callback(fileName));
-    });
+const uploadFile = (uploadImageMutation, file: any, callback: (name: string) => void) => {
+  // File size in MB
+  if (file.size < 10 * 1024 * 1024) {
+    let reader = new FileReader();
+    let extension = file.name.split('.').pop();
+    reader.onloadend = function() {
+      uploadImageMutation({ variables: { file: reader.result, extension: extension } }).then((fileName) => {
+        callback(fileName.data.uploadImage);
+      });
+    };
+    reader.readAsDataURL(file);
   } else {
     // TODO: add grommet notification
     alert('file size too large!');
@@ -70,9 +61,7 @@ export const uploadFileFromFS = (uploadImageMutation, event, editor: Editor) => 
   if (mime !== 'image') {
     return;
   }
-  uploadFile(uploadImageMutation, file, (fileName) =>
-    insertImage(editor, `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`),
-  );
+  uploadFile(uploadImageMutation, file, (file) => insertImage(editor, file));
 };
 
 const handleFiles = (uploadImageMutation, files: File[], editor: Editor) => {
@@ -81,9 +70,7 @@ const handleFiles = (uploadImageMutation, files: File[], editor: Editor) => {
     if (mime !== 'image') {
       continue;
     }
-    uploadFile(uploadImageMutation, file, (fileName) =>
-      insertImage(editor, `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/${fileName}`),
-    );
+    uploadFile(uploadImageMutation, file, (file) => insertImage(editor, file));
   }
   return;
 };

@@ -7,7 +7,7 @@
 // ====================================================
 
 export interface UploadImageMutation_uploadImage {
-  __typename: "FileUploadPayload";
+  __typename: 'FileUploadPayload';
   url: string;
 }
 
@@ -16,6 +16,5 @@ export interface UploadImageMutation {
 }
 
 export interface UploadImageMutationVariables {
-  fileName: string;
-  fileType: string;
+  file: string;
 }
