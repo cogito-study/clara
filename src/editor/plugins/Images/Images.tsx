@@ -37,14 +37,13 @@ export const onClickImage = (event: React.MouseEvent<HTMLButtonElement>, editor:
 };
 
 const uploadFile = (uploadImageMutation, file: any, callback: (name: string) => void) => {
-  // File size in MB
-  if (file.size < 10 * 1024 * 1024) {
+  const maximumFileSizeInMB = 10 * 1024 * 1024;
+  if (file.size < maximumFileSizeInMB) {
     let reader = new FileReader();
     let extension = file.name.split('.').pop();
-    reader.onloadend = function() {
-      uploadImageMutation({ variables: { file: reader.result, extension: extension } }).then((fileName) => {
-        callback(fileName.data.uploadImage);
-      });
+    reader.onloadend = async () => {
+      let fileName = await uploadImageMutation({ variables: { file: reader.result, extension } });
+      callback(fileName.data.uploadImage);
     };
     reader.readAsDataURL(file);
   } else {
