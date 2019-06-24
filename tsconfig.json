@@ -17,7 +17,6 @@
     "allowJs": true,
     "moduleResolution": "node",
     "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -35,7 +34,8 @@
     "downlevelIteration": true,
     "jsx": "preserve",
     "noFallthroughCasesInSwitch": true,
-    "pretty": true
+    "pretty": true,
+    "forceConsistentCasingInFileNames": false,
   },
   "exclude": [
     "node_modules",
