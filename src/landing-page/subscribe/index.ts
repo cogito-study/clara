@@ -1,2 +1,2 @@
-export * from './SubscribeButton';
-export * from './SubscribeInput';
+export * from './subscribe-button';
+export * from './subscribe-input';

@@ -1,6 +1,6 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './app/App';
+import { App } from './app/app';
 import { isProduction } from './environment/config';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
