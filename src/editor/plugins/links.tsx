@@ -1,7 +1,7 @@
 import React from 'react';
 import { Value } from 'slate';
 import { Editor, Plugin, RenderNodeProps } from 'slate-react';
-import { NodeType } from '../enums/NodeType';
+import { NodeType } from '../enums/node-type';
 
 /* eslint-disable */
 

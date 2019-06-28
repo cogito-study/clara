@@ -3,7 +3,7 @@ import Scroll from 'react-scroll';
 import { Fixed, Hide } from 'rebass';
 
 import { scrollOptions } from '../../constants';
-import { english, hungarian, Language } from '../../types/Language';
+import { english, hungarian, Language } from '../../types/language';
 import { NavButton } from './nav-button';
 import { NavLink } from './nav-link';
 import { NavLogo } from './nav-logo';

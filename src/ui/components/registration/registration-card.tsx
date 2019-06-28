@@ -1,7 +1,7 @@
 import { Box, Heading, Image, Text } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import profile from '../../../assets/images/Profile.svg';
-import { routeBuilder } from '../../../route/routeBuilder';
+import { routeBuilder } from '../../../route/route-builder';
 import { Link } from '../link';
 import { RegistrationForm, RegistrationFormProps } from './registration-form';
 

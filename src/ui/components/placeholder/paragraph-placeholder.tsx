@@ -1,6 +1,6 @@
 import { Box } from 'grommet';
 import React, { Fragment, FunctionComponent } from 'react';
-import { randomPercentage } from '../../helpers/randomPercentage';
+import { randomPercentage } from '../../helpers/random-percentage';
 import { LinePlaceholder } from './line-placeholder';
 
 interface ParagraphPlaceholderProps {

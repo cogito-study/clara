@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
-import { useTokenValidation } from '../../hooks/useTokenValidation';
-import { routeBuilder } from '../../route/routeBuilder';
+import { useGraphQLErrorNotification } from '../../hooks/use-graphql-error-notification';
+import { useTokenValidation } from '../../hooks/use-token-validation';
+import { routeBuilder } from '../../route/route-builder';
 import { ResetPasswordCard } from '../../ui/components/forgot-password/reset-password-card';
-import { RESET_PASSWORD } from './ResetPasswordMutation';
+import { RESET_PASSWORD } from './reset-password-mutation';
 import { ResetPasswordMutation, ResetPasswordMutationVariables } from './__generated__/ResetPasswordMutation';
 
 export const ResetPasswordContainer: FunctionComponent<RouteComponentProps> = ({ history, location }) => {

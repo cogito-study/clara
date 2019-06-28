@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { NotificationProvider } from '../contexts/notification/notification-context';
 import { config, isProduction } from '../environment/config';
 import { client } from '../graphql/client';
-import { routeBuilder } from '../route/routeBuilder';
+import { routeBuilder } from '../route/route-builder';
 import { Router } from '../route/router';
 import { hotjarString } from '../scripts/hotjar';
 import { theme } from '../ui/theme';

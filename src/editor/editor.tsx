@@ -6,7 +6,7 @@ import CollapseOnEscape from 'slate-collapse-on-escape';
 import PasteLinkify from 'slate-paste-linkify';
 import { Editor as SlateEditor, Plugin } from 'slate-react';
 import commentButtonImage from '../assets/images/commentButton.svg';
-import { MarkType } from './enums/MarkType';
+import { MarkType } from './enums/mark-type';
 import { Comments, toggleCommentMark as toggleCommentVisible } from './plugins/comments';
 import { History } from './plugins/history';
 import { Images } from './plugins/images/images';

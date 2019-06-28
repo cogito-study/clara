@@ -7,7 +7,7 @@ import { Banner, Button, Flex, Hide, Image, Input } from 'rebass';
 import styled from 'styled-components';
 import downArrow from '../../assets/images/down.svg';
 import { scrollOptions } from '../../constants';
-import { routeBuilder } from '../../route/routeBuilder';
+import { routeBuilder } from '../../route/route-builder';
 import i18n from '../../services/i18n';
 import { color, Header1, Header3 } from '../styles';
 import { SubscribeButton } from '../subscribe';

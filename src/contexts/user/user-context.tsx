@@ -1,6 +1,6 @@
 import React, { createContext, FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
-import { LOGGED_IN_USER_QUERY } from './LoggedInUserQuery';
+import { LOGGED_IN_USER_QUERY } from './logged-in-user-query';
 import { LoggedInUserQuery, LoggedInUserQuery_me } from './__generated__/LoggedInUserQuery';
 
 export interface UserContextState {

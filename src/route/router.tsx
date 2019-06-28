@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { isProduction } from '../environment/config';
 import { LoadingPage } from '../pages/loading-page';
-import { routeBuilder } from './routeBuilder';
+import { routeBuilder } from './route-builder';
 import { driftString } from '../scripts/drift';
-import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/RouteParams';
+import { AuthRouteParams, NoteRouteParams, SubjectRouteParams } from '../types/route-params';
 import { PrivateRoute } from './private-route';
 
 const AuthenticationPage = lazy(() => import('../pages/authentication-page'));

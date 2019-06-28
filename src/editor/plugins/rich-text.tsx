@@ -3,8 +3,8 @@ import { isKeyHotkey } from 'is-hotkey';
 import React from 'react';
 import { Editor as CoreEditor, Value } from 'slate';
 import { Plugin, RenderMarkProps, RenderNodeProps } from 'slate-react';
-import { MarkType } from '../enums/MarkType';
-import { NodeType } from '../enums/NodeType';
+import { MarkType } from '../enums/mark-type';
+import { NodeType } from '../enums/node-type';
 
 //import { colors } from '../../ui/theme/global';
 

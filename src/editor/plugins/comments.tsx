@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Node, Range } from 'slate';
 import { Editor, Plugin, RenderMarkProps } from 'slate-react';
 import styled from 'styled-components';
-import { MarkType } from '../enums/MarkType';
+import { MarkType } from '../enums/mark-type';
 
 /* eslint-disable */
 

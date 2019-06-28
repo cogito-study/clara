@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 import { UserProvider } from '../contexts/user/user-context';
-import { authService } from '../services/authService';
-import { routeBuilder } from './routeBuilder';
+import { authService } from '../services/auth-service';
+import { routeBuilder } from './route-builder';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PrivateRouteProps extends RouteProps {

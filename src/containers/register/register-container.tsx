@@ -1,13 +1,13 @@
 import React, { Fragment, FunctionComponent } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
-import { useTokenValidation } from '../../hooks/useTokenValidation';
-import { routeBuilder } from '../../route/routeBuilder';
-import { AuthRouteParams } from '../../types/RouteParams';
+import { useGraphQLErrorNotification } from '../../hooks/use-graphql-error-notification';
+import { useTokenValidation } from '../../hooks/use-token-validation';
+import { routeBuilder } from '../../route/route-builder';
+import { AuthRouteParams } from '../../types/route-params';
 import { RegistrationCard } from '../../ui/components';
-import { ACTIVATE_USER } from './ActivateUserMutation';
-import { USER_INFO_QUERY } from './UserInfoQuery';
+import { ACTIVATE_USER } from './activate-user-mutation';
+import { USER_INFO_QUERY } from './user-info-query';
 import { ActivateUserMutation, ActivateUserMutationVariables } from './__generated__/ActivateUserMutation';
 import { UserInfoQuery, UserInfoQueryVariables } from './__generated__/UserInfoQuery';
 

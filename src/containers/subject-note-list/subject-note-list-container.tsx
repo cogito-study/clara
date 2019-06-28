@@ -4,13 +4,13 @@ import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
 import Tilt from 'react-tilt';
 import styled from 'styled-components';
-import { routeBuilder } from '../../route/routeBuilder';
-import { dateService } from '../../services/dateService';
-import { SubjectRouteParams } from '../../types/RouteParams';
+import { routeBuilder } from '../../route/route-builder';
+import { dateService } from '../../services/date-service';
+import { SubjectRouteParams } from '../../types/route-params';
 import { NoteCard } from '../../ui/components';
 import { Link } from '../../ui/components/link';
 import { NoteCardPlaceholder } from '../../ui/components/note-card/note-card-placeholder';
-import { SUBJECT_NOTE_LIST_QUERY } from './SubjectNoteListQuery';
+import { SUBJECT_NOTE_LIST_QUERY } from './subject-note-list-query';
 import {
   SubjectNoteListQuery,
   SubjectNoteListQueryVariables,
