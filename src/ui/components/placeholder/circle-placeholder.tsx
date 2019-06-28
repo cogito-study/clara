@@ -1,7 +1,7 @@
 import { Box } from 'grommet';
 import React from 'react';
 
-import { DefaultPlaceholderProps, defaultPlaceholderProps } from './DefaultPlaceholderProps';
+import { DefaultPlaceholderProps, defaultPlaceholderProps } from './default-placeholder-props';
 
 interface CirclePlaceholderProps extends DefaultPlaceholderProps {
   size: number;

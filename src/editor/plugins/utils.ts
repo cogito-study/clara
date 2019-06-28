@@ -1,6 +1,6 @@
 import { Editor } from 'slate-react';
-import { MarkType } from '../enums/MarkType';
-import { NodeType } from '../enums/NodeType';
+import { MarkType } from '../enums/mark-type';
+import { NodeType } from '../enums/node-type';
 
 /* eslint-disable */
 

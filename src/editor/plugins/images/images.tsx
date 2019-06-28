@@ -4,7 +4,7 @@ import React from 'react';
 import { Editor as CoreEditor } from 'slate';
 import { Editor, getEventRange, getEventTransfer, Plugin, RenderNodeProps } from 'slate-react';
 import styled from 'styled-components';
-import { NodeType } from '../../enums/NodeType';
+import { NodeType } from '../../enums/node-type';
 import { extensions } from './image-extensions';
 
 /* eslint-disable */

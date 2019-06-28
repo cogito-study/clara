@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { useGraphQLErrorNotification } from '../../hooks/useGraphQLErrorNotification';
-import { authService } from '../../services/authService';
+import { useGraphQLErrorNotification } from '../../hooks/use-graphql-error-notification';
+import { authService } from '../../services/auth-service';
 import { LoginCard } from '../../ui/components/login/login-card';
-import { LOGIN_USER } from './LoginUserMutation';
+import { LOGIN_USER } from './login-user-mutation';
 import { LoginUserMutation, LoginUserMutationVariables } from './__generated__/LoginUserMutation';
 
 export const LoginContainer: FunctionComponent<RouteComponentProps> = ({ history }) => {

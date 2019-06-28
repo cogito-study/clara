@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-import { randomPercentage } from '../../helpers/randomPercentage';
-import { DefaultPlaceholderProps, defaultPlaceholderProps } from './DefaultPlaceholderProps';
+import { randomPercentage } from '../../helpers/random-percentage';
+import { DefaultPlaceholderProps, defaultPlaceholderProps } from './default-placeholder-props';
 
 const calculateHeight = (level: number) => {
   switch (level) {

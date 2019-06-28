@@ -7,7 +7,7 @@ import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 
 import { config } from '../environment/config';
-import { authService } from '../services/authService';
+import { authService } from '../services/auth-service';
 
 const httpLink = new HttpLink({ uri: config.apiURL });
 

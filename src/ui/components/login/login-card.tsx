@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { Box, Button, FormField, Heading, Text, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
-import { routeBuilder } from '../../../route/routeBuilder';
+import { routeBuilder } from '../../../route/route-builder';
 import { Link } from '../link';
 import { Spinner } from '../spinner';
 

@@ -1,6 +1,6 @@
 import { Box } from 'grommet';
 import React from 'react';
-import { DefaultPlaceholderProps, defaultPlaceholderProps } from './DefaultPlaceholderProps';
+import { DefaultPlaceholderProps, defaultPlaceholderProps } from './default-placeholder-props';
 
 export interface LinePlaceholderProps extends DefaultPlaceholderProps {
   height: number;

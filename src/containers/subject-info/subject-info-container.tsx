@@ -2,12 +2,12 @@ import { Box } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import { useQuery } from 'react-apollo-hooks';
 import { RouteComponentProps } from 'react-router-dom';
-import { SubjectRouteParams } from '../../types/RouteParams';
+import { SubjectRouteParams } from '../../types/route-params';
 import { GeneralInfoCard, SubjectInfoCard } from '../../ui/components';
 import { GeneralInfoCardPlaceholder } from '../../ui/components/info-card/general-info-card-placeholder';
 import { SubjectInfoCardPlaceholder } from '../../ui/components/info-card/subject-info-card-placeholder';
-import { GENERAL_SUBJECT_INFO_QUERY } from './GeneralSubjectInfoQuery';
-import { SUBJECT_INFO_QUERY } from './SubjectInfoQuery';
+import { GENERAL_SUBJECT_INFO_QUERY } from './general-subject-info-query';
+import { SUBJECT_INFO_QUERY } from './subject-info-query';
 import {
   GeneralSubjectInfoQuery,
   GeneralSubjectInfoQueryVariables,
