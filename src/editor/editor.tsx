@@ -170,7 +170,7 @@ export default class Editor extends PureComponent<EditorProps, State> {
 
   calculateSelectionPosition = (): ClientRect | DOMRect | undefined => {
     const selection = window.getSelection();
-    return selection ? selection.getRangeAt(0).getBoundingClientRect() : undefined;
+    return selection && selection.rangeCount !== 0 ? selection.getRangeAt(0).getBoundingClientRect() : undefined;
   };
 
   updateCommentButtonPosition = (value: Value) => {
