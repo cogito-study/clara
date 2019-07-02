@@ -8,7 +8,7 @@ COPY package-lock.json /usr/src/app/package-lock.json
 RUN npm install -g npm
 RUN npm install
 COPY . /usr/src/app
-CMD ["npm", "run-script", "build"]
+RUN npm run-script build
 
 ### STAGE 2: Production Environment ###
 FROM nginx:1.13.12-alpine
