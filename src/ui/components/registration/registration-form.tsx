@@ -22,7 +22,7 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({ onR
           .min(7, 'A jelszónak legalább 7 karakter hosszúnak kell lennie.')
           .required('Jelszó megadása kötelező'),
         passwordConfirm: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'A két jelszó nem egyezik meg')
+          .oneOf([Yup.ref('password')], 'A két jelszó nem egyezik meg')
           .required('Jelszó megerősítése kötelező'),
         legalAccepted: Yup.boolean().oneOf([true]),
       })}

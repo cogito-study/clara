@@ -1,0 +1,98 @@
+image: node:lts
+
+stages:
+  - install-dependencies
+  - build
+  - test
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+schema-check-staging:
+  stage: test
+  script:
+    - npx apollo service:check --tag=staging
+  only:
+    - development
+
+schema-check-production:
+  stage: test
+  script:
+    - npx apollo service:check --tag=production
+  only:
+    - master
+
+install-dependencies:
+  stage: install-dependencies
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+test:
+  stage: test
+  script:
+    - echo "to be implemented"
+#    - npm run test
+
+deploy-staging:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$STAGING_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $STAGING_USERNAME@$STAGING_HOST "cd /var/app/frontend && git pull && cp .env.staging .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Staging deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - development
+
+deploy-production:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $PROD_USERNAME@$PROD_HOST "cd /var/app/frontend && git pull && cp .env.prod .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Production deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-demo:
+  image: alpine
+  stage: deploy
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$DEMO_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $DEMO_USERNAME@$DEMO_HOST "cd /var/app/frontend && git pull && cp .env.demo .env && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Demo deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master

@@ -79,6 +79,7 @@
     "@types/styled-components": "^4.1.14",
     "@types/yup": "^0.26.11",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.12.0",
     "date-fns": "^2.0.0-alpha.27",
     "eslint": "^5.15.1",
     "eslint-config-prettier": "^4.1.0",
