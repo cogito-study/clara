@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3000:80'
+      - '${REACT_APP_PORT}:80'
     environment:
       - NODE_ENV=production
       - REACT_APP_ENVIRONMENT=${REACT_APP_ENVIRONMENT}
