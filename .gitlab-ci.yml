@@ -13,14 +13,14 @@ cache:
 schema-check-staging:
   stage: test
   script:
-    - npx apollo service:check --tag=staging
+    - npx apollo service:check --tag=staging --endpoint=https://staging-api.cogito.study
   only:
     - development
 
 schema-check-production:
   stage: test
   script:
-    - npx apollo service:check --tag=production
+    - npx apollo service:check --tag=production --endpoint=https://api.cogito.study
   only:
     - master
 
@@ -55,7 +55,7 @@ deploy-staging:
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/id_rsa
   script:
-    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $STAGING_USERNAME@$STAGING_HOST "cd /var/app/frontend && git pull && cp .env.staging .env && docker-compose build && docker-compose up -d && exit"
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $STAGING_USERNAME@$STAGING_HOST "cd $STAGING_DIRECTORY && git pull && cp .env.staging .env && docker-compose build && docker-compose up -d && exit"
     - rm -rf ~/.ssh/id_rsa
     - 'echo Staging deploy done [ $(date "+%F %H:$M:$S") ]'
   only:
@@ -73,7 +73,7 @@ deploy-production:
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/id_rsa
   script:
-    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $PROD_USERNAME@$PROD_HOST "cd /var/app/frontend && git pull && cp .env.prod .env && docker-compose build && docker-compose up -d && exit"
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $PROD_USERNAME@$PROD_HOST "cd $PROD_DIRECTORY && git pull && cp .env.prod .env && docker-compose build && docker-compose up -d && exit"
     - rm -rf ~/.ssh/id_rsa
     - 'echo Production deploy done [ $(date "+%F %H:$M:$S") ]'
   only:
@@ -91,7 +91,7 @@ deploy-demo:
     - eval $(ssh-agent -s)
     - ssh-add ~/.ssh/id_rsa
   script:
-    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $DEMO_USERNAME@$DEMO_HOST "cd /var/app/frontend && git pull && cp .env.demo .env && docker-compose build && docker-compose up -d && exit"
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $DEMO_USERNAME@$DEMO_HOST "cd $DEMO_DIRECTORY && git pull && cp .env.demo .env && docker-compose build && docker-compose up -d && exit"
     - rm -rf ~/.ssh/id_rsa
     - 'echo Demo deploy done [ $(date "+%F %H:$M:$S") ]'
   only:
