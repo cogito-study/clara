@@ -10,19 +10,20 @@ cache:
   paths:
     - node_modules/
 
-schema-check-staging:
-  stage: test
-  script:
-    - npx apollo service:check --tag=staging --endpoint=https://staging-api.cogito.study
-  only:
-    - development
+# Need to pay for the schema validation (49 USD / month)
+#schema-check-staging:
+#  stage: test
+#  script:
+#    - npx apollo service:check --tag=staging --endpoint=https://staging-api.cogito.study
+#  only:
+#    - development
 
-schema-check-production:
-  stage: test
-  script:
-    - npx apollo service:check --tag=production --endpoint=https://api.cogito.study
-  only:
-    - master
+#schema-check-production:
+#  stage: test
+#  script:
+#    - npx apollo service:check --tag=production --endpoint=https://api.cogito.study
+#  only:
+#    - master
 
 install-dependencies:
   stage: install-dependencies
