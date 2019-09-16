@@ -7,7 +7,7 @@ import { LoginContainer } from '../containers/login/login-container';
 import { RegisterContainer } from '../containers/register/register-container';
 import { ResetDoneFeedbackContainer } from '../containers/reset-password/reset-done-feedback-container';
 import { ResetPasswordContainer } from '../containers/reset-password/reset-password-container';
-import { Header2 } from '../landing-page/styles';
+import { Header2 } from '../styles';
 import { routeBuilder } from '../route/route-builder';
 import { AuthRouteParams } from '../types/route-params';
 import { Footer } from '../ui/components';
