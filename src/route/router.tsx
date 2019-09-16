@@ -11,7 +11,6 @@ import { PrivateRoute } from './private-route';
 const AuthenticationPage = lazy(() => import('../pages/authentication-page'));
 const SubjectPage = lazy(() => import('../pages/subject-page'));
 const NotePage = lazy(() => import('../pages/note-page'));
-const LandingPage = lazy(() => import('../landing-page/landing-page'));
 const GrommetComponents = lazy(() => import('../ui/grommet-components'));
 
 export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => {
@@ -60,8 +59,7 @@ export const Router: FunctionComponent<RouteComponentProps> = ({ location }) => 
             path={subject()}
             component={(props: RouteComponentProps<SubjectRouteParams>) => <SubjectPage {...props} />}
           />
-          <Route exact path={root()} component={(props: RouteComponentProps) => <LandingPage {...props} />} />
-          <Redirect to={root()} />
+          <Redirect to={login()} />
         </Switch>
       </Suspense>
     </Fragment>
