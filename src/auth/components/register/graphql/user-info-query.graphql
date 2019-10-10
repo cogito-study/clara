@@ -1,0 +1,7 @@
+query UserInfo($userID: ID!) {
+  user(where: { id: $userID }) {
+    firstName
+    lastName
+    email
+  }
+}

@@ -1,5 +1,5 @@
 module.exports = {
   client: {
-    service: 'cogito-backend-staging',
+    service: 'cogito-study-backend@staging',
   },
 };

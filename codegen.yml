@@ -1,0 +1,19 @@
+overwrite: true
+schema: 'https://staging-api.cogito.study/'
+documents: 'src/**/*.graphql'
+generates:
+  src/core/graphql/types.generated.ts:
+    - typescript
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: core/graphql/types.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHOC: false
+      withHooks: true
+      withComponent: false
+      reactApolloVersion: 3
