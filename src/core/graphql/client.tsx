@@ -5,13 +5,12 @@ import { from } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
-import { authService } from '../../auth/services/auth-service';
 import { config } from '../environment/config';
 
 const httpLink = new HttpLink({ uri: config.apiURL });
 
 const authLink = setContext((_, { headers }) => {
-  const token = authService.getAuthToken();
+  const token = localStorage.getItem('AUTH_TOKEN');
   return {
     headers: {
       ...headers,

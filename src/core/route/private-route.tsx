@@ -1,30 +1,27 @@
 import React, { FunctionComponent } from 'react';
-import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router-dom';
-import { authService } from '../../auth/services/auth-service';
-import { routeBuilder } from './route-builder';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { useAuth } from '../../auth/hooks/use-auth';
+import { useAuthRoute } from '../../auth/hooks/use-auth-route';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-interface PrivateRouteProps extends RouteProps {
-  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-}
+export const PrivateRoute: FunctionComponent<RouteProps> = ({ children, ...rest }) => {
+  const login = useAuthRoute({ path: 'login' });
+  const { authToken } = useAuth();
 
-export const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
-  component: Component,
-  ...rest
-}) => (
-  <Route
-    {...rest}
-    render={(props: RouteComponentProps<any>) =>
-      authService.getAuthToken() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: routeBuilder.root(),
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
-  />
-);
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        authToken ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: login,
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};

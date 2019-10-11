@@ -1,4 +1,4 @@
-import * as Types from '../../../../core/graphql/types.generated';
+import * as Types from '../../../core/graphql/types.generated';
 
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
@@ -9,8 +9,8 @@ export type ResetPasswordMutationVariables = {
   password: Types.Scalars['String'];
 };
 
-export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
-  resetPassword: { __typename?: 'AuthenticationPayload' } & Pick<
+export type ResetPasswordMutation = { readonly __typename?: 'Mutation' } & {
+  readonly resetPassword: { readonly __typename?: 'AuthenticationPayload' } & Pick<
     Types.AuthenticationPayload,
     'token'
   >;

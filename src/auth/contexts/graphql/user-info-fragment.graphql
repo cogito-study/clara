@@ -1,0 +1,8 @@
+fragment UserInfo on User {
+  firstName
+  lastName
+  email
+  profilePictureURL
+  phoneNumber
+  identifier
+}

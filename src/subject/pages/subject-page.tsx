@@ -1,14 +1,35 @@
-import { Box } from 'grommet';
+import { Box, Heading } from '@chakra-ui/core';
 import React, { FunctionComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { SubjectRouteParams } from '../../core/types/route-params';
-import { Footer } from '../../core/components/footer';
+import { useParams, Route } from 'react-router-dom';
+import { SubjectRouteParams, useSubjectRoute } from '../hooks/use-subject-route';
 
-const SubjectPage: FunctionComponent<RouteComponentProps<SubjectRouteParams>> = () => (
-  <Box align="center">
-    <Box fill background="light" pad={{ bottom: 'large' }} style={{ minHeight: '98vh' }}></Box>
-    <Footer />
-  </Box>
-);
+const SubjectInfo = () => {
+  const { subjectCode } = useParams<SubjectRouteParams>();
+
+  return <Box color="white">{`Subject info of ${subjectCode}`}</Box>;
+};
+
+const SubjectNotes = () => {
+  const { subjectCode } = useParams<SubjectRouteParams>();
+
+  return <Box color="white">{`Subject notes of ${subjectCode}`}</Box>;
+};
+
+const SubjectPage: FunctionComponent = () => {
+  const subjectInfo = useSubjectRoute({ path: 'subject-info' });
+  const subjectNotes = useSubjectRoute({ path: 'subject-notes' });
+
+  return (
+    <Box p={5} height="100vh" width="100%" bg="blue.800" color="white">
+      <Heading>Subject Page</Heading>
+      <Route to={subjectInfo}>
+        <SubjectInfo />
+      </Route>
+      <Route to={subjectNotes}>
+        <SubjectNotes />
+      </Route>
+    </Box>
+  );
+};
 
 export default SubjectPage;

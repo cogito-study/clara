@@ -1,8 +1,17 @@
-import { Box } from 'grommet';
-import React, { FunctionComponent } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { NoteRouteParams } from '../../core/types/route-params';
+import { Box, Heading, Text } from '@chakra-ui/core';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { CollabRouteParams } from '../hooks/use-collab-route';
 
-const NotePage: FunctionComponent<RouteComponentProps<NoteRouteParams>> = () => <Box background="gray_light_3"></Box>;
+const NotePage = () => {
+  const { subjectCode, noteID } = useParams<CollabRouteParams>();
+
+  return (
+    <Box p={5} height="100vh" width="100%" bg="teal.800" color="white">
+      <Heading>Note Page</Heading>
+      <Text>{`Note ${noteID} of ${subjectCode}`}</Text>
+    </Box>
+  );
+};
 
 export default NotePage;
