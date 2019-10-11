@@ -1,6 +1,8 @@
-import * as Types from '../../../../core/graphql/types.generated';
+import * as Types from '../../../core/graphql/types.generated';
 
+import { UserInfoFragment } from './user-info-fragment.generated';
 import gql from 'graphql-tag';
+import { UserInfoFragmentDoc } from './user-info-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -9,16 +11,23 @@ export type LoginUserMutationVariables = {
   password: Types.Scalars['String'];
 };
 
-export type LoginUserMutation = { __typename?: 'Mutation' } & {
-  login: { __typename?: 'AuthenticationPayload' } & Pick<Types.AuthenticationPayload, 'token'>;
+export type LoginUserMutation = { readonly __typename?: 'Mutation' } & {
+  readonly login: { readonly __typename?: 'AuthenticationPayload' } & Pick<
+    Types.AuthenticationPayload,
+    'token'
+  > & { readonly user: { readonly __typename?: 'User' } & UserInfoFragment };
 };
 
 export const LoginUserDocument = gql`
   mutation LoginUser($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
       token
+      user {
+        ...UserInfo
+      }
     }
   }
+  ${UserInfoFragmentDoc}
 `;
 export type LoginUserMutationFn = ApolloReactCommon.MutationFunction<
   LoginUserMutation,

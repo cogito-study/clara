@@ -6,9 +6,9 @@ import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { AuthProvider } from '../auth/contexts/auth-context';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
-import { routeBuilder } from './route/route-builder';
 import { Router } from './route/router';
 import { hotjarString } from './scripts/hotjar';
 import { GlobalStyles, theme } from './style';
@@ -34,7 +34,11 @@ export const App = () => {
         <ApolloProvider client={client}>
           <ErrorBoundary onError={captureException}>
             <BrowserRouter>
-              <Route path={routeBuilder.root()} component={Router} />
+              <AuthProvider>
+                <Route path="/">
+                  <Router />
+                </Route>
+              </AuthProvider>
             </BrowserRouter>
           </ErrorBoundary>
         </ApolloProvider>

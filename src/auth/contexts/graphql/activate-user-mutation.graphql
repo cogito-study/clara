@@ -1,5 +1,8 @@
 mutation ActivateUser($token: String!, $password: String!) {
   activateUser(data: { token: $token, password: $password }) {
     token
+    user {
+      ...UserInfo
+    }
   }
 }

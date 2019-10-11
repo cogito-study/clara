@@ -1,4 +1,4 @@
-import * as Types from '../../../../core/graphql/types.generated';
+import * as Types from '../../../core/graphql/types.generated';
 
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
@@ -8,7 +8,7 @@ export type ForgotPasswordMutationVariables = {
   email: Types.Scalars['String'];
 };
 
-export type ForgotPasswordMutation = { __typename?: 'Mutation' } & Pick<
+export type ForgotPasswordMutation = { readonly __typename?: 'Mutation' } & Pick<
   Types.Mutation,
   'forgotPassword'
 >;

@@ -1,6 +1,9 @@
 overwrite: true
 schema: 'https://staging-api.cogito.study/'
 documents: 'src/**/*.graphql'
+config:
+  avoidOptionals: true
+  immutableTypes: true
 generates:
   src/core/graphql/types.generated.ts:
     - typescript

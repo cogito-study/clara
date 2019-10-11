@@ -38,7 +38,11 @@ export const FeedbackCard: FunctionComponent<FeedbackCardProps> = ({
     <Box align="center" margin={{ top: 'large', bottom: 'small' }}>
       <Image src={icon} width="100px" />
     </Box>
-    <Paragraph textAlign="center" size="medium" margin={{ horizontal: 'medium', top: 'small', bottom: 'medium' }}>
+    <Paragraph
+      textAlign="center"
+      size="medium"
+      margin={{ horizontal: 'medium', top: 'small', bottom: 'medium' }}
+    >
       {paragraph}
     </Paragraph>
     {onButtonClick && <Button primary label={buttonLabel} onClick={onButtonClick} />}
@@ -62,7 +66,9 @@ export const ExpiredFeedbackCard: FunctionComponent = () => (
     onButtonClick={() => alert('Még definiálni kell, hogy a reset password screenre vigyen!')}
   />
 );
-export const ResetDoneFeedbackCard: FunctionComponent<ResetDoneFeedbackCardProps> = ({ onButtonClick }) => (
+export const ResetDoneFeedbackCard: FunctionComponent<ResetDoneFeedbackCardProps> = ({
+  onButtonClick,
+}) => (
   <FeedbackCard
     title="Kész"
     icon={checkCircle}
