@@ -1,13 +1,16 @@
-import { ThemeProvider, CSSReset, Box } from '@chakra-ui/core';
+import { Box, CSSReset, ThemeProvider } from '@chakra-ui/core';
 import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, configure } from '@storybook/react';
-import React, { Fragment } from 'react';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 addDecorator(withKnobs);
 addDecorator((story) => (
   <ThemeProvider>
-    <CSSReset />
-    <Box p={3}>{story()}</Box>
+    <BrowserRouter>
+      <CSSReset />
+      <Box p={3}>{story()}</Box>
+    </BrowserRouter>
   </ThemeProvider>
 ));
 

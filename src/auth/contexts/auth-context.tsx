@@ -40,7 +40,6 @@ export const AuthProvider: FC = ({ children }) => {
   const history = useHistory();
   const client = useApolloClient();
   const loginRoute = useAuthRoute({ path: 'login' });
-  const resetDoneRoute = useAuthRoute({ path: 'reset-done' });
   const subjectRoute = useSubjectRoute({ path: 'subject-info', subjectCode: 'ERSEB' });
 
   const displayGraphQLError = useGraphQLErrorNotification();
@@ -101,11 +100,7 @@ export const AuthProvider: FC = ({ children }) => {
 
   const resetPassword = async (password: string, token: string) => {
     try {
-      setIsLoading(true);
       await resetPasswordMutation({ variables: { password, token } });
-      setIsLoading(false);
-
-      history.push(resetDoneRoute);
     } catch (error) {
       displayGraphQLError(error);
     }

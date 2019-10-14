@@ -9,9 +9,10 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { AuthProvider } from '../auth/contexts/auth-context';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
-import { Router } from './route/router';
+import { Router } from './router/router';
 import { hotjarString } from './scripts/hotjar';
 import { GlobalStyles, theme } from './style';
+import { driftString } from './scripts/drift';
 
 const initializeGA = () => {
   ReactGA.initialize(config.googleAnalyticsKey);
@@ -29,6 +30,7 @@ export const App = () => {
   return (
     <Fragment>
       {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
+      <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <ApolloProvider client={client}>

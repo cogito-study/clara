@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "downlevelIteration": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": [
@@ -35,14 +35,19 @@
       "node",
       "react"
     ],
-    "forceConsistentCasingInFileNames": true
+    "allowJs": true
   },
   "exclude": [
     "node_modules",
     "build",
     "scripts",
     "webpack",
-    "jest"
+    "jest",
+    "apollo.config.js"
+  ],
+  "includes": [
+    "src/**/*.tsx",
+    "src/**/*.ts"
   ],
   "include": [
     "src"
