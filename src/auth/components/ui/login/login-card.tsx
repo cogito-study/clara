@@ -7,11 +7,12 @@ import { Spinner } from '../../../../core/components/spinner';
 import { useAuthRoute } from '../../../hooks/use-auth-route';
 
 interface LoginCardProps {
+  isLoading: boolean;
   onLogin: (email: string, password: string, resetForm: () => void) => void;
 }
 
 /* eslint-disable complexity */
-export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => {
+export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin, isLoading }) => {
   const forgotPassword = useAuthRoute({ path: 'forgot-password' });
 
   return (
@@ -79,7 +80,7 @@ export const LoginCard: FunctionComponent<LoginCardProps> = ({ onLogin }) => {
                       </FormField>
                     </Box>
 
-                    {isSubmitting ? (
+                    {isSubmitting || isLoading ? (
                       <Spinner primary />
                     ) : (
                       <Button

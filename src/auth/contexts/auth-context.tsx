@@ -1,7 +1,7 @@
 import { useApolloClient } from '@apollo/react-hooks';
 import React, { createContext, FC, useState } from 'react';
 import { useHistory } from 'react-router';
-import { useLocalStorage } from 'standard-hooks';
+import { useLocalStorage } from 'web-api-hooks';
 import { useGraphQLErrorNotification } from '../../core/hooks/use-graphql-error-notification';
 import { useSubjectRoute } from '../../subject/hooks/use-subject-route';
 import { useAuthRoute } from '../hooks/use-auth-route';
@@ -14,6 +14,7 @@ import { UserInfoFragment } from './graphql/user-info-fragment.generated';
 interface AuthContextType {
   user?: UserInfoFragment;
   authToken?: string;
+  isLoading: boolean;
   login: (email: string, password: string) => void;
   logout: () => void;
   activateUser: (password: string, token: string) => void;
@@ -22,6 +23,7 @@ interface AuthContextType {
 }
 
 export const AuthContext = createContext<AuthContextType>({
+  isLoading: false,
   login: () => {},
   logout: () => {},
   activateUser: () => {},
@@ -32,6 +34,7 @@ export const AuthContext = createContext<AuthContextType>({
 const authTokenKey = 'AUTH_TOKEN';
 
 export const AuthProvider: FC = ({ children }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserInfoFragment | undefined>(undefined);
   const [authToken, setAuthToken] = useLocalStorage<string>(authTokenKey);
   const history = useHistory();
@@ -48,7 +51,9 @@ export const AuthProvider: FC = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
+      setIsLoading(true);
       const { data } = await loginUserMutation({ variables: { email, password } });
+      setIsLoading(false);
 
       if (data) {
         setUser(data.login.user);
@@ -68,7 +73,10 @@ export const AuthProvider: FC = ({ children }) => {
 
   const activateUser = async (password: string, token: string) => {
     try {
+      setIsLoading(true);
       const { data } = await activateUserMutation({ variables: { password, token } });
+      setIsLoading(false);
+
       if (data) {
         setUser(data.activateUser.user);
         setAuthToken(data.activateUser.token);
@@ -81,7 +89,10 @@ export const AuthProvider: FC = ({ children }) => {
 
   const forgotPassword = async (email: string) => {
     try {
+      setIsLoading(true);
       await forgotPasswordMutation({ variables: { email } });
+      setIsLoading(false);
+
       alert('Email sent'); // TODO: Feedback
     } catch (error) {
       displayGraphQLError(error);
@@ -90,7 +101,10 @@ export const AuthProvider: FC = ({ children }) => {
 
   const resetPassword = async (password: string, token: string) => {
     try {
+      setIsLoading(true);
       await resetPasswordMutation({ variables: { password, token } });
+      setIsLoading(false);
+
       history.push(resetDoneRoute);
     } catch (error) {
       displayGraphQLError(error);
@@ -99,7 +113,16 @@ export const AuthProvider: FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, authToken, login, logout, activateUser, forgotPassword, resetPassword }}
+      value={{
+        user,
+        isLoading,
+        authToken,
+        login,
+        logout,
+        activateUser,
+        forgotPassword,
+        resetPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

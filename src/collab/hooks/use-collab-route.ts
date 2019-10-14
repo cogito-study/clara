@@ -1,16 +1,12 @@
-import { subjectRouteParam, SubjectRouteParams } from '../../subject/hooks/use-subject-route';
-
-type CollabRouteOption = { path: 'note'; subjectCode?: string; noteID?: string };
+type CollabRouteOption = { path: 'notes'; noteID?: string };
 
 const noteRouteParam = ':noteID';
-export type CollabRouteParams = { noteID?: string } & SubjectRouteParams;
+export type CollabRouteParams = { noteID?: string };
 
 export const useCollabRoute = (option: CollabRouteOption): string => {
   switch (option.path) {
-    case 'note':
-      const { subjectCode, noteID } = option;
-      return `/subjects/${subjectCode ? subjectCode : subjectRouteParam}/notes/${
-        noteID ? noteID : noteRouteParam
-      }`;
+    case 'notes':
+      const { noteID } = option;
+      return `/notes/${noteID ? noteID : noteRouteParam}`;
   }
 };

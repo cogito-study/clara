@@ -13565,13 +13565,6 @@ stack-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.2.tgz#33eba3897788558bebfc2db059dc158ec36cebb8"
   integrity sha512-MTX+MeG5U994cazkjd/9KNAapsHnibjMLnfXodlkXw76JEea0UiNzrqidzo1emMwk7w5Qhc9jd4Bn9TBb1MFwA==
 
-standard-hooks@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/standard-hooks/-/standard-hooks-1.4.1.tgz#1087092c75469d93eae48e47f24c85a7fe29e534"
-  integrity sha512-cMVz4pN9zWCJ6yFwQQSI+YHRsPZK/YUUsB24NXrAku+vOI+kG/UF8aGg0+sJh2ESl3Tr4fF62V5+7TV6ZoGamA==
-  dependencies:
-    network-information-types "^0.1.0"
-
 state-toggle@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/state-toggle/-/state-toggle-1.0.2.tgz#75e93a61944116b4959d665c8db2d243631d6ddc"
@@ -15008,6 +15001,13 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   integrity sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
   dependencies:
     minimalistic-assert "^1.0.0"
+
+web-api-hooks@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/web-api-hooks/-/web-api-hooks-2.0.0.tgz#00050341dd82e6aa6244e9323aa4f1fe59097130"
+  integrity sha512-cmP8xeCVD3jG/cvq6yITg8bzgJ5ByJP4ErLyMMApZhWGpzFnBidjtCoHmZUsHogSuTqR0v0Nu0JTOWniOigvmw==
+  dependencies:
+    network-information-types "^0.1.0"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
