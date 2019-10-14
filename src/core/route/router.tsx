@@ -20,7 +20,7 @@ export const Router = () => {
   const forgotPassword = useAuthRoute({ path: 'forgot-password' });
   const linkExpired = useAuthRoute({ path: 'link-expired' });
   const subject = useSubjectRoute({ path: 'subjects' });
-  const note = useCollabRoute({ path: 'note' });
+  const note = useCollabRoute({ path: 'notes' });
 
   return (
     <Fragment>
