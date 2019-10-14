@@ -4,7 +4,6 @@
   "major": {
     "automerge": false
   },
-  "baseBranches": ["refactor"],
   "packageRules": [
     {
       "packagePatterns": ["eslint"],
