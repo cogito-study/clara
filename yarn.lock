@@ -2235,6 +2235,20 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.3.tgz#856c99cdc1551d22c22b18b5402719affec9839a"
   integrity sha512-cS5owqtwzLN5kY+l+KgKdRJ/Cee8tlmQoGQuIE9tWnSmS3JMKzmxo2HIAk2wODMifGwO20d62xZQLYz+RLfXmw==
 
+"@types/i18next-browser-languagedetector@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/i18next-browser-languagedetector/-/i18next-browser-languagedetector-3.0.0.tgz#5117c813488ec5515f316fd0bbc32e4d03dbaf86"
+  integrity sha512-jCIazV+0MyFB/re4i+HdqkNLNIWahcVztIPyDoBM2KjrFIhzGyvpclel7ma6xhbm+PvidTDY0eXcFRCO+2QOhQ==
+  dependencies:
+    i18next-browser-languagedetector "*"
+
+"@types/i18next@^13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@types/i18next/-/i18next-13.0.0.tgz#403ef338add0104e74d9759f1b39217e7c5d4084"
+  integrity sha512-gp/SIShAuf4WOqi8ey0nuI7qfWaVpMNCcs/xLygrh/QTQIXmlDC1E0TtVejweNW+7SGDY7g0lyxyKZIJuCKIJw==
+  dependencies:
+    i18next "*"
+
 "@types/is-function@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/is-function/-/is-function-1.0.0.tgz#1b0b819b1636c7baf0d6785d030d12edf70c3e83"
@@ -2347,6 +2361,13 @@
   integrity sha512-id9DjHp/+Cm+x3etN+EWs5OP76PPpz8jXw+iN9xcXltssF0KHNjAzlan///ASXegEewaItlw5FhFnoLxRUJQ9g==
   dependencies:
     "@types/react" "*"
+
+"@types/react-i18next@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-i18next/-/react-i18next-8.1.0.tgz#5faacbfe7dc0f24729c1df6914610bfe861a50de"
+  integrity sha512-d4xhcjX5b3roNMObRNMfb1HinHQlQLPo8xlDj60dnHeeAw2bBymR2cy/l1giJpHzo/ZFgSvgVUvIWr4kCrenCg==
+  dependencies:
+    react-i18next "*"
 
 "@types/react-native@*":
   version "0.60.19"
@@ -7420,6 +7441,13 @@ html-minifier@^4.0.0:
     relateurl "^0.2.7"
     uglify-js "^3.5.1"
 
+html-parse-stringify2@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
+  integrity sha1-3FZwtyksoVi3vJFsmmc1rIhyg0o=
+  dependencies:
+    void-elements "^2.0.1"
+
 html-tags@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.1.0.tgz#7b5e6f7e665e9fb41f30007ed9e0d41e97fb2140"
@@ -7552,6 +7580,27 @@ husky@^3.0.8:
     read-pkg "^5.1.1"
     run-node "^1.0.0"
     slash "^3.0.0"
+
+i18next-browser-languagedetector@*, i18next-browser-languagedetector@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.0.0.tgz#42dfe51b307821707d34669f1b848a7703675c01"
+  integrity sha512-w0glQVjhxMTPJHeDg1pUzF8h3teSkp1aotJp6GU6zvF0vVjdlsQdAyvDiQOYKwyQeg1P6Ja5XQLxfyq6sZZkFg==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
+i18next-xhr-backend@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/i18next-xhr-backend/-/i18next-xhr-backend-3.2.0.tgz#f2ac0792c38ca8ee653fab723fc9dcc7b0ff4d71"
+  integrity sha512-WKxC7YWqMT5CNwmnuSbFqb3pXZyDglIONO8qC8HBmP1OaT4GHc1Ox4JX42G27RQjzKK2px3ynwW9Z35LR9RoQg==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+
+i18next@*, i18next@^17.2.0:
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-17.2.0.tgz#d1ac5a817b7e2aaf4bd0374ef689a7e64f5bcef1"
+  integrity sha512-ltl4LSzCEAPBbHRJ6R8diJCnxCbVkf6cxH3k1B4CjB0YFGoISm3/Jxgw3noELe9TP+C/x8fEostuJcGVUeYwdw==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
@@ -12140,6 +12189,14 @@ react-hotkeys@2.0.0-pre4:
   dependencies:
     prop-types "^15.6.1"
 
+react-i18next@*, react-i18next@^10.13.1:
+  version "10.13.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-10.13.1.tgz#4ad37e0bec5e4cf53aaa2a0c96a4e171e01ad520"
+  integrity sha512-MReJUMoYooaKZONvoewFuAwf31bQU60Xt25P5wBIPTMphY4LjDJE27rwhEKjNLL24nSIHa3Jh+z9bPwSKISAoA==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    html-parse-stringify2 "2.0.1"
+
 react-input-autosize@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
@@ -14943,6 +15000,11 @@ vm-browserify@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
+
+void-elements@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
+  integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
