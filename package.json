@@ -41,8 +41,6 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "build:prod": "env-cmd .env.prod yarn build",
-    "build:staging": "env-cmd .env.staging yarn build",
     "build": "react-scripts build",
     "codegen": "graphql-codegen --config codegen.yml",
     "codegen:watch": "yarn codegen --watch",
@@ -51,10 +49,7 @@
     "lint:css": "stylelint './src/**/*.tsx'",
     "lint": "eslint . --ext .ts,.tsx",
     "postinstall": "patch-package",
-    "start:dev": "env-cmd .env.dev react-scripts start",
-    "start:prod": "env-cmd .env.prod react-scripts start",
-    "start:staging": "env-cmd .env.staging react-scripts start",
-    "start": "yarn start:dev",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
