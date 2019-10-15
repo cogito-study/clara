@@ -2,14 +2,15 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './core/app';
 import { isProduction } from './core/environment/config';
+import './core/i18n';
 
 // Allow only error log messages in production mode
-const empty = () => {};
+const noop = () => {};
 if (isProduction) {
-  console.log = empty;
-  console.info = empty;
-  console.debug = empty;
-  console.warn = empty;
+  console.log = noop;
+  console.info = noop;
+  console.debug = noop;
+  console.warn = noop;
 }
 
 ReactDOM.render(

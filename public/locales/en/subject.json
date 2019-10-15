@@ -1,0 +1,9 @@
+{
+  "title": "Title of Subject",
+  "info": {
+    "of": "Information about {{ subjectCode }}"
+  },
+  "notes": {
+    "of": "Notes of {{ subject }} subject"
+  }
+}

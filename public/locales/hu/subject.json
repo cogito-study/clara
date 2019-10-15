@@ -1,0 +1,9 @@
+{
+  "title": "Tárgy címe",
+  "info": {
+    "of": "Információk a {{ subjectCode }} tárgyról"
+  },
+  "notes": {
+    "of": "A {{ subject }} tárgy jegyzetei"
+  }
+}
