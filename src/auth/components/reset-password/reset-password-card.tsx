@@ -2,8 +2,8 @@ import { Form, Formik } from 'formik';
 import { Box, Button, FormField, Heading, Image, TextInput } from 'grommet';
 import React, { FunctionComponent } from 'react';
 import * as Yup from 'yup';
-import { Spinner } from '../../../../core/components/spinner';
-import profile from '../../../../core/assets/images/Profile.svg';
+import { Spinner } from '../../../core/components/spinner';
+import profile from '../../../core/assets/images/Profile.svg';
 
 export interface ResetFormProps {
   onReset: (password: string, resetForm: () => void) => void;

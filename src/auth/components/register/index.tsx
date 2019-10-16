@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/use-auth';
-import { RegistrationCard } from './elements/registration-card';
 import { useUserInfoQuery } from './graphql/user-info-query.generated';
+import { RegistrationCard } from './registration-card';
 
 export const Register = () => {
   const { activateUser, isLoading } = useAuth();

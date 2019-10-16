@@ -1,6 +1,6 @@
 import React from 'react';
-import { FeedbackCard } from '../../elements/feedback-card';
-import mail from '../../../../core/assets/images/Mail.svg';
+import { FeedbackCard } from '../elements/feedback-card';
+import mail from '../../../core/assets/images/Mail.svg';
 
 export const EmailSentFeedbackCard = () => (
   <FeedbackCard

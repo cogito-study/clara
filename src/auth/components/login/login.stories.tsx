@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import { Grommet } from 'grommet';
 import React from 'react';
-import { theme } from '../../../grommet';
-import { authComponents } from '../../../utils/storybook';
+import { theme } from '../../grommet';
+import { authComponents } from '../../utils/storybook';
 import { LoginCard } from './login-card';
 
 export default {

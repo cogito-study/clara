@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/use-auth';
 import { useAuthRoute } from '../../hooks/use-auth-route';
-import { ResetDoneFeedbackCard } from './elements/reset-done-feedback';
-import { ResetPasswordCard } from './elements/reset-password-card';
+import { ResetDoneFeedbackCard } from './reset-done-feedback';
+import { ResetPasswordCard } from './reset-password-card';
 
 export const ResetPassword = () => {
   const { resetPassword } = useAuth();
