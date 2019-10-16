@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import { Grommet } from 'grommet';
 import React from 'react';
-import { theme } from '../../../grommet';
-import { authComponents } from '../../../utils/storybook';
+import { theme } from '../../grommet';
+import { authComponents } from '../../utils/storybook';
 import { EmailSentFeedbackCard } from './email-sent';
 import { ForgotPasswordCard } from './forgot-password-card';
 import { ForgotPasswordCardSent } from './forgot-password-done';

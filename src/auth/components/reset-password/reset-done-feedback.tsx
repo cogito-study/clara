@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { FeedbackCard } from '../../elements/feedback-card';
-import checkCircle from '../../../../core/assets/images/checkCircle.svg';
+import { FeedbackCard } from '../elements/feedback-card';
+import checkCircle from '../../../core/assets/images/checkCircle.svg';
 
 export interface ResetDoneFeedbackCardProps {
   onButtonClick: () => void;

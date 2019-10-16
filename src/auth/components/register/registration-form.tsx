@@ -2,8 +2,8 @@ import { Form, Formik } from 'formik';
 import { Anchor, Box, Button, CheckBox, FormField, Paragraph, TextInput } from 'grommet';
 import React, { FC } from 'react';
 import * as Yup from 'yup';
-import { Spinner } from '../../../../core/components/spinner';
-import { config } from '../../../../core/environment/config';
+import { Spinner } from '../../../core/components/spinner';
+import { config } from '../../../core/environment/config';
 
 export interface RegistrationFormProps {
   isLoading: boolean;

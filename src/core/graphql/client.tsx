@@ -11,10 +11,13 @@ const httpLink = new HttpLink({ uri: config.apiURL });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('AUTH_TOKEN');
+  const languageCode = localStorage.getItem('i18nextLng');
+
   return {
     headers: {
       ...headers,
       Authorization: token ? `Bearer ${token}` : '',
+      languageCode,
     },
   };
 });

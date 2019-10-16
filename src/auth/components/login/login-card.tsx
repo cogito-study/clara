@@ -2,9 +2,9 @@ import { Form, Formik } from 'formik';
 import { Box, Button, FormField, Heading, Text, TextInput } from 'grommet';
 import React, { FC } from 'react';
 import * as Yup from 'yup';
-import { Link } from '../../../../core/components/link';
-import { Spinner } from '../../../../core/components/spinner';
-import { useAuthRoute } from '../../../hooks/use-auth-route';
+import { Link } from '../../../core/components/link';
+import { Spinner } from '../../../core/components/spinner';
+import { useAuthRoute } from '../../hooks/use-auth-route';
 
 interface LoginCardProps {
   isLoading: boolean;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../hooks/use-auth';
-import { LoginCard } from './elements/login-card';
+import { LoginCard } from './login-card';
 
 export const Login = () => {
   const { login, isLoading } = useAuth();

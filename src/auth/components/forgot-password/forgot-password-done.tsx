@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Paragraph } from 'grommet';
 import React from 'react';
-import mail from '../../../../core/assets/images/Mail.svg';
+import mail from '../../../core/assets/images/Mail.svg';
 
 export const ForgotPasswordCardSent = () => (
   <Box

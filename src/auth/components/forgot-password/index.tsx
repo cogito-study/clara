@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/use-auth';
-import { ForgotPasswordCard } from './elements/forgot-password-card';
-import { ForgotPasswordCardSent } from './elements/forgot-password-done';
+import { ForgotPasswordCard } from './forgot-password-card';
+import { ForgotPasswordCardSent } from './forgot-password-done';
 
 export const ForgotPassword = () => {
   const [hasForgotPassword, setHasForgotPassword] = useState<boolean>(false);

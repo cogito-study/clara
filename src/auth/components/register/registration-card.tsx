@@ -1,8 +1,8 @@
 import { Box, Heading, Image, Text } from 'grommet';
 import React, { FC } from 'react';
-import profile from '../../../../core/assets/images/Profile.svg';
-import { Link } from '../../../../core/components/link';
-import { useAuthRoute } from '../../../hooks/use-auth-route';
+import profile from '../../../core/assets/images/Profile.svg';
+import { Link } from '../../../core/components/link';
+import { useAuthRoute } from '../../hooks/use-auth-route';
 import { RegistrationForm, RegistrationFormProps } from './registration-form';
 
 interface RegistrationCardProps extends RegistrationFormProps {
