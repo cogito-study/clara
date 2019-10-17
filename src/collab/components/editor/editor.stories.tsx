@@ -2,7 +2,7 @@ import React from 'react';
 import { collabComponents } from '../../utils/storybook';
 
 export default {
-  title: collabComponents('Elements'),
+  title: collabComponents('Editor'),
 };
 
 export const placeholder = () => <div />;

@@ -1,0 +1,16 @@
+.ql-mark-added {
+  background-color: aqua;
+}
+
+.ql-mark-deleted {
+  background-color: red;
+}
+
+.ql-mark-addedBySomeone {
+  background-color: #93f;
+}
+
+.ql-editor {
+  flex-grow: 1;
+  outline: none;
+}
