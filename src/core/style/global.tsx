@@ -1,10 +1,8 @@
-import { CSSReset } from '@chakra-ui/core';
 import { css, Global } from '@emotion/core';
 import React, { Fragment } from 'react';
 
 export const GlobalStyles = () => (
   <Fragment>
-    <CSSReset />
     <Global
       styles={(theme) => css`
         * {
