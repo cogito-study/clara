@@ -1,5 +1,5 @@
+import { Flex, Heading, PseudoBox, Text } from '@chakra-ui/core';
 import React, { FC } from 'react';
-import { Flex, Heading, Text, PseudoBox } from '@chakra-ui/core';
 
 export type NoteCardProps = {
   title: string;
