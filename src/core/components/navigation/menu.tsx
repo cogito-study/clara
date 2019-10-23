@@ -1,18 +1,18 @@
 import {
-  Box,
   Avatar,
+  Box,
   Drawer,
   DrawerBody,
-  DrawerOverlay,
   DrawerContent,
+  DrawerOverlay,
   Flex,
-  Icon,
   Heading,
-  Text,
+  Icon,
   Link,
+  Text,
+  theme as baseTheme,
 } from '@chakra-ui/core';
 import React, { FC } from 'react';
-import { theme as baseTheme } from '@chakra-ui/core';
 
 export type MainMenuProps = {
   subjects?: Subject[];
