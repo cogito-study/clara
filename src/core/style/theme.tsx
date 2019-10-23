@@ -17,6 +17,14 @@ export const theme: Theme = {
     xl: '34px',
     '2xl': '44px',
   },
+  lineHeights: {
+    shorter: '0.8',
+    none: '1',
+    normal: '1.2',
+    base: '1.2',
+    tall: '1.5',
+    taller: '1.625',
+  },
   colors: {
     ...baseTheme.colors,
     white: '#FAFAFA',
