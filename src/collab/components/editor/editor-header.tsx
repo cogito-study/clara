@@ -47,7 +47,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
         {mode === 'edit' ? (
           <>
             <Button
-              rightIcon="pencil"
+              rightIcon="save"
               onClick={() => {}}
               bg="teal.500"
               color="blue.800"
