@@ -133,7 +133,7 @@ export const CollaborationContainer = () => {
 
   return (
     <Flex direction="column">
-      <EditorHeader mode={'edit'} subject={'Vascular suregery'}></EditorHeader>
+      <EditorHeader mode={'edit'} subject={'Vascular surgery'}></EditorHeader>
       <Flex mt="50px">
         <Flex direction="column">
           <Button backgroundColor="blue.700" m={5} width="200px" onClick={handleSuggest}>
