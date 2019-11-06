@@ -2,7 +2,7 @@ import { Box, Heading, Image, Text } from 'grommet';
 import React, { FC } from 'react';
 import profile from '../../../core/assets/images/Profile.svg';
 import { Link } from '../../../core/components/link';
-import { useAuthRoute } from '../../hooks/use-auth-route';
+import { authRoute } from '../../utils/auth-route';
 import { RegistrationForm, RegistrationFormProps } from './registration-form';
 
 interface RegistrationCardProps extends RegistrationFormProps {
@@ -11,8 +11,6 @@ interface RegistrationCardProps extends RegistrationFormProps {
 }
 
 export const RegistrationCard: FC<RegistrationCardProps> = ({ name, email, ...rest }) => {
-  const login = useAuthRoute({ path: 'login' });
-
   return (
     <Box
       width="large"
@@ -44,7 +42,7 @@ export const RegistrationCard: FC<RegistrationCardProps> = ({ name, email, ...re
       <Box margin={{ top: 'medium' }} pad={{ horizontal: 'medium' }} fill align="center">
         <RegistrationForm {...rest} />
         <Text size="small" margin="xsmall">
-          Már van profilod? <Link to={login}>Bejelentkezés</Link>
+          Már van profilod? <Link to={authRoute({ path: 'login' })}>Bejelentkezés</Link>
         </Text>
       </Box>
     </Box>

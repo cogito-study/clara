@@ -1,0 +1,8 @@
+query MySubjects {
+  me {
+    studiedSubjects {
+      code
+      name
+    }
+  }
+}

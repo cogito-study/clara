@@ -2,7 +2,8 @@
   "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "eslint.validate": [{
+  "eslint.validate": [
+    {
       "language": "javascript",
       "autoFix": true
     },

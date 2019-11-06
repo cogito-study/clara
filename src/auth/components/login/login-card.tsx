@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { Link } from '../../../core/components/link';
 import { Spinner } from '../../../core/components/spinner';
-import { useAuthRoute } from '../../hooks/use-auth-route';
+import { authRoute } from '../../utils/auth-route';
 
 interface LoginCardProps {
   isLoading: boolean;
@@ -13,8 +13,6 @@ interface LoginCardProps {
 
 /* eslint-disable complexity */
 export const LoginCard: FC<LoginCardProps> = ({ onLogin, isLoading }) => {
-  const forgotPassword = useAuthRoute({ path: 'forgot-password' });
-
   return (
     <Box
       width="large"
@@ -98,7 +96,7 @@ export const LoginCard: FC<LoginCardProps> = ({ onLogin, isLoading }) => {
           }}
         </Formik>
         <Text size="small" margin="xsmall">
-          <Link to={forgotPassword}>Elfelejtetted a jelszavad?</Link>
+          <Link to={authRoute({ path: 'forgot-password' })}>Elfelejtetted a jelszavad?</Link>
         </Text>
       </Box>
     </Box>

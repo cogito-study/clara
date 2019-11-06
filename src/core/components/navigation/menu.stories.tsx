@@ -1,20 +1,20 @@
 import React from 'react';
 import { coreComponents } from '../../utils/storybook';
-import { MainMenu, MainMenuProps } from './menu';
+import { MainMenu } from './menu';
 
 export default {
   title: coreComponents('Menu'),
 };
 
-const subjects: MainMenuProps = {
-  subjects: [
-    { label: 'Vasular surgery 1', link: '/vascularsurgery' },
-    { label: 'Vasular surgery 2', link: '/vascularsurgery' },
-    { label: 'Vasular surgery 3', link: '/vascularsurgery' },
-    { label: 'Vasular surgery 4', link: '/vascularsurgery' },
-    { label: 'Vasular surgery 5', link: '/vascularsurgery' },
-  ],
-};
+// const subjects: MainMenuProps = {
+//   subjects: [
+//     { name: 'Vasular surgery 1', code: '/vascularsurgery' },
+//     { name: 'Vasular surgery 2', code: '/vascularsurgery' },
+//     { name: 'Vasular surgery 3', code: '/vascularsurgery' },
+//     { name: 'Vasular surgery 4', code: '/vascularsurgery' },
+//     { name: 'Vasular surgery 5', code: '/vascularsurgery' },
+//   ],
+// };
 
 export const mainMenu = () => <MainMenu />;
-export const mainMenuWithSubjects = () => <MainMenu {...subjects} />;
+// export const mainMenuWithSubjects = () => <MainMenu {...subjects} />;

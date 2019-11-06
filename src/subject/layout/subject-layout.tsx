@@ -1,14 +1,13 @@
-import { Box, Heading } from '@chakra-ui/core';
-import React, { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Flex } from '@chakra-ui/core';
+import React from 'react';
+import { MainMenu } from '../../core/components/navigation/menu';
+import { SubjectPage } from '../pages/subject-page';
 
-export const SubjectLayout: FC = ({ children }) => {
-  const { t } = useTranslation('subject');
-
+export const SubjectLayout = () => {
   return (
-    <Box p={5} height="100vh" width="100%" bg="teal.800" color="white">
-      <Heading>{t('title')}</Heading>
-      {children}
-    </Box>
+    <Flex direction={['column', 'column', 'row']} bg="#fff" color="white">
+      <MainMenu />
+      <SubjectPage />
+    </Flex>
   );
 };

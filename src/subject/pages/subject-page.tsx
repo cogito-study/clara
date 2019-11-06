@@ -1,35 +1,32 @@
-import { Box, Heading } from '@chakra-ui/core';
-import React, { FunctionComponent } from 'react';
-import { useParams, Route } from 'react-router-dom';
-import { SubjectRouteParams, useSubjectRoute } from '../hooks/use-subject-route';
+import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { SubjectInfo } from '../components/subject-info';
+import { SubjectNotes } from '../components/subject-notes';
 
-const SubjectInfo = () => {
-  const { subjectCode } = useParams<SubjectRouteParams>();
-
-  return <Box color="white">{`Subject info of ${subjectCode}`}</Box>;
-};
-
-const SubjectNotes = () => {
-  const { subjectCode } = useParams<SubjectRouteParams>();
-
-  return <Box color="white">{`Subject notes of ${subjectCode}`}</Box>;
-};
-
-const SubjectPage: FunctionComponent = () => {
-  const subjectInfo = useSubjectRoute({ path: 'subject-info' });
-  const subjectNotes = useSubjectRoute({ path: 'subject-notes' });
+export const SubjectPage = () => {
+  const { t } = useTranslation('subject');
 
   return (
-    <Box p={5} height="100vh" width="100%" bg="blue.800" color="white">
-      <Heading>Subject Page</Heading>
-      <Route to={subjectInfo}>
-        <SubjectInfo />
-      </Route>
-      <Route to={subjectNotes}>
-        <SubjectNotes />
-      </Route>
+    <Box pos="relative" px={12} pt={4}>
+      <Heading as="h2" fontSize="xl" color="black">
+        {t('title')}
+      </Heading>
+      <Tabs color="gray.800" bg="#fff">
+        <TabList pt={2}>
+          {/* TODO: Localize */}
+          <Tab>information</Tab>
+          <Tab>notes</Tab>
+        </TabList>
+        <TabPanels p="2rem">
+          <TabPanel>
+            <SubjectInfo />
+          </TabPanel>
+          <TabPanel>
+            <SubjectNotes />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };
-
-export default SubjectPage;
