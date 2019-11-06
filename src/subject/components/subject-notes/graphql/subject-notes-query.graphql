@@ -1,0 +1,11 @@
+query SubjectNotes($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    notes {
+      id
+      title
+      number
+      updatedAt
+      description
+    }
+  }
+}

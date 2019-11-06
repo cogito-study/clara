@@ -3,8 +3,8 @@ import React, { createContext, FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useLocalStorage } from 'web-api-hooks';
 import { useGraphQLErrorNotification } from '../../core/hooks/use-graphql-error-notification';
-import { useSubjectRoute } from '../../subject/hooks/use-subject-route';
-import { useAuthRoute } from '../hooks/use-auth-route';
+import { subjectRoute } from '../../subject/utils/subject-route';
+import { authRoute } from '../utils/auth-route';
 import { useActivateUserMutation } from './graphql/activate-user-mutation.generated';
 import { useForgotPasswordMutation } from './graphql/forgot-password-mutation.generated';
 import { useLoginUserMutation } from './graphql/login-user-mutation.generated';
@@ -39,8 +39,6 @@ export const AuthProvider: FC = ({ children }) => {
   const [authToken, setAuthToken] = useLocalStorage<string>(authTokenKey);
   const history = useHistory();
   const client = useApolloClient();
-  const loginRoute = useAuthRoute({ path: 'login' });
-  const subjectRoute = useSubjectRoute({ path: 'subject-info', subjectCode: 'ERSEB' });
 
   const displayGraphQLError = useGraphQLErrorNotification();
   const [loginUserMutation] = useLoginUserMutation();
@@ -57,7 +55,7 @@ export const AuthProvider: FC = ({ children }) => {
       if (data) {
         setUser(data.login.user);
         setAuthToken(data.login.token);
-        history.push(subjectRoute);
+        history.push(subjectRoute({ path: 'subjects', subjectCode: '1pw2ia7a5gr1' }));
       }
     } catch (error) {
       displayGraphQLError(error);
@@ -67,7 +65,7 @@ export const AuthProvider: FC = ({ children }) => {
   const logout = () => {
     client.resetStore();
     localStorage.removeItem(authTokenKey);
-    history.push(loginRoute);
+    history.push(authRoute({ path: 'login' }));
   };
 
   const activateUser = async (password: string, token: string) => {
@@ -79,7 +77,7 @@ export const AuthProvider: FC = ({ children }) => {
       if (data) {
         setUser(data.activateUser.user);
         setAuthToken(data.activateUser.token);
-        history.push(subjectRoute);
+        history.push(subjectRoute({ path: 'subjects', subjectCode: '1pw2ia7a5gr1' }));
       }
     } catch (error) {
       displayGraphQLError(error);

@@ -1,10 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAuth } from '../../auth/hooks/use-auth';
-import { useAuthRoute } from '../../auth/hooks/use-auth-route';
+import { authRoute } from '../../auth/utils/auth-route';
 
-export const PrivateRoute: FunctionComponent<RouteProps> = ({ children, ...rest }) => {
-  const login = useAuthRoute({ path: 'login' });
+export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
   const { authToken } = useAuth();
 
   return (
@@ -16,7 +15,7 @@ export const PrivateRoute: FunctionComponent<RouteProps> = ({ children, ...rest 
         ) : (
           <Redirect
             to={{
-              pathname: login,
+              pathname: authRoute({ path: 'login' }),
               state: { from: location },
             }}
           />

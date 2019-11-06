@@ -5,30 +5,24 @@ import { ForgotPassword } from '../components/forgot-password';
 import { Login } from '../components/login';
 import { Register } from '../components/register';
 import { ResetPassword } from '../components/reset-password';
-import { useAuthRoute } from '../hooks/use-auth-route';
+import { authRoute } from '../utils/auth-route';
 
 export const AuthRouter = () => {
-  const login = useAuthRoute({ path: 'login' });
-  const register = useAuthRoute({ path: 'register' });
-  const resetPassword = useAuthRoute({ path: 'reset-password' });
-  const forgotPassword = useAuthRoute({ path: 'forgot-password' });
-  const linkExpired = useAuthRoute({ path: 'link-expired' });
-
   return (
     <Fragment>
-      <Route path={register}>
+      <Route path={authRoute({ path: 'register' })}>
         <Register />
       </Route>
-      <Route path={login}>
+      <Route path={authRoute({ path: 'login' })}>
         <Login />
       </Route>
-      <Route path={forgotPassword}>
+      <Route path={authRoute({ path: 'forgot-password' })}>
         <ForgotPassword />
       </Route>
-      <Route path={resetPassword}>
+      <Route path={authRoute({ path: 'reset-password' })}>
         <ResetPassword />
       </Route>
-      <Route path={linkExpired}>
+      <Route path={authRoute({ path: 'link-expired' })}>
         <ExpiredFeedbackCard />
       </Route>
     </Fragment>

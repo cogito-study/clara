@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/core';
 import React, { FC } from 'react';
-import { InfoTitle } from './info-title';
+import { InfoTitle } from './subject-info-title';
 
 export type InfoCardProps = {
   title: string;

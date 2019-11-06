@@ -1,19 +1,11 @@
 import React from 'react';
 import { subjectComponents } from '../../utils/storybook';
-import { InfoCard, InfoCardProps } from './info-card';
-import { NoteCard, NoteCardProps } from './note-card';
-import { TeacherCard, TeacherCardProps } from './teacher-card';
-import { InfoTitle } from './info-title';
+import { InfoCard, InfoCardProps } from './subject-info-card';
+import { TeacherCard, TeacherCardProps } from './subject-teacher-card';
+import { InfoTitle } from './subject-info-title';
 
 export default {
-  title: subjectComponents('Elements'),
-};
-
-const noteCardProps: NoteCardProps = {
-  title: 'Vascular surgery longer longer',
-  order: 12,
-  updation: 'updated 5 days ago',
-  description: 'alpha, beta, gamma, delta, omega, epsilon, gamma, kappa, tau',
+  title: subjectComponents('Info'),
 };
 
 const infoCardProps: InfoCardProps = {
@@ -28,7 +20,6 @@ const teacherCardProps: TeacherCardProps = {
   email: 'guy.smith@university.edu',
 };
 
-export const noteCard = () => <NoteCard {...noteCardProps} />;
 export const infoCard = () => <InfoCard {...infoCardProps} />;
 export const infoCardWithGeneralInfos = () => (
   <InfoCard {...infoCardProps} code="NEPTUN" department="Vascular surgery department" />

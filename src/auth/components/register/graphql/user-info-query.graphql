@@ -3,5 +3,8 @@ query UserInfo($userID: ID!) {
     firstName
     lastName
     email
+    studiedSubjects {
+      id
+    }
   }
 }

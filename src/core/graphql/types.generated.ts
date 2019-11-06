@@ -50,7 +50,6 @@ export type CreateDepartmentInput = {
 /** Input of create institute */
 export type CreateInstituteInput = {
   readonly name: Scalars['String'];
-  readonly description: Scalars['String'];
 };
 
 /** Input of create note comment */
@@ -77,10 +76,9 @@ export type CreateNoteHighlightInput = {
 
 /** Input of create note */
 export type CreateNoteInput = {
-  readonly name: Scalars['String'];
+  readonly title: Scalars['String'];
   readonly content: Scalars['String'];
   readonly contentHTML: Scalars['String'];
-  readonly title: Scalars['String'];
   readonly number: Scalars['Int'];
   readonly description: Maybe<Scalars['String']>;
   readonly noteCategory: NoteCategoryEnum;
@@ -107,7 +105,6 @@ export type CreateSubjectInput = {
 /** Input of create suggestion */
 export type CreateSuggestionInput = {
   readonly delta: Scalars['String'];
-  readonly author: ConnectRelation;
   readonly note: ConnectRelation;
 };
 
@@ -152,6 +149,7 @@ export type DepartmentPermissionObjectsArgs = {
 
 export enum DepartmentPermissionTypeEnum {
   UpdateDepartment = 'UPDATE_DEPARTMENT',
+  ReadDepartment = 'READ_DEPARTMENT',
   DeleteDepartment = 'DELETE_DEPARTMENT',
   CreateSubject = 'CREATE_SUBJECT',
 }
@@ -226,17 +224,6 @@ export type InstituteWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;
 };
 
-export type IntFilter = {
-  readonly equals: Maybe<Scalars['Int']>;
-  readonly not: Maybe<Scalars['Int']>;
-  readonly in: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly notIn: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly lt: Maybe<Scalars['Int']>;
-  readonly lte: Maybe<Scalars['Int']>;
-  readonly gt: Maybe<Scalars['Int']>;
-  readonly gte: Maybe<Scalars['Int']>;
-};
-
 export type Language = {
   readonly __typename?: 'Language';
   readonly id: Scalars['ID'];
@@ -277,6 +264,8 @@ export type Mutation = {
   readonly deleteSubjectInformation: SubjectInformation;
   readonly createSuggestion: Suggestion;
   readonly updateSuggestion: Suggestion;
+  readonly approveSuggestion: Suggestion;
+  readonly rejectSuggestion: Suggestion;
   readonly deleteSuggestion: Suggestion;
   readonly updateUser: User;
   readonly deleteUser: User;
@@ -396,6 +385,14 @@ export type MutationCreateSuggestionArgs = {
 export type MutationUpdateSuggestionArgs = {
   where: WhereUniqueInput;
   data: UpdateSuggestionInput;
+};
+
+export type MutationApproveSuggestionArgs = {
+  where: WhereUniqueInput;
+};
+
+export type MutationRejectSuggestionArgs = {
+  where: WhereUniqueInput;
 };
 
 export type MutationDeleteSuggestionArgs = {
@@ -647,6 +644,7 @@ export type NotePermissionObjectsArgs = {
 };
 
 export enum NotePermissionTypeEnum {
+  ReadNote = 'READ_NOTE',
   UpdateNote = 'UPDATE_NOTE',
   DeleteNote = 'DELETE_NOTE',
   CreateSuggestion = 'CREATE_SUGGESTION',
@@ -680,11 +678,6 @@ export type PasswordToken = {
   readonly deletedAt: Maybe<Scalars['DateTime']>;
 };
 
-export type PasswordTokenWhereUniqueInput = {
-  readonly id: Maybe<Scalars['ID']>;
-  readonly token: Maybe<Scalars['String']>;
-};
-
 export type Permission = {
   readonly __typename?: 'Permission';
   readonly id: Scalars['ID'];
@@ -703,61 +696,24 @@ export type Permission = {
 export type Query = {
   readonly __typename?: 'Query';
   readonly department: Maybe<Department>;
-  readonly departments: Maybe<ReadonlyArray<Department>>;
-  readonly departmentPermissions: Maybe<ReadonlyArray<DepartmentPermission>>;
   readonly institute: Maybe<Institute>;
   readonly institutes: Maybe<ReadonlyArray<Institute>>;
-  readonly institutePermissions: Maybe<ReadonlyArray<InstitutePermission>>;
   readonly language: Maybe<Language>;
   readonly languages: Maybe<ReadonlyArray<Language>>;
   readonly note: Maybe<Note>;
-  readonly notes: Maybe<ReadonlyArray<Note>>;
-  readonly notePermissions: Maybe<ReadonlyArray<NotePermission>>;
   readonly noteComment: Maybe<NoteComment>;
-  readonly noteComments: Maybe<ReadonlyArray<NoteComment>>;
-  readonly noteCommentPermissions: Maybe<ReadonlyArray<NoteCommentPermission>>;
   readonly noteCommentThread: Maybe<NoteCommentThread>;
-  readonly noteCommentThreads: Maybe<ReadonlyArray<NoteCommentThread>>;
-  readonly noteCommentThreadPermissions: Maybe<ReadonlyArray<NoteCommentThreadPermission>>;
   readonly noteHighlight: Maybe<NoteHighlight>;
-  readonly noteHighlights: Maybe<ReadonlyArray<NoteHighlight>>;
-  readonly noteHighlightPermissions: Maybe<ReadonlyArray<NoteHighlightPermission>>;
-  readonly resetPassword: Maybe<PasswordToken>;
-  readonly resetPasswords: Maybe<ReadonlyArray<PasswordToken>>;
   readonly subject: Maybe<Subject>;
-  readonly subjects: Maybe<ReadonlyArray<Subject>>;
-  readonly subjectPermissions: Maybe<ReadonlyArray<SubjectPermission>>;
   readonly subjectInformation: Maybe<SubjectInformation>;
-  readonly subjectInformations: Maybe<ReadonlyArray<SubjectInformation>>;
-  readonly subjectInformationPermissions: Maybe<ReadonlyArray<SubjectInformationPermission>>;
   readonly suggestion: Maybe<Suggestion>;
-  readonly suggestions: Maybe<ReadonlyArray<Suggestion>>;
-  readonly suggestionPermissions: Maybe<ReadonlyArray<SuggestionPermission>>;
   readonly user: Maybe<User>;
   readonly users: Maybe<ReadonlyArray<User>>;
   readonly me: User;
-  readonly userPermissions: Maybe<ReadonlyArray<UserPermission>>;
 };
 
 export type QueryDepartmentArgs = {
   where: DepartmentWhereUniqueInput;
-};
-
-export type QueryDepartmentsArgs = {
-  where: Maybe<QueryFindManyDepartmentWhereInput>;
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryDepartmentPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type QueryInstituteArgs = {
@@ -765,14 +721,6 @@ export type QueryInstituteArgs = {
 };
 
 export type QueryInstitutesArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryInstitutePermissionsArgs = {
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['String']>;
   before: Maybe<Scalars['String']>;
@@ -796,156 +744,28 @@ export type QueryNoteArgs = {
   where: NoteWhereUniqueInput;
 };
 
-export type QueryNotesArgs = {
-  where: Maybe<QueryFindManyNoteWhereInput>;
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryNotePermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type QueryNoteCommentArgs = {
   where: NoteCommentWhereUniqueInput;
-};
-
-export type QueryNoteCommentsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryNoteCommentPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type QueryNoteCommentThreadArgs = {
   where: NoteCommentThreadWhereUniqueInput;
 };
 
-export type QueryNoteCommentThreadsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryNoteCommentThreadPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type QueryNoteHighlightArgs = {
   where: NoteHighlightWhereUniqueInput;
-};
-
-export type QueryNoteHighlightsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryNoteHighlightPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryResetPasswordArgs = {
-  where: PasswordTokenWhereUniqueInput;
-};
-
-export type QueryResetPasswordsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type QuerySubjectArgs = {
   where: SubjectWhereUniqueInput;
 };
 
-export type QuerySubjectsArgs = {
-  where: Maybe<QueryFindManySubjectWhereInput>;
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QuerySubjectPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type QuerySubjectInformationArgs = {
   where: SubjectInformationWhereUniqueInput;
 };
 
-export type QuerySubjectInformationsArgs = {
-  where: Maybe<QueryFindManySubjectInformationWhereInput>;
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QuerySubjectInformationPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type QuerySuggestionArgs = {
   where: SuggestionWhereUniqueInput;
-};
-
-export type QuerySuggestionsArgs = {
-  where: Maybe<QueryFindManySuggestionWhereInput>;
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QuerySuggestionPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type QueryUserArgs = {
@@ -959,60 +779,6 @@ export type QueryUsersArgs = {
   before: Maybe<Scalars['String']>;
   first: Maybe<Scalars['Int']>;
   last: Maybe<Scalars['Int']>;
-};
-
-export type QueryUserPermissionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  before: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type QueryFindManyDepartmentWhereInput = {
-  readonly name: Maybe<StringFilter>;
-  readonly description: Maybe<StringFilter>;
-};
-
-export type QueryFindManyNoteFilter = {
-  readonly every: Maybe<QueryFindManyNoteWhereInput>;
-  readonly some: Maybe<QueryFindManyNoteWhereInput>;
-  readonly none: Maybe<QueryFindManyNoteWhereInput>;
-};
-
-export type QueryFindManyNoteWhereInput = {
-  readonly title: Maybe<StringFilter>;
-  readonly number: Maybe<IntFilter>;
-  readonly description: Maybe<NullableStringFilter>;
-  readonly likers: Maybe<QueryFindManyNoteFilter>;
-  readonly subject: Maybe<QueryFindManyNoteWhereInput>;
-};
-
-export type QueryFindManySubjectInformationWhereInput = {
-  readonly title: Maybe<StringFilter>;
-  readonly subtitle: Maybe<NullableStringFilter>;
-};
-
-export type QueryFindManySubjectWhereInput = {
-  readonly id: Maybe<StringFilter>;
-  readonly code: Maybe<StringFilter>;
-  readonly name: Maybe<StringFilter>;
-  readonly description: Maybe<StringFilter>;
-};
-
-export type QueryFindManySuggestionFilter = {
-  readonly equals: Maybe<Scalars['DateTime']>;
-  readonly not: Maybe<Scalars['DateTime']>;
-  readonly in: Maybe<ReadonlyArray<Scalars['DateTime']>>;
-  readonly notIn: Maybe<ReadonlyArray<Scalars['DateTime']>>;
-  readonly lt: Maybe<Scalars['DateTime']>;
-  readonly lte: Maybe<Scalars['DateTime']>;
-  readonly gt: Maybe<Scalars['DateTime']>;
-  readonly gte: Maybe<Scalars['DateTime']>;
-};
-
-export type QueryFindManySuggestionWhereInput = {
-  readonly approvedAt: Maybe<QueryFindManySuggestionFilter>;
 };
 
 export type QueryFindManyUserWhereInput = {
@@ -1131,6 +897,7 @@ export type SubjectInformationPermissionObjectsArgs = {
 };
 
 export enum SubjectInformationPermissionTypeEnum {
+  ReadSubjectInformation = 'READ_SUBJECT_INFORMATION',
   UpdateSubjectInformation = 'UPDATE_SUBJECT_INFORMATION',
   DeleteSubjectInformation = 'DELETE_SUBJECT_INFORMATION',
 }
@@ -1158,8 +925,10 @@ export type SubjectPermissionObjectsArgs = {
 };
 
 export enum SubjectPermissionTypeEnum {
+  CreateSubjectInformation = 'CREATE_SUBJECT_INFORMATION',
   UpdateSubject = 'UPDATE_SUBJECT',
   DeleteSubject = 'DELETE_SUBJECT',
+  ReadSubject = 'READ_SUBJECT',
   CreateNote = 'CREATE_NOTE',
 }
 
@@ -1168,10 +937,35 @@ export type SubjectWhereUniqueInput = {
   readonly code: Maybe<Scalars['String']>;
 };
 
+export type Subscription = {
+  readonly __typename?: 'Subscription';
+  readonly createdSuggestion: Suggestion;
+  readonly updatedSuggestion: Suggestion;
+  readonly approvedSuggestion: Suggestion;
+  readonly rejectedSuggestion: Suggestion;
+};
+
+export type SubscriptionCreatedSuggestionArgs = {
+  where: WhereUniqueInput;
+};
+
+export type SubscriptionUpdatedSuggestionArgs = {
+  where: WhereUniqueInput;
+};
+
+export type SubscriptionApprovedSuggestionArgs = {
+  where: WhereUniqueInput;
+};
+
+export type SubscriptionRejectedSuggestionArgs = {
+  where: WhereUniqueInput;
+};
+
 export type Suggestion = {
   readonly __typename?: 'Suggestion';
   readonly id: Scalars['ID'];
   readonly approvedAt: Maybe<Scalars['DateTime']>;
+  readonly rejectedAt: Maybe<Scalars['DateTime']>;
   readonly delta: Scalars['String'];
   readonly likers: Maybe<ReadonlyArray<User>>;
   readonly note: Note;
@@ -1211,6 +1005,7 @@ export type SuggestionPermissionObjectsArgs = {
 
 export enum SuggestionPermissionTypeEnum {
   UpdateSuggestion = 'UPDATE_SUGGESTION',
+  ReadSuggestion = 'READ_SUGGESTION',
   DeleteSuggestion = 'DELETE_SUGGESTION',
   ApproveSuggestion = 'APPROVE_SUGGESTION',
   RejectSuggestion = 'REJECT_SUGGESTION',
@@ -1230,7 +1025,6 @@ export type UpdateDepartmentInput = {
 /** Input of update institute */
 export type UpdateInstituteInput = {
   readonly name: Maybe<Scalars['String']>;
-  readonly description: Maybe<Scalars['String']>;
 };
 
 /** Input of update note comment */
@@ -1245,10 +1039,9 @@ export type UpdateNoteHighlightInput = {
 
 /** Input of update note */
 export type UpdateNoteInput = {
-  readonly name: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
   readonly content: Maybe<Scalars['String']>;
   readonly contentHTML: Maybe<Scalars['String']>;
-  readonly title: Maybe<Scalars['String']>;
   readonly number: Maybe<Scalars['Int']>;
   readonly description: Maybe<Scalars['String']>;
   readonly noteCategory: Maybe<NoteCategoryEnum>;
@@ -1289,6 +1082,7 @@ export type User = {
   readonly profilePictureURL: Maybe<Scalars['String']>;
   readonly phoneNumber: Maybe<Scalars['String']>;
   readonly identifier: Scalars['String'];
+  readonly role: UserRole;
   readonly notes: Maybe<ReadonlyArray<Note>>;
   readonly noteHighlights: Maybe<ReadonlyArray<NoteHighlight>>;
   readonly suggestions: Maybe<ReadonlyArray<Suggestion>>;
@@ -1422,6 +1216,22 @@ export type UserPermissionObjectsArgs = {
 export enum UserPermissionTypeEnum {
   UpdateUser = 'UPDATE_USER',
   DeleteUser = 'DELETE_USER',
+}
+
+export type UserRole = {
+  readonly __typename?: 'UserRole';
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
+  readonly type: UserRoleTypeEnum;
+  readonly createdAt: Scalars['DateTime'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export enum UserRoleTypeEnum {
+  User = 'USER',
+  Admin = 'ADMIN',
+  Professor = 'PROFESSOR',
 }
 
 export type UserWhereUniqueInput = {
