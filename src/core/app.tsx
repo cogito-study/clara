@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from '@chakra-ui/core';
 import { captureException, init as initSentry } from '@sentry/browser';
-import React, { Fragment } from 'react';
+import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
@@ -10,9 +10,9 @@ import { AuthProvider } from '../auth/contexts/auth-context';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
 import { Router } from './router/router';
+import { driftString } from './scripts/drift';
 import { hotjarString } from './scripts/hotjar';
 import { GlobalStyles, theme } from './style';
-import { driftString } from './scripts/drift';
 
 const initializeGA = () => {
   ReactGA.initialize(config.googleAnalyticsKey);
@@ -28,7 +28,7 @@ export const App = () => {
   }
 
   return (
-    <Fragment>
+    <>
       {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <ThemeProvider theme={theme}>
@@ -45,6 +45,6 @@ export const App = () => {
           </ErrorBoundary>
         </ApolloProvider>
       </ThemeProvider>
-    </Fragment>
+    </>
   );
 };

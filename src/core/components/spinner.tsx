@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Spinner = styled.div<{ primary?: boolean }>`
   width: 30px;
   height: 30px;
-  border: 5px solid ${(props) => (props.primary ? props.theme.global.colors.primary : props.theme.global.colors.light)};
+  border: 5px solid
+    ${(props) =>
+      props.primary ? props.theme.global.colors.primary : props.theme.global.colors.light};
   animation: pulsate 1s ease-out;
   animation-iteration-count: infinite;
   border-radius: 30px;

@@ -5,7 +5,7 @@ import { SubjectPage } from '../pages/subject-page';
 
 export const SubjectLayout = () => {
   return (
-    <Flex direction={['column', 'column', 'row']} bg="#fff" color="white">
+    <Flex direction={['column', 'column', 'row']} bg="white">
       <MainMenu />
       <SubjectPage />
     </Flex>

@@ -7,7 +7,7 @@ export type SubjectNoteCardProps = {
   title: string;
   number: number;
   updatedAt: Date;
-  description: string | null;
+  description?: string;
 } & PseudoBoxProps;
 
 export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
@@ -20,6 +20,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
   <PseudoBox
     cursor="pointer"
     p={3}
+    bg="#fff"
     borderWidth="1px"
     borderColor="grey.100"
     width="300px"

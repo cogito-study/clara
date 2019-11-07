@@ -8,7 +8,10 @@ interface ParagraphPlaceholderProps {
   lineHeight: number;
 }
 
-export const ParagraphPlaceholder: FunctionComponent<ParagraphPlaceholderProps> = ({ numberOfLines, lineHeight }) => (
+export const ParagraphPlaceholder: FunctionComponent<ParagraphPlaceholderProps> = ({
+  numberOfLines,
+  lineHeight,
+}) => (
   <Fragment>
     <Box width="100%" align="stretch">
       {Array.from({ length: numberOfLines }).map((_, index) => (

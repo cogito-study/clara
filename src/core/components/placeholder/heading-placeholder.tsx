@@ -23,7 +23,13 @@ interface HeadingPlaceholderProps extends DefaultPlaceholderProps {
   align?: 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 }
 
-export const HeadingPlaceholder = ({ level, width, align, startColor, endColor }: HeadingPlaceholderProps) => {
+export const HeadingPlaceholder = ({
+  level,
+  width,
+  align,
+  startColor,
+  endColor,
+}: HeadingPlaceholderProps) => {
   return (
     <Box margin={{ vertical: 'xsmall' }} align={align}>
       <svg width={width || randomPercentage(80, 100)} height={calculateHeight(level)} fill="none">

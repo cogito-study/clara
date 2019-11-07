@@ -6,7 +6,13 @@ config:
   immutableTypes: true
 generates:
   src/core/graphql/types.generated.ts:
-    - typescript
+    plugins:
+      - typescript
+    config:
+      maybeValue: T | undefined
+    hooks:
+      afterOneFileWrite:
+        - prettier --write './src/**/*.{ts,tsx}'
   src/:
     preset: near-operation-file
     presetConfig:
@@ -15,6 +21,9 @@ generates:
     plugins:
       - typescript-operations
       - typescript-react-apollo
+    hooks:
+      afterOneFileWrite:
+        - prettier --write './src/**/*.{ts,tsx}'
     config:
       withHOC: false
       withHooks: true

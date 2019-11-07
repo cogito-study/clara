@@ -7,5 +7,6 @@ enum DateFormat {
 
 export const dateService = {
   yearMonthDay: (date: string): string => format(parseISO(date), DateFormat.short, { locale: hu }),
-  sinceNow: (date: string): string => formatDistance(parseISO(date), new Date(), { addSuffix: true, locale: hu }),
+  sinceNow: (date: string): string =>
+    formatDistance(parseISO(date), new Date(), { addSuffix: true, locale: hu }),
 };
