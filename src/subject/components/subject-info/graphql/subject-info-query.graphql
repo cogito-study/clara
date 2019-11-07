@@ -1,0 +1,20 @@
+query SubjectInfo($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    code
+    description
+    department {
+      name
+    }
+    teachers {
+      firstName
+      lastName
+      email
+      profilePictureURL
+    }
+    informations {
+      title
+      subtitle
+      content
+    }
+  }
+}

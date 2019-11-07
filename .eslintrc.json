@@ -28,7 +28,7 @@
   "rules": {
     "complexity": [
       "warn",
-      5
+      7
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/class-name-casing": "off",

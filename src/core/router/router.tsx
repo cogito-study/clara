@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
@@ -14,7 +14,7 @@ const Subject = lazy(() => import('../../subject'));
 
 export const Router = () => {
   return (
-    <Fragment>
+    <>
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <Suspense fallback={<LoadingPage />}>
         <Switch>
@@ -38,6 +38,6 @@ export const Router = () => {
           <Redirect to={authRoute({ path: 'login' })} />
         </Switch>
       </Suspense>
-    </Fragment>
+    </>
   );
 };

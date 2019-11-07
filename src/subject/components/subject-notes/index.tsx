@@ -8,7 +8,7 @@ import { SubjectNoteCard } from './subject-note-card';
 
 export const SubjectNotes = () => {
   const { subjectCode } = useParams<SubjectRouteParams>();
-  const { data } = useSubjectNotesQuery({ variables: { subjectCode: subjectCode || null } });
+  const { data } = useSubjectNotesQuery({ variables: { subjectCode } });
 
   return (
     <ContentWrapper>

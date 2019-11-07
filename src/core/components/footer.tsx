@@ -13,7 +13,14 @@ export const Footer: FunctionComponent<BoxProps> = (props) => (
     align="center"
     {...props}
   >
-    <Box fill align="center" justify="between" gap="small" margin="medium" direction="row-responsive">
+    <Box
+      fill
+      align="center"
+      justify="between"
+      gap="small"
+      margin="medium"
+      direction="row-responsive"
+    >
       <Box gap="medium" basis="2/3" justify="center" align="center" direction="row-responsive">
         <Anchor
           alignSelf="center"
@@ -22,13 +29,34 @@ export const Footer: FunctionComponent<BoxProps> = (props) => (
           href="mailto:contact@cogito.study"
           style={{ fontWeight: 'bold' }}
         />
-        <Anchor alignSelf="center" color="white" label="ÁSZF" href={config.termsURL} target="_blank" />
+        <Anchor
+          alignSelf="center"
+          color="white"
+          label="ÁSZF"
+          href={config.termsURL}
+          target="_blank"
+        />
         <Anchor alignSelf="center" color="white" label="Adatvédelem" href={config.privacyURL} />
       </Box>
       <Box basis="1/3" gap="medium" direction="row" justify="center">
-        <Anchor icon={<Facebook />} href="https://facebook.com/cogitostudy" target="_blank" color="white" />
-        <Anchor icon={<Instagram />} href="https://www.instagram.com/cogito.study/" target="_blank" color="white" />
-        <Anchor icon={<Twitter />} href="https://twitter.com/cogitostudy" target="_blank" color="white" />
+        <Anchor
+          icon={<Facebook />}
+          href="https://facebook.com/cogitostudy"
+          target="_blank"
+          color="white"
+        />
+        <Anchor
+          icon={<Instagram />}
+          href="https://www.instagram.com/cogito.study/"
+          target="_blank"
+          color="white"
+        />
+        <Anchor
+          icon={<Twitter />}
+          href="https://twitter.com/cogitostudy"
+          target="_blank"
+          color="white"
+        />
       </Box>
     </Box>
   </Box>

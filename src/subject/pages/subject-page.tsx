@@ -1,24 +1,29 @@
 import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { SubjectInfo } from '../components/subject-info';
 import { SubjectNotes } from '../components/subject-notes';
+import { SubjectRouteParams } from '../utils/subject-route';
+import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
 
 export const SubjectPage = () => {
-  const { t } = useTranslation('subject');
+  const { subjectCode } = useParams<SubjectRouteParams>();
+  const { data } = useSubjectPageQuery({ variables: { subjectCode } });
 
   return (
-    <Box pos="relative" px={12} pt={4}>
-      <Heading as="h2" fontSize="xl" color="black">
-        {t('title')}
-      </Heading>
-      <Tabs color="gray.800" bg="#fff">
-        <TabList pt={2}>
+    <Box pos="relative" width="100%">
+      {data && data.subject && data.subject.name && (
+        <Heading as="h2" fontSize="xl" color="black" px={16} pt={5} pb={1} bg="#fff">
+          {data.subject.name}
+        </Heading>
+      )}
+      <Tabs color="gray.800" variantColor="teal">
+        <TabList pt={2} bg="#fff" width="100%" px={16}>
           {/* TODO: Localize */}
-          <Tab>information</Tab>
-          <Tab>notes</Tab>
+          <Tab fontWeight={600}>information</Tab>
+          <Tab fontWeight={600}>notes</Tab>
         </TabList>
-        <TabPanels p="2rem">
+        <TabPanels pt={2}>
           <TabPanel>
             <SubjectInfo />
           </TabPanel>
