@@ -25,7 +25,13 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
         justifyContent={['space-between', 'space-between', 'flex-start']}
         width={['full', 'full', 'initial']}
       >
-        <Icon mx={12} name="cogito" size="32px" color={mode === 'edit' ? 'white' : 'blue.800'} />
+        <Icon
+          mx={12}
+          // @ts-ignore
+          name="cogito"
+          size="32px"
+          color={mode === 'edit' ? 'white' : 'blue.800'}
+        />
 
         {mode === 'edit' ? (
           <Toolbar />
@@ -47,6 +53,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
         {mode === 'edit' ? (
           <>
             <Button
+              // @ts-ignore
               rightIcon="save"
               onClick={() => {}}
               bg="teal.500"
@@ -70,6 +77,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
           </>
         ) : (
           <Button
+            // @ts-ignore
             rightIcon="pencil"
             onClick={() => {}}
             bg="transparent"
