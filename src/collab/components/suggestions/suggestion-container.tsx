@@ -22,7 +22,7 @@ export const SuggestionsContainer: FC<SuggestionsContainerProps> = ({
           <SuggestionItem
             textDelta={new Delta().compose(suggestion.value)}
             commenterName={suggestion.author}
-            date={'10 minutes ago'}
+            date="10 minutes ago"
             onSuggestionAccepted={() => onSuggestionAccepted(suggestion.id)}
             onSuggestionCancelled={() => onSuggestionCancelled(suggestion.id)}
           />
