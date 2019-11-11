@@ -8,9 +8,9 @@ export type SubjectTeacherCardProps = {
 };
 
 export const SubjectTeacherCard: FC<SubjectTeacherCardProps> = ({ name, title, email }) => (
-  <Flex p={4} borderWidth="1px" borderColor="grey.100" maxW="450px" align="center" bg="#fff">
+  <Flex p={4} borderWidth="1px" borderColor="grey.100" maxW="600px" align="center" bg="#fff">
     <Avatar mr={4} name={name} size="lg" />
-    <Flex p={1} direction="column" minW="280px">
+    <Flex p={1} direction="column" minW="220px">
       <Text fontSize="md" fontWeight={500} lineHeight="base" color="blue.800">
         {name}
       </Text>

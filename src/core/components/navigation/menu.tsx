@@ -5,6 +5,7 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerOverlay,
   Flex,
   Heading,
   Icon,
@@ -22,7 +23,7 @@ export const MainMenu = () => {
 
   return (
     <>
-      <Box display={['initial', 'initial', 'none']} pos="relative">
+      <Box display={['initial', 'initial', 'initial', 'none']} pos="relative">
         <Box
           pos="fixed"
           top="0"
@@ -30,7 +31,7 @@ export const MainMenu = () => {
           right="0"
           bg="blue.800"
           zIndex={1}
-          display={['initial', 'intial', 'none']}
+          display={['initial', 'intial', 'initial', 'none']}
         >
           <IconButton
             size="lg"
@@ -46,16 +47,23 @@ export const MainMenu = () => {
             Menu
           </IconButton>
         </Box>
-        <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
+        <Drawer
+          isOpen={isOpen}
+          placement="left"
+          // @ts-ignore
+          size={['full', 'full', '320px']}
+          onClose={onClose}
+        >
+          <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton color="teal.400" />
-            <DrawerBody p={0}>
+            <DrawerBody bg="blue.700" p={0}>
               <MainMenuBase />
             </DrawerBody>
           </DrawerContent>
         </Drawer>
       </Box>
-      <Box display={['none', 'none', 'initial']} pos="relative" height="100vh">
+      <Box display={['none', 'none', 'none', 'initial']} pos="relative" height="100vh">
         <MainMenuBase />
       </Box>
     </>
@@ -66,7 +74,7 @@ export const MainMenuBase = () => {
   const { data } = useMySubjectsQuery();
 
   return (
-    <Flex bg="blue.700" width={['initial', 'initial', '250px']} height="100vh">
+    <Flex bg="blue.700" width={['initial', 'initial', '250px']} height="100vh" pos="fixed">
       <Box pos="absolute" top="0" left="0" bottom="0" bg="blue.800" width="50px" zIndex={0} />
       <Flex flexDirection="column" height="100vh" justifyContent="space-between" py={4}>
         <Flex

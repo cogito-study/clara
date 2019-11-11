@@ -11,7 +11,12 @@ export const SubjectPage = () => {
   const { data } = useSubjectPageQuery({ variables: { subjectCode } });
 
   return (
-    <Box pos="relative" width="100%">
+    <Box
+      pos="relative"
+      width="100%"
+      ml={['initial', 'initial', 'initial', '250px']}
+      mt={[12, 12, 12, 'initial']}
+    >
       {data && data.subject && data.subject.name && (
         <Heading as="h2" fontSize="xl" color="black" px={16} pt={5} pb={1} bg="#fff">
           {data.subject.name}
