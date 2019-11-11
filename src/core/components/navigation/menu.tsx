@@ -35,6 +35,7 @@ export const MainMenu = () => {
           <IconButton
             size="lg"
             p={1}
+            // @ts-ignore
             icon="menu"
             variantColor="teal"
             variant="ghost"
@@ -75,9 +76,21 @@ export const MainMenuBase = () => {
           alignContent="row"
           zIndex={2}
         >
-          <Icon mx="9px" name="cogito" size="32px" color="white" />
+          <Icon
+            mx="9px"
+            // @ts-ignore
+            name="cogito"
+            size="32px"
+            color="white"
+          />
           <Flex mt="64px" flexDirection="row" alignItems="flex-start">
-            <Icon name="file-text" mx="9px" size="32px" color="blue.100" />
+            <Icon
+              // @ts-ignore
+              name="file-text"
+              mx="9px"
+              size="32px"
+              color="blue.100"
+            />
             <Heading
               as="h4"
               fontSize="md"
@@ -93,7 +106,13 @@ export const MainMenuBase = () => {
           </Flex>
 
           <Flex mt="16px" flexDirection="row" alignItems="flex-start">
-            <Icon name="book" mx="9px" size="32px" color="blue.100" />
+            <Icon
+              // @ts-ignore
+              name="book"
+              mx="9px"
+              size="32px"
+              color="blue.100"
+            />
             <Box px={3} py={2}>
               <Heading
                 as="h4"
@@ -131,6 +150,7 @@ export const MainMenuBase = () => {
           <Icon
             mt="16px"
             mx="9px"
+            // @ts-ignore
             name="log-out"
             size="32px"
             color="blue.100"

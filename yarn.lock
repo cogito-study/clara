@@ -933,10 +933,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@chakra-ui/core@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@chakra-ui/core/-/core-0.3.2.tgz#acbe886541f3b156b3baaf251f4500898751daa2"
-  integrity sha512-HZN/YRkMPdYbx48TkR8l2FBfH3QKIvMAj38f03jYuJ9EAaOe5hFu++HBThGdx2m0kCxubAqS3kHskrvVAJa//g==
+"@chakra-ui/core@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/core/-/core-0.4.1.tgz#da94d44b8257c40ea010b17480c2332e9369f1e5"
+  integrity sha512-jOIjlFOY/ne1WjY/Ii8RyNtUBArSuVtSGiDf/zBBAAVnJOf2O5fNZQ5Lu9oXKPqZ58Nb80REnsUuKwbyHcgg3A==
   dependencies:
     "@reach/auto-id" "0.2.0"
     "@styled-system/css" "5.0.13"
@@ -947,11 +947,12 @@
     color "3.1.2"
     exenv "^1.2.2"
     popper.js "^1.15.0"
+    pretty-num "0.3.0"
     react-animate-height "2.0.9"
     react-focus-lock "^2.1.0"
-    react-spring "8.0.23"
+    react-spring "^8.0.27"
     styled-system "5.0.5"
-    toasted-notes "2.1.6"
+    toasted-notes "3.0.0"
     use-dark-mode "2.3.1"
 
 "@cnakazawa/watch@^1.0.3":
@@ -6868,6 +6869,11 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
+from-exponential@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/from-exponential/-/from-exponential-1.0.0.tgz#feea3f96dc6861dca784599e391c24bdb48d28f2"
+  integrity sha512-lr7d141V95FOV+W9B2f4D5gNM2Tm6Qk5GOBGwr6ZukwhpWHldqJw30xI+UkVBYi1cQu3afLQQD9QEgxpehT9wg==
+
 from2@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
@@ -11946,6 +11952,14 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
+pretty-num@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/pretty-num/-/pretty-num-0.3.0.tgz#4b62b7315c8b0a14b5e93f7340983f02ec200c38"
+  integrity sha512-qELFXWLfKYZg3BSdPXG5XqsbjLojJcvssSTH70ITntXZUAiYYXqiFmZX3i1OGfltPmP3SmJAyXuxiZco7OOoyA==
+  dependencies:
+    from-exponential "^1.0.0"
+    thousands "^1.0.1"
+
 prismjs@^1.8.4, prismjs@~1.17.0:
   version "1.17.1"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.17.1.tgz#e669fcbd4cdd873c35102881c33b14d0d68519be"
@@ -12435,6 +12449,13 @@ react-i18next@*, react-i18next@^10.13.1:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
 
+react-icons@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.8.0.tgz#229de5904809696c9f46932bd9b6126b2522866e"
+  integrity sha512-rA/8GRKjPulft8BSBSMsHkE1AGPqJ7LjNsyk0BE7XjG70Iz62zOled2SJk7LDo8x9z86a3xOstDlKlMZ4pAy7A==
+  dependencies:
+    camelcase "^5.0.0"
+
 react-input-autosize@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
@@ -12602,7 +12623,7 @@ react-sizeme@^2.6.7:
     shallowequal "^1.1.0"
     throttle-debounce "^2.1.0"
 
-react-spring@8.0.23, react-spring@8.0.27, react-spring@^9.0.0-beta.20:
+react-spring@8.0.27, react-spring@^8.0.27:
   version "8.0.27"
   resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
   integrity sha512-nDpWBe3ZVezukNRandTeLSPcwwTMjNVu1IDq9qA/AMiUqHuRN4BeSWvKr3eIxxg1vtiYiOLy4FqdfCP5IoP77g==
@@ -14574,6 +14595,11 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+thousands@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/thousands/-/thousands-1.0.1.tgz#59eb5b6d179ab20a42d9d1bdd05c2ca07fbc2d94"
+  integrity sha1-WetbbReasgpC2dG90FwsoH+8LZQ=
+
 throat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/throat/-/throat-4.1.0.tgz#89037cbc92c56ab18926e6ba4cbb200e15672a6a"
@@ -14706,15 +14732,14 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-toasted-notes@2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/toasted-notes/-/toasted-notes-2.1.6.tgz#8e828dbbe2f5c52b7cf98d01fb3052ad167e26b5"
-  integrity sha512-e4UWJ/zwFKL0/fxB0B2HzNz+G9VOMc8dqKWLNjU5gG86kr1dQ8dWArD9vUJhK4er3mbaB7ocyHEE+pLHIokwVw==
+toasted-notes@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/toasted-notes/-/toasted-notes-3.0.0.tgz#ad72e9e601d658b301117d84c5ab431bfb75e1fa"
+  integrity sha512-gjL18/1aNP+bgipt1YbCBFeinFYExubltm8HIAJIYmlzDquC+YpajYOfhVysUCnBGwkX0w1V1AF5whpHGqohkQ==
   dependencies:
     "@reach/alert" "^0.1.2"
     "@types/react" "^16.8.10"
     "@types/react-dom" "^16.8.3"
-    react-spring "^9.0.0-beta.20"
 
 toggle-selection@^1.0.6:
   version "1.0.6"
