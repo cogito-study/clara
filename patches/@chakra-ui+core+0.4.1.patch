@@ -1,5 +1,5 @@
 diff --git a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts b/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
-index f741849..da377a6 100644
+index 2bf806d..152bd3a 100644
 --- a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
 +++ b/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
 @@ -1,22 +1,22 @@
