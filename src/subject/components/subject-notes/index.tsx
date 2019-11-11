@@ -1,7 +1,6 @@
-import { Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
 import { SubjectRouteParams } from '../../utils/subject-route';
 import { useSubjectNotesQuery } from './graphql/subject-notes-query.generated';
 import { SubjectNoteCard } from './subject-note-card';
@@ -11,15 +10,17 @@ export const SubjectNotes = () => {
   const { data } = useSubjectNotesQuery({ variables: { subjectCode } });
 
   return (
-    <ContentWrapper>
-      <Flex flexDirection="row" wrap="wrap" justify="flex-start" align="center">
-        {data &&
-          data.subject &&
-          data.subject.notes &&
-          data.subject.notes.map((note) => (
-            <SubjectNoteCard key={note.id} {...note} mt={5} mx={5} />
-          ))}
-      </Flex>
-    </ContentWrapper>
+    <Flex width="full" justify="center">
+      <Box width={['full', '400px', '90%', '90%', '80%']} mx={[4, 'initial']} mt={[4, 4, 6]}>
+        <Flex direction="row" wrap="wrap" justify={['center', 'center', 'start']}>
+          {data &&
+            data.subject &&
+            data.subject.notes &&
+            data.subject.notes.map((note) => (
+              <SubjectNoteCard key={note.id} {...note} mt={5} mx={5} />
+            ))}
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
