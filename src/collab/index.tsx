@@ -1,11 +1,6 @@
 import React from 'react';
-import { CollabLayout } from './layout/collab-layout';
 import { CollabRouter } from './router/collab-router';
 
-const Collab = () => (
-  <CollabLayout>
-    <CollabRouter />
-  </CollabLayout>
-);
+const Collab = () => <CollabRouter />;
 
 export default Collab;
