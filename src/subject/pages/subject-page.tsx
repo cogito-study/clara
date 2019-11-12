@@ -1,7 +1,7 @@
 import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
 import React from 'react';
-import { SubjectInfo } from '../components/subject-info';
-import { SubjectNotes } from '../components/subject-notes';
+import { SubjectInfo } from '../components/subject-info/subject-info';
+import { SubjectNotes } from '../components/subject-notes/subject-notes';
 
 export const SubjectPage = ({ subjectTitle }: { subjectTitle: string }) => {
   return (
@@ -21,7 +21,7 @@ export const SubjectPage = ({ subjectTitle }: { subjectTitle: string }) => {
   );
 };
 
-export const TabContent = ({ subjectTitle }: { subjectTitle: string }) => (
+const TabContent = ({ subjectTitle }: { subjectTitle: string }) => (
   <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
     <Box pos="fixed" bg="#fff" pt={['initial', 'initial', 'initial', 5]} width="100%" zIndex={10}>
       <Heading
