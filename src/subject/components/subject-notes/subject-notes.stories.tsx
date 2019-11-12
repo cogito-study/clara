@@ -7,6 +7,7 @@ export default {
 };
 
 const noteCardProps: SubjectNoteCardProps = {
+  id: 'asdfasdf',
   title: 'Vascular surgery longer longer',
   number: 12,
   updatedAt: new Date(),

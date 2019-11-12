@@ -1,0 +1,6 @@
+query NoteContent($noteID: ID) {
+  note(where: { id: $noteID }) {
+    id
+    content
+  }
+}

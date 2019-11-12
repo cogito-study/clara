@@ -9,11 +9,13 @@ export default {
 const editorHeaderPropsInEditMode: EditorHeaderProps = {
   mode: 'edit',
   subject: 'Vascular surgery',
+  handleEditorModeChange: () => {},
 };
 
 const editorHeaderPropsInStudyMode: EditorHeaderProps = {
   mode: 'study',
   subject: 'Vascular surgery',
+  handleEditorModeChange: () => {},
 };
 
 export const editorHeaderInEditMode = () => <EditorHeader {...editorHeaderPropsInEditMode} />;

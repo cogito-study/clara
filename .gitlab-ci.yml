@@ -33,6 +33,7 @@ install-dependencies:
 build:
   stage: build
   script:
+    - npm run codegen
     - npm run build
   only:
     - development

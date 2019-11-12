@@ -1,12 +1,16 @@
 import { Button, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
+import { EditorToolbar } from './editor-toolbar';
+
+export type EditorMode = 'edit' | 'study';
 
 export interface EditorHeaderProps {
-  mode?: 'edit' | 'study';
+  mode: EditorMode;
   subject: string;
+  handleEditorModeChange: (newState: EditorMode) => void;
 }
 
-export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
+export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject, handleEditorModeChange }) => {
   return (
     <Flex
       flexGrow={1}
@@ -34,7 +38,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
         />
 
         {mode === 'edit' ? (
-          <Toolbar />
+          <EditorToolbar />
         ) : (
           <Button
             leftIcon="chevron-left"
@@ -65,21 +69,21 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
             </Button>
             <Button
               rightIcon="small-close"
-              onClick={() => {}}
+              onClick={() => handleEditorModeChange('study')}
               bg="transparent"
               color="white"
               border="2px"
               borderRadius="none"
               borderColor="teal.500"
             >
-              view mode
+              study
             </Button>
           </>
         ) : (
           <Button
             // @ts-ignore
             rightIcon="pencil"
-            onClick={() => {}}
+            onClick={() => handleEditorModeChange('edit')}
             bg="transparent"
             color="blue.800"
             border="2px"
@@ -93,21 +97,3 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject }) => {
     </Flex>
   );
 };
-
-export const Toolbar = () => (
-  <Flex alignItems="center">
-    <div id="toolbar" style={{ border: 'none' }}>
-      <span className="ql-formats">
-        <select className="ql-size"></select>
-      </span>
-      <span className="ql-formats">
-        <button className="ql-bold"></button>
-        <button className="ql-italic"></button>
-        <button className="ql-underline"></button>
-      </span>
-      <span className="ql-formats">
-        <button className="ql-image"></button>
-      </span>
-    </div>
-  </Flex>
-);

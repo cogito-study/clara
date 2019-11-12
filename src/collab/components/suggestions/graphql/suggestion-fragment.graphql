@@ -1,0 +1,9 @@
+fragment Suggestion on Suggestion {
+  id
+  delta
+  createdAt
+  author {
+    id
+    fullName
+  }
+}

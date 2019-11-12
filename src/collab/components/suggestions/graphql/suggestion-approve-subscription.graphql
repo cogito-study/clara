@@ -1,0 +1,6 @@
+subscription SuggestionApprove($noteID: ID) {
+  approvedSuggestion(where: { id: $noteID }) {
+    id
+    delta
+  }
+}

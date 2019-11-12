@@ -1,0 +1,5 @@
+mutation CreateSuggestion($noteID: ID!, $delta: String!) {
+  createSuggestion(data: { note: { id: $noteID }, delta: $delta }) {
+    id
+  }
+}
