@@ -18,7 +18,7 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
 import { useMySubjectsQuery } from './graphql/my-subjects-query.generated';
 
-export const MainMenu = () => {
+export const MainMenu = ({ subjectTitle }: { subjectTitle: string }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -30,9 +30,21 @@ export const MainMenu = () => {
           left="0"
           right="0"
           bg="blue.800"
-          zIndex={1}
+          zIndex={10}
           display={['initial', 'intial', 'initial', 'none']}
+          height={12}
         >
+          <Heading
+            pos="absolute"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            top={6}
+            fontSize="sm"
+            fontWeight="semibold"
+            color="white"
+          >
+            {subjectTitle}
+          </Heading>
           <IconButton
             size="lg"
             p={1}
@@ -42,10 +54,7 @@ export const MainMenu = () => {
             variant="ghost"
             aria-label="Menu"
             onClick={onOpen}
-          >
-            {/* TODO: Localize */}
-            Menu
-          </IconButton>
+          />
         </Box>
         <Drawer
           isOpen={isOpen}

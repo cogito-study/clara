@@ -21,6 +21,8 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
       maxWidth="80%"
       color="blue.700"
       lineHeight="normal"
+      mt={[6, 6, 6, 8]}
+      mb={[3, 3, 3, 4]}
     >
       {title}
     </Heading>

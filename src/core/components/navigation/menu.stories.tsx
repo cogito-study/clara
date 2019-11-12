@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import { coreComponents } from '../../utils/storybook';
-import { MainMenu } from './menu';
+// import { MainMenu } from './menu';
 
 export default {
   title: coreComponents('Menu'),
@@ -16,5 +16,5 @@ export default {
 //   ],
 // };
 
-export const mainMenu = () => <MainMenu />;
+// export const mainMenu = () => <MainMenu />;
 // export const mainMenuWithSubjects = () => <MainMenu {...subjects} />;
