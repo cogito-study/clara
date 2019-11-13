@@ -1,0 +1,7 @@
+query StudiedSubjects {
+  me {
+    studiedSubjects {
+      ...StudiedSubject
+    }
+  }
+}

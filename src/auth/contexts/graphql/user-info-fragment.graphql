@@ -1,6 +1,5 @@
 fragment UserInfo on User {
-  firstName
-  lastName
+  fullName
   email
   profilePictureURL
   phoneNumber

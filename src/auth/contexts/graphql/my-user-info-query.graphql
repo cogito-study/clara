@@ -1,0 +1,5 @@
+query MyUserInfo {
+  me {
+    ...UserInfo
+  }
+}

@@ -1,4 +1,5 @@
 import { Button, Flex, Icon } from '@chakra-ui/core';
+import { FiEdit2, FiSave } from 'react-icons/fi';
 import React, { FC } from 'react';
 import { EditorToolbar } from './editor-toolbar';
 
@@ -57,8 +58,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject, handleEdito
         {mode === 'edit' ? (
           <>
             <Button
-              // @ts-ignore
-              rightIcon="save"
+              rightIcon={FiSave}
               onClick={() => {}}
               bg="teal.500"
               color="blue.800"
@@ -81,8 +81,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ mode, subject, handleEdito
           </>
         ) : (
           <Button
-            // @ts-ignore
-            rightIcon="pencil"
+            rightIcon={FiEdit2}
             onClick={() => handleEditorModeChange('edit')}
             bg="transparent"
             color="blue.800"

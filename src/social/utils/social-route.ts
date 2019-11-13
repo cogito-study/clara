@@ -1,7 +1,7 @@
-type SocialRouteOption = { type: 'feed' };
+type SocialRouteOption = { path: 'feed' };
 
 export const socialRoute = (option: SocialRouteOption): string => {
-  switch (option.type) {
+  switch (option.path) {
     case 'feed':
       return `/feed`;
   }

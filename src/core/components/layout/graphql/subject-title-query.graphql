@@ -1,0 +1,5 @@
+query SubjectTitle($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    name
+  }
+}

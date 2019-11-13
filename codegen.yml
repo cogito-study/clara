@@ -23,7 +23,8 @@ generates:
       - typescript-react-apollo
     hooks:
       afterOneFileWrite:
-        - prettier --write './src/**/*.{ts,tsx}'
+        - yarn format
+        - yarn lint --fix
     config:
       withHOC: false
       withHooks: true

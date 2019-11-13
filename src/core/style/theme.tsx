@@ -1,8 +1,7 @@
 import { theme as baseTheme } from '@chakra-ui/core';
 import React from 'react';
-export type Theme = typeof baseTheme;
 
-export const theme: Theme = {
+export const theme = {
   ...baseTheme,
   fonts: {
     heading: `"Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
@@ -105,33 +104,6 @@ export const theme: Theme = {
   },
   icons: {
     ...baseTheme.icons,
-    'log-out': {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" transform="rotate(90 12 12)" opacity="0" />
-          <path d="M7 6a1 1 0 0 0 0-2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h2a1 1 0 0 0 0-2H6V6z" />
-          <path d="M20.82 11.42l-2.82-4a1 1 0 0 0-1.39-.24 1 1 0 0 0-.24 1.4L18.09 11H10a1 1 0 0 0 0 2h8l-1.8 2.4a1 1 0 0 0 .2 1.4 1 1 0 0 0 .6.2 1 1 0 0 0 .8-.4l3-4a1 1 0 0 0 .02-1.18z" />
-        </g>
-      ),
-    },
-    'file-text': {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" opacity="0" />
-          <path d="M15 16H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z" />
-          <path d="M9 14h3a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2z" />
-          <path d="M19.74 8.33l-5.44-6a1 1 0 0 0-.74-.33h-7A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.53 2.53 0 0 0 20 19.5V9a1 1 0 0 0-.26-.67zM14 5l2.74 3h-2a.79.79 0 0 1-.74-.85zm3.44 15H6.56a.53.53 0 0 1-.56-.5v-15a.53.53 0 0 1 .56-.5H12v3.15A2.79 2.79 0 0 0 14.71 10H18v9.5a.53.53 0 0 1-.56.5z" />
-        </g>
-      ),
-    },
-    book: {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" opacity="0" />
-          <path d="M19 3H7a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM7 5h11v10H7a3 3 0 0 0-1 .18V6a1 1 0 0 1 1-1zm0 14a1 1 0 0 1 0-2h11v2z" />
-        </g>
-      ),
-    },
     cogito: {
       path: (
         <g fill="currentColor">
@@ -140,31 +112,7 @@ export const theme: Theme = {
       ),
       viewBox: '0 0 32 32',
     },
-    pencil: {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" opacity="0" />
-          <path d="M19.4 7.34L16.66 4.6A2 2 0 0 0 14 4.53l-9 9a2 2 0 0 0-.57 1.21L4 18.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 20h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71zM9.08 17.62l-3 .28.27-3L12 9.32l2.7 2.7zM16 10.68L13.32 8l1.95-2L18 8.73z" />
-        </g>
-      ),
-    },
-    save: {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" opacity="0" />
-          <path d="M20.12 8.71l-4.83-4.83A3 3 0 0 0 13.17 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-7.17a3 3 0 0 0-.88-2.12zM10 19v-2h4v2zm9-1a1 1 0 0 1-1 1h-2v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2v5a1 1 0 0 0 1 1h4a1 1 0 0 0 0-2h-3V5h3.17a1.05 1.05 0 0 1 .71.29l4.83 4.83a1 1 0 0 1 .29.71z" />
-        </g>
-      ),
-    },
-    menu: {
-      path: (
-        <g fill="currentColor">
-          <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0" />
-          <rect x="3" y="11" width="18" height="2" rx=".95" ry=".95" />
-          <rect x="3" y="16" width="18" height="2" rx=".95" ry=".95" />
-          <rect x="3" y="6" width="18" height="2" rx=".95" ry=".95" />
-        </g>
-      ),
-    },
   },
 };
+
+export type Theme = typeof theme;

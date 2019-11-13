@@ -1,6 +1,6 @@
 import React from 'react';
-import { SubjectLayout } from './layout/subject-layout';
+import { SubjectPage } from './pages/subject-page';
 
-const Subject = () => <SubjectLayout />;
+const Subject = () => <SubjectPage />;
 
 export default Subject;

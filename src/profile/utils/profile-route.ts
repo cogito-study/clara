@@ -1,3 +1,5 @@
+import { Location } from 'history';
+
 type ProfileRouteOption = { path: 'profile' };
 
 export const profileRoute = (option: ProfileRouteOption): string => {
@@ -6,3 +8,5 @@ export const profileRoute = (option: ProfileRouteOption): string => {
       return `/profile`;
   }
 };
+
+export const isProfilePath = (location: Location) => location.pathname.includes('profile');
