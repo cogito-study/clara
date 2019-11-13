@@ -1,0 +1,4 @@
+fragment StudiedSubject on Subject {
+  code
+  name
+}

@@ -4,13 +4,18 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
 import { collabRoute } from '../../collab/utils/collab-route';
 import { subjectRoute } from '../../subject/utils/subject-route';
+import { Layout } from '../components/layout/layout';
 import { LoadingPage } from '../pages/loading-page';
 import { driftString } from '../scripts/drift';
 import { PrivateRoute } from './private-route';
+import { socialRoute } from '../../social/utils/social-route';
+import { profileRoute } from '../../profile/utils/profile-route';
 
 const Auth = lazy(() => import('../../auth'));
 const Collab = lazy(() => import('../../collab'));
+const Social = lazy(() => import('../../social'));
 const Subject = lazy(() => import('../../subject'));
+const Profile = lazy(() => import('../../profile'));
 
 export const Router = () => {
   return (
@@ -32,8 +37,20 @@ export const Router = () => {
           <PrivateRoute exact path={collabRoute({ path: 'notes' })}>
             <Collab />
           </PrivateRoute>
+          <PrivateRoute path={socialRoute({ path: 'feed' })}>
+            <Layout>
+              <Social />
+            </Layout>
+          </PrivateRoute>
           <PrivateRoute path={subjectRoute({ path: 'subjects' })}>
-            <Subject />
+            <Layout>
+              <Subject />
+            </Layout>
+          </PrivateRoute>
+          <PrivateRoute path={profileRoute({ path: 'profile' })}>
+            <Layout>
+              <Profile />
+            </Layout>
           </PrivateRoute>
           <Redirect to={authRoute({ path: 'login' })} />
         </Switch>

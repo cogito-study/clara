@@ -10,15 +10,25 @@ import {
   Heading,
   Icon,
   IconButton,
-  Link,
+  PseudoBox,
   useDisclosure,
 } from '@chakra-ui/core';
 import React from 'react';
-import { Link as ReactRouterLink } from 'react-router-dom';
-import { subjectRoute } from '../../../subject/utils/subject-route';
-import { useMySubjectsQuery } from './graphql/my-subjects-query.generated';
+import { FiBook, FiFileText, FiLogOut, FiMenu } from 'react-icons/fi';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '../../../auth/hooks/use-auth';
+import { socialRoute } from '../../../social/utils/social-route';
+import { isSubjectsPath, subjectRoute } from '../../../subject/utils/subject-route';
+import { useTheme } from '../../hooks/use-theme';
+import { StudiedSubjectFragment } from '../layout/graphql/studied-subject-fragment.generated';
+import { profileRoute, isProfilePath } from '../../../profile/utils/profile-route';
 
-export const MainMenu = ({ subjectTitle }: { subjectTitle: string }) => {
+export type MainMenuProps = {
+  subjectTitle?: string;
+  subjects?: ReadonlyArray<StudiedSubjectFragment>;
+};
+
+export const MainMenu = ({ subjectTitle, subjects }: MainMenuProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -46,12 +56,12 @@ export const MainMenu = ({ subjectTitle }: { subjectTitle: string }) => {
             {subjectTitle}
           </Heading>
           <IconButton
+            as={FiMenu}
             size="lg"
-            p={1}
-            // @ts-ignore
-            icon="menu"
+            p={2}
             variantColor="teal"
-            variant="ghost"
+            variant="link"
+            cursor="pointer"
             aria-label="Menu"
             onClick={onOpen}
           />
@@ -67,24 +77,31 @@ export const MainMenu = ({ subjectTitle }: { subjectTitle: string }) => {
           <DrawerContent>
             <DrawerCloseButton color="teal.400" />
             <DrawerBody bg="blue.700" p={0}>
-              <MainMenuBase />
+              <MainMenuBase subjects={subjects} />
             </DrawerBody>
           </DrawerContent>
         </Drawer>
       </Box>
       <Box display={['none', 'none', 'none', 'initial']} pos="relative" height="100vh">
-        <MainMenuBase />
+        <MainMenuBase subjects={subjects} />
       </Box>
     </>
   );
 };
 
-export const MainMenuBase = () => {
-  const { data } = useMySubjectsQuery();
+export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
+  const { user, logout } = useAuth();
+  const location = useLocation();
+  const { colors } = useTheme();
+
+  const navLinkStyles = {
+    style: { color: colors.white },
+    activeStyle: { color: colors.teal[500] },
+  };
 
   return (
     <Flex bg="blue.700" width={['initial', 'initial', '250px']} height="100vh" pos="fixed">
-      <Box pos="absolute" top="0" left="0" bottom="0" bg="blue.800" width="50px" zIndex={0} />
+      <Box pos="absolute" top="0" left="0" bottom="0" bg="blue.800" width={12} zIndex={0} />
       <Flex flexDirection="column" height="100vh" justifyContent="space-between" py={4}>
         <Flex
           height="100%"
@@ -94,41 +111,35 @@ export const MainMenuBase = () => {
           zIndex={2}
         >
           <Icon
-            mx="9px"
+            mx={2}
             // @ts-ignore
             name="cogito"
             size="32px"
             color="white"
           />
-          <Flex mt="64px" flexDirection="row" alignItems="flex-start">
-            <Icon
-              // @ts-ignore
-              name="file-text"
-              mx="9px"
-              size="32px"
-              color="blue.100"
-            />
-            <Heading
-              as="h4"
-              fontSize="md"
-              fontWeight="semibold"
-              color="white"
-              textTransform="lowercase"
-              px={3}
-              py={2}
-            >
-              {/* TODO: Localize */}
-              News feed
-            </Heading>
-          </Flex>
+          <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
+            <Flex mt={16} direction="row" align="flex-start">
+              <Icon as={FiFileText} mx={2} size="32px" />
+              <Heading
+                as="h4"
+                fontSize="md"
+                fontWeight="semibold"
+                textTransform="lowercase"
+                px={3}
+                py={2}
+              >
+                {/* TODO: Localize */}
+                News feed
+              </Heading>
+            </Flex>
+          </NavLink>
 
-          <Flex mt="16px" flexDirection="row" alignItems="flex-start">
+          <Flex mt={4} flexDirection="row" alignItems="flex-start">
             <Icon
-              // @ts-ignore
-              name="book"
-              mx="9px"
+              as={FiBook}
+              mx={2}
               size="32px"
-              color="blue.100"
+              color={isSubjectsPath(location) ? 'teal.500' : 'blue.100'}
             />
             <Box px={3} py={2}>
               <Heading
@@ -141,37 +152,49 @@ export const MainMenuBase = () => {
                 Subjects
               </Heading>
               <Flex flexDirection="column" mt={1} ml={1}>
-                {data &&
-                  data.me.studiedSubjects &&
-                  data.me.studiedSubjects.map(({ code, name }) => (
-                    <Link
-                      // @ts-ignore
-                      as={ReactRouterLink}
-                      mt={1}
+                {subjects &&
+                  subjects.map(({ code, name }) => (
+                    <NavLink
                       key={code}
                       to={subjectRoute({ path: 'subjects', subjectCode: code })}
-                      fontSize="sm"
-                      color="white"
-                      _hover={{ color: 'blue.200' }}
-                      _active={{ color: 'teal.500' }}
+                      {...navLinkStyles}
                     >
-                      {name}
-                    </Link>
+                      <PseudoBox
+                        mt={2}
+                        fontSize="sm"
+                        _hover={{ color: 'blue.200' }}
+                        _active={{ color: 'teal.500' }}
+                      >
+                        {name}
+                      </PseudoBox>
+                    </NavLink>
                   ))}
               </Flex>
             </Box>
           </Flex>
         </Flex>
         <Flex flexDirection="column">
-          <Avatar size="sm" mx="9px" name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-          <Icon
-            mt="16px"
-            mx="9px"
-            // @ts-ignore
-            name="log-out"
-            size="32px"
+          <NavLink to={profileRoute({ path: 'profile' })}>
+            <Avatar
+              size="sm"
+              mx={2}
+              showBorder={isProfilePath(location)}
+              borderColor="teal.500"
+              name={user && user.fullName}
+              src={user && user.profilePictureURL}
+            />
+          </NavLink>
+          <IconButton
+            aria-label="Log out"
+            variant="link"
+            as={FiLogOut}
+            mt={4}
+            mx={2}
+            size="sm"
+            cursor="pointer"
             color="blue.100"
             transform="rotate(-180deg)"
+            onClick={() => logout()}
           />
         </Flex>
       </Flex>

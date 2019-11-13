@@ -2,12 +2,18 @@ import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-u
 import React from 'react';
 import { SubjectInfo } from '../components/subject-info/subject-info';
 import { SubjectNotes } from '../components/subject-notes/subject-notes';
+import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
+import { useParams } from 'react-router';
+import { SubjectRouteParams } from '../utils/subject-route';
 
-export const SubjectPage = ({ subjectTitle }: { subjectTitle: string }) => {
+export const SubjectPage = () => {
+  const { subjectCode } = useParams<SubjectRouteParams>();
+  const { data } = useSubjectPageQuery({ variables: { subjectCode } });
+
   return (
-    <Box width="100%" ml={['initial', 'initial', 'initial', '250px']}>
+    <>
       <Tabs color="gray.800" variantColor="teal" display={['none', 'none', 'none', 'initial']}>
-        <TabContent subjectTitle={subjectTitle} />
+        <TabContent subjectTitle={data && data.subject && data.subject.name} />
       </Tabs>
       <Tabs
         color="gray.800"
@@ -15,13 +21,13 @@ export const SubjectPage = ({ subjectTitle }: { subjectTitle: string }) => {
         align="center"
         display={['initial', 'initial', 'initial', 'none']}
       >
-        <TabContent subjectTitle={subjectTitle} />
+        <TabContent subjectTitle={data && data.subject && data.subject.name} />
       </Tabs>
-    </Box>
+    </>
   );
 };
 
-const TabContent = ({ subjectTitle }: { subjectTitle: string }) => (
+const TabContent = ({ subjectTitle }: { subjectTitle?: string }) => (
   <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
     <Box pos="fixed" bg="#fff" pt={['initial', 'initial', 'initial', 5]} width="100%" zIndex={10}>
       <Heading
