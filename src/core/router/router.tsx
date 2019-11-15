@@ -17,6 +17,7 @@ const Social = lazy(() => import('../../social'));
 const Subject = lazy(() => import('../../subject'));
 const Profile = lazy(() => import('../../profile'));
 
+// TODO: Localize
 export const Router = () => {
   return (
     <>
@@ -38,7 +39,7 @@ export const Router = () => {
             <Collab />
           </PrivateRoute>
           <PrivateRoute path={socialRoute({ path: 'feed' })}>
-            <Layout>
+            <Layout title="News Feed">
               <Social />
             </Layout>
           </PrivateRoute>
@@ -48,7 +49,7 @@ export const Router = () => {
             </Layout>
           </PrivateRoute>
           <PrivateRoute path={profileRoute({ path: 'profile' })}>
-            <Layout>
+            <Layout title="Profile">
               <Profile />
             </Layout>
           </PrivateRoute>

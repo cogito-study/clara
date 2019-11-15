@@ -9,12 +9,15 @@ export type SubjectTitleQueryVariables = {
 };
 
 export type SubjectTitleQuery = { readonly __typename?: 'Query' } & {
-  readonly subject: Types.Maybe<{ readonly __typename?: 'Subject' } & Pick<Types.Subject, 'name'>>;
+  readonly subject: Types.Maybe<
+    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id' | 'name'>
+  >;
 };
 
 export const SubjectTitleDocument = gql`
   query SubjectTitle($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
+      id
       name
     }
   }

@@ -1,8 +1,10 @@
 query SubjectInfo($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
+    id
     code
     description
     department {
+      id
       name
     }
     teachers {

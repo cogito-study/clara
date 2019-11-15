@@ -14,26 +14,27 @@ import {
 } from '@chakra-ui/core';
 import { formatDistance } from 'date-fns';
 import React, { FC, FormEvent, useState } from 'react';
-import { FiMoreHorizontal, FiThumbsUp } from 'react-icons/fi';
+import { FiMoreHorizontal, FiThumbsUp, FiX, FiCheck } from 'react-icons/fi';
+import { FeedPostFragment } from './graphql/feed-post-fragment.generated';
 
-export type PostCardProps = {
-  name: string;
-  title?: string;
-  subject?: string;
-  content: string;
-  likeCount: number;
+export type FeedPostData = FeedPostFragment & { subject?: { name: string } };
+
+export type FeedPostCardProps = {
+  feedPost: FeedPostData;
   isOwnPost: boolean;
-  updatedAt: Date;
+  hasLikedPost: boolean;
+  onPostDelete: () => void;
+  onPostLike: () => void;
+  onPostEdit: (content: string) => void;
 };
 
-export const PostCard: FC<PostCardProps> = ({
-  name,
-  title,
-  subject,
-  content,
-  likeCount,
-  updatedAt,
+export const FeedPostCard: FC<FeedPostCardProps> = ({
+  feedPost: { author, content, likesCount, updatedAt, subject },
   isOwnPost,
+  hasLikedPost,
+  onPostDelete,
+  onPostLike,
+  onPostEdit,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [value, setValue] = useState(content);
@@ -43,30 +44,37 @@ export const PostCard: FC<PostCardProps> = ({
     setValue(inputValue);
   };
 
+  const handleEditDone = () => {
+    onPostEdit(value);
+    setIsEditing(!isEditing);
+  };
+
   return (
-    <Box p={4} borderWidth="1px" borderColor="grey.100" minW="300px" maxW="800px">
+    <Box p={4} borderWidth="1px" borderColor="grey.100" minW="300px" maxW="800px" bg="#fff">
       <Flex align="flex-start" justify="space-between">
         <Flex align="center">
-          <Avatar mr={4} name={name} size="lg" />
+          <Avatar mr={4} name={author.fullName} src={author.profilePictureURL} size="lg" />
           <Flex p={1} direction="column" align="start">
             <Heading as="h3" fontSize="md" fontWeight={500} lineHeight="base" color="blue.800">
-              {name}
+              {author.fullName}
             </Heading>
             <Text mt={1} fontSize="12px" color="grey.700" lineHeight="normal">
-              {title}
+              {author.position}
             </Text>
-            <Text
-              mt={3}
-              py={1}
-              px={2}
-              textAlign="center"
-              color="blue.800"
-              fontSize="xs"
-              lineHeight="normal"
-              bg="blue.100"
-            >
-              {subject}
-            </Text>
+            {subject && (
+              <Text
+                mt={3}
+                py={1}
+                px={2}
+                textAlign="center"
+                color="blue.800"
+                fontSize="xs"
+                lineHeight="normal"
+                bg="blue.100"
+              >
+                {subject.name}
+              </Text>
+            )}
           </Flex>
         </Flex>
         {isOwnPost ? (
@@ -77,20 +85,22 @@ export const PostCard: FC<PostCardProps> = ({
                 bg="transparent"
                 size="lg"
                 color="red.500"
-                icon="close"
-                _hover={{ bg: 'red.100' }}
-                _active={{ bg: 'red.300' }}
-                onClick={() => setIsEditing(!isEditing)}
+                icon={FiX}
+                variant="ghost"
+                borderRadius="none"
+                variantColor="red"
+                onClick={() => setIsEditing(false)}
               />
               <IconButton
                 aria-label=""
                 bg="transparent"
                 size="lg"
                 color="green.500"
-                icon="check"
-                _hover={{ bg: 'green.100' }}
-                _active={{ bg: 'green.300' }}
-                onClick={() => setIsEditing(!isEditing)}
+                icon={FiCheck}
+                variant="ghost"
+                variantColor="green"
+                borderRadius="none"
+                onClick={handleEditDone}
               />
             </Flex>
           ) : (
@@ -100,14 +110,13 @@ export const PostCard: FC<PostCardProps> = ({
                   aria-label=""
                   bg="transparent"
                   size="lg"
-                  color="grey.600"
-                  borderRadius={2}
+                  variant="ghost"
+                  variantColor="grey"
+                  borderRadius="none"
                   icon={FiMoreHorizontal}
-                  _hover={{ bg: 'teal.500' }}
-                  _active={{ bg: 'blue.600' }}
                 />
               </MenuButton>
-              <MenuList>
+              <MenuList borderRadius="none">
                 <MenuItem
                   color="blue.800"
                   fontWeight="semibold"
@@ -115,7 +124,7 @@ export const PostCard: FC<PostCardProps> = ({
                 >
                   edit
                 </MenuItem>
-                <MenuItem color="red.500" fontWeight="semibold">
+                <MenuItem color="red.500" fontWeight="semibold" onClick={onPostDelete}>
                   delete
                 </MenuItem>
               </MenuList>
@@ -125,31 +134,35 @@ export const PostCard: FC<PostCardProps> = ({
       </Flex>
       <Flex mt={4}>
         {isEditing && isOwnPost ? (
-          <Textarea focusBorderColor="blue.200" onChange={handleInputChange} borderRadius="none">
+          <Textarea
+            focusBorderColor="blue.200"
+            fontSize="sm"
+            onChange={handleInputChange}
+            borderRadius="none"
+          >
             {value}
           </Textarea>
         ) : (
-          <Text color="grey.800" fontSize="md">
-            {value}
-          </Text>
+          <Text color="grey.800">{value}</Text>
         )}
       </Flex>
       <Flex mt={3} direction="row" align="center" justify="space-between">
-        <Text color="grey.700" fontSize="xs">
+        <Text color="grey.700" fontSize="12px">
           {formatDistance(new Date(updatedAt), new Date(), {
             addSuffix: true,
           })}
         </Text>
         <Button
-          variantColor="grey.700"
-          variant="outline"
-          borderColor="grey.100"
-          borderRadius={2}
+          variant={hasLikedPost ? 'solid' : 'outline'}
+          variantColor="teal"
+          borderColor="teal.500"
+          borderRadius="none"
+          color="blue.800"
+          minW="72px"
           rightIcon={FiThumbsUp}
-          _hover={{ bg: 'teal.500', borderColor: 'teal.600', color: 'grey.800' }}
-          _active={{ bg: 'blue.600', borderColor: 'blue.300', color: 'white' }}
+          onClick={onPostLike}
         >
-          {likeCount}
+          {likesCount}
         </Button>
       </Flex>
     </Box>

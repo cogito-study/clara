@@ -10,22 +10,23 @@ export type SubjectNotesQueryVariables = {
 
 export type SubjectNotesQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
-    { readonly __typename?: 'Subject' } & {
-      readonly notes: Types.Maybe<
-        ReadonlyArray<
-          { readonly __typename?: 'Note' } & Pick<
-            Types.Note,
-            'id' | 'title' | 'number' | 'updatedAt' | 'description'
+    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'> & {
+        readonly notes: Types.Maybe<
+          ReadonlyArray<
+            { readonly __typename?: 'Note' } & Pick<
+              Types.Note,
+              'id' | 'title' | 'number' | 'updatedAt' | 'description'
+            >
           >
-        >
-      >;
-    }
+        >;
+      }
   >;
 };
 
 export const SubjectNotesDocument = gql`
   query SubjectNotes($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
+      id
       notes {
         id
         title

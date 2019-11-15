@@ -8,11 +8,11 @@ export default {
 
 const subjects: MainMenuProps = {
   subjects: [
-    { name: 'Vasular surgery 1', code: '/vascularsurgery' },
-    { name: 'Vasular surgery 2', code: '/vascularsurgery' },
-    { name: 'Vasular surgery 3', code: '/vascularsurgery' },
-    { name: 'Vasular surgery 4', code: '/vascularsurgery' },
-    { name: 'Vasular surgery 5', code: '/vascularsurgery' },
+    { id: 'asd1', name: 'Vasular surgery 1', code: '/vascularsurgery' },
+    { id: 'asd2', name: 'Vasular surgery 2', code: '/vascularsurgery' },
+    { id: 'asd3', name: 'Vasular surgery 3', code: '/vascularsurgery' },
+    { id: 'asd4', name: 'Vasular surgery 4', code: '/vascularsurgery' },
+    { id: 'asd5', name: 'Vasular surgery 5', code: '/vascularsurgery' },
   ],
 };
 

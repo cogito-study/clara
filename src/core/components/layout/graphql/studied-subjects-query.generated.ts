@@ -9,16 +9,17 @@ import * as ApolloReactHooks from '@apollo/react-hooks';
 export type StudiedSubjectsQueryVariables = {};
 
 export type StudiedSubjectsQuery = { readonly __typename?: 'Query' } & {
-  readonly me: { readonly __typename?: 'User' } & {
-    readonly studiedSubjects: Types.Maybe<
-      ReadonlyArray<{ readonly __typename?: 'Subject' } & StudiedSubjectFragment>
-    >;
-  };
+  readonly me: { readonly __typename?: 'User' } & Pick<Types.User, 'id'> & {
+      readonly studiedSubjects: Types.Maybe<
+        ReadonlyArray<{ readonly __typename?: 'Subject' } & StudiedSubjectFragment>
+      >;
+    };
 };
 
 export const StudiedSubjectsDocument = gql`
   query StudiedSubjects {
     me {
+      id
       studiedSubjects {
         ...StudiedSubject
       }

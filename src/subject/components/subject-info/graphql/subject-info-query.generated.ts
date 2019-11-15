@@ -10,10 +10,10 @@ export type SubjectInfoQueryVariables = {
 
 export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
-    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'code' | 'description'> & {
+    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id' | 'code' | 'description'> & {
         readonly department: { readonly __typename?: 'Department' } & Pick<
           Types.Department,
-          'name'
+          'id' | 'name'
         >;
         readonly teachers: Types.Maybe<
           ReadonlyArray<
@@ -38,9 +38,11 @@ export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
 export const SubjectInfoDocument = gql`
   query SubjectInfo($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
+      id
       code
       description
       department {
+        id
         name
       }
       teachers {

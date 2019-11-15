@@ -1,12 +1,10 @@
 import { Box, Flex } from '@chakra-ui/core';
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { SubjectRouteParams } from '../../utils/subject-route';
+import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { useSubjectNotesQuery } from './graphql/subject-notes-query.generated';
 import { SubjectNoteCard } from './subject-note-card';
 
-export const SubjectNotes = () => {
-  const { subjectCode } = useParams<SubjectRouteParams>();
+export const SubjectNotes = ({ subjectCode }: SubjectIdentifierProps) => {
   const { data } = useSubjectNotesQuery({ variables: { subjectCode } });
 
   return (

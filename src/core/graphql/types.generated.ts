@@ -714,6 +714,11 @@ export type NullableStringFilter = {
   readonly endsWith: Maybe<Scalars['String']>;
 };
 
+export enum OrderByArg {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
 export type PasswordToken = {
   readonly __typename?: 'PasswordToken';
   readonly id: Scalars['ID'];
@@ -1031,6 +1036,7 @@ export type SubjectNotesArgs = {
 };
 
 export type SubjectPostsArgs = {
+  orderBy: Maybe<SubjectPostsOrderByInput>;
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['String']>;
   before: Maybe<Scalars['String']>;
@@ -1104,6 +1110,10 @@ export enum SubjectPermissionTypeEnum {
   ReadSubject = 'READ_SUBJECT',
   CreateNote = 'CREATE_NOTE',
 }
+
+export type SubjectPostsOrderByInput = {
+  readonly createdAt: Maybe<OrderByArg>;
+};
 
 export type SubjectWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;

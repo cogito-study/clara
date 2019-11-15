@@ -1,0 +1,5 @@
+mutation EditPost($postID: ID!, $content: String!) {
+  updatePost(where: { id: $postID }, data: { content: $content }) {
+    id
+  }
+}
