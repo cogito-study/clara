@@ -116,7 +116,7 @@
       "git add"
     ]
   },
-  "name": "cogito-frontend",
+  "name": "clara",
   "private": true,
   "resolutions": {
     "@types/react": "16.9.11"

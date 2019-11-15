@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 export type UserInfoFragment = { readonly __typename?: 'User' } & Pick<
   Types.User,
-  'fullName' | 'email' | 'profilePictureURL' | 'phoneNumber' | 'identifier'
+  'id' | 'fullName' | 'email' | 'profilePictureURL' | 'phoneNumber' | 'identifier'
 > & {
     readonly studiedSubjects: Types.Maybe<
       ReadonlyArray<{ readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'>>
@@ -13,6 +13,7 @@ export type UserInfoFragment = { readonly __typename?: 'User' } & Pick<
 
 export const UserInfoFragmentDoc = gql`
   fragment UserInfo on User {
+    id
     fullName
     email
     profilePictureURL

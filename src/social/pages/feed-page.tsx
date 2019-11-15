@@ -1,12 +1,14 @@
 import React from 'react';
-import { Flex, Heading } from '@chakra-ui/core';
+import { ContentWrapper } from '../../core/components/layout/content-wrapper';
+import { FeedPostList } from '../components/feed-post/feed-post-list';
+import { useGlobalFeedQuery, GlobalFeedDocument } from './graphql/global-feed-query.generated';
 
 export const FeedPage = () => {
+  const { data } = useGlobalFeedQuery({ fetchPolicy: 'cache-and-network' });
+
   return (
-    <Flex bg="red.600">
-      <Heading as="h1" fontSize="xl" color="white" p={5}>
-        Feed
-      </Heading>
-    </Flex>
+    <ContentWrapper pt={4}>
+      {data && data.posts && <FeedPostList posts={data.posts} query={GlobalFeedDocument} />}
+    </ContentWrapper>
   );
 };

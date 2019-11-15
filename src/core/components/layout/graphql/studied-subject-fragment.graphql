@@ -1,4 +1,5 @@
 fragment StudiedSubject on Subject {
+  id
   code
   name
 }

@@ -1,19 +1,34 @@
 import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
 import React from 'react';
+import { useParams } from 'react-router';
+import { SubjectFeed } from '../components/subject-feed/subject-feed';
 import { SubjectInfo } from '../components/subject-info/subject-info';
 import { SubjectNotes } from '../components/subject-notes/subject-notes';
-import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
-import { useParams } from 'react-router';
 import { SubjectRouteParams } from '../utils/subject-route';
+import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
 
+export type SubjectIdentifierProps = {
+  id: string;
+  subjectCode?: string;
+};
+
+// eslint-disable-next-line complexity
 export const SubjectPage = () => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data } = useSubjectPageQuery({ variables: { subjectCode } });
 
+  const subjectIdentifierProps: SubjectIdentifierProps = {
+    subjectCode,
+    id: (data && data.subject && data.subject.id) || '',
+  };
+
   return (
     <>
       <Tabs color="gray.800" variantColor="teal" display={['none', 'none', 'none', 'initial']}>
-        <TabContent subjectTitle={data && data.subject && data.subject.name} />
+        <TabContent
+          subjectTitle={data && data.subject && data.subject.name}
+          {...subjectIdentifierProps}
+        />
       </Tabs>
       <Tabs
         color="gray.800"
@@ -21,13 +36,19 @@ export const SubjectPage = () => {
         align="center"
         display={['initial', 'initial', 'initial', 'none']}
       >
-        <TabContent subjectTitle={data && data.subject && data.subject.name} />
+        <TabContent
+          subjectTitle={data && data.subject && data.subject.name}
+          {...subjectIdentifierProps}
+        />
       </Tabs>
     </>
   );
 };
 
-const TabContent = ({ subjectTitle }: { subjectTitle?: string }) => (
+const TabContent = ({
+  subjectTitle,
+  ...rest
+}: { subjectTitle?: string } & SubjectIdentifierProps) => (
   <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
     <Box pos="fixed" bg="#fff" pt={['initial', 'initial', 'initial', 5]} width="100%" zIndex={10}>
       <Heading
@@ -44,20 +65,26 @@ const TabContent = ({ subjectTitle }: { subjectTitle?: string }) => (
       <TabList pt={2} bg="#fff" width="100%" px={[0, 0, 0, 16]}>
         {/* TODO: Localize */}
         <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          information
+          feed
         </Tab>
         <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
           notes
+        </Tab>
+        <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
+          information
         </Tab>
       </TabList>
     </Box>
     <Box width="100%" pt={[6, 10, 10, 20]}>
       <TabPanels pt={2}>
         <TabPanel>
-          <SubjectInfo />
+          <SubjectFeed {...rest} />
         </TabPanel>
         <TabPanel>
-          <SubjectNotes />
+          <SubjectNotes {...rest} />
+        </TabPanel>
+        <TabPanel>
+          <SubjectInfo {...rest} />
         </TabPanel>
       </TabPanels>
     </Box>

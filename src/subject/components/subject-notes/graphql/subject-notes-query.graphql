@@ -1,5 +1,6 @@
 query SubjectNotes($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
+    id
     notes {
       id
       title

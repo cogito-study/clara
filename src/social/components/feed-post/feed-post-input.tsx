@@ -1,11 +1,11 @@
 import { Button, Flex, Input } from '@chakra-ui/core';
 import React, { FC, FormEvent, useState } from 'react';
 
-export type PostInputProps = {
+export type FeedPostInputProps = {
   onPostSend: (postContent: string) => void;
 };
 
-export const PostInput: FC<PostInputProps> = ({ onPostSend }) => {
+export const FeedPostInput: FC<FeedPostInputProps> = ({ onPostSend }) => {
   const [value, setValue] = useState('');
   const handleChange = (event: FormEvent<HTMLInputElement>) => setValue(event.currentTarget.value);
 
@@ -18,7 +18,7 @@ export const PostInput: FC<PostInputProps> = ({ onPostSend }) => {
         borderColor="grey.100"
         color="grey.800"
         focusBorderColor="blue.200"
-        bg="white"
+        bg="#fff"
         onChange={handleChange}
         value={value}
         _placeholder={{ color: 'grey.300' }}

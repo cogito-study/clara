@@ -1,15 +1,13 @@
 /* eslint-disable complexity */
 import { Heading } from '@chakra-ui/core';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
-import { SubjectRouteParams } from '../../utils/subject-route';
+import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { useSubjectInfoQuery } from './graphql/subject-info-query.generated';
 import { SubjectInfoCard } from './subject-info-card';
 import { SubjectTeacherCard } from './subject-teacher-card';
 
-export const SubjectInfo = () => {
-  const { subjectCode } = useParams<SubjectRouteParams>();
+export const SubjectInfo = ({ subjectCode }: SubjectIdentifierProps) => {
   const { data } = useSubjectInfoQuery({ variables: { subjectCode } });
 
   return (

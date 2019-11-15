@@ -24,11 +24,11 @@ import { StudiedSubjectFragment } from '../layout/graphql/studied-subject-fragme
 import { profileRoute, isProfilePath } from '../../../profile/utils/profile-route';
 
 export type MainMenuProps = {
-  subjectTitle?: string;
+  title?: string;
   subjects?: ReadonlyArray<StudiedSubjectFragment>;
 };
 
-export const MainMenu = ({ subjectTitle, subjects }: MainMenuProps) => {
+export const MainMenu = ({ title, subjects }: MainMenuProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -53,7 +53,7 @@ export const MainMenu = ({ subjectTitle, subjects }: MainMenuProps) => {
             fontWeight="semibold"
             color="white"
           >
-            {subjectTitle}
+            {title}
           </Heading>
           <IconButton
             as={FiMenu}
