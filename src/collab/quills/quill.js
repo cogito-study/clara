@@ -154,7 +154,7 @@ const configureEditor = (editor) => {
   });
 };
 
-export const createQuillEditor = () => {
+export const createEditModeQuill = () => {
   const editor = createEditor();
   configureEditor(editor);
   return editor;

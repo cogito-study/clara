@@ -1,8 +1,7 @@
 import { Flex } from '@chakra-ui/core';
 import React, { FC } from 'react';
-import { EditorMode } from './editor-header';
 
-export const EditorBody: FC<{ mode: EditorMode }> = ({ mode }) => {
+export const EditorBody: FC = () => {
   return (
     <Flex
       borderWidth={1}
@@ -15,13 +14,7 @@ export const EditorBody: FC<{ mode: EditorMode }> = ({ mode }) => {
       borderRadius="none"
     >
       <Flex
-        display={mode === 'edit' ? 'none' : 'flex'}
-        flexGrow={1}
-        className="study-mode-editor"
-        style={{ border: 'none' }}
-      />
-      <Flex
-        display={mode === 'edit' ? 'flex' : 'none'}
+        display="flex"
         flexGrow={1}
         className="collab-quill-editor"
         style={{ border: 'none' }}

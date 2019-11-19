@@ -1,56 +1,37 @@
 import { Flex } from '@chakra-ui/core';
 import Quill from 'quill';
-import React, { useEffect, useState } from 'react';
-import { Editor, EditorBody, EditorHeader, EditorMode } from '../components/editor';
+import Delta from 'quill-delta';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router';
+import { Editor, EditorHeader, EditorMode } from '../components/editor';
+import { useNoteContentQuery } from '../components/editor/graphql/note-content-query.generated';
+import { QuillEditor } from '../components/editor/quill-editor';
+import { Study } from '../components/editor/study';
 import { Suggestion } from '../components/suggestions/suggestion';
-import { createQuillEditor } from '../quills/quill';
-import { createStudyModeEditor } from '../quills/quill-study';
+import { createEditModeQuill } from '../quills/quill';
+import { createStudyModeQuill } from '../quills/quill-study';
+import { CollabRouteParams } from '../utils/collab-route';
 import './marks.css';
 
 export const CollabPage = () => {
-  // const focusedSuggestion = useRef<string | undefined>(undefined);
+  const { noteID } = useParams<CollabRouteParams>();
   const [editor, setEditor] = useState<Quill | undefined>(undefined);
+  const originalDocument = useRef<Delta>(new Delta());
+  const [quillEditor, setQuillEditor] = useState<QuillEditor>();
   const [editorMode, setEditorMode] = useState<EditorMode>('edit');
 
+  const { data: noteContentData } = useNoteContentQuery({ variables: { noteID } });
+
   useEffect(() => {
-    setEditor(editorMode === 'edit' ? createQuillEditor() : createStudyModeEditor());
+    if (noteContentData && noteContentData.note && editor) {
+      originalDocument.current = new Delta(JSON.parse(noteContentData.note.content));
+      setQuillEditor(new QuillEditor(editor, originalDocument));
+    }
+  }, [editor, noteContentData]);
+
+  useEffect(() => {
+    setEditor(editorMode === 'edit' ? createEditModeQuill() : createStudyModeQuill());
   }, [editorMode]);
-
-  const handleSuggestionHovered = (id: string) => {
-    console.log(`Suggestion hovered with ID = ${id}`);
-    // if (editor.current) {
-    //   const suggestion = suggestions.find((s) => s.id === id);
-    //   if (suggestion) {
-    //     focusedSuggestion.current = id;
-    //     if (mySuggestion.current) {
-    //       editor.current.updateContents(mySuggestion.current.invert(originalDocument.current));
-    //       editor.current.updateContents(suggestion.delta);
-    //     } else {
-    //       editor.current.updateContents(suggestion.delta);
-    //     }
-    //   } else {
-    //     console.error('Invalid suggestion hover!');
-    //   }
-    // }
-  };
-
-  const handleSuggestionBlurred = (id: string) => {
-    console.log(`Suggestion blurred with ID = ${id}`);
-    // if (editor.current) {
-    //   const suggestion = suggestions.find((s) => s.id === id);
-    //   if (suggestion) {
-    //     focusedSuggestion.current = undefined;
-    //     if (mySuggestion.current) {
-    //       editor.current.updateContents(suggestion.inverseDelta(originalDocument.current));
-    //       editor.current.updateContents(mySuggestion.current);
-    //     } else {
-    //       editor.current.updateContents(suggestion.inverseDelta(originalDocument.current));
-    //     }
-    //   } else {
-    //     console.error('Invalid suggestion blur!');
-    //   }
-    // }
-  };
 
   return (
     <Flex direction="column">
@@ -61,16 +42,13 @@ export const CollabPage = () => {
       />
       {editorMode === 'study' ? (
         <Flex mt={12} justifyContent="center">
-          <EditorBody mode="study" />
+          <Study editor={editor} />
         </Flex>
       ) : (
         <Flex mt={12}>
           <Flex direction="row">
-            <Editor editor={editor} />
-            <Suggestion
-              onSuggestionBlurred={handleSuggestionBlurred}
-              onSuggestionHovered={handleSuggestionHovered}
-            />
+            <Editor quillEditor={quillEditor} original={originalDocument} />
+            <Suggestion quillEditor={quillEditor} />
           </Flex>
         </Flex>
       )}
