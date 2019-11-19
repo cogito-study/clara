@@ -11,7 +11,7 @@
     "@chakra-ui/core": "0.4.1",
     "@emotion/core": "10.0.21",
     "@emotion/styled": "10.0.17",
-    "@sentry/browser": "5.9.0",
+    "@sentry/browser": "5.9.1",
     "@types/i18next-browser-languagedetector": "3.0.0",
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
