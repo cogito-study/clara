@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/core';
 import { formatDistance } from 'date-fns';
 import React, { FC, FormEvent, useState } from 'react';
-import { FiMoreHorizontal, FiThumbsUp, FiX, FiCheck } from 'react-icons/fi';
+import { FiCheck, FiMoreHorizontal, FiThumbsUp, FiX } from 'react-icons/fi';
 import { FeedPostFragment } from './graphql/feed-post-fragment.generated';
 
 export type FeedPostData = FeedPostFragment & { subject?: { name: string } };

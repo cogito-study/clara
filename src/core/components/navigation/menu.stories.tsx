@@ -1,6 +1,7 @@
 import React from 'react';
 import { coreComponents } from '../../utils/storybook';
 import { MainMenu, MainMenuProps } from './menu';
+import { PageTitleHeader } from './page-title-header';
 
 export default {
   title: coreComponents('Menu'),
@@ -18,3 +19,4 @@ const subjects: MainMenuProps = {
 
 export const mainMenu = () => <MainMenu />;
 export const mainMenuWithSubjects = () => <MainMenu {...subjects} />;
+export const pageTitleHeader = () => <PageTitleHeader title="News feed" />;

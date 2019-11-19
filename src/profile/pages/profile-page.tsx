@@ -1,12 +1,6 @@
 import React from 'react';
-import { Flex, Heading } from '@chakra-ui/core';
+import { ContentWrapper } from '../../core/components/layout/content-wrapper';
 
 export const ProfilePage = () => {
-  return (
-    <Flex bg="green.500">
-      <Heading as="h1" fontSize="xl" color="white" p={5}>
-        Profile
-      </Heading>
-    </Flex>
-  );
+  return <ContentWrapper mt={[10, 10, 20]} py={4}></ContentWrapper>;
 };
