@@ -35,7 +35,6 @@ export const AuthContext = createContext<AuthContextType>({
 const authTokenKey = 'AUTH_TOKEN';
 
 export const AuthProvider: FC = ({ children }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserInfoFragment | undefined>(undefined);
   const [authToken, setAuthToken] = useLocalStorage<string>(authTokenKey);
   const history = useHistory();
@@ -43,8 +42,8 @@ export const AuthProvider: FC = ({ children }) => {
   const { data } = useMyUserInfoQuery();
 
   const displayGraphQLError = useGraphQLErrorNotification();
-  const [loginUserMutation] = useLoginUserMutation();
-  const [activateUserMutation] = useActivateUserMutation();
+  const [loginUserMutation, { loading: loginLoading }] = useLoginUserMutation();
+  const [activateUserMutation, { loading: activateLoading }] = useActivateUserMutation();
   const [forgotPasswordMutation] = useForgotPasswordMutation();
   const [resetPasswordMutation] = useResetPasswordMutation();
 
@@ -54,9 +53,7 @@ export const AuthProvider: FC = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      setIsLoading(true);
       const { data } = await loginUserMutation({ variables: { email, password } });
-      setIsLoading(false);
 
       if (data) {
         setUser(data.login.user);
@@ -76,9 +73,7 @@ export const AuthProvider: FC = ({ children }) => {
 
   const activateUser = async (password: string, token: string) => {
     try {
-      setIsLoading(true);
       const { data } = await activateUserMutation({ variables: { password, token } });
-      setIsLoading(false);
 
       if (data) {
         setUser(data.activateUser.user);
@@ -91,30 +86,18 @@ export const AuthProvider: FC = ({ children }) => {
   };
 
   const forgotPassword = async (email: string) => {
-    try {
-      setIsLoading(true);
-      await forgotPasswordMutation({ variables: { email } });
-      setIsLoading(false);
-
-      alert('Email sent'); // TODO: Feedback
-    } catch (error) {
-      displayGraphQLError(error);
-    }
+    await forgotPasswordMutation({ variables: { email } });
   };
 
   const resetPassword = async (password: string, token: string) => {
-    try {
-      await resetPasswordMutation({ variables: { password, token } });
-    } catch (error) {
-      displayGraphQLError(error);
-    }
+    await resetPasswordMutation({ variables: { password, token } });
   };
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        isLoading,
+        isLoading: loginLoading || activateLoading,
         authToken,
         login,
         logout,

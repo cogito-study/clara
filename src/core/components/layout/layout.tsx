@@ -2,7 +2,6 @@ import { Box, Flex } from '@chakra-ui/core';
 import React, { FC, Suspense, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
-import { LoadingPage } from '../../pages/loading-page';
 import { MainMenu } from '../navigation/menu';
 import { useStudiedSubjectsQuery } from './graphql/studied-subjects-query.generated';
 import { useSubjectTitleLazyQuery } from './graphql/subject-title-query.generated';
@@ -34,7 +33,7 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
         }
       />
       {/* TODO: Normal loading screen */}
-      <Suspense fallback={<LoadingPage />}>
+      <Suspense fallback={<div>loading...</div>}>
         <Box width="100%" ml={['initial', 'initial', 'initial', '250px']}>
           {children}
         </Box>

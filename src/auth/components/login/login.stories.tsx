@@ -1,15 +1,16 @@
-import { action } from '@storybook/addon-actions';
-import { Grommet } from 'grommet';
 import React from 'react';
-import { theme } from '../../grommet';
+import { MockAuthProvider } from '../../contexts/auth-context.mock';
 import { authComponents } from '../../utils/storybook';
-import { LoginCard } from './login-card';
+import { Login } from './login';
+import { Box } from '@chakra-ui/core';
 
 export default {
   title: authComponents('Login'),
-  decorators: [(storyFn) => <Grommet theme={theme}>{storyFn()}</Grommet>],
+  decorators: [(storyFn) => <MockAuthProvider>{storyFn()}</MockAuthProvider>],
 };
 
-export const loginCard = () => <LoginCard isLoading={false} onLogin={action('on login')} />;
-
-export const loadingLoginCard = () => <LoginCard isLoading onLogin={action('on login')} />;
+export const loginCard = () => (
+  <Box maxW={400}>
+    <Login />
+  </Box>
+);

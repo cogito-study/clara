@@ -24,7 +24,7 @@ export const SubjectPage = () => {
 
   return (
     <>
-      <Tabs color="gray.800" variantColor="teal" display={['none', 'none', 'none', 'initial']}>
+      <Tabs color="grey.800" variantColor="teal" display={['none', 'none', 'none', 'initial']}>
         <TabContent
           subjectTitle={data && data.subject && data.subject.name}
           {...subjectIdentifierProps}
