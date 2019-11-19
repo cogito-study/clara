@@ -3,9 +3,11 @@ import React, { FC, Suspense, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
 import { MainMenu } from '../navigation/menu';
+import { PageTitleHeader } from '../navigation/page-title-header';
 import { useStudiedSubjectsQuery } from './graphql/studied-subjects-query.generated';
 import { useSubjectTitleLazyQuery } from './graphql/subject-title-query.generated';
 
+// eslint-disable-next-line complexity
 export const Layout: FC<{ title?: string }> = ({ title, children }) => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data: studiedSubjectsData } = useStudiedSubjectsQuery();
@@ -35,6 +37,8 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
       {/* TODO: Normal loading screen */}
       <Suspense fallback={<div>loading...</div>}>
         <Box width="100%" ml={['initial', 'initial', 'initial', '250px']}>
+          {title && <PageTitleHeader title={title} />}
+
           {children}
         </Box>
       </Suspense>
