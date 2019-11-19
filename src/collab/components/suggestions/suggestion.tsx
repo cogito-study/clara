@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { CollabRouteParams } from '../../utils/collab-route';
+import { QuillEditor } from '../editor/quill-editor';
 import { useActiveSuggestionsQuery } from './graphql/active-suggestions-query.generated';
 import { useApproveSuggestionMutation } from './graphql/suggestion-approve-mutation.generated';
 import { useSuggestionApproveSubscription } from './graphql/suggestion-approve-subscription.generated';
@@ -10,9 +11,12 @@ import { useSuggestionRejectSubscription } from './graphql/suggestion-reject-sub
 import { useSuggestionUpdateSubscription } from './graphql/suggestion-update-subscription.generated';
 import SuggestionsContainer from './suggestion-container';
 import { SuggestionData } from './suggestion-data';
-import { SuggestionFocusHoverEventProps } from './suggestion-item';
 
-export const Suggestion: FC<SuggestionFocusHoverEventProps> = (props) => {
+interface SuggestionProps {
+  quillEditor?: QuillEditor;
+}
+
+export const Suggestion: FC<SuggestionProps> = ({ quillEditor }) => {
   const { noteID } = useParams<CollabRouteParams>();
 
   const [suggestions, setSuggestions] = useState<SuggestionData[]>([]);
@@ -101,12 +105,30 @@ export const Suggestion: FC<SuggestionFocusHoverEventProps> = (props) => {
     rejectSuggestionMutation({ variables: { suggestionID: id } });
   };
 
+  const handleSuggestionHovered = (id: string) => {
+    console.log(`Suggestion hovered with ID = ${id}`);
+    if (quillEditor) {
+      const suggestion = suggestions.find((s) => s.id === id);
+      if (suggestion) {
+        quillEditor.applyOtherSuggestion(suggestion);
+      }
+    }
+  };
+
+  const handleSuggestionBlurred = (id: string) => {
+    console.log(`Suggestion blurred with ID = ${id}`);
+    if (quillEditor) {
+      quillEditor.discardOtherSuggestion();
+    }
+  };
+
   return (
     <SuggestionsContainer
       suggestions={suggestions}
       onSuggestionAccepted={handleAcceptSuggestion}
       onSuggestionCancelled={handleCancelSuggestion}
-      {...props}
+      onSuggestionHovered={handleSuggestionHovered}
+      onSuggestionBlurred={handleSuggestionBlurred}
     />
   );
 };
