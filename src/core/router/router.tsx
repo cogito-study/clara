@@ -3,13 +3,12 @@ import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
 import { collabRoute } from '../../collab/utils/collab-route';
+import { profileRoute } from '../../profile/utils/profile-route';
+import { socialRoute } from '../../social/utils/social-route';
 import { subjectRoute } from '../../subject/utils/subject-route';
 import { Layout } from '../components/layout/layout';
-import { LoadingPage } from '../pages/loading-page';
 import { driftString } from '../scripts/drift';
 import { PrivateRoute } from './private-route';
-import { socialRoute } from '../../social/utils/social-route';
-import { profileRoute } from '../../profile/utils/profile-route';
 
 const Auth = lazy(() => import('../../auth'));
 const Collab = lazy(() => import('../../collab'));
@@ -22,7 +21,8 @@ export const Router = () => {
   return (
     <>
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
-      <Suspense fallback={<LoadingPage />}>
+      {/* TODO: Normal loading screen */}
+      <Suspense fallback={<div>loading...</div>}>
         <Switch>
           <Route
             path={[

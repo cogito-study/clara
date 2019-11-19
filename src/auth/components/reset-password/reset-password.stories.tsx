@@ -1,18 +1,31 @@
-import { action } from '@storybook/addon-actions';
-import { Grommet } from 'grommet';
-import React from 'react';
-import { theme } from '../../grommet';
+import { MockedProvider } from '@apollo/react-testing';
+import { Box } from '@chakra-ui/core';
+import React, { Suspense } from 'react';
+import StoryRouter from 'storybook-react-router';
+import '../../../core/i18n';
+import { MockAuthProvider } from '../../contexts/auth-context.mock';
 import { authComponents } from '../../utils/storybook';
-import { ResetDoneFeedbackCard } from './reset-done-feedback';
-import { ResetPasswordCard } from './reset-password-card';
+import { passwordUserInfoMock } from '../password-user-info/graphql/user-info-query.mock';
+import { ResetPassword } from './reset-password';
+
+const token = 'asdfasdfad';
 
 export default {
   title: authComponents('Reset Password'),
-  decorators: [(storyFn) => <Grommet theme={theme}>{storyFn()}</Grommet>],
+  decorators: [
+    (storyFn) => (
+      <MockedProvider mocks={[passwordUserInfoMock(token)]}>
+        <Suspense fallback={<div>loading...</div>}>
+          <MockAuthProvider>{storyFn()}</MockAuthProvider>
+        </Suspense>
+      </MockedProvider>
+    ),
+    StoryRouter({}, { initialEntries: [`/register?token=${token}`] }),
+  ],
 };
 
-export const resetPassword = () => <ResetPasswordCard onReset={action('on reset')} />;
-
-export const resetPasswordDone = () => (
-  <ResetDoneFeedbackCard onButtonClick={action('on reset done')} />
+export const resetPassword = () => (
+  <Box maxW={400}>
+    <ResetPassword />
+  </Box>
 );

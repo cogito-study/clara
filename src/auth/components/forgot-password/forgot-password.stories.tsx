@@ -1,21 +1,16 @@
-import { action } from '@storybook/addon-actions';
-import { Grommet } from 'grommet';
+import { Box } from '@chakra-ui/core';
 import React from 'react';
-import { theme } from '../../grommet';
+import { MockAuthProvider } from '../../contexts/auth-context.mock';
 import { authComponents } from '../../utils/storybook';
-import { EmailSentFeedbackCard } from './email-sent';
-import { ForgotPasswordCard } from './forgot-password-card';
-import { ForgotPasswordCardSent } from './forgot-password-done';
+import { ForgotPassword } from './forgot-password';
 
 export default {
   title: authComponents('Forgot Password'),
-  decorators: [(storyFn) => <Grommet theme={theme}>{storyFn()}</Grommet>],
+  decorators: [(storyFn) => <MockAuthProvider>{storyFn()}</MockAuthProvider>],
 };
 
-export const emailSent = () => <EmailSentFeedbackCard />;
-
 export const forgotPassword = () => (
-  <ForgotPasswordCard onForgotPassword={action('on forgot password')} />
+  <Box maxW={400}>
+    <ForgotPassword />
+  </Box>
 );
-
-export const forgotPasswordSent = () => <ForgotPasswordCardSent />;

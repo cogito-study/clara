@@ -5,8 +5,8 @@ import { EditorMode } from './editor-header';
 export const EditorBody: FC<{ mode: EditorMode }> = ({ mode }) => {
   return (
     <Flex
-      border="1px"
-      borderColor="gray.200"
+      borderWidth={1}
+      borderColor="grey.200"
       width="768px"
       minHeight="80vh"
       m={5}

@@ -868,6 +868,7 @@ export type Query = {
   readonly user: Maybe<User>;
   readonly users: Maybe<ReadonlyArray<User>>;
   readonly me: User;
+  readonly userInfo: User;
   readonly posts: ReadonlyArray<Post>;
   readonly postComment: Maybe<PostComment>;
 };
@@ -943,6 +944,10 @@ export type QueryUsersArgs = {
   before: Maybe<Scalars['String']>;
   first: Maybe<Scalars['Int']>;
   last: Maybe<Scalars['Int']>;
+};
+
+export type QueryUserInfoArgs = {
+  token: Maybe<Scalars['String']>;
 };
 
 export type QueryPostCommentArgs = {
