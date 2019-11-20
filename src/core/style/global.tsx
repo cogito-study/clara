@@ -21,7 +21,8 @@ export const GlobalStyles = () => (
           font-family: ${theme.fonts.heading};
         }
 
-        p {
+        p,
+        div {
           font-family: ${theme.fonts.body};
         }
       `}
