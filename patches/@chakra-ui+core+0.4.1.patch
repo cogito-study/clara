@@ -1,3 +1,16 @@
+diff --git a/node_modules/@chakra-ui/core/dist/Icon/index.d.ts b/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
+index 0a5133c..9a5e713 100644
+--- a/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
+@@ -6,7 +6,7 @@ interface IIcon {
+   /**
+    * The size of the icon.
+    */
+-  size?: string;
++  size?: string | number;
+   /**
+    * The name of the icon.
+    */
 diff --git a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts b/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
 index 2bf806d..af6bf09 100644
 --- a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
