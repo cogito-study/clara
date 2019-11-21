@@ -17,44 +17,39 @@ import React from 'react';
 import { FiBook, FiFileText, FiLogOut, FiMenu } from 'react-icons/fi';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../auth/hooks/use-auth';
+import { isProfilePath, profileRoute } from '../../../profile/utils/profile-route';
 import { socialRoute } from '../../../social/utils/social-route';
 import { isSubjectsPath, subjectRoute } from '../../../subject/utils/subject-route';
 import { useTheme } from '../../hooks/use-theme';
 import { StudiedSubjectFragment } from '../layout/graphql/studied-subject-fragment.generated';
-import { profileRoute, isProfilePath } from '../../../profile/utils/profile-route';
+import { MenuSubjectsPlaceholder, MobileMenuTitlePlaceholder } from './menu.placeholder';
 
-export type MainMenuProps = {
+export interface MainMenuProps {
   title?: string;
+  titleLoading: boolean;
   subjects?: ReadonlyArray<StudiedSubjectFragment>;
-};
+  subjectsLoading: boolean;
+}
 
-export const MainMenu = ({ title, subjects }: MainMenuProps) => {
+export const MainMenu = ({ title, titleLoading, ...rest }: MainMenuProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Box display={['initial', 'initial', 'initial', 'none']} pos="relative">
-        <Box
+        <Flex
+          direction="row"
+          align="center"
+          justify="space-between"
           pos="fixed"
           top="0"
           left="0"
           right="0"
           bg="blue.800"
           zIndex={10}
-          display={['initial', 'intial', 'initial', 'none']}
+          display={['flex', 'flex', 'flex', 'none']}
           height={12}
         >
-          <Heading
-            pos="absolute"
-            left="50%"
-            transform="translate(-50%, -50%)"
-            top={6}
-            fontSize="sm"
-            fontWeight="semibold"
-            color="white"
-          >
-            {title}
-          </Heading>
           <IconButton
             as={FiMenu}
             size="lg"
@@ -63,9 +58,18 @@ export const MainMenu = ({ title, subjects }: MainMenuProps) => {
             variant="link"
             cursor="pointer"
             aria-label="Menu"
+            borderRadius={0}
             onClick={onOpen}
           />
-        </Box>
+          {titleLoading ? (
+            <MobileMenuTitlePlaceholder />
+          ) : (
+            <Heading flex="1" fontSize="sm" fontWeight="semibold" color="white" textAlign="center">
+              {title}
+            </Heading>
+          )}
+          <Box size={12} p={2} />
+        </Flex>
         <Drawer
           isOpen={isOpen}
           placement="left"
@@ -77,19 +81,27 @@ export const MainMenu = ({ title, subjects }: MainMenuProps) => {
           <DrawerContent>
             <DrawerCloseButton color="teal.400" />
             <DrawerBody bg="blue.700" p={0}>
-              <MainMenuBase subjects={subjects} />
+              <MainMenuBase {...rest} />
             </DrawerBody>
           </DrawerContent>
         </Drawer>
       </Box>
       <Box display={['none', 'none', 'none', 'initial']} pos="relative" height="100vh">
-        <MainMenuBase subjects={subjects} />
+        <MainMenuBase {...rest} />
       </Box>
     </>
   );
 };
 
-export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
+MainMenu.defaultProps = {
+  titleLoading: false,
+  subjectsLoading: false,
+} as Partial<MainMenuProps>;
+
+export const MainMenuBase = ({
+  subjects,
+  subjectsLoading,
+}: Pick<MainMenuProps, 'subjects' | 'subjectsLoading'>) => {
   const { user, logout } = useAuth();
   const location = useLocation();
   const { colors } = useTheme();
@@ -100,11 +112,12 @@ export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
   };
 
   return (
-    <Flex bg="blue.700" width={['initial', 'initial', '250px']} height="100vh" pos="fixed">
+    <Flex bg="blue.700" width={['100%', '100%', '100%', '250px']} h="100vh" pos="fixed">
       <Box pos="absolute" top="0" left="0" bottom="0" bg="blue.800" width={12} zIndex={0} />
-      <Flex flexDirection="column" height="100vh" justifyContent="space-between" py={4}>
+      <Flex flexDirection="column" h="100vh" w="100%" justifyContent="space-between" py={4}>
         <Flex
-          height="100%"
+          h="100%"
+          w="100%"
           flexDirection="column"
           justifyContent="row"
           alignContent="row"
@@ -118,7 +131,7 @@ export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
             color="white"
           />
           <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
-            <Flex mt={16} direction="row" align="flex-start">
+            <Flex mt={16} direction="row" align="flex-start" w="100%">
               <Icon as={FiFileText} mx={2} size="32px" />
               <Heading
                 as="h4"
@@ -134,14 +147,14 @@ export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
             </Flex>
           </NavLink>
 
-          <Flex mt={4} flexDirection="row" alignItems="flex-start">
+          <Flex mt={4} flexDirection="row" w="100%">
             <Icon
               as={FiBook}
               mx={2}
               size="32px"
               color={isSubjectsPath(location) ? 'teal.500' : 'blue.100'}
             />
-            <Box px={3} py={2}>
+            <Box px={3} py={2} flex="1">
               <Heading
                 as="h4"
                 fontSize="md"
@@ -151,25 +164,29 @@ export const MainMenuBase = ({ subjects }: Pick<MainMenuProps, 'subjects'>) => {
               >
                 Subjects
               </Heading>
-              <Flex flexDirection="column" mt={1} ml={1}>
-                {subjects &&
-                  subjects.map(({ code, name }) => (
-                    <NavLink
-                      key={code}
-                      to={subjectRoute({ path: 'subjects', subjectCode: code })}
-                      {...navLinkStyles}
-                    >
-                      <PseudoBox
-                        mt={2}
-                        fontSize="sm"
-                        _hover={{ color: 'blue.200' }}
-                        _active={{ color: 'teal.500' }}
+              {subjectsLoading ? (
+                <MenuSubjectsPlaceholder />
+              ) : (
+                <Flex flexDirection="column" mt={1} ml={1}>
+                  {subjects &&
+                    subjects.map(({ code, name }) => (
+                      <NavLink
+                        key={code}
+                        to={subjectRoute({ path: 'subjects', subjectCode: code })}
+                        {...navLinkStyles}
                       >
-                        {name}
-                      </PseudoBox>
-                    </NavLink>
-                  ))}
-              </Flex>
+                        <PseudoBox
+                          mt={2}
+                          fontSize="sm"
+                          _hover={{ color: 'blue.200' }}
+                          _active={{ color: 'teal.500' }}
+                        >
+                          {name}
+                        </PseudoBox>
+                      </NavLink>
+                    ))}
+                </Flex>
+              )}
             </Box>
           </Flex>
         </Flex>
