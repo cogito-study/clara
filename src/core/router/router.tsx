@@ -9,6 +9,7 @@ import { subjectRoute } from '../../subject/utils/subject-route';
 import { Layout } from '../components/layout/layout';
 import { driftString } from '../scripts/drift';
 import { PrivateRoute } from './private-route';
+import { FullCogitoLoader } from '../components/loader/cogito-loader';
 
 const Auth = lazy(() => import('../../auth'));
 const Collab = lazy(() => import('../../collab'));
@@ -21,8 +22,7 @@ export const Router = () => {
   return (
     <>
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
-      {/* TODO: Normal loading screen */}
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<FullCogitoLoader />}>
         <Switch>
           <Route
             path={[
