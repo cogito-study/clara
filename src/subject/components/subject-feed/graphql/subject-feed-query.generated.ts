@@ -1,8 +1,11 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
-import { FeedPostFragment } from '../../../../social/components/feed-post/graphql/feed-post-fragment.generated';
+import {
+  FeedPostFragment,
+  FeedPostFragmentDoc,
+} from '../../../../social/components/feed-post/graphql/feed-post-fragment.generated';
 import gql from 'graphql-tag';
-import { FeedPostFragmentDoc } from '../../../../social/components/feed-post/graphql/feed-post-fragment.generated';
+
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -13,9 +16,7 @@ export type SubjectFeedQueryVariables = {
 export type SubjectFeedQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
     { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'> & {
-        readonly posts: Types.Maybe<
-          ReadonlyArray<{ readonly __typename?: 'Post' } & FeedPostFragment>
-        >;
+        readonly posts: ReadonlyArray<{ readonly __typename?: 'Post' } & FeedPostFragment>;
       }
   >;
 };

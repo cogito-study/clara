@@ -5,7 +5,6 @@ type AuthRouteOption =
   | { path: 'forgot-password' }
   | { path: 'link-expired' };
 
-// eslint-disable-next-line complexity
 export const authRoute = (option: AuthRouteOption): string => {
   switch (option.path) {
     case 'login':

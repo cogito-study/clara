@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import { Heading } from '@chakra-ui/core';
 import React from 'react';
 import { ContentWrapper } from '../../../core/components/layout/content-wrapper';

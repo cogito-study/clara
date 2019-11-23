@@ -22,7 +22,6 @@ import { PasswordUserInfo } from '../password-user-info/password-user-info';
  * - Terms and legal link
  * - Validate token
  */
-// eslint-disable-next-line complexity
 export const Register = () => {
   const { activateUser, isLoading } = useAuth();
   const { validationSchema } = usePasswordValidation();

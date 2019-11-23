@@ -9,7 +9,7 @@ import { useSuggestionCreateSubscription } from './graphql/suggestion-create-sub
 import { useRejectSuggestionMutation } from './graphql/suggestion-reject-mutation.generated';
 import { useSuggestionRejectSubscription } from './graphql/suggestion-reject-subscription.generated';
 import { useSuggestionUpdateSubscription } from './graphql/suggestion-update-subscription.generated';
-import SuggestionsContainer from './suggestion-container';
+import { SuggestionsContainer } from './suggestion-container';
 import { SuggestionData } from './suggestion-data';
 
 interface SuggestionProps {

@@ -17,7 +17,6 @@ import * as Yup from 'yup';
 import { useAuth } from '../../hooks/use-auth';
 import { Feedback } from '../feedback/feedback';
 
-/* eslint-disable complexity */
 // TODO: Localize
 export const ForgotPassword = () => {
   const { forgotPassword } = useAuth();

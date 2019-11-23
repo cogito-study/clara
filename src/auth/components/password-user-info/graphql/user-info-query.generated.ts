@@ -9,7 +9,9 @@ export type UserInfoQueryVariables = {
 };
 
 export type UserInfoQuery = { readonly __typename?: 'Query' } & {
-  readonly userInfo: { readonly __typename?: 'User' } & Pick<Types.User, 'fullName' | 'email'>;
+  readonly userInfo: Types.Maybe<
+    { readonly __typename?: 'User' } & Pick<Types.User, 'fullName' | 'email'>
+  >;
 };
 
 export const UserInfoDocument = gql`

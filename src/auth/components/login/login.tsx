@@ -15,7 +15,6 @@ import * as Yup from 'yup';
 import { useAuth } from '../../hooks/use-auth';
 import { authRoute } from '../../utils/auth-route';
 
-/* eslint-disable complexity */
 // TODO: Localize
 export const Login = () => {
   const { login, isLoading } = useAuth();

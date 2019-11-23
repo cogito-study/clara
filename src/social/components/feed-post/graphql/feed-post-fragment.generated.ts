@@ -10,9 +10,7 @@ export type FeedPostFragment = { readonly __typename?: 'Post' } & Pick<
       Types.User,
       'id' | 'fullName' | 'profilePictureURL' | 'position'
     >;
-    readonly likers: Types.Maybe<
-      ReadonlyArray<{ readonly __typename?: 'User' } & Pick<Types.User, 'id'>>
-    >;
+    readonly likers: ReadonlyArray<{ readonly __typename?: 'User' } & Pick<Types.User, 'id'>>;
   };
 
 export const FeedPostFragmentDoc = gql`

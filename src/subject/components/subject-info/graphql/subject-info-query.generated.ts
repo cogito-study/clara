@@ -15,20 +15,16 @@ export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
           Types.Department,
           'id' | 'name'
         >;
-        readonly teachers: Types.Maybe<
-          ReadonlyArray<
-            { readonly __typename?: 'User' } & Pick<
-              Types.User,
-              'firstName' | 'lastName' | 'email' | 'profilePictureURL'
-            >
+        readonly teachers: ReadonlyArray<
+          { readonly __typename?: 'User' } & Pick<
+            Types.User,
+            'firstName' | 'lastName' | 'email' | 'profilePictureURL'
           >
         >;
-        readonly informations: Types.Maybe<
-          ReadonlyArray<
-            { readonly __typename?: 'SubjectInformation' } & Pick<
-              Types.SubjectInformation,
-              'title' | 'subtitle' | 'content'
-            >
+        readonly informations: ReadonlyArray<
+          { readonly __typename?: 'SubjectInformation' } & Pick<
+            Types.SubjectInformation,
+            'title' | 'subtitle' | 'content'
           >
         >;
       }

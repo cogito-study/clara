@@ -24,7 +24,6 @@ import { PasswordUserInfo } from '../password-user-info/password-user-info';
  * - Terms and legal link
  * - Validate token
  */
-// eslint-disable-next-line complexity
 export const ResetPassword = () => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const { resetPassword } = useAuth();

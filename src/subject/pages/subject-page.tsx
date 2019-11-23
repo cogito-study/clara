@@ -13,7 +13,6 @@ export type SubjectIdentifierProps = {
   subjectCode?: string;
 };
 
-// eslint-disable-next-line complexity
 export const SubjectPage = () => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data, loading } = useSubjectPageQuery({ variables: { subjectCode } });

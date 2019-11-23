@@ -1,8 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
-import { PostLikeFragment } from './post-like-fragment.generated';
+import { PostLikeFragment, PostLikeFragmentDoc } from './post-like-fragment.generated';
 import gql from 'graphql-tag';
-import { PostLikeFragmentDoc } from './post-like-fragment.generated';
+
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 

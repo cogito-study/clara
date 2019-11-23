@@ -6,8 +6,8 @@ export type UserInfoFragment = { readonly __typename?: 'User' } & Pick<
   Types.User,
   'id' | 'fullName' | 'email' | 'profilePictureURL' | 'phoneNumber' | 'identifier'
 > & {
-    readonly studiedSubjects: Types.Maybe<
-      ReadonlyArray<{ readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'>>
+    readonly studiedSubjects: ReadonlyArray<
+      { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'>
     >;
   };
 

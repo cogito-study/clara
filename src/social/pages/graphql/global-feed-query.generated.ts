@@ -1,8 +1,11 @@
 import * as Types from '../../../core/graphql/types.generated';
 
-import { FeedPostFragment } from '../../components/feed-post/graphql/feed-post-fragment.generated';
+import {
+  FeedPostFragment,
+  FeedPostFragmentDoc,
+} from '../../components/feed-post/graphql/feed-post-fragment.generated';
 import gql from 'graphql-tag';
-import { FeedPostFragmentDoc } from '../../components/feed-post/graphql/feed-post-fragment.generated';
+
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 

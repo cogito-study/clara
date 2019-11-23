@@ -17,6 +17,9 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "prettier",
     "prettier/@typescript-eslint"
   ],
@@ -26,10 +29,6 @@
     }
   },
   "rules": {
-    "complexity": [
-      "warn",
-      7
-    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/camelcase": "off",

@@ -8,7 +8,6 @@ import { PageTitleHeader } from '../navigation/page-title-header';
 import { useStudiedSubjectsQuery } from './graphql/studied-subjects-query.generated';
 import { useSubjectTitleLazyQuery } from './graphql/subject-title-query.generated';
 
-// eslint-disable-next-line complexity
 export const Layout: FC<{ title?: string }> = ({ title, children }) => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data: studiedSubjectsData, loading: studiedSubjectsLoading } = useStudiedSubjectsQuery();
