@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/core';
 import React, { FC } from 'react';
 import { SuggestionData } from './suggestion-data';
-import { SuggestionItem, SuggestionEventProps } from './suggestion-item';
+import { SuggestionEventProps, SuggestionItem } from './suggestion-item';
 
 type Props = { suggestions: SuggestionData[] } & SuggestionEventProps;
 
@@ -16,5 +16,3 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, ...rest }) => {
     </Flex>
   );
 };
-
-export default SuggestionsContainer;
