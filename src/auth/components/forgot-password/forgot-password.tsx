@@ -6,16 +6,16 @@ import {
   FormErrorMessage,
   FormLabel,
   Heading,
+  Icon,
   Input,
   Text,
-  Icon,
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
+import { FiSend } from 'react-icons/fi';
 import * as Yup from 'yup';
 import { useAuth } from '../../hooks/use-auth';
 import { Feedback } from '../feedback/feedback';
-import { FiSend } from 'react-icons/fi';
 
 /* eslint-disable complexity */
 // TODO: Localize
