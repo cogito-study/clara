@@ -93,8 +93,9 @@ export const Suggestion: FC<SuggestionProps> = ({ quillEditor }) => {
       setSuggestions((prev) =>
         prev.filter((s) => s.id !== suggestionRejectData.rejectedSuggestion.id),
       );
+      quillEditor && quillEditor.discardOtherSuggestion();
     }
-  }, [suggestionRejectData]);
+  }, [quillEditor, suggestionRejectData]);
 
   // --- Event Handling ---
   const handleAcceptSuggestion = (id: string) => {
@@ -124,6 +125,7 @@ export const Suggestion: FC<SuggestionProps> = ({ quillEditor }) => {
 
   return (
     <SuggestionsContainer
+      quillEditor={quillEditor}
       suggestions={suggestions}
       onSuggestionAccepted={handleAcceptSuggestion}
       onSuggestionCancelled={handleCancelSuggestion}

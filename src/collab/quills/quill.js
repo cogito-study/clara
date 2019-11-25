@@ -144,9 +144,9 @@ const createEditor = () => new Quill('.collab-quill-editor', options);
 
 const configureEditor = (editor) => {
   editor.on('text-change', (delta, oldDelta, source) => {
-    const selection = editor.getSelection();
-    selection &&
-      editor.getModule('text-marking').mark('added', { index: selection.index - 1, length: 1 });
+    // const selection = editor.getSelection();
+    // selection &&
+    //   editor.getModule('text-marking').mark('added', { index: selection.index - 1, length: 1 });
   });
 
   editor.on('selection-change', (range, oldRange, source) => {
