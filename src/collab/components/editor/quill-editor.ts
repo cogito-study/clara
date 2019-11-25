@@ -93,6 +93,24 @@ export class QuillEditor {
         console.error('Invalid state:', this.editorState);
         break;
     }
+    let idx = 0;
+    otherSuggestion.delta.ops.forEach((op) => {
+      if (op['insert']) {
+        if (typeof op['insert'] === 'string') {
+          this.quill.getModule('text-marking').mark('addedBySomeone', {
+            index: idx,
+            length: op['insert'].length,
+          });
+          idx += op['insert'].length;
+        } else {
+          idx += 1;
+        }
+      } else if (op['retain']) {
+        idx += op['retain'];
+      } else if (op['delete']) {
+        idx += op['delete'];
+      }
+    });
   }
 
   discardOtherSuggestion() {
