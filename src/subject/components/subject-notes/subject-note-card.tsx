@@ -19,23 +19,23 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
   updatedAt,
   number,
   description,
+  children,
   ...rest
 }) => (
   <PseudoBox
     cursor="pointer"
     p={3}
     bg="#fff"
-    borderWidth="1px"
+    borderWidth={1}
     borderColor="grey.100"
     width={['100%', '100%', '300px']}
-    height="162px"
     transition="transform 0.2s"
-    _hover={{ transition: 'transform 0.2s', transform: 'scale(1.05)', borderColor: 'blue.600' }}
+    _hover={{ transition: 'transform 0.2s', transform: 'scale(1.02)', borderColor: 'blue.600' }}
     _focus={{ borderColor: 'teal.500' }}
     {...rest}
   >
-    <Link to={collabRoute({ path: 'notes', noteID: id })}>
-      <Flex pos="relative" direction="column">
+    <Flex pos="relative" direction="column">
+      <Link to={collabRoute({ path: 'notes', noteID: id })}>
         <Flex mt={1} height="40px" align="center">
           <Text
             fontSize="2xl"
@@ -81,7 +81,15 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
         >
           {description}
         </Text>
-      </Flex>
-    </Link>
+      </Link>
+
+      {children}
+    </Flex>
   </PseudoBox>
+);
+
+export const SubjectNoteCardFooter: FC = ({ children }) => (
+  <Flex direction="row" justify="flex-end" mt={2}>
+    {children}
+  </Flex>
 );

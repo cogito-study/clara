@@ -38,6 +38,7 @@ export const DeleteFeedPostAlert = ({ isLoading, isOpen, onClose, onDelete }: Pr
             variantColor="red"
             onClick={onClose}
             borderRadius={0}
+            borderWidth={2}
           >
             cancel
           </Button>
