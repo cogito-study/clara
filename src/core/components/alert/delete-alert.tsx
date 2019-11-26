@@ -32,8 +32,8 @@ export const DeleteAlert = ({
   return (
     <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay />
-      <AlertDialogContent>
-        <AlertDialogHeader fontSize="lg" fontWeight="bold">
+      <AlertDialogContent mx={[2, 'auto']} w="auto">
+        <AlertDialogHeader fontSize="lg" fontWeight="bold" lineHeight="base">
           {title}
         </AlertDialogHeader>
 
