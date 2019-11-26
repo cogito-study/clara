@@ -4,6 +4,7 @@ import React from 'react';
 import { authComponents } from '../../utils/storybook';
 import { passwordUserInfoMock } from './graphql/user-info-query.mock';
 import { PasswordUserInfo } from './password-user-info';
+import { PasswordUserInfoPlaceholder } from './password-user-info.placeholder';
 
 const token = 'asdfasdfad';
 
@@ -17,5 +18,11 @@ export default {
 export const passwordUserInfo = () => (
   <Box maxW={400}>
     <PasswordUserInfo token={token} />
+  </Box>
+);
+
+export const passwordUserInfoPlaceholder = () => (
+  <Box maxW={400} p={8}>
+    <PasswordUserInfoPlaceholder />
   </Box>
 );
