@@ -7,9 +7,9 @@ import { profileRoute } from '../../profile/utils/profile-route';
 import { socialRoute } from '../../social/utils/social-route';
 import { subjectRoute } from '../../subject/utils/subject-route';
 import { Layout } from '../components/layout/layout';
+import { FullCogitoLoader } from '../components/loader/cogito-loader';
 import { driftString } from '../scripts/drift';
 import { PrivateRoute } from './private-route';
-import { FullCogitoLoader } from '../components/loader/cogito-loader';
 
 const Auth = lazy(() => import('../../auth'));
 const Collab = lazy(() => import('../../collab'));
@@ -53,7 +53,7 @@ export const Router = () => {
               <Profile />
             </Layout>
           </PrivateRoute>
-          <Redirect to={authRoute({ path: 'login' })} />
+          <Redirect to={socialRoute({ path: 'feed' })} />
         </Switch>
       </Suspense>
     </>

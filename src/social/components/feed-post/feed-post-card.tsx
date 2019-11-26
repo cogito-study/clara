@@ -23,6 +23,7 @@ export type FeedPostCardProps = {
   feedPost: FeedPostData;
   isOwnPost: boolean;
   hasLikedPost: boolean;
+  isEditLoading: boolean;
   onPostDelete: () => void;
   onPostLike: () => void;
   onPostEdit: (content: string) => void;
@@ -32,6 +33,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
   feedPost: { author, content, likesCount, updatedAt, subject },
   isOwnPost,
   hasLikedPost,
+  isEditLoading,
   onPostDelete,
   onPostLike,
   onPostEdit,
@@ -113,6 +115,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
                   variant="ghost"
                   variantColor="grey"
                   borderRadius="none"
+                  isLoading={isEditLoading}
                   icon={FiMoreHorizontal}
                 />
               </MenuButton>
@@ -135,6 +138,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
       <Flex mt={4}>
         {isEditing && isOwnPost ? (
           <Textarea
+            isDisabled={isEditLoading}
             focusBorderColor="blue.200"
             fontSize="sm"
             onChange={handleInputChange}

@@ -5,23 +5,15 @@ import { FeedPostInput } from '../../../social/components/feed-post/feed-post-in
 import { FeedPostList } from '../../../social/components/feed-post/feed-post-list';
 import { FeedPostListPlaceholder } from '../../../social/components/feed-post/feed-post.placeholder';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
-import { useCreatePostMutation } from './graphql/create-post-mutation.generated';
 import { SubjectFeedDocument, useSubjectFeedQuery } from './graphql/subject-feed-query.generated';
 
 export const SubjectFeed = ({ id, subjectCode }: SubjectIdentifierProps) => {
   const { data, loading } = useSubjectFeedQuery({ variables: { subjectCode } });
-  const [createPost] = useCreatePostMutation();
-
-  const handlePostCreation = (content: string) =>
-    createPost({
-      variables: { content, subjectID: id },
-      refetchQueries: [{ query: SubjectFeedDocument, variables: { subjectCode } }],
-    });
 
   return (
     <ContentWrapper pt={4}>
       <Box pb={3}>
-        <FeedPostInput onPostSend={handlePostCreation} />
+        <FeedPostInput id={id} subjectCode={subjectCode} />
       </Box>
       {loading ? (
         <FeedPostListPlaceholder />

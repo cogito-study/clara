@@ -2,8 +2,7 @@ import { action } from '@storybook/addon-actions';
 import React from 'react';
 import { socialComponents } from '../../utils/storybook';
 import { FeedPostCard, FeedPostCardProps } from './feed-post-card';
-import { FeedPostInput } from './feed-post-input';
-import { FeedPostPlaceholder, FeedPostListPlaceholder } from './feed-post.placeholder';
+import { FeedPostListPlaceholder, FeedPostPlaceholder } from './feed-post.placeholder';
 
 export default {
   title: socialComponents('Feed Post'),
@@ -27,6 +26,7 @@ const postCardProps: FeedPostCardProps = {
   },
   isOwnPost: false,
   hasLikedPost: true,
+  isEditLoading: false,
   onPostDelete: action('On Post delete'),
   onPostLike: action('On Post like'),
   onPostEdit: action('On Post edit'),
@@ -35,8 +35,6 @@ const postCardProps: FeedPostCardProps = {
 export const othersPostCard = () => <FeedPostCard {...postCardProps} />;
 
 export const usersPostCard = () => <FeedPostCard {...postCardProps} isOwnPost />;
-
-export const postInput = () => <FeedPostInput onPostSend={() => action('On post send')} />;
 
 export const postPlaceholder = () => <FeedPostPlaceholder />;
 
