@@ -3,8 +3,8 @@ import { DocumentNode } from 'graphql';
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useAuth } from '../../../auth/hooks/use-auth';
+import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
-import { DeleteFeedPostAlert } from './delete-feed-post-alert';
 import { FeedPostCard, FeedPostData } from './feed-post-card';
 import { useDeletePostMutation } from './graphql/delete-post-mutation.generated';
 import { useDislikePostMutation } from './graphql/dislike-post-mutation.generated';
@@ -58,7 +58,9 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
 
   return (
     <>
-      <DeleteFeedPostAlert
+      <DeleteAlert
+        title="Are you sure want to delete this post?"
+        description="You can't undo this action afterwards."
         isLoading={deletePostLoading}
         isOpen={deletingPost.isOpen}
         onClose={() => setDeletingPost({ isOpen: false })}

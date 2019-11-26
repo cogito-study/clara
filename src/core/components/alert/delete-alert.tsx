@@ -10,14 +10,23 @@ import {
 import React, { useRef } from 'react';
 
 type Props = {
+  title: string;
+  description: string;
   isLoading: boolean;
   isOpen: boolean;
-  onClose: () => void;
-  onDelete: () => void;
+  onClose?: () => void;
+  onDelete?: () => void;
 };
 
-// TODO: Localize
-export const DeleteFeedPostAlert = ({ isLoading, isOpen, onClose, onDelete }: Props) => {
+// TODO: Animation
+export const DeleteAlert = ({
+  title,
+  description,
+  isLoading,
+  isOpen,
+  onClose,
+  onDelete,
+}: Props) => {
   const cancelRef = useRef(null);
 
   return (
@@ -25,10 +34,10 @@ export const DeleteFeedPostAlert = ({ isLoading, isOpen, onClose, onDelete }: Pr
       <AlertDialogOverlay />
       <AlertDialogContent>
         <AlertDialogHeader fontSize="lg" fontWeight="bold">
-          Are you sure want to delete this post?
+          {title}
         </AlertDialogHeader>
 
-        <AlertDialogBody>You can not undo this action afterwards.</AlertDialogBody>
+        <AlertDialogBody>{description}</AlertDialogBody>
 
         <AlertDialogFooter>
           <Button
