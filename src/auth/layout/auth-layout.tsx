@@ -23,7 +23,7 @@ export const AuthLayout: FC = ({ children }) => {
         justify="center"
         p={4}
       >
-        <Box maxW="400px" flex="1">
+        <Box maxW={400} flex="1">
           {children}
         </Box>
       </Flex>
