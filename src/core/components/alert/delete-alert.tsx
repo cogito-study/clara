@@ -6,10 +6,11 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  Scale,
 } from '@chakra-ui/core';
 import React, { useRef } from 'react';
 
-type Props = {
+type DeleteAlertProps = {
   title: string;
   description: string;
   isLoading: boolean;
@@ -18,7 +19,6 @@ type Props = {
   onDelete?: () => void;
 };
 
-// TODO: Animation
 export const DeleteAlert = ({
   title,
   description,
@@ -26,42 +26,46 @@ export const DeleteAlert = ({
   isOpen,
   onClose,
   onDelete,
-}: Props) => {
+}: DeleteAlertProps) => {
   const cancelRef = useRef(null);
 
   return (
-    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-      <AlertDialogOverlay />
-      <AlertDialogContent mx={[2, 'auto']} w="auto">
-        <AlertDialogHeader fontSize="lg" fontWeight="bold" lineHeight="base">
-          {title}
-        </AlertDialogHeader>
+    <Scale in={isOpen}>
+      {(styles) => (
+        <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+          <AlertDialogOverlay opacity={styles.opacity} />
+          <AlertDialogContent mx={[2, 'auto']} w="auto" {...styles}>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold" lineHeight="base">
+              {title}
+            </AlertDialogHeader>
 
-        <AlertDialogBody>{description}</AlertDialogBody>
+            <AlertDialogBody>{description}</AlertDialogBody>
 
-        <AlertDialogFooter>
-          <Button
-            isDisabled={isLoading}
-            ref={cancelRef}
-            variant="outline"
-            variantColor="red"
-            onClick={onClose}
-            borderRadius={0}
-            borderWidth={2}
-          >
-            cancel
-          </Button>
-          <Button
-            variantColor="red"
-            isLoading={isLoading}
-            onClick={onDelete}
-            ml={3}
-            borderRadius={0}
-          >
-            delete
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+            <AlertDialogFooter>
+              <Button
+                isDisabled={isLoading}
+                ref={cancelRef}
+                variant="outline"
+                variantColor="red"
+                onClick={onClose}
+                borderRadius={0}
+                borderWidth={2}
+              >
+                cancel
+              </Button>
+              <Button
+                variantColor="red"
+                isLoading={isLoading}
+                onClick={onDelete}
+                ml={3}
+                borderRadius={0}
+              >
+                delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+    </Scale>
   );
 };

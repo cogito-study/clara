@@ -62,3 +62,32 @@ index 2bf806d..af6bf09 100644
    /**
     * If `true`, the tabs will be manually activated and
     * display its panel by pressing Space or Enter.
+diff --git a/node_modules/@chakra-ui/core/dist/Transition/index.d.ts b/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
+index e7cf3d5..6775d0b 100644
+--- a/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
+@@ -9,7 +9,7 @@ interface ISlideIn {
+   children: (styles: Object) => React.ReactNode;
+ }
+ 
+-type SlideInProps = ISlideIn & TransitionProps<boolean>;
++type SlideInProps = ISlideIn | TransitionProps<boolean>;
+ export const SlideIn: React.FC<SlideInProps>;
+ 
+ interface IScale {
+@@ -19,7 +19,7 @@ interface IScale {
+   children: (styles: Object) => React.ReactNode;
+ }
+ 
+-type ScaleProps = IScale & TransitionProps<boolean>;
++type ScaleProps = TransitionProps<boolean> | IScale;
+ export const Scale: React.FC<ScaleProps>;
+ 
+ interface ISlide {
+@@ -30,5 +30,5 @@ interface ISlide {
+   from: "bottom" | "top" | "left" | "right";
+ }
+ 
+-type SlideProps = ISlide & TransitionProps<boolean>;
++type SlideProps = ISlide | TransitionProps<boolean>;
+ export const Slide: React.FC<SlideProps>;
