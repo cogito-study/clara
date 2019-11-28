@@ -3,7 +3,6 @@ image: node:lts
 stages:
   - install-dependencies
   - build
-  - test
   - deploy
 
 cache:
@@ -35,16 +34,6 @@ build:
   script:
     - npm run codegen
     - npm run build
-  only:
-    - development
-    - demo
-    - master
-
-test:
-  stage: test
-  script:
-    - echo "to be implemented"
-  # - npm run test
   only:
     - development
     - demo
