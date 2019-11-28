@@ -1,6 +1,7 @@
 import { Button, Flex } from '@chakra-ui/core';
 import Delta from 'quill-delta';
 import React, { FC, MutableRefObject, useEffect } from 'react';
+import { FiPlusCircle } from 'react-icons/fi';
 import { useParams } from 'react-router';
 import { CollabRouteParams } from '../../utils/collab-route';
 import { useSuggestionApproveSubscription } from '../suggestions/graphql/suggestion-approve-subscription.generated';
@@ -55,16 +56,26 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original }) => {
   return (
     <Flex direction="column">
       <Button
-        backgroundColor="blue.700"
-        color="white"
-        m={5}
-        width="200px"
+        m={4}
+        position="fixed"
+        zIndex={999}
+        backgroundColor="#fff"
+        shadow="lg"
         onClick={handleSuggesting}
+        rightIcon={FiPlusCircle}
+        variantColor="teal"
+        variant="outline"
+        color="blue.800"
+        border="2px"
+        borderRadius="none"
+        borderColor="teal.500"
       >
         {/* TODO: Localize */}
-        SUGGEST
+        suggest
       </Button>
-      <EditorBody />
+      <Flex mt={12}>
+        <EditorBody />
+      </Flex>
     </Flex>
   );
 };
