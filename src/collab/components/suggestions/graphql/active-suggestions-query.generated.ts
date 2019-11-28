@@ -1,8 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
-import { SuggestionFragment, SuggestionFragmentDoc } from './suggestion-fragment.generated';
+import { SuggestionFragment } from './suggestion-fragment.generated';
 import gql from 'graphql-tag';
-
+import { SuggestionFragmentDoc } from './suggestion-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 

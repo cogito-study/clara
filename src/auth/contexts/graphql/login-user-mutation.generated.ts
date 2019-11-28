@@ -1,8 +1,8 @@
 import * as Types from '../../../core/graphql/types.generated';
 
-import { UserInfoFragment, UserInfoFragmentDoc } from './user-info-fragment.generated';
+import { UserInfoFragment } from './user-info-fragment.generated';
 import gql from 'graphql-tag';
-
+import { UserInfoFragmentDoc } from './user-info-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 

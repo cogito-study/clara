@@ -11,29 +11,47 @@ import {
 import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { useAuth } from '../../../auth/hooks';
+import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import { useChangePasswordMutation } from './graphql/change-password-mutation.generated';
 
-/* eslint-disable complexity */
 // TODO: Localize
 export const ChangePassword = () => {
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+  const { user } = useAuth();
+  const [changePassword, { loading }] = useChangePasswordMutation();
+  const displayGraphQLError = useGraphQLErrorNotification();
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+    isValid,
+  } = useFormik({
     initialValues: {
-      password: '',
+      oldPassword: '',
       newPassword: '',
-      newPasswordRetype: '',
+      newPasswordConfirm: '',
     },
-    validateOnChange: false,
     validationSchema: Yup.object({
-      password: Yup.string().required('Password is required'),
+      oldPassword: Yup.string().required('Password is required'),
       newPassword: Yup.string()
         .min(7, 'Password has to be longer than 7 characters!')
         .required('Password is required'),
-      newPasswordRetype: Yup.string().test('passwords-match', 'Passwords must match', function(
-        value,
-      ) {
-        return this.parent.newPassword === value;
-      }),
+      newPasswordConfirm: Yup.string()
+        .oneOf([Yup.ref('newPassword')], 'Passwords must match')
+        .required('Password confirm is required'),
     }),
-    onSubmit: async ({}, { resetForm }) => {
+    onSubmit: async ({ oldPassword, newPassword }, { resetForm }) => {
+      if (user) {
+        try {
+          await changePassword({ variables: { userID: user.id, oldPassword, newPassword } });
+        } catch (error) {
+          displayGraphQLError(error);
+        }
+      }
       resetForm();
     },
   });
@@ -52,30 +70,30 @@ export const ChangePassword = () => {
         Change Password
       </Heading>
       <Flex
-        borderWidth="1px"
+        borderWidth={1}
         borderColor="grey.100"
         bg="#fff"
         p={[4, 4, 5]}
         direction="column"
         align="center"
       >
-        <Box maxW="480px" size="full">
+        <Box maxW={480} size="full">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <Box h={100}>
-              <FormControl isInvalid={errors.password && touched.password ? true : false}>
+              <FormControl isInvalid={errors.oldPassword && touched.oldPassword ? true : false}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   Current password
                 </FormLabel>
                 <Input
-                  id="password"
+                  id="oldPassword"
                   type="password"
-                  placeholder="*******"
-                  value={values.password}
+                  placeholder="********"
+                  value={values.oldPassword}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.password}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.oldPassword}</FormErrorMessage>
               </FormControl>
             </Box>
             <Box h={100}>
@@ -86,7 +104,7 @@ export const ChangePassword = () => {
                 <Input
                   id="newPassword"
                   type="password"
-                  placeholder="At least 7 characters"
+                  placeholder="********"
                   value={values.newPassword}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -97,38 +115,43 @@ export const ChangePassword = () => {
             </Box>
             <Box h={100}>
               <FormControl
-                isInvalid={errors.newPasswordRetype && touched.newPasswordRetype ? true : false}
+                isInvalid={errors.newPasswordConfirm && touched.newPasswordConfirm ? true : false}
               >
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   Repeat new password
                 </FormLabel>
                 <Input
-                  id="newPasswordRetype"
+                  id="newPasswordConfirm"
                   type="password"
-                  placeholder="Re-enter your password"
-                  value={values.newPasswordRetype}
+                  placeholder="********"
+                  value={values.newPasswordConfirm}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.newPasswordRetype}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.newPasswordConfirm}</FormErrorMessage>
               </FormControl>
             </Box>
             <Flex justify="flex-end">
               <Button
+                isDisabled={
+                  (!values.oldPassword && !values.newPassword && !values.newPasswordConfirm) ||
+                  loading
+                }
                 variantColor="teal"
                 borderRadius={0}
-                type="submit"
                 variant="outline"
                 color="blue.800"
                 borderColor="teal.500"
-                borderWidth="2px"
+                borderWidth={2}
+                onClick={() => resetForm()}
               >
                 cancel
               </Button>
               <Button
                 ml={3}
-                isLoading={false}
+                isDisabled={!isValid}
+                isLoading={loading}
                 variantColor="teal"
                 borderRadius={0}
                 type="submit"
