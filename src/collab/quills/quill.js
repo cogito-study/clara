@@ -116,6 +116,7 @@ const options = {
   modules: {
     toolbar: '#toolbar',
     'text-marking': true,
+    clipboard: {},
     keyboard: {
       bindings: {
         // backspace: {
@@ -156,6 +157,7 @@ const configureEditor = (editor) => {
 
 export const createEditModeQuill = () => {
   const editor = createEditor();
+  editor.root.setAttribute('spellcheck', false);
   configureEditor(editor);
   return editor;
 };
