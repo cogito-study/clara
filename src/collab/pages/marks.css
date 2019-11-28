@@ -33,3 +33,33 @@
   flex-grow: 1;
   outline: none;
 }
+
+.ql-editor .ql-size-huge {
+  font-size: 2.5em;
+  font-family: 'Raleway';
+  line-height: 1.2;
+  font-weight: 700;
+  color: #002b66;
+}
+
+.ql-editor .ql-size-large {
+  font-size: 1.5em;
+  font-family: 'Raleway';
+  line-height: 1.3;
+  font-weight: 700;
+  color: #002b66;
+}
+
+.ql-editor p {
+  font-size: 1.2em;
+  font-family: 'Nunito sans';
+  line-height: 1.8;
+  color: #1a1a1a;
+  padding-bottom: 1.1em;
+}
+
+.ql-editor .ql-size-small {
+  font-size: 0.8em;
+  font-weight: 500;
+  color: #1a1a1a;
+}
