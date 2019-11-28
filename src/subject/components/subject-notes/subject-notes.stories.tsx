@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/core';
-import { action } from '@storybook/addon-actions';
-import React from 'react';
+import React, { useState } from 'react';
 import { subjectComponents } from '../../utils/storybook';
-import { SubjectNoteCard, SubjectNoteCardFooter, SubjectNoteCardProps } from './subject-note-card';
+import { EditableNoteModal } from './editable-note-modal';
+import { SubjectNoteCard, SubjectNoteCardProps } from './subject-note-card';
 
 export default {
   title: subjectComponents('Notes'),
@@ -17,69 +17,39 @@ const noteCardProps: SubjectNoteCardProps = {
 };
 
 export const noteCard = () => <SubjectNoteCard {...noteCardProps} />;
+export const editableNoteCard = () => <SubjectNoteCard {...noteCardProps} isEditable />;
 
-export const withDelete = () => (
-  <SubjectNoteCard {...noteCardProps}>
-    <SubjectNoteCardFooter>
-      <Button
-        variant="outline"
-        variantColor="red"
-        size="sm"
-        onClick={action('delete clicked')}
-        borderRadius={0}
-        borderWidth={2}
-      >
-        delete
-      </Button>
-    </SubjectNoteCardFooter>
-  </SubjectNoteCard>
-);
+export const addNoteModal = () => {
+  const ShowAddNoteModal = () => {
+    const [isOpen, setOpen] = useState(false);
 
-export const withEdit = () => (
-  <SubjectNoteCard {...noteCardProps}>
-    <SubjectNoteCardFooter>
-      <Button
-        variant="outline"
-        variantColor="teal"
-        color="blue.700"
-        borderColor="teal.500"
-        size="sm"
-        borderRadius={0}
-        borderWidth={2}
-        onClick={action('edit clicked')}
-      >
-        edit
-      </Button>
-    </SubjectNoteCardFooter>
-  </SubjectNoteCard>
-);
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>trigger modal</Button>
+        <EditableNoteModal isOpen={isOpen} isLoading={false} onClose={() => setOpen(false)} />
+      </>
+    );
+  };
+  return <ShowAddNoteModal />;
+};
 
-export const WithDeleteAndEdit = () => (
-  <SubjectNoteCard {...noteCardProps}>
-    <SubjectNoteCardFooter>
-      <Button
-        variant="outline"
-        variantColor="teal"
-        color="blue.700"
-        borderColor="teal.500"
-        size="sm"
-        borderRadius={0}
-        borderWidth={2}
-        onClick={action('edit clicked')}
-      >
-        edit
-      </Button>
-      <Button
-        variant="outline"
-        variantColor="red"
-        size="sm"
-        borderRadius={0}
-        borderWidth={2}
-        ml={1}
-        onClick={action('delete clicked')}
-      >
-        delete
-      </Button>
-    </SubjectNoteCardFooter>
-  </SubjectNoteCard>
-);
+export const editNoteModal = () => {
+  const ShowEditNoteModal = () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>trigger modal</Button>
+        <EditableNoteModal
+          title="Some note title"
+          number={23}
+          keywords="keywoorrd, other keyword, another keyword"
+          isOpen={isOpen}
+          isLoading={false}
+          onClose={() => setOpen(false)}
+        />
+      </>
+    );
+  };
+  return <ShowEditNoteModal />;
+};

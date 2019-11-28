@@ -1,7 +1,18 @@
-import { Flex, Heading, PseudoBox, Text } from '@chakra-ui/core';
+import {
+  Flex,
+  Heading,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  PseudoBox,
+  Text,
+} from '@chakra-ui/core';
 import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
 import { formatDistance } from 'date-fns';
 import React, { FC } from 'react';
+import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
 
@@ -11,6 +22,7 @@ export type SubjectNoteCardProps = {
   number: number;
   updatedAt: Date;
   description?: string;
+  isEditable?: boolean;
 } & PseudoBoxProps;
 
 export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
@@ -19,12 +31,12 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
   updatedAt,
   number,
   description,
+  isEditable,
   children,
   ...rest
 }) => (
   <PseudoBox
     cursor="pointer"
-    p={3}
     bg="#fff"
     borderWidth={1}
     borderColor="grey.100"
@@ -34,27 +46,44 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
     _focus={{ borderColor: 'teal.500' }}
     {...rest}
   >
-    <Flex pos="relative" direction="column">
+    <Flex align="center" bg="blue.700" justify="space-between" px={3} py={isEditable ? 0 : 2}>
+      <Text fontSize="lg" fontWeight={500} lineHeight="none" color="grey.100" right="1">
+        {number}
+      </Text>
+      {isEditable && (
+        <Menu>
+          <MenuButton>
+            <IconButton
+              aria-label=""
+              bg="transparent"
+              size="lg"
+              variant="ghost"
+              color="teal.400"
+              variantColor="blue.700"
+              borderRadius="none"
+              icon={FiMoreHorizontal}
+            />
+          </MenuButton>
+          <MenuList borderRadius="none">
+            <MenuItem color="blue.800" fontWeight="semibold" onClick={() => 'valami'}>
+              edit
+            </MenuItem>
+            <MenuItem color="red.500" fontWeight="semibold">
+              delete
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      )}
+    </Flex>
+    <Flex direction="column" p={3}>
       <Link to={collabRoute({ path: 'notes', noteID: id })}>
         <Flex mt={1} height="40px" align="center">
-          <Text
-            fontSize="2xl"
-            fontWeight={500}
-            pos="absolute"
-            lineHeight="none"
-            color="grey.100"
-            zIndex={0}
-            right="1"
-          >
-            {number}
-          </Text>
           <Heading
             fontSize="md"
             fontWeight={600}
             maxWidth="80%"
             color="blue.700"
             lineHeight="normal"
-            zIndex={1}
           >
             {title}
           </Heading>
@@ -86,10 +115,4 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
       {children}
     </Flex>
   </PseudoBox>
-);
-
-export const SubjectNoteCardFooter: FC = ({ children }) => (
-  <Flex direction="row" justify="flex-end" mt={2}>
-    {children}
-  </Flex>
 );
