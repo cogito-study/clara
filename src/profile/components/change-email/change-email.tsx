@@ -11,21 +11,39 @@ import {
 import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+import { MyUserInfoDocument } from '../../../auth/contexts/graphql/my-user-info-query.generated';
+import { useAuth } from '../../../auth/hooks';
+import { useChangeEmailMutation } from './graphql/change-email-mutation.generated';
 
-/* eslint-disable complexity */
 // TODO: Localize
-export const ChangeEmail = ({ email }: { email: string }) => {
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+export const ChangeEmail = () => {
+  const { user } = useAuth();
+  const [changeEmail, { loading }] = useChangeEmailMutation();
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+    isValid,
+  } = useFormik({
     initialValues: {
       email: '',
     },
-    validateOnChange: false,
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Invalid email format')
         .required('Email is required'),
     }),
-    onSubmit: async ({}, { resetForm }) => {
+    onSubmit: async ({ email }, { resetForm }) => {
+      if (user) {
+        changeEmail({
+          variables: { email, userID: user.id },
+          refetchQueries: [{ query: MyUserInfoDocument }],
+        });
+      }
       resetForm();
     },
   });
@@ -44,14 +62,14 @@ export const ChangeEmail = ({ email }: { email: string }) => {
         Change Email
       </Heading>
       <Flex
-        borderWidth="1px"
+        borderWidth={1}
         borderColor="grey.100"
         bg="#fff"
         p={[4, 4, 5]}
         direction="column"
         align="center"
       >
-        <Box maxW="480px" size="full">
+        <Box maxW={480} size="full">
           <Flex align="center" mb={4} wrap="wrap">
             <Heading fontSize={['sm', 'sm', 'md']} fontWeight={500} pr={1} lineHeight="normal">
               Your email address is
@@ -62,7 +80,7 @@ export const ChangeEmail = ({ email }: { email: string }) => {
               fontWeight={500}
               lineHeight="normal"
             >
-              {email}
+              {user && user.email}
             </Heading>
           </Flex>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
@@ -85,19 +103,21 @@ export const ChangeEmail = ({ email }: { email: string }) => {
             </Box>
             <Flex justify="flex-end">
               <Button
+                isDisabled={!values.email || loading}
                 variantColor="teal"
                 borderRadius={0}
-                type="submit"
                 variant="outline"
                 color="blue.800"
                 borderColor="teal.500"
-                borderWidth="2px"
+                borderWidth={2}
+                onClick={() => resetForm()}
               >
                 cancel
               </Button>
               <Button
                 ml={3}
-                isLoading={false}
+                isLoading={loading}
+                isDisabled={!isValid}
                 variantColor="teal"
                 borderRadius={0}
                 type="submit"

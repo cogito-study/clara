@@ -1,0 +1,5 @@
+mutation ChangeEmail($userID: ID!, $email: String!) {
+  updateProfile(where: { id: $userID }, data: { email: $email }) {
+    id
+  }
+}

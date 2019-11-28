@@ -23,7 +23,6 @@ generates:
       - typescript-react-apollo
     hooks:
       afterOneFileWrite:
-        - yarn lint --fix
         - yarn format
     config:
       withHOC: false

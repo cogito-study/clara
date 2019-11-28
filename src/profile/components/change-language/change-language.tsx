@@ -52,7 +52,7 @@ export const ChangeLanguage = () => {
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   Choose your preferred language
                 </FormLabel>
-                <Select aria-labelledby="language-picker" id="language">
+                <Select aria-labelledby="language-picker" id="language" borderRadius={0}>
                   <option value="en">English</option>
                   <option value="hu">Hungarian</option>
                 </Select>
@@ -62,18 +62,6 @@ export const ChangeLanguage = () => {
             </Box>
             <Flex justify="flex-end">
               <Button
-                variantColor="teal"
-                borderRadius={0}
-                type="submit"
-                variant="outline"
-                color="blue.800"
-                borderColor="teal.500"
-                borderWidth="2px"
-              >
-                cancel
-              </Button>
-              <Button
-                ml={3}
                 isLoading={false}
                 variantColor="teal"
                 borderRadius={0}

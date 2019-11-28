@@ -130,6 +130,15 @@ export type CreateSuggestionInput = {
   readonly note: ConnectRelation;
 };
 
+/** Input of create user */
+export type CreateUserInput = {
+  readonly firstName: Scalars['String'];
+  readonly lastName: Scalars['String'];
+  readonly identifier: Scalars['String'];
+  readonly email: Scalars['String'];
+  readonly role: Scalars['String'];
+};
+
 export type DateTimeFilter = {
   readonly equals: Maybe<Scalars['DateTime']>;
   readonly not: Maybe<Scalars['DateTime']>;
@@ -149,6 +158,7 @@ export type Department = {
   readonly leader: User;
   readonly subjects: ReadonlyArray<Subject>;
   readonly institute: Institute;
+  readonly permissions: ReadonlyArray<DepartmentPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -172,18 +182,10 @@ export type DepartmentPermission = {
   readonly __typename?: 'DepartmentPermission';
   readonly id: Scalars['ID'];
   readonly type: DepartmentPermissionType;
-  readonly objects: ReadonlyArray<Department>;
+  readonly object: Department;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type DepartmentPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type DepartmentPermissionFilter = {
@@ -202,14 +204,14 @@ export enum DepartmentPermissionType {
 export type DepartmentPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<DepartmentPermissionType>;
-  readonly objects: Maybe<DepartmentFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<DepartmentPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<DepartmentPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<DepartmentPermissionWhereInput>>;
+  readonly object: Maybe<DepartmentWhereInput>;
 };
 
 export type DepartmentWhereInput = {
@@ -249,6 +251,7 @@ export type Institute = {
   readonly name: Scalars['String'];
   readonly departments: ReadonlyArray<Department>;
   readonly users: ReadonlyArray<User>;
+  readonly permissions: ReadonlyArray<InstitutePermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -280,18 +283,10 @@ export type InstitutePermission = {
   readonly __typename?: 'InstitutePermission';
   readonly id: Scalars['ID'];
   readonly type: InstitutePermissionType;
-  readonly objects: ReadonlyArray<Institute>;
+  readonly object: Institute;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type InstitutePermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type InstitutePermissionFilter = {
@@ -309,14 +304,14 @@ export enum InstitutePermissionType {
 export type InstitutePermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<InstitutePermissionType>;
-  readonly objects: Maybe<InstituteFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<InstitutePermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<InstitutePermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<InstitutePermissionWhereInput>>;
+  readonly object: Maybe<InstituteWhereInput>;
 };
 
 export type InstituteWhereInput = {
@@ -375,6 +370,14 @@ export type Mutation = {
   readonly __typename?: 'Mutation';
   readonly uploadImage: Scalars['String'];
   readonly createDepartment: Department;
+  readonly createSubject: Subject;
+  readonly createUser: User;
+  readonly updateUser: User;
+  readonly sendActivationEmails: ReadonlyArray<User>;
+  readonly login: AuthenticationPayload;
+  readonly forgotPassword: Scalars['String'];
+  readonly activateUser: AuthenticationPayload;
+  readonly resetPassword: AuthenticationPayload;
   readonly updateDepartment: Department;
   readonly deleteDepartment: Department;
   readonly createInstitute: Institute;
@@ -391,7 +394,14 @@ export type Mutation = {
   readonly createNoteHighlight: NoteHighlight;
   readonly updateNoteHighlight: NoteHighlight;
   readonly deleteNoteHighlight: NoteHighlight;
-  readonly createSubject: Subject;
+  readonly createPost: Post;
+  readonly updatePost: Post;
+  readonly deletePost: Post;
+  readonly likePost: Post;
+  readonly dislikePost: Post;
+  readonly createPostComment: PostComment;
+  readonly updatePostComment: PostComment;
+  readonly deletePostComment: PostComment;
   readonly updateSubject: Subject;
   readonly deleteSubject: Subject;
   readonly createSubjectInformation: SubjectInformation;
@@ -402,20 +412,8 @@ export type Mutation = {
   readonly approveSuggestion: Suggestion;
   readonly rejectSuggestion: Suggestion;
   readonly deleteSuggestion: Suggestion;
-  readonly updateUser: User;
+  readonly updateProfile: User;
   readonly deleteUser: User;
-  readonly createPost: Post;
-  readonly updatePost: Post;
-  readonly deletePost: Post;
-  readonly likePost: Post;
-  readonly dislikePost: Post;
-  readonly createPostComment: PostComment;
-  readonly updatePostComment: PostComment;
-  readonly deletePostComment: PostComment;
-  readonly login: AuthenticationPayload;
-  readonly forgotPassword: Scalars['String'];
-  readonly activateUser: AuthenticationPayload;
-  readonly resetPassword: AuthenticationPayload;
 };
 
 export type MutationUploadImageArgs = {
@@ -424,6 +422,39 @@ export type MutationUploadImageArgs = {
 
 export type MutationCreateDepartmentArgs = {
   data: CreateDepartmentInput;
+};
+
+export type MutationCreateSubjectArgs = {
+  data: CreateSubjectInput;
+};
+
+export type MutationCreateUserArgs = {
+  data: CreateUserInput;
+};
+
+export type MutationUpdateUserArgs = {
+  where: WhereUniqueInput;
+  data: UpdateUserInput;
+};
+
+export type MutationSendActivationEmailsArgs = {
+  data: SendActivationEmailsInput;
+};
+
+export type MutationLoginArgs = {
+  data: UserLoginInput;
+};
+
+export type MutationForgotPasswordArgs = {
+  data: ForgotPasswordInput;
+};
+
+export type MutationActivateUserArgs = {
+  data: ActivateUserInput;
+};
+
+export type MutationResetPasswordArgs = {
+  data: ResetPasswordInput;
 };
 
 export type MutationUpdateDepartmentArgs = {
@@ -495,8 +526,38 @@ export type MutationDeleteNoteHighlightArgs = {
   where: WhereUniqueInput;
 };
 
-export type MutationCreateSubjectArgs = {
-  data: CreateSubjectInput;
+export type MutationCreatePostArgs = {
+  data: CreatePostInput;
+};
+
+export type MutationUpdatePostArgs = {
+  where: WhereUniqueInput;
+  data: UpdatePostInput;
+};
+
+export type MutationDeletePostArgs = {
+  where: WhereUniqueInput;
+};
+
+export type MutationLikePostArgs = {
+  where: WhereUniqueInput;
+};
+
+export type MutationDislikePostArgs = {
+  where: WhereUniqueInput;
+};
+
+export type MutationCreatePostCommentArgs = {
+  data: CreatePostCommentInput;
+};
+
+export type MutationUpdatePostCommentArgs = {
+  where: WhereUniqueInput;
+  data: UpdatePostCommentInput;
+};
+
+export type MutationDeletePostCommentArgs = {
+  where: WhereUniqueInput;
 };
 
 export type MutationUpdateSubjectArgs = {
@@ -542,63 +603,13 @@ export type MutationDeleteSuggestionArgs = {
   where: WhereUniqueInput;
 };
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateProfileArgs = {
   where: WhereUniqueInput;
-  data: UpdateUserInput;
+  data: UpdateProfileInput;
 };
 
 export type MutationDeleteUserArgs = {
   where: WhereUniqueInput;
-};
-
-export type MutationCreatePostArgs = {
-  data: CreatePostInput;
-};
-
-export type MutationUpdatePostArgs = {
-  where: WhereUniqueInput;
-  data: UpdatePostInput;
-};
-
-export type MutationDeletePostArgs = {
-  where: WhereUniqueInput;
-};
-
-export type MutationLikePostArgs = {
-  where: WhereUniqueInput;
-};
-
-export type MutationDislikePostArgs = {
-  where: WhereUniqueInput;
-};
-
-export type MutationCreatePostCommentArgs = {
-  data: CreatePostCommentInput;
-};
-
-export type MutationUpdatePostCommentArgs = {
-  where: WhereUniqueInput;
-  data: UpdatePostCommentInput;
-};
-
-export type MutationDeletePostCommentArgs = {
-  where: WhereUniqueInput;
-};
-
-export type MutationLoginArgs = {
-  data: UserLoginInput;
-};
-
-export type MutationForgotPasswordArgs = {
-  data: ForgotPasswordInput;
-};
-
-export type MutationActivateUserArgs = {
-  data: ActivateUserInput;
-};
-
-export type MutationResetPasswordArgs = {
-  data: ResetPasswordInput;
 };
 
 export type Note = {
@@ -617,6 +628,7 @@ export type Note = {
   readonly subject: Subject;
   /** Number of likes on the note */
   readonly likesCount: Scalars['Int'];
+  readonly permissions: ReadonlyArray<NotePermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -669,6 +681,7 @@ export type NoteComment = {
   readonly threadReply: Maybe<NoteCommentThread>;
   /** Number of likes on the note comment */
   readonly likesCount: Scalars['Int'];
+  readonly permissions: ReadonlyArray<NoteCommentPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -692,18 +705,10 @@ export type NoteCommentPermission = {
   readonly __typename?: 'NoteCommentPermission';
   readonly id: Scalars['ID'];
   readonly type: NoteCommentPermissionType;
-  readonly objects: ReadonlyArray<NoteComment>;
+  readonly object: NoteComment;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type NoteCommentPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type NoteCommentPermissionFilter = {
@@ -720,14 +725,14 @@ export enum NoteCommentPermissionType {
 export type NoteCommentPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<NoteCommentPermissionType>;
-  readonly objects: Maybe<NoteCommentFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<NoteCommentPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<NoteCommentPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<NoteCommentPermissionWhereInput>>;
+  readonly object: Maybe<NoteCommentWhereInput>;
 };
 
 export type NoteCommentThread = {
@@ -760,18 +765,10 @@ export type NoteCommentThreadPermission = {
   readonly __typename?: 'NoteCommentThreadPermission';
   readonly id: Scalars['ID'];
   readonly type: NoteCommentThreadPermissionType;
-  readonly objects: ReadonlyArray<NoteCommentThread>;
+  readonly object: NoteCommentThread;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type NoteCommentThreadPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type NoteCommentThreadPermissionFilter = {
@@ -787,14 +784,14 @@ export enum NoteCommentThreadPermissionType {
 export type NoteCommentThreadPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<NoteCommentThreadPermissionType>;
-  readonly objects: Maybe<NoteCommentThreadFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<NoteCommentThreadPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<NoteCommentThreadPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<NoteCommentThreadPermissionWhereInput>>;
+  readonly object: Maybe<NoteCommentThreadWhereInput>;
 };
 
 export type NoteCommentThreadWhereInput = {
@@ -863,18 +860,10 @@ export type NoteHighlightPermission = {
   readonly __typename?: 'NoteHighlightPermission';
   readonly id: Scalars['ID'];
   readonly type: NoteHighlightPermissionType;
-  readonly objects: ReadonlyArray<NoteHighlight>;
+  readonly object: NoteHighlight;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type NoteHighlightPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type NoteHighlightPermissionFilter = {
@@ -891,14 +880,14 @@ export enum NoteHighlightPermissionType {
 export type NoteHighlightPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<NoteHighlightPermissionType>;
-  readonly objects: Maybe<NoteHighlightFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<NoteHighlightPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<NoteHighlightPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<NoteHighlightPermissionWhereInput>>;
+  readonly object: Maybe<NoteHighlightWhereInput>;
 };
 
 export type NoteHighlightWhereInput = {
@@ -923,18 +912,10 @@ export type NotePermission = {
   readonly __typename?: 'NotePermission';
   readonly id: Scalars['ID'];
   readonly type: NotePermissionType;
-  readonly objects: ReadonlyArray<Note>;
+  readonly object: Note;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type NotePermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type NotePermissionFilter = {
@@ -953,14 +934,14 @@ export enum NotePermissionType {
 export type NotePermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<NotePermissionType>;
-  readonly objects: Maybe<NoteFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<NotePermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<NotePermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<NotePermissionWhereInput>>;
+  readonly object: Maybe<NoteWhereInput>;
 };
 
 export type NoteWhereInput = {
@@ -1042,48 +1023,6 @@ export type PasswordTokenWhereInput = {
   readonly user: Maybe<UserWhereInput>;
 };
 
-export type Permission = {
-  readonly __typename?: 'Permission';
-  readonly id: Scalars['ID'];
-  readonly departmentPermission: Maybe<DepartmentPermission>;
-  readonly institutePermission: Maybe<InstitutePermission>;
-  readonly notePermission: Maybe<NotePermission>;
-  readonly noteCommentPermission: Maybe<NoteCommentPermission>;
-  readonly noteCommentThreadPermission: Maybe<NoteCommentThreadPermission>;
-  readonly noteHighlightPermission: Maybe<NoteHighlightPermission>;
-  readonly subjectPermission: Maybe<SubjectPermission>;
-  readonly subjectInformationPermission: Maybe<SubjectInformationPermission>;
-  readonly suggestionPermission: Maybe<SuggestionPermission>;
-  readonly userPermission: Maybe<UserPermission>;
-};
-
-export type PermissionFilter = {
-  readonly every: Maybe<PermissionWhereInput>;
-  readonly some: Maybe<PermissionWhereInput>;
-  readonly none: Maybe<PermissionWhereInput>;
-};
-
-export type PermissionWhereInput = {
-  readonly id: Maybe<StringFilter>;
-  readonly userGroups: Maybe<UserGroupFilter>;
-  readonly users: Maybe<UserFilter>;
-  readonly AND: Maybe<ReadonlyArray<PermissionWhereInput>>;
-  readonly OR: Maybe<ReadonlyArray<PermissionWhereInput>>;
-  readonly NOT: Maybe<ReadonlyArray<PermissionWhereInput>>;
-  readonly departmentPermission: Maybe<DepartmentPermissionWhereInput>;
-  readonly institutePermission: Maybe<InstitutePermissionWhereInput>;
-  readonly notePermission: Maybe<NotePermissionWhereInput>;
-  readonly postPermission: Maybe<PostPermissionWhereInput>;
-  readonly postCommentPermission: Maybe<PostCommentPermissionWhereInput>;
-  readonly noteCommentPermission: Maybe<NoteCommentPermissionWhereInput>;
-  readonly noteCommentThreadPermission: Maybe<NoteCommentThreadPermissionWhereInput>;
-  readonly noteHighlightPermission: Maybe<NoteHighlightPermissionWhereInput>;
-  readonly subjectPermission: Maybe<SubjectPermissionWhereInput>;
-  readonly subjectInformationPermission: Maybe<SubjectInformationPermissionWhereInput>;
-  readonly suggestionPermission: Maybe<SuggestionPermissionWhereInput>;
-  readonly userPermission: Maybe<UserPermissionWhereInput>;
-};
-
 export type Post = {
   readonly __typename?: 'Post';
   readonly id: Scalars['ID'];
@@ -1094,6 +1033,7 @@ export type Post = {
   readonly comments: ReadonlyArray<PostComment>;
   /** Number of likes on the post */
   readonly likesCount: Scalars['Int'];
+  readonly permissions: ReadonlyArray<PostPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -1124,6 +1064,7 @@ export type PostComment = {
   readonly likers: ReadonlyArray<User>;
   /** Number of likes on the postComment */
   readonly likesCount: Scalars['Int'];
+  readonly permissions: ReadonlyArray<PostCommentPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -1147,18 +1088,10 @@ export type PostCommentPermission = {
   readonly __typename?: 'PostCommentPermission';
   readonly id: Scalars['ID'];
   readonly type: PostCommentPermissionType;
-  readonly objects: ReadonlyArray<PostComment>;
+  readonly object: PostComment;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type PostCommentPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type PostCommentPermissionFilter = {
@@ -1176,14 +1109,14 @@ export enum PostCommentPermissionType {
 export type PostCommentPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<PostCommentPermissionType>;
-  readonly objects: Maybe<PostCommentFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<PostCommentPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<PostCommentPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<PostCommentPermissionWhereInput>>;
+  readonly object: Maybe<PostCommentWhereInput>;
 };
 
 export type PostCommentWhereInput = {
@@ -1215,18 +1148,10 @@ export type PostPermission = {
   readonly __typename?: 'PostPermission';
   readonly id: Scalars['ID'];
   readonly type: PostPermissionType;
-  readonly objects: ReadonlyArray<Post>;
+  readonly object: Post;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type PostPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type PostPermissionFilter = {
@@ -1245,14 +1170,14 @@ export enum PostPermissionType {
 export type PostPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<PostPermissionType>;
-  readonly objects: Maybe<PostFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<PostPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<PostPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<PostPermissionWhereInput>>;
+  readonly object: Maybe<PostWhereInput>;
 };
 
 export type PostWhereInput = {
@@ -1273,15 +1198,19 @@ export type PostWhereInput = {
 
 export type Query = {
   readonly __typename?: 'Query';
+  readonly departments: ReadonlyArray<Department>;
+  readonly subjects: ReadonlyArray<Subject>;
+  readonly institutes: ReadonlyArray<Institute>;
   readonly department: Maybe<Department>;
   readonly institute: Maybe<Institute>;
-  readonly institutes: ReadonlyArray<Institute>;
   readonly language: Maybe<Language>;
   readonly languages: ReadonlyArray<Language>;
   readonly note: Maybe<Note>;
   readonly noteComment: Maybe<NoteComment>;
   readonly noteCommentThread: Maybe<NoteCommentThread>;
   readonly noteHighlight: Maybe<NoteHighlight>;
+  readonly posts: ReadonlyArray<Post>;
+  readonly postComment: Maybe<PostComment>;
   readonly subject: Maybe<Subject>;
   readonly subjectInformation: Maybe<SubjectInformation>;
   readonly suggestion: Maybe<Suggestion>;
@@ -1290,16 +1219,22 @@ export type Query = {
   readonly users: ReadonlyArray<User>;
   readonly me: User;
   readonly userInfo: Maybe<User>;
-  readonly posts: ReadonlyArray<Post>;
-  readonly postComment: Maybe<PostComment>;
 };
 
-export type QueryDepartmentArgs = {
-  where: DepartmentWhereUniqueInput;
+export type QueryDepartmentsArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
 };
 
-export type QueryInstituteArgs = {
-  where: InstituteWhereUniqueInput;
+export type QuerySubjectsArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
 };
 
 export type QueryInstitutesArgs = {
@@ -1308,6 +1243,14 @@ export type QueryInstitutesArgs = {
   before: Maybe<Scalars['ID']>;
   first: Maybe<Scalars['Int']>;
   last: Maybe<Scalars['Int']>;
+};
+
+export type QueryDepartmentArgs = {
+  where: DepartmentWhereUniqueInput;
+};
+
+export type QueryInstituteArgs = {
+  where: InstituteWhereUniqueInput;
 };
 
 export type QueryLanguageArgs = {
@@ -1336,6 +1279,10 @@ export type QueryNoteCommentThreadArgs = {
 
 export type QueryNoteHighlightArgs = {
   where: NoteHighlightWhereUniqueInput;
+};
+
+export type QueryPostCommentArgs = {
+  where: PostCommentWhereUniqueInput;
 };
 
 export type QuerySubjectArgs = {
@@ -1371,10 +1318,6 @@ export type QueryUserInfoArgs = {
   token: Maybe<Scalars['String']>;
 };
 
-export type QueryPostCommentArgs = {
-  where: PostCommentWhereUniqueInput;
-};
-
 export type QueryUsersWhereInput = {
   readonly email: Maybe<StringFilter>;
   readonly firstName: Maybe<StringFilter>;
@@ -1408,6 +1351,11 @@ export type ResetPasswordTokenWhereInput = {
   readonly NOT: Maybe<ReadonlyArray<ResetPasswordTokenWhereInput>>;
 };
 
+/** Input of activation emails */
+export type SendActivationEmailsInput = {
+  readonly ids: ReadonlyArray<Scalars['String']>;
+};
+
 export type StringFilter = {
   readonly equals: Maybe<Scalars['String']>;
   readonly not: Maybe<Scalars['String']>;
@@ -1434,6 +1382,8 @@ export type Subject = {
   readonly informations: ReadonlyArray<SubjectInformation>;
   readonly notes: ReadonlyArray<Note>;
   readonly posts: ReadonlyArray<Post>;
+  readonly language: Language;
+  readonly permissions: ReadonlyArray<SubjectPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -1493,6 +1443,7 @@ export type SubjectInformation = {
   readonly subtitle: Maybe<Scalars['String']>;
   readonly content: Scalars['String'];
   readonly subject: Subject;
+  readonly permissions: ReadonlyArray<SubjectInformationPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -1508,18 +1459,10 @@ export type SubjectInformationPermission = {
   readonly __typename?: 'SubjectInformationPermission';
   readonly id: Scalars['ID'];
   readonly type: SubjectInformationPermissionType;
-  readonly objects: ReadonlyArray<SubjectInformation>;
+  readonly object: SubjectInformation;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type SubjectInformationPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type SubjectInformationPermissionFilter = {
@@ -1537,14 +1480,14 @@ export enum SubjectInformationPermissionType {
 export type SubjectInformationPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<SubjectInformationPermissionType>;
-  readonly objects: Maybe<SubjectInformationFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<SubjectInformationPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<SubjectInformationPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<SubjectInformationPermissionWhereInput>>;
+  readonly object: Maybe<SubjectInformationWhereInput>;
 };
 
 export type SubjectInformationWhereInput = {
@@ -1570,18 +1513,10 @@ export type SubjectPermission = {
   readonly __typename?: 'SubjectPermission';
   readonly id: Scalars['ID'];
   readonly type: SubjectPermissionType;
-  readonly objects: ReadonlyArray<Subject>;
+  readonly object: Subject;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type SubjectPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type SubjectPermissionFilter = {
@@ -1602,14 +1537,14 @@ export enum SubjectPermissionType {
 export type SubjectPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<SubjectPermissionType>;
-  readonly objects: Maybe<SubjectFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<SubjectPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<SubjectPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<SubjectPermissionWhereInput>>;
+  readonly object: Maybe<SubjectWhereInput>;
 };
 
 export type SubjectPostsOrderByInput = {
@@ -1677,6 +1612,7 @@ export type Suggestion = {
   readonly note: Note;
   readonly author: User;
   readonly approvedBy: Maybe<User>;
+  readonly permissions: ReadonlyArray<SuggestionPermissionType>;
   /** Number of likes on the suggestion */
   readonly likesCount: Scalars['Int'];
   readonly updatedAt: Scalars['DateTime'];
@@ -1701,18 +1637,10 @@ export type SuggestionPermission = {
   readonly __typename?: 'SuggestionPermission';
   readonly id: Scalars['ID'];
   readonly type: SuggestionPermissionType;
-  readonly objects: ReadonlyArray<Suggestion>;
+  readonly object: Suggestion;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type SuggestionPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type SuggestionPermissionFilter = {
@@ -1732,14 +1660,14 @@ export enum SuggestionPermissionType {
 export type SuggestionPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<SuggestionPermissionType>;
-  readonly objects: Maybe<SuggestionFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<SuggestionPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<SuggestionPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<SuggestionPermissionWhereInput>>;
+  readonly object: Maybe<SuggestionWhereInput>;
 };
 
 export type SuggestionsInput = {
@@ -1810,6 +1738,13 @@ export type UpdatePostInput = {
   readonly content: Maybe<Scalars['String']>;
 };
 
+/** Input of update user's profile */
+export type UpdateProfileInput = {
+  readonly email: Maybe<Scalars['String']>;
+  readonly oldPassword: Maybe<Scalars['String']>;
+  readonly newPassword: Maybe<Scalars['String']>;
+};
+
 /** Input of update subject information */
 export type UpdateSubjectInformationInput = {
   readonly title: Maybe<Scalars['String']>;
@@ -1831,8 +1766,12 @@ export type UpdateSuggestionInput = {
 
 /** Input of update user */
 export type UpdateUserInput = {
+  readonly firstName: Maybe<Scalars['String']>;
+  readonly lastName: Maybe<Scalars['String']>;
+  readonly identifier: Maybe<Scalars['String']>;
   readonly email: Maybe<Scalars['String']>;
-  readonly password: Maybe<Scalars['String']>;
+  readonly position: Maybe<Scalars['String']>;
+  readonly studiedSubjects: Maybe<ReadonlyArray<Scalars['String']>>;
 };
 
 export type User = {
@@ -1847,6 +1786,7 @@ export type User = {
   readonly identifier: Scalars['String'];
   readonly position: Maybe<Scalars['String']>;
   readonly fullName: Scalars['String'];
+  readonly permissions: ReadonlyArray<UserPermissionType>;
   readonly role: UserRole;
   readonly notes: ReadonlyArray<Note>;
   readonly noteHighlights: ReadonlyArray<NoteHighlight>;
@@ -1857,7 +1797,6 @@ export type User = {
   readonly likedNotes: ReadonlyArray<Note>;
   readonly noteComments: ReadonlyArray<NoteComment>;
   readonly likedPostComments: ReadonlyArray<PostComment>;
-  readonly passwordToken: Maybe<PasswordToken>;
   readonly departments: ReadonlyArray<Department>;
   readonly institutes: ReadonlyArray<Institute>;
   readonly preferredLanguage: Maybe<Language>;
@@ -1960,22 +1899,6 @@ export type UserFilter = {
   readonly none: Maybe<UserWhereInput>;
 };
 
-export type UserGroupFilter = {
-  readonly every: Maybe<UserGroupWhereInput>;
-  readonly some: Maybe<UserGroupWhereInput>;
-  readonly none: Maybe<UserGroupWhereInput>;
-};
-
-export type UserGroupWhereInput = {
-  readonly id: Maybe<StringFilter>;
-  readonly name: Maybe<StringFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
-  readonly users: Maybe<UserFilter>;
-  readonly AND: Maybe<ReadonlyArray<UserGroupWhereInput>>;
-  readonly OR: Maybe<ReadonlyArray<UserGroupWhereInput>>;
-  readonly NOT: Maybe<ReadonlyArray<UserGroupWhereInput>>;
-};
-
 /** Input of login */
 export type UserLoginInput = {
   readonly email: Scalars['String'];
@@ -1986,18 +1909,10 @@ export type UserPermission = {
   readonly __typename?: 'UserPermission';
   readonly id: Scalars['ID'];
   readonly type: UserPermissionType;
-  readonly objects: ReadonlyArray<User>;
+  readonly object: User;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type UserPermissionObjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type UserPermissionFilter = {
@@ -2014,14 +1929,14 @@ export enum UserPermissionType {
 export type UserPermissionWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly type: Maybe<UserPermissionType>;
-  readonly objects: Maybe<UserFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly AND: Maybe<ReadonlyArray<UserPermissionWhereInput>>;
   readonly OR: Maybe<ReadonlyArray<UserPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<UserPermissionWhereInput>>;
+  readonly object: Maybe<UserWhereInput>;
 };
 
 export type UserRole = {
@@ -2064,7 +1979,6 @@ export type UserWhereInput = {
   readonly identifier: Maybe<StringFilter>;
   readonly position: Maybe<NullableStringFilter>;
   readonly isActive: Maybe<BooleanFilter>;
-  readonly groups: Maybe<UserGroupFilter>;
   readonly notes: Maybe<NoteFilter>;
   readonly noteHighlights: Maybe<NoteHighlightFilter>;
   readonly suggestions: Maybe<SuggestionFilter>;
@@ -2081,7 +1995,6 @@ export type UserWhereInput = {
   readonly likedSuggestions: Maybe<SuggestionFilter>;
   readonly departments: Maybe<DepartmentFilter>;
   readonly institutes: Maybe<InstituteFilter>;
-  readonly permissions: Maybe<PermissionFilter>;
   readonly userPermissions: Maybe<UserPermissionFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
@@ -2094,6 +2007,18 @@ export type UserWhereInput = {
   readonly role: Maybe<UserRoleWhereInput>;
   readonly passwordToken: Maybe<PasswordTokenWhereInput>;
   readonly preferredLanguage: Maybe<LanguageWhereInput>;
+  readonly departmentPermission: Maybe<DepartmentPermissionWhereInput>;
+  readonly institutePermission: Maybe<InstitutePermissionWhereInput>;
+  readonly noteCommentPermission: Maybe<NoteCommentPermissionWhereInput>;
+  readonly noteCommentThreadPermission: Maybe<NoteCommentThreadPermissionWhereInput>;
+  readonly noteHighlightPermission: Maybe<NoteHighlightPermissionWhereInput>;
+  readonly notePermission: Maybe<NotePermissionWhereInput>;
+  readonly postCommentPermission: Maybe<PostCommentPermissionWhereInput>;
+  readonly postPermission: Maybe<PostPermissionWhereInput>;
+  readonly subjectPermission: Maybe<SubjectPermissionWhereInput>;
+  readonly subjectInformationPermission: Maybe<SubjectInformationPermissionWhereInput>;
+  readonly suggestionPermission: Maybe<SuggestionPermissionWhereInput>;
+  readonly userPermission: Maybe<UserPermissionWhereInput>;
 };
 
 export type UserWhereUniqueInput = {

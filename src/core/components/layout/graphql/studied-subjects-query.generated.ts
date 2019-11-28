@@ -1,11 +1,10 @@
+import * as Types from '../../../graphql/types.generated';
+
+import { StudiedSubjectFragment } from './studied-subject-fragment.generated';
+import gql from 'graphql-tag';
+import { StudiedSubjectFragmentDoc } from './studied-subject-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import * as Types from '../../../graphql/types.generated';
-import {
-  StudiedSubjectFragment,
-  StudiedSubjectFragmentDoc,
-} from './studied-subject-fragment.generated';
 
 export type StudiedSubjectsQueryVariables = {};
 

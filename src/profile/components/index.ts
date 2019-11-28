@@ -1,4 +1,4 @@
-export { ChangeEmail } from './change-email';
-export { ChangePassword } from './change-password';
-export { ChangeLanguage } from './change-language';
-export { ProfileInfos } from './profile-infos';
+export * from './change-email/change-email';
+export * from './change-language/change-language';
+export * from './change-password/change-password';
+export * from './profile-information/profile-information';
