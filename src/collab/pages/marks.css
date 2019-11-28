@@ -6,8 +6,27 @@
   background-color: red;
 }
 
+@keyframes fadein {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes growin {
+  from {
+    font-size: 1px;
+  }
+  to {
+    font-size: inherit;
+  }
+}
+
 .ql-mark-addedBySomeone {
-  background-color: #93f;
+  background-color: #cce1ff;
+  animation: fadein 0.5s, growin 0.5s;
 }
 
 .ql-editor {

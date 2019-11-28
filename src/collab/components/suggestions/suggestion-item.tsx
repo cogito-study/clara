@@ -1,6 +1,7 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/core';
+import { Box, Button, Collapse, Flex, Image, Text } from '@chakra-ui/core';
 import Delta from 'quill-delta';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { FiMinus, FiMoreHorizontal } from 'react-icons/fi';
 import { QuillEditor } from '../editor/quill-editor';
 import { SuggestionData } from './suggestion-data';
 
@@ -67,6 +68,8 @@ export const SuggestionItem: FC<Props> = ({
   onSuggestionBlurred,
   quillEditor,
 }) => {
+  const [showOverflow, setShowOverflow] = useState(false);
+
   const { id, delta, createdAt, author } = suggestion;
   const original = quillEditor && quillEditor.original.current;
 
@@ -76,7 +79,7 @@ export const SuggestionItem: FC<Props> = ({
       border="2px solid #00CCAA"
       p={5}
       width="300px"
-      height="250px"
+      height={showOverflow ? 'auto' : '250px'}
       onMouseEnter={() => onSuggestionHovered(id)}
       onMouseLeave={() => onSuggestionBlurred(id)}
     >
@@ -94,7 +97,12 @@ export const SuggestionItem: FC<Props> = ({
           <Text as="cite">{createdAt.toDateString()}</Text>
         </Flex>
       </Flex>
-      <Box my={5}>{prettifySuggestion(delta, original || new Delta())}</Box>
+      <Collapse startingHeight={50} isOpen={showOverflow} my={5} animateOpacity>
+        {prettifySuggestion(delta, original || new Delta())}
+      </Collapse>
+      <Button size="sm" onClick={() => setShowOverflow(!showOverflow)} width="40px" m={2}>
+        {showOverflow ? <FiMinus /> : <FiMoreHorizontal />}
+      </Button>
       <Flex justifyContent="space-around">
         <Button variantColor="teal" variant="outline" onClick={() => onSuggestionCancelled(id)}>
           {/* TODO: Localize */}
