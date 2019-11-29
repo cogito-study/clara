@@ -2,11 +2,10 @@ query SubjectNoteList($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
     id
     notes {
-      id
-      title
-      number
+      ...NoteData
+
       updatedAt
-      description
+      permissions
     }
   }
 }

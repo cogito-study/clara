@@ -32,7 +32,13 @@ export const addNoteModal = () => {
     return (
       <>
         <Button onClick={() => setOpen(true)}>trigger modal</Button>
-        <EditNoteModal isOpen={isOpen} isLoading={false} onClose={() => setOpen(false)} />
+        <EditNoteModal
+          titleLabel="Add Note"
+          isOpen={isOpen}
+          isLoading={false}
+          onClose={() => setOpen(false)}
+          onEdit={action('Add note')}
+        />
       </>
     );
   };
@@ -47,12 +53,17 @@ export const editNoteModal = () => {
       <>
         <Button onClick={() => setOpen(true)}>trigger modal</Button>
         <EditNoteModal
-          title="Some note title"
-          number={23}
-          keywords="keywoorrd, other keyword, another keyword"
+          titleLabel="Edit note"
+          note={{
+            id: 'asd',
+            title: 'Some note title',
+            number: 23,
+            description: 'keywoorrd, other keyword, another keyword',
+          }}
           isOpen={isOpen}
           isLoading={false}
           onClose={() => setOpen(false)}
+          onEdit={action('Edit note')}
         />
       </>
     );
