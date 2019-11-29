@@ -1,20 +1,19 @@
 import { Flex, Heading, Icon, PseudoBox } from '@chakra-ui/core';
-import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
-import React, { FC } from 'react';
+import React from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 
-export const AddNoteCard: FC<PseudoBoxProps> = ({ ...rest }) => (
+export const AddNoteCard = ({ onClick }: { onClick: () => void }) => (
   <PseudoBox
     cursor="pointer"
     bg="transparent"
+    h={200}
+    p={3}
     borderWidth={1}
     borderColor="grey.100"
-    width={['100%', '100%', '300px']}
+    onClick={onClick}
     transition="transform 0.2s"
-    _hover={{ transition: 'transform 0.2s', transform: 'scale(1.02)', borderColor: 'blue.600' }}
+    _hover={{ transition: 'transform 0.2s', transform: 'scale(1.02)', borderColor: 'teal.500' }}
     _focus={{ borderColor: 'teal.500' }}
-    p={3}
-    {...rest}
   >
     <Flex mt={1} direction="column" align="center" justify="center" size="full">
       <Icon as={FiPlusCircle} color="teal.500" size="65px" />

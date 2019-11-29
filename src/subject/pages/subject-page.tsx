@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
 import { SubjectInfo } from '../components/subject-info/subject-info';
-import { SubjectNotes } from '../components/subject-notes/subject-notes';
+import { SubjectNoteList } from '../components/subject-notes/subject-note-list';
 import { SubjectRouteParams } from '../utils/subject-route';
 import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
 import { SubjectPagePlaceholder } from './subject-page.placeholder';
@@ -89,10 +89,10 @@ const TabContent = ({
       <TabList pt={2} bg="#fff" width="100%" px={[0, 0, 0, 16]}>
         {/* TODO: Localize */}
         <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          feed
+          notes
         </Tab>
         <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          notes
+          feed
         </Tab>
         <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
           information
@@ -102,10 +102,10 @@ const TabContent = ({
     <Box width="100%" pt={[6, 10, 10, 20]}>
       <TabPanels pt={2}>
         <TabPanel>
-          <SubjectFeed {...rest} />
+          <SubjectNoteList {...rest} />
         </TabPanel>
         <TabPanel>
-          <SubjectNotes {...rest} />
+          <SubjectFeed {...rest} />
         </TabPanel>
         <TabPanel>
           <SubjectInfo {...rest} />

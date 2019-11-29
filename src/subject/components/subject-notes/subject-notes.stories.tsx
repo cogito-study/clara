@@ -1,9 +1,11 @@
 import { Button } from '@chakra-ui/core';
+import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { subjectComponents } from '../../utils/storybook';
 import { AddNoteCard } from './add-note-card';
-import { EditableNoteModal } from './editable-note-modal';
+import { EditNoteModal } from './edit-note-modal';
 import { SubjectNoteCard, SubjectNoteCardProps } from './subject-note-card';
+import { SubjectNotePlaceholder } from './subject-note.placeholder';
 
 export default {
   title: subjectComponents('Notes'),
@@ -18,7 +20,10 @@ const noteCardProps: SubjectNoteCardProps = {
 };
 
 export const noteCard = () => <SubjectNoteCard {...noteCardProps} />;
-export const editableNoteCard = () => <SubjectNoteCard {...noteCardProps} isEditable />;
+
+export const placeholder = () => <SubjectNotePlaceholder />;
+
+export const editable = () => <SubjectNoteCard {...noteCardProps} isEditable />;
 
 export const addNoteModal = () => {
   const ShowAddNoteModal = () => {
@@ -27,7 +32,7 @@ export const addNoteModal = () => {
     return (
       <>
         <Button onClick={() => setOpen(true)}>trigger modal</Button>
-        <EditableNoteModal isOpen={isOpen} isLoading={false} onClose={() => setOpen(false)} />
+        <EditNoteModal isOpen={isOpen} isLoading={false} onClose={() => setOpen(false)} />
       </>
     );
   };
@@ -41,7 +46,7 @@ export const editNoteModal = () => {
     return (
       <>
         <Button onClick={() => setOpen(true)}>trigger modal</Button>
-        <EditableNoteModal
+        <EditNoteModal
           title="Some note title"
           number={23}
           keywords="keywoorrd, other keyword, another keyword"
@@ -55,4 +60,4 @@ export const editNoteModal = () => {
   return <ShowEditNoteModal />;
 };
 
-export const addNoteCard = () => <AddNoteCard />;
+export const addNoteCard = () => <AddNoteCard onClick={action('Add note')} />;

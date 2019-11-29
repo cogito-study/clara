@@ -1,4 +1,4 @@
-query SubjectNotes($subjectCode: String) {
+query SubjectNoteList($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
     id
     notes {
