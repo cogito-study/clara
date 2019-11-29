@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/core';
 import React from 'react';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
+import { AddNoteCard } from './add-note-card';
 import { useSubjectNotesQuery } from './graphql/subject-notes-query.generated';
 import { SubjectNoteCard } from './subject-note-card';
 
@@ -17,6 +18,7 @@ export const SubjectNotes = ({ subjectCode }: SubjectIdentifierProps) => {
             data.subject.notes.map((note) => (
               <SubjectNoteCard key={note.id} {...note} mt={5} mx={5} />
             ))}
+          <AddNoteCard mt={5} mx={5} />
         </Flex>
       </Box>
     </Flex>
