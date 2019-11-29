@@ -1,16 +1,16 @@
 import { Button, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
+import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
 import { EditorMode } from '../../pages/collab-page';
-import { EditorToolbar } from './editor-toolbar';
 
-export interface EditorHeaderProps {
+export interface StudyHeaderProps {
   subject: { name: string; code: string };
   handleEditorModeChange: (newState: EditorMode) => void;
 }
 
-export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeChange }) => {
+export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeChange }) => {
   return (
     <Flex
       flexGrow={1}
@@ -21,7 +21,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
       zIndex={2}
       alignItems="center"
       justifyContent="space-between"
-      backgroundColor="blue.800"
+      backgroundColor="white"
     >
       <Flex
         align="center"
@@ -34,40 +34,36 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
           // @ts-ignore
           name="cogito"
           size="32px"
-          color="white"
+          color="blue.800"
         />
 
-        <EditorToolbar />
-      </Flex>
-      <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <>
-          <Link to={subjectRoute({ path: 'subjects', subjectCode: subject.code })}>
-            <Button
-              leftIcon="chevron-left"
-              onClick={() => {}}
-              bg="transparent"
-              color="white"
-              border="2px"
-              borderRadius="none"
-              borderColor="teal.500"
-              mr={3}
-            >
-              {subject.name}
-            </Button>
-          </Link>
+        <Link to={subjectRoute({ path: 'subjects', subjectCode: subject.code })}>
           <Button
-            rightIcon="small-close"
-            onClick={() => handleEditorModeChange('study')}
+            leftIcon="chevron-left"
+            onClick={() => {}}
             bg="transparent"
-            color="white"
+            color="blue.800"
             border="2px"
             borderRadius="none"
             borderColor="teal.500"
           >
-            {/* TODO Localize */}
-            study
+            {subject.name}
           </Button>
-        </>
+        </Link>
+      </Flex>
+      <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
+        <Button
+          rightIcon={FiEdit2}
+          onClick={() => handleEditorModeChange('edit')}
+          bg="transparent"
+          color="blue.800"
+          border="2px"
+          borderRadius="none"
+          borderColor="teal.500"
+        >
+          {/* TODO Localize */}
+          edit
+        </Button>
       </Flex>
     </Flex>
   );
