@@ -1,13 +1,19 @@
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import { MutableRefObject } from 'react';
+import { EventDispatcher, Handler } from '../../utils/event-dispatcher';
 import { SuggestionData } from './../suggestions/suggestion-data';
 
-type EditorState =
+export type EditorState =
   | 'original'
   | 'mySuggestionApplied'
   | 'otherSuggestionAppliedWithoutMySuggestion'
   | 'otherSuggestionAppliedWithMySuggestion';
+
+export interface StateChangedEventProps {
+  oldState: EditorState;
+  newState: EditorState;
+}
 
 export class QuillEditor {
   quill: Quill;
@@ -20,6 +26,7 @@ export class QuillEditor {
     this.quill = quill;
     this.quill.setContents(original.current);
     this.editorState = 'original';
+
     // TODO find another solution
     this.mySuggestion = new Delta();
     this.otherSuggestion = new SuggestionData({
@@ -37,6 +44,24 @@ export class QuillEditor {
     });
   }
 
+  private stateChangedDispatcher = new EventDispatcher<StateChangedEventProps>();
+  public onStateChanged(handler: Handler<StateChangedEventProps>) {
+    this.stateChangedDispatcher.register(handler);
+  }
+
+  private changeState(newState: EditorState) {
+    const oldState = this.editorState;
+    this.editorState = newState;
+    this.stateChangedDispatcher.dispatch({ oldState, newState });
+  }
+
+  hasMySuggestion() {
+    return (
+      this.editorState === 'mySuggestionApplied' ||
+      this.editorState === 'otherSuggestionAppliedWithMySuggestion'
+    );
+  }
+
   approveSuggestion(suggestion: Delta) {
     switch (this.editorState) {
       case 'original':
@@ -47,12 +72,14 @@ export class QuillEditor {
         this.quill.updateContents(suggestion);
         this.mySuggestion = suggestion.transform(this.mySuggestion);
         this.quill.updateContents(this.mySuggestion);
-        this.editorState = 'mySuggestionApplied';
+        this.changeState('mySuggestionApplied');
+
         break;
       case 'otherSuggestionAppliedWithoutMySuggestion':
         this.quill.updateContents(this.otherSuggestion.inverseDelta(this.original.current));
         this.quill.updateContents(suggestion);
-        this.editorState = 'original';
+        this.changeState('original');
+
         break;
       case 'mySuggestionApplied':
         const currentSelection = this.quill.getSelection();
@@ -74,7 +101,8 @@ export class QuillEditor {
       case 'original':
         this.quill.updateContents(otherSuggestion.delta);
         this.otherSuggestion = otherSuggestion;
-        this.editorState = 'otherSuggestionAppliedWithoutMySuggestion';
+        this.changeState('otherSuggestionAppliedWithoutMySuggestion');
+
         break;
       case 'otherSuggestionAppliedWithMySuggestion':
       case 'otherSuggestionAppliedWithoutMySuggestion':
@@ -87,7 +115,8 @@ export class QuillEditor {
         this.quill.updateContents(inverseMySuggestion);
         this.quill.updateContents(otherSuggestion.delta);
         this.otherSuggestion = otherSuggestion;
-        this.editorState = 'otherSuggestionAppliedWithMySuggestion';
+        this.changeState('otherSuggestionAppliedWithMySuggestion');
+
         break;
       default:
         console.error('Invalid state:', this.editorState);
@@ -107,8 +136,6 @@ export class QuillEditor {
         }
       } else if (op['retain']) {
         idx += op['retain'];
-      } else if (op['delete']) {
-        idx += op['delete'];
       }
     });
   }
@@ -122,11 +149,13 @@ export class QuillEditor {
       case 'otherSuggestionAppliedWithMySuggestion':
         this.quill.updateContents(this.otherSuggestion.inverseDelta(this.original.current));
         this.quill.updateContents(this.mySuggestion);
-        this.editorState = 'mySuggestionApplied';
+        this.changeState('mySuggestionApplied');
+
         break;
       case 'otherSuggestionAppliedWithoutMySuggestion':
         this.quill.updateContents(this.otherSuggestion.inverseDelta(this.original.current));
-        this.editorState = 'original';
+        this.changeState('original');
+
         break;
       default:
         console.error('Invalid state:', this.editorState);
@@ -137,7 +166,8 @@ export class QuillEditor {
   typeSuggestion(delta: Delta) {
     switch (this.editorState) {
       case 'original':
-        this.editorState = 'mySuggestionApplied';
+        this.changeState('mySuggestionApplied');
+
         this.mySuggestion = new Delta(delta);
         break;
       case 'mySuggestionApplied':
@@ -160,7 +190,8 @@ export class QuillEditor {
         break;
       case 'mySuggestionApplied':
         this.quill.updateContents(this.mySuggestion.invert(this.original.current));
-        this.editorState = 'original';
+        this.changeState('original');
+
         break;
       case 'otherSuggestionAppliedWithMySuggestion':
       case 'otherSuggestionAppliedWithoutMySuggestion':

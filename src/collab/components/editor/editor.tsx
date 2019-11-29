@@ -12,9 +12,10 @@ import { QuillEditor } from './quill-editor';
 export interface EditorProps {
   quillEditor?: QuillEditor;
   original: MutableRefObject<Delta>;
+  hasMySuggestion: boolean;
 }
 
-export const Editor: FC<EditorProps> = ({ quillEditor, original }) => {
+export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion }) => {
   const { noteID } = useParams<CollabRouteParams>();
 
   const [createSuggestion] = useCreateSuggestionMutation();
@@ -39,15 +40,8 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original }) => {
     createSuggestion({ variables: { delta: JSON.stringify(suggestion), noteID: noteID || '' } });
   };
 
-  // TODO: Refactor
-  // const removeMark = (markedSuggestion: Delta) =>
-  //   markedSuggestion &&
-  //   markedSuggestion.ops.forEach((op) => {
-  //     if (op.attributes && op.attributes.mark) delete op.attributes.mark;
-  //   });
-
   const handleSuggesting = () => {
-    if (quillEditor) {
+    if (quillEditor && quillEditor.hasMySuggestion()) {
       publishSuggestion(quillEditor.mySuggestion);
       quillEditor.publishSuggestion();
     }
@@ -56,6 +50,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original }) => {
   return (
     <Flex direction="column">
       <Button
+        display={hasMySuggestion ? 'inherit' : 'none'}
         m={4}
         position="fixed"
         zIndex={999}
