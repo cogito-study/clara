@@ -1,5 +1,5 @@
-import React from 'react';
 import { Box } from '@chakra-ui/core';
+import React from 'react';
 import ContentLoader from 'react-content-loader';
 import { useTheme } from '../../core/hooks/use-theme';
 
@@ -19,7 +19,7 @@ export const SubjectPagePlaceholder = () => {
         secondaryColor={grey[300]}
         secondaryOpacity={0.2}
       >
-        <rect x="0" y="0" rx="5" ry="5" width="440" height="40" />
+        <rect x="0" y="0" width="440" height="40" />
       </ContentLoader>
     </Box>
   );

@@ -40,7 +40,6 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
     bg="#fff"
     borderWidth={1}
     borderColor="grey.100"
-    width={['100%', '100%', '300px']}
     transition="transform 0.2s"
     _hover={{ transition: 'transform 0.2s', transform: 'scale(1.02)', borderColor: 'blue.600' }}
     _focus={{ borderColor: 'teal.500' }}

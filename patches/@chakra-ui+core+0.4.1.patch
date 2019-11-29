@@ -11,6 +11,24 @@ index 0a5133c..9a5e713 100644
    /**
     * The name of the icon.
     */
+diff --git a/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts b/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
+index a9debaa..78b1426 100644
+--- a/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
+@@ -1,5 +1,5 @@
+ import * as React from "react";
+-import { ResponsiveValue, GridProps } from "styled-system";
++import { GridProps, ResponsiveValue } from "styled-system";
+ import { BoxProps } from "../Box";
+ 
+ interface ISimpleGrid {
+@@ -28,3 +28,6 @@ interface ISimpleGrid {
+ type SimpleGridProps = BoxProps & ISimpleGrid;
+ 
+ declare const SimpleGrid: React.FC<SimpleGridProps>;
++
++export default SimpleGrid;
++
 diff --git a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts b/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts
 index 2bf806d..af6bf09 100644
 --- a/node_modules/@chakra-ui/core/dist/Tabs/index.d.ts

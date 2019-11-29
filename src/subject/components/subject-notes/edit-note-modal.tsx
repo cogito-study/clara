@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/core';
 import React from 'react';
 
-type EditableNoteModalProps = {
+type EditNoteModalProps = {
   title?: string;
   number?: number;
   keywords?: string;
@@ -29,13 +29,7 @@ type EditableNoteModalProps = {
   onDelete?: () => void;
 };
 
-export const EditableNoteModal = ({
-  title,
-  number,
-  keywords,
-  isOpen,
-  onClose,
-}: EditableNoteModalProps) => {
+export const EditNoteModal = ({ title, number, keywords, isOpen, onClose }: EditNoteModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
@@ -52,7 +46,7 @@ export const EditableNoteModal = ({
                   fontSize={['sm', 'sm', 'md']}
                   fontWeight="bold"
                 >
-                  {title ? 'Edit the title of the note:' : 'Add title to the note'}
+                  {title ? 'Edit the title of the note' : 'Add title to the note'}
                 </FormLabel>
                 <Input
                   id="title"
@@ -69,7 +63,7 @@ export const EditableNoteModal = ({
                   fontSize={['sm', 'sm', 'md']}
                   fontWeight="bold"
                 >
-                  Note number:
+                  Note number
                 </FormLabel>
 
                 <NumberInput

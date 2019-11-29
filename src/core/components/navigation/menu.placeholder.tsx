@@ -1,7 +1,7 @@
+import { Box } from '@chakra-ui/core';
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 import { useTheme } from '../../hooks/use-theme';
-import { Box } from '@chakra-ui/core';
 
 export const MenuSubjectsPlaceholder = () => {
   const {
@@ -19,12 +19,12 @@ export const MenuSubjectsPlaceholder = () => {
         secondaryColor={blue[300]}
         secondaryOpacity={0.2}
       >
-        <rect x="8" y="20" rx="5" ry="5" width="220" height="24" />
-        <rect x="8" y="60" rx="5" ry="5" width="200" height="24" />
-        <rect x="8" y="100" rx="5" ry="5" width="230" height="24" />
-        <rect x="8" y="140" rx="5" ry="5" width="220" height="24" />
-        <rect x="8" y="180" rx="5" ry="5" width="180" height="24" />
-        <rect x="8" y="220" rx="5" ry="5" width="240" height="24" />
+        <rect x="8" y="20" width="220" height="24" />
+        <rect x="8" y="60" width="200" height="24" />
+        <rect x="8" y="100" width="230" height="24" />
+        <rect x="8" y="140" width="220" height="24" />
+        <rect x="8" y="180" width="180" height="24" />
+        <rect x="8" y="220" width="240" height="24" />
       </ContentLoader>
     </Box>
   );
@@ -46,7 +46,7 @@ export const MobileMenuTitlePlaceholder = () => {
         secondaryColor={blue[300]}
         secondaryOpacity={0.2}
       >
-        <rect x="0" y="0" rx="5" ry="5" width="200" height="20" />
+        <rect x="0" y="0" width="200" height="20" />
       </ContentLoader>
     </Box>
   );

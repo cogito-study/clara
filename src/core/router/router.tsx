@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/core';
 import React, { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -20,7 +21,7 @@ const Profile = lazy(() => import('../../profile'));
 // TODO: Localize
 export const Router = () => {
   return (
-    <>
+    <Box h="100%">
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <Suspense fallback={<FullCogitoLoader />}>
         <Switch>
@@ -56,6 +57,6 @@ export const Router = () => {
           <Redirect to={socialRoute({ path: 'feed' })} />
         </Switch>
       </Suspense>
-    </>
+    </Box>
   );
 };
