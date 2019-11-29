@@ -12,7 +12,7 @@ generates:
       maybeValue: T | undefined
     hooks:
       afterOneFileWrite:
-        - prettier --write './src/**/*.{ts,tsx}'
+        - yarn format
   src/:
     preset: near-operation-file
     presetConfig:

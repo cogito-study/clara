@@ -127,7 +127,7 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "codegen:watch": "yarn codegen --watch",
     "eject": "react-scripts eject",
-    "format": "prettier --write './src/**/*.{ts,tsx}'",
+    "format": "prettier --config ./.prettierrc.json --write './src/**/*.{ts,tsx}'",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:css": "stylelint './src/**/*.tsx'",
     "postinstall": "patch-package",
