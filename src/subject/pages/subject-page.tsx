@@ -1,4 +1,4 @@
-import { Box, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
+import { Box, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
 import React from 'react';
 import { useParams } from 'react-router';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
@@ -57,17 +57,34 @@ const TabContent = ({
       {isLoading ? (
         <SubjectPagePlaceholder />
       ) : (
-        <Heading
-          as="h2"
-          display={['none', 'none', 'none', 'initial']}
-          fontSize="xl"
-          color="black"
-          px={16}
-          pb={1}
-          bg="#fff"
-        >
-          {subjectTitle}
-        </Heading>
+        <Flex direction="row" justify="space-between" width="100%">
+          <Heading
+            as="h2"
+            display={['none', 'none', 'none', 'initial']}
+            fontSize="xl"
+            color="black"
+            px={16}
+            pb={1}
+            bg="#fff"
+          >
+            {subjectTitle}
+          </Heading>
+
+          {
+            // TBD ux-wise
+            /* <Button
+            size="md"
+            bg="teal.500"
+            color="blue.800"
+            leftIcon="add"
+            borderRadius={0}
+            display={['none', 'none', 'none', 'initial']}
+            mr={260}
+          >
+            add new note
+          </Button> */
+          }
+        </Flex>
       )}
       <TabList pt={2} bg="#fff" width="100%" px={[0, 0, 0, 16]}>
         {/* TODO: Localize */}

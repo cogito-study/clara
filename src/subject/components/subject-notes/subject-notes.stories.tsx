@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import { subjectComponents } from '../../utils/storybook';
+import { AddNoteCard } from './add-note-card';
 import { EditableNoteModal } from './editable-note-modal';
 import { SubjectNoteCard, SubjectNoteCardProps } from './subject-note-card';
 
@@ -53,3 +54,5 @@ export const editNoteModal = () => {
   };
   return <ShowEditNoteModal />;
 };
+
+export const addNoteCard = () => <AddNoteCard />;
