@@ -12,11 +12,13 @@ export const GlobalStyles = () => (
           @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&display=swap');
         }
 
+        header,
         h1,
         h2,
         h3,
         h4,
         h5,
+        label,
         button {
           font-family: ${theme.fonts.heading};
         }

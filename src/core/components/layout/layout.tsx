@@ -27,7 +27,7 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
     : subjectTitleData && subjectTitleData.subject && subjectTitleData.subject.name;
 
   return (
-    <Flex direction={['column', 'column', 'row']} bg="white" height="100%">
+    <Flex direction={['column', 'column', 'row']} bg="white" minH="100vh">
       <MainMenu
         title={layoutTitle}
         titleLoading={subjectTitleLoading}

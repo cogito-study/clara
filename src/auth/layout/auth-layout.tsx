@@ -4,7 +4,7 @@ import background from '../assets/auth-bg.svg';
 
 export const AuthLayout: FC = ({ children }) => {
   return (
-    <Flex direction="column" h="100%">
+    <Flex direction="column" h="100vh">
       <Flex bg="#fff" borderColor="blue.100" borderWidth={1} h={16} align="center" justify="center">
         <Icon
           color="blue.800"

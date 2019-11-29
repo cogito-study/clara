@@ -4,12 +4,15 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useAuth } from '../../../auth/hooks/use-auth';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
+import { ModalOptions } from '../../../core/components/modal/types';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
 import { FeedPostCard, FeedPostData } from './feed-post-card';
 import { useDeletePostMutation } from './graphql/delete-post-mutation.generated';
 import { useDislikePostMutation } from './graphql/dislike-post-mutation.generated';
 import { useEditPostMutation } from './graphql/edit-post-mutation.generated';
 import { useLikePostMutation } from './graphql/like-post-mutation.generated';
+
+type DeletingPostState = ModalOptions & { id?: string };
 
 export type FeedPostListProps = {
   posts: ReadonlyArray<FeedPostData>;
@@ -19,9 +22,7 @@ export type FeedPostListProps = {
 export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
   const { user } = useAuth();
   const { subjectCode } = useParams<SubjectRouteParams>();
-  const [deletingPost, setDeletingPost] = useState<{ id?: string; isOpen: boolean }>({
-    isOpen: false,
-  });
+  const [deletingPostState, setDeletingPostState] = useState<DeletingPostState>({ isOpen: false });
   const [editingPostID, setEditingPostID] = useState<string | undefined>(undefined);
 
   const [editPost, { loading: editPostLoading }] = useEditPostMutation();
@@ -30,14 +31,14 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
   const [dislikePost] = useDislikePostMutation();
 
   const handlePostDelete = async () => {
-    if (deletingPost.id) {
+    if (deletingPostState.id) {
       try {
         await deletePost({
-          variables: { postID: deletingPost.id },
+          variables: { postID: deletingPostState.id },
           refetchQueries: [{ query, variables: { subjectCode } }],
         });
       } finally {
-        setDeletingPost({ isOpen: false });
+        setDeletingPostState({ isOpen: false });
       }
     }
   };
@@ -62,8 +63,8 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
         title="Are you sure want to delete this post?"
         description="You can't undo this action afterwards."
         isLoading={deletePostLoading}
-        isOpen={deletingPost.isOpen}
-        onClose={() => setDeletingPost({ isOpen: false })}
+        isOpen={deletingPostState.isOpen}
+        onClose={() => setDeletingPostState({ isOpen: false })}
         onDelete={handlePostDelete}
       />
       <Flex direction="column">
@@ -79,7 +80,7 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
                 isOwnPost={(author && user && author.id === user.id) || false}
                 hasLikedPost={hasLikedPost}
                 isEditLoading={!!(editPostLoading && editingPostID && editingPostID === id)}
-                onPostDelete={() => setDeletingPost({ id, isOpen: true })}
+                onPostDelete={() => setDeletingPostState({ id, isOpen: true })}
                 onPostLike={() => handlePostLike(id, hasLikedPost)}
                 onPostEdit={(content) => handlePostEdit(id, content)}
               />
