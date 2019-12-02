@@ -1743,6 +1743,7 @@ export type UpdateProfileInput = {
   readonly email: Maybe<Scalars['String']>;
   readonly oldPassword: Maybe<Scalars['String']>;
   readonly newPassword: Maybe<Scalars['String']>;
+  readonly preferredLanguage: Maybe<ConnectRelation>;
 };
 
 /** Input of update subject information */

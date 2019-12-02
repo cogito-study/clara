@@ -1,3 +1,10 @@
 {
-  "title": "Title of Profile"
+  "title": "Title of Profile",
+  "change": {
+    "preferredLanguage": {
+      "title": "Change preferred language",
+      "current": "Current language: {{ language }}",
+      "label": "Languages"
+    }
+  }
 }

@@ -1,3 +1,10 @@
 {
-  "title": "Profil címe"
+  "title": "Profil címe",
+  "change": {
+    "preferredLanguage": {
+      "title": "Nyelv változtatása",
+      "current": "Jelenlegi nyelv: {{ language }}",
+      "label": "Nyelvek"
+    }
+  }
 }
