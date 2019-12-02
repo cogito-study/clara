@@ -12,9 +12,9 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/core';
-import { formatDistance } from 'date-fns';
 import React, { FC, FormEvent, useState } from 'react';
 import { FiCheck, FiMoreHorizontal, FiThumbsUp, FiX } from 'react-icons/fi';
+import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
 import { FeedPostFragment } from './graphql/feed-post-fragment.generated';
 
 export type FeedPostData = FeedPostFragment & { subject?: { name: string } };
@@ -40,6 +40,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [value, setValue] = useState(content);
+  const { since } = useDateFormatter();
 
   const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
     const inputValue = event.currentTarget.value;
@@ -152,9 +153,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
       </Flex>
       <Flex mt={3} direction="row" align="center" justify="space-between">
         <Text color="grey.700" fontSize="12px">
-          {formatDistance(new Date(updatedAt), new Date(), {
-            addSuffix: true,
-          })}
+          {since(updatedAt)}
         </Text>
         <Button
           variant={hasLikedPost ? 'solid' : 'outline'}

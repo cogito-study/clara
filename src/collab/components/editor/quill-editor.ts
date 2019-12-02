@@ -32,7 +32,7 @@ export class QuillEditor {
     this.otherSuggestion = new SuggestionData({
       id: '',
       delta: '{"ops":[]}',
-      createdAt: '',
+      createdAt: new Date(),
       author: { id: '', fullName: '' },
     });
     this.original = original;

@@ -6,7 +6,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
+  DateTime: Date;
 };
 
 /** Input of activation user */
