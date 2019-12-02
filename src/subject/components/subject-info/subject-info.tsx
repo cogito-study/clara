@@ -20,10 +20,10 @@ export const SubjectInfo = ({ subjectCode }: SubjectIdentifierProps) => {
             code={data.subject.code}
           />
           <Heading
-            py={8}
+            mt={[5, 6, 6, 8]}
+            mb={2}
             fontSize={['md', 'lg']}
             fontWeight="bold"
-            maxWidth="80%"
             color="blue.700"
             lineHeight="normal"
           >
