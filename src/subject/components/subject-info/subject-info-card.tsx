@@ -14,37 +14,30 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
   code,
   department,
 }) => (
-  <Box width="full">
+  <Box>
     <Heading
       fontSize={['md', 'lg']}
       fontWeight="bold"
-      maxWidth="80%"
       color="blue.700"
       lineHeight="normal"
-      mt={[6, 6, 6, 8]}
-      mb={[3, 3, 3, 4]}
+      mt={[5, 6, 6, 8]}
+      mb={0}
     >
       {title}
     </Heading>
     {code && department ? (
-      <Flex mt={5} direction="row" justify="space-between">
-        <Text mt={1} fontSize="sm" color="grey.500" lineHeight="normal" maxW="70%">
+      <Flex mt={2} direction="row" justify="space-between">
+        <Text fontSize="sm" color="grey.700" lineHeight="normal" maxW="70%">
           {department}
         </Text>
-        <Text mt={1} fontSize="sm" color="grey.500" lineHeight="normal">
+        <Text fontSize="sm" color="grey.700" lineHeight="normal">
           {code}
         </Text>
       </Flex>
     ) : null}
-    <Box
-      mt={code && department ? [4, 5] : [5, 6]}
-      p={3}
-      borderWidth="1px"
-      borderColor="grey.100"
-      bg="#fff"
-    >
-      <Flex p={[4, 5, 6]}>
-        <Text fontSize="sm" color="black" lineHeight="normal">
+    <Box mt={3} p={[4, 6]} borderWidth="1px" borderColor="grey.100" bg="#fff">
+      <Flex>
+        <Text fontSize="sm" color="grey.900" lineHeight="tall">
           {description}
         </Text>
       </Flex>

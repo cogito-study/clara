@@ -8,9 +8,16 @@ export type SubjectTeacherCardProps = {
 };
 
 export const SubjectTeacherCard: FC<SubjectTeacherCardProps> = ({ name, title, email }) => (
-  <Flex p={4} borderWidth="1px" borderColor="grey.100" maxW="600px" align="center" bg="#fff">
-    <Avatar mr={4} name={name} size="lg" />
-    <Flex p={1} direction="column" minW="220px">
+  <Flex
+    p={3}
+    borderWidth="1px"
+    borderColor="grey.100"
+    maxW={['full', 'full', '340px']}
+    align="center"
+    bg="#fff"
+  >
+    <Avatar mr={3} name={name} size="md" />
+    <Flex p={1} direction="column" width="full">
       <Text fontSize="md" fontWeight={500} lineHeight="base" color="blue.800">
         {name}
       </Text>
@@ -20,12 +27,13 @@ export const SubjectTeacherCard: FC<SubjectTeacherCardProps> = ({ name, title, e
 
       <Link
         cursor="pointer"
-        mt={2}
+        mt={1}
         fontSize="sm"
         color="teal.700"
         lineHeight="normal"
         _hover={{ color: 'teal.800' }}
         _focus={{ color: 'teal.800' }}
+        wordBreak="break-all"
         href={`mailto:${email}`}
       >
         {email}
