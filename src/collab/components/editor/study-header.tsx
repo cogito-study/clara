@@ -37,7 +37,7 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeCha
           color="blue.800"
         />
 
-        <Link to={subjectRoute({ path: 'subjects', subjectCode: subject.code })}>
+        <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
           <Button
             leftIcon="chevron-left"
             onClick={() => {}}

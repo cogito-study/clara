@@ -172,7 +172,7 @@ export const MainMenuBase = ({
                     subjects.map(({ code, name }) => (
                       <NavLink
                         key={code}
-                        to={subjectRoute({ path: 'subjects', subjectCode: code })}
+                        to={subjectRoute({ path: 'subjects-notes', subjectCode: code })}
                         {...navLinkStyles}
                       >
                         <PseudoBox

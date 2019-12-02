@@ -1,10 +1,12 @@
-import { Box, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/core';
-import React from 'react';
-import { useParams } from 'react-router';
+import { Box, Button, Flex, Heading } from '@chakra-ui/core';
+import React, { CSSProperties, FC } from 'react';
+import { Route, useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { useTheme } from '../../core/hooks/use-theme';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
 import { SubjectInfo } from '../components/subject-info/subject-info';
 import { SubjectNoteList } from '../components/subject-notes/subject-note-list';
-import { SubjectRouteParams } from '../utils/subject-route';
+import { subjectRoute, SubjectRouteParams } from '../utils/subject-route';
 import { useSubjectPageQuery } from './graphql/subject-page-query.generated';
 import { SubjectPagePlaceholder } from './subject-page.placeholder';
 
@@ -23,56 +25,35 @@ export const SubjectPage = () => {
   };
 
   return (
-    <>
-      <Tabs color="grey.800" variantColor="teal" display={['none', 'none', 'none', 'initial']}>
-        <TabContent
-          isLoading={loading}
-          subjectTitle={data && data.subject && data.subject.name}
-          {...subjectIdentifierProps}
-        />
-      </Tabs>
-      <Tabs
-        color="gray.800"
-        variantColor="teal"
-        align="center"
-        display={['initial', 'initial', 'initial', 'none']}
+    <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
+      <Box
+        pos="fixed"
+        bg="#fff"
+        pt={['initial', 'initial', 'initial', 5]}
+        width="100%"
+        zIndex={10}
+        borderBottom="1px"
+        borderColor="grey.100"
       >
-        <TabContent
-          isLoading={loading}
-          subjectTitle={data && data.subject && data.subject.name}
-          {...subjectIdentifierProps}
-        />
-      </Tabs>
-    </>
-  );
-};
+        {loading ? (
+          <SubjectPagePlaceholder />
+        ) : (
+          <Flex direction="row" justify="space-between" width="100%">
+            <Heading
+              as="h2"
+              display={['none', 'none', 'none', 'initial']}
+              fontSize="xl"
+              color="black"
+              px={16}
+              pb={1}
+              bg="#fff"
+            >
+              {data && data.subject && data.subject.name}
+            </Heading>
 
-const TabContent = ({
-  isLoading,
-  subjectTitle,
-  ...rest
-}: { isLoading: boolean; subjectTitle?: string } & SubjectIdentifierProps) => (
-  <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
-    <Box pos="fixed" bg="#fff" pt={['initial', 'initial', 'initial', 5]} width="100%" zIndex={10}>
-      {isLoading ? (
-        <SubjectPagePlaceholder />
-      ) : (
-        <Flex direction="row" justify="space-between" width="100%">
-          <Heading
-            as="h2"
-            display={['none', 'none', 'none', 'initial']}
-            fontSize="xl"
-            color="black"
-            px={16}
-            pb={1}
-            bg="#fff"
-          >
-            {subjectTitle}
-          </Heading>
-
-          {
-            // TBD ux-wise
-            /* <Button
+            {
+              // TBD ux-wise
+              /* <Button
             size="md"
             bg="teal.500"
             color="blue.800"
@@ -83,34 +64,66 @@ const TabContent = ({
           >
             add new note
           </Button> */
-          }
+            }
+          </Flex>
+        )}
+        <Flex
+          bg="#fff"
+          justify={['stretch', 'stretch', 'flex-start']}
+          width="100%"
+          px={[0, 0, 0, 16]}
+        >
+          <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>notes</TabLink>
+          <TabLink to={subjectRoute({ path: 'subjects-feed', subjectCode })}>feed</TabLink>
+          <TabLink to={subjectRoute({ path: 'subjects-info', subjectCode })}>information</TabLink>
         </Flex>
-      )}
-      <TabList pt={2} bg="#fff" width="100%" px={[0, 0, 0, 16]}>
-        {/* TODO: Localize */}
-        <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          notes
-        </Tab>
-        <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          feed
-        </Tab>
-        <Tab fontWeight={600} flex={[1, 1, 1, 'initial']}>
-          information
-        </Tab>
-      </TabList>
+      </Box>
+      <Box width="100%" pt={[6, 10, 10, 20]}>
+        <Route path={subjectRoute({ path: 'subjects-notes' })}>
+          <SubjectNoteList {...subjectIdentifierProps} />
+        </Route>
+        <Route path={subjectRoute({ path: 'subjects-feed' })}>
+          <SubjectFeed {...subjectIdentifierProps} />
+        </Route>
+        <Route path={subjectRoute({ path: 'subjects-info' })}>
+          <SubjectInfo {...subjectIdentifierProps} />
+        </Route>
+      </Box>
     </Box>
-    <Box width="100%" pt={[6, 10, 10, 20]}>
-      <TabPanels pt={2}>
-        <TabPanel>
-          <SubjectNoteList {...rest} />
-        </TabPanel>
-        <TabPanel>
-          <SubjectFeed {...rest} />
-        </TabPanel>
-        <TabPanel>
-          <SubjectInfo {...rest} />
-        </TabPanel>
-      </TabPanels>
-    </Box>
-  </Box>
-);
+  );
+};
+
+const TabLink: FC<{ to: string }> = ({ to, children }) => {
+  const { colors } = useTheme();
+
+  const navLinkStyles: { style: CSSProperties; activeStyle: CSSProperties } = {
+    style: {
+      width: '100%',
+      borderBottom: '2px solid',
+      borderColor: 'transparent',
+      padding: '6px 12px',
+    },
+    activeStyle: { color: colors.teal[800], borderColor: colors.teal[600] },
+  };
+  return (
+    <Button
+      p={0}
+      pt={2}
+      h="43px"
+      w={['100%', '100%', '100%', 128]}
+      variant="ghost"
+      variantColor="teal"
+      borderRadius={0}
+      borderBottom="2px"
+      borderColor="#fff"
+      textAlign="center"
+      color="grey.800"
+      fontWeight="semibold"
+      _hover={{ color: 'teal.600', bg: '#fff', borderColor: 'teal.600' }}
+    >
+      <NavLink to={to} {...navLinkStyles}>
+        {children}
+      </NavLink>
+    </Button>
+  );
+};
