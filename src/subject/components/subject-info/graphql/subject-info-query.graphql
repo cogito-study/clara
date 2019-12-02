@@ -8,8 +8,7 @@ query SubjectInfo($subjectCode: String) {
       name
     }
     teachers {
-      firstName
-      lastName
+      fullName
       email
       profilePictureURL
     }

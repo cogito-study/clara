@@ -1,5 +1,5 @@
+import { Button, Flex, Heading, Text } from '@chakra-ui/core';
 import React, { FC, ReactNode } from 'react';
-import { Flex, Heading, Text, Button } from '@chakra-ui/core';
 
 export interface FeedbackProps {
   title: string;
@@ -47,31 +47,3 @@ export const Feedback: FC<FeedbackProps> = ({
     )}
   </Flex>
 );
-
-// export const ExpiredFeedback = () => (
-//   <FeedbackCard
-//     title="A link elavult 😕"
-//     icon={alertCircle}
-//     paragraph="Amennyiben még mindig vissza szeretnéd állítani jelszavad, kattints a gombra."
-//     buttonLabel="Jelszó visszaállítás"
-//     onButtonClick={() => alert('Még definiálni kell, hogy a reset password screenre vigyen!')}
-//   />
-// );
-
-// export const PasswordResetDoneFeedback: FC<FeedbackProps> = ({ onButtonClick }) => (
-//   <FeedbackCard
-//     title="Kész"
-//     icon={checkCircle}
-//     paragraph="A jelszavad visszaállítottuk. Most már be tudsz lépni új jelszavaddal."
-//     buttonLabel="Belépés"
-//     onButtonClick={onButtonClick}
-//   />
-// );
-
-// export const EmailSentFeedbackCard = () => (
-//   <FeedbackCard
-//     title="E-mail elküldve"
-//     icon={mail}
-//     paragraph="Elküldtük a megadott e-mail címre az új jelszó beállításához szükséges linket."
-//   />
-// );

@@ -129,23 +129,20 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
           Array.from({ length: 9 }).map((_, index) => <SubjectNotePlaceholder key={index} />)
         ) : (
           <>
-            {data &&
-              data.subject &&
-              data.subject.notes &&
-              data.subject.notes.map((note) => {
-                const { permissions, id } = note;
+            {data?.subject?.notes?.map((note) => {
+              const { permissions, id } = note;
 
-                return (
-                  <SubjectNoteCard
-                    key={id}
-                    isEditable={permissions && permissions.includes(NotePermissionType.UpdateNote)}
-                    isDeletable={permissions && permissions.includes(NotePermissionType.DeleteNote)}
-                    onNoteDelete={() => setDeletingNoteState({ id, isOpen: true })}
-                    onNoteEdit={() => setEditingNoteState({ isOpen: true, note })}
-                    {...note}
-                  />
-                );
-              })}
+              return (
+                <SubjectNoteCard
+                  key={id}
+                  isEditable={permissions.includes(NotePermissionType.UpdateNote)}
+                  isDeletable={permissions.includes(NotePermissionType.DeleteNote)}
+                  onNoteDelete={() => setDeletingNoteState({ id, isOpen: true })}
+                  onNoteEdit={() => setEditingNoteState({ isOpen: true, note })}
+                  {...note}
+                />
+              );
+            })}
             <AddNoteCard onClick={() => setAddingNoteState({ isOpen: true })} />
           </>
         )}

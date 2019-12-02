@@ -18,11 +18,7 @@ export const SubjectFeed = ({ id, subjectCode }: SubjectIdentifierProps) => {
       {loading ? (
         <FeedPostListPlaceholder />
       ) : (
-        data &&
-        data.subject &&
-        data.subject.posts && (
-          <FeedPostList posts={data.subject.posts} query={SubjectFeedDocument} />
-        )
+        <FeedPostList posts={data?.subject?.posts ?? []} query={SubjectFeedDocument} />
       )}
     </ContentWrapper>
   );

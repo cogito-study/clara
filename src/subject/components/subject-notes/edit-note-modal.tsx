@@ -46,9 +46,9 @@ export const EditNoteModal = ({
   const titleInputRef = useRef(null);
   const { values, errors, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
     initialValues: {
-      title: note && note.title,
-      description: note && note.description,
-      number: note && note.number,
+      title: note?.title,
+      description: note?.description,
+      number: note?.number,
     },
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),

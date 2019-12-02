@@ -10,7 +10,7 @@ export type SubjectTeacherCardProps = {
 export const SubjectTeacherCard: FC<SubjectTeacherCardProps> = ({ name, title, email }) => (
   <Flex
     p={3}
-    borderWidth="1px"
+    borderWidth={1}
     borderColor="grey.100"
     maxW={['full', 'full', '340px']}
     align="center"

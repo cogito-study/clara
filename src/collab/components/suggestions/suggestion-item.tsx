@@ -86,7 +86,7 @@ export const SuggestionItem: FC<Props> = ({
   const [showOverflow, setShowOverflow] = useState(false);
 
   const { id, delta, createdAt, author } = suggestion;
-  const original = quillEditor && quillEditor.original.current;
+  const original = quillEditor?.original.current;
 
   return (
     <Flex

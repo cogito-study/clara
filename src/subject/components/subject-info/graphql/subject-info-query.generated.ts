@@ -18,7 +18,7 @@ export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
         readonly teachers: ReadonlyArray<
           { readonly __typename?: 'User' } & Pick<
             Types.User,
-            'firstName' | 'lastName' | 'email' | 'profilePictureURL'
+            'fullName' | 'email' | 'profilePictureURL'
           >
         >;
         readonly informations: ReadonlyArray<
@@ -42,8 +42,7 @@ export const SubjectInfoDocument = gql`
         name
       }
       teachers {
-        firstName
-        lastName
+        fullName
         email
         profilePictureURL
       }

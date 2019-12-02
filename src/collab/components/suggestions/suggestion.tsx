@@ -21,9 +21,7 @@ export const Suggestion: FC<SuggestionProps> = ({ quillEditor }) => {
 
   const [suggestions, setSuggestions] = useState<SuggestionData[]>([]);
 
-  const { data: activeSuggestionsData } = useActiveSuggestionsQuery({
-    variables: { noteID },
-  });
+  const { data: activeSuggestionsData } = useActiveSuggestionsQuery({ variables: { noteID } });
   const [approveSuggestionMutation] = useApproveSuggestionMutation();
   const [rejectSuggestionMutation] = useRejectSuggestionMutation();
 

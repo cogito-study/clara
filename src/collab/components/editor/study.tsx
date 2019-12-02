@@ -9,10 +9,13 @@ import { useNoteContentQuery } from './graphql/note-content-query.generated';
 export const Study: FC<{ editor: Quill | undefined }> = ({ editor }) => {
   const { noteID } = useParams<CollabRouteParams>();
 
-  const { data: noteContentData } = useNoteContentQuery({ variables: { noteID } });
+  const { data: noteContentData } = useNoteContentQuery({
+    variables: { noteID },
+    fetchPolicy: 'cache-and-network',
+  });
 
   useEffect(() => {
-    if (noteContentData && noteContentData.note)
+    if (noteContentData?.note)
       editor && editor.setContents(new Delta(JSON.parse(noteContentData.note.content)));
   }, [editor, noteContentData]);
 

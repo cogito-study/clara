@@ -71,15 +71,15 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
         {posts.map((post) => {
           const { id, likers, author } = post;
           const hasLikedPost =
-            (likers && user && likers.map((liker) => liker.id).includes(user.id)) || false;
+            (user && likers?.map((liker) => liker.id).includes(user.id)) || false;
 
           return (
             <Box key={id} my={2}>
               <FeedPostCard
                 feedPost={post}
-                isOwnPost={(author && user && author.id === user.id) || false}
+                isOwnPost={author?.id === user?.id}
                 hasLikedPost={hasLikedPost}
-                isEditLoading={!!(editPostLoading && editingPostID && editingPostID === id)}
+                isEditLoading={!!(editPostLoading && editingPostID === id)}
                 onPostDelete={() => setDeletingPostState({ id, isOpen: true })}
                 onPostLike={() => handlePostLike(id, hasLikedPost)}
                 onPostEdit={(content) => handlePostEdit(id, content)}

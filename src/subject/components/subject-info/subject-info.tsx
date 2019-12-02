@@ -11,34 +11,28 @@ export const SubjectInfo = ({ subjectCode }: SubjectIdentifierProps) => {
 
   return (
     <ContentWrapper>
-      {data && data.subject && (
-        <>
-          <SubjectInfoCard
-            title="General information"
-            description={data.subject.description || ''}
-            department={data.subject.department && data.subject.department.name}
-            code={data.subject.code}
-          />
-          <Heading
-            mt={[5, 6, 6, 8]}
-            mb={2}
-            fontSize={['md', 'lg']}
-            fontWeight="bold"
-            color="blue.700"
-            lineHeight="normal"
-          >
-            Teachers
-          </Heading>
-          {data.subject.teachers &&
-            data.subject.teachers.map(({ email, firstName, lastName }, index: number) => (
-              <SubjectTeacherCard key={index} name={`${firstName} ${lastName}`} email={email} />
-            ))}
-          {data.subject.informations &&
-            data.subject.informations.map(({ title, content }, index: number) => (
-              <SubjectInfoCard key={index} title={title} description={content} />
-            ))}
-        </>
-      )}
+      <SubjectInfoCard
+        title="General information"
+        description={data?.subject?.description || ''}
+        department={data?.subject?.department.name}
+        code={data?.subject?.code}
+      />
+      <Heading
+        mt={[5, 6, 6, 8]}
+        mb={2}
+        fontSize={['md', 'lg']}
+        fontWeight="bold"
+        color="blue.700"
+        lineHeight="normal"
+      >
+        Teachers
+      </Heading>
+      {data?.subject?.teachers.map(({ email, fullName }, index: number) => (
+        <SubjectTeacherCard key={index} name={fullName} email={email} />
+      ))}
+      {data?.subject?.informations.map(({ title, content }, index: number) => (
+        <SubjectInfoCard key={index} title={title} description={content} />
+      ))}
     </ContentWrapper>
   );
 };

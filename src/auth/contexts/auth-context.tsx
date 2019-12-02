@@ -48,7 +48,7 @@ export const AuthProvider: FC = ({ children }) => {
   const [resetPasswordMutation] = useResetPasswordMutation();
 
   useEffect(() => {
-    data && data.me && setUser(data.me);
+    setUser(data?.me);
   }, [data]);
 
   const login = async (email: string, password: string) => {
