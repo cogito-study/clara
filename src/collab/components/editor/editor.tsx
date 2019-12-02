@@ -21,7 +21,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   const [createSuggestion] = useCreateSuggestionMutation();
 
   const { data: suggestionApproveData } = useSuggestionApproveSubscription({
-    variables: { noteID: noteID || '' },
+    variables: { noteID },
   });
   useEffect(() => {
     if (suggestionApproveData) {
@@ -37,11 +37,13 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
 
   const publishSuggestion = (suggestion: Delta) => {
     console.log('sendPublishSuggestionToServer', suggestion);
-    createSuggestion({ variables: { delta: JSON.stringify(suggestion), noteID: noteID || '' } });
+    if (noteID) {
+      createSuggestion({ variables: { delta: JSON.stringify(suggestion), noteID } });
+    }
   };
 
   const handleSuggesting = () => {
-    if (quillEditor && quillEditor.hasMySuggestion()) {
+    if (quillEditor?.hasMySuggestion()) {
       publishSuggestion(quillEditor.mySuggestion);
       quillEditor.publishSuggestion();
     }

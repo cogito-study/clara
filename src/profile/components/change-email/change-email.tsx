@@ -80,7 +80,7 @@ export const ChangeEmail = () => {
               fontWeight={500}
               lineHeight="normal"
             >
-              {user && user.email}
+              {user?.email}
             </Heading>
           </Flex>
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>

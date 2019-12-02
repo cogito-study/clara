@@ -27,7 +27,7 @@ export const CollabPage = () => {
   const { data: noteContentData } = useNoteContentQuery({ variables: { noteID } });
 
   useEffect(() => {
-    if (noteContentData && noteContentData.note && editor) {
+    if (noteContentData?.note && editor) {
       originalDocument.current = new Delta(JSON.parse(noteContentData.note.content));
       setQuillEditor(new QuillEditor(editor, originalDocument));
     }
@@ -46,10 +46,8 @@ export const CollabPage = () => {
     }
   }, [hasMySuggestion, quillEditor]);
 
-  const handleEditorStateChanged = quillEditor
-    ? () => setHasMySuggestion(quillEditor.hasMySuggestion())
-    : () => {};
-  quillEditor && quillEditor.onStateChanged(handleEditorStateChanged);
+  quillEditor &&
+    quillEditor.onStateChanged(() => setHasMySuggestion(quillEditor.hasMySuggestion()));
 
   return (
     <Flex direction="column" bg="white">
@@ -60,12 +58,7 @@ export const CollabPage = () => {
       {editorMode === 'study' ? (
         <>
           <StudyHeader
-            subject={
-              (noteContentData && noteContentData.note && { ...noteContentData.note.subject }) || {
-                name: '',
-                code: '',
-              }
-            }
+            subject={noteContentData?.note?.subject ?? { name: '', code: '' }}
             handleEditorModeChange={setEditorMode}
           />
           <Flex mt={12} justifyContent="center">
@@ -75,12 +68,7 @@ export const CollabPage = () => {
       ) : (
         <>
           <EditorHeader
-            subject={
-              (noteContentData && noteContentData.note && { ...noteContentData.note.subject }) || {
-                name: '',
-                code: '',
-              }
-            }
+            subject={noteContentData?.note?.subject ?? { name: '', code: '' }}
             handleEditorModeChange={setEditorMode}
           />
           <Flex mt={[4, 4, 4, 12]} justify="center">

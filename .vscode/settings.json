@@ -27,4 +27,5 @@
   "files.trimTrailingWhitespace": true,
   "javascript.format.enable": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsdk": "node_modules/typescript/lib",
 }

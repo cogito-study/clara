@@ -21,7 +21,7 @@ export const SubjectPage = () => {
 
   const subjectIdentifierProps: SubjectIdentifierProps = {
     subjectCode,
-    id: (data && data.subject && data.subject.id) || '',
+    id: data?.subject?.id ?? '',
   };
 
   return (
@@ -48,7 +48,7 @@ export const SubjectPage = () => {
               pb={1}
               bg="#fff"
             >
-              {data && data.subject && data.subject.name}
+              {data?.subject?.name}
             </Heading>
 
             {

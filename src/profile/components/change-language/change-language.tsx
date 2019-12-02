@@ -35,10 +35,7 @@ export const ChangeLanguage = () => {
       language: 'en',
     },
     onSubmit: async ({ language }) => {
-      const selectedLanguage = findLanguageByCode({
-        languages: data && data.languages,
-        code: language,
-      });
+      const selectedLanguage = findLanguageByCode({ languages: data?.languages, code: language });
       if (user && selectedLanguage) {
         try {
           await changeLanguage({ variables: { userID: user.id, languageID: selectedLanguage.id } });
@@ -50,10 +47,7 @@ export const ChangeLanguage = () => {
     },
   });
 
-  const currentLanguage = findLanguageByCode({
-    languages: data && data.languages,
-    code: i18n.language,
-  });
+  const currentLanguage = findLanguageByCode({ languages: data?.languages, code: i18n.language });
 
   return (
     <Box width="full">
@@ -79,9 +73,7 @@ export const ChangeLanguage = () => {
         <Box maxW="480px" size="full">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <Heading as="h3" my={3} color="grey.600" fontWeight="semibold">
-              {t('change.preferredLanguage.current', {
-                language: currentLanguage && currentLanguage.name,
-              })}
+              {t('change.preferredLanguage.current', { language: currentLanguage?.name })}
             </Heading>
             <Box h={100}>
               <FormControl isInvalid={errors.language && touched.language ? true : false}>
@@ -95,13 +87,11 @@ export const ChangeLanguage = () => {
                   borderRadius={0}
                   onChange={handleChange}
                 >
-                  {data &&
-                    data.languages &&
-                    data.languages.map(({ code, name }) => (
-                      <option key={code} value={code}>
-                        {name}
-                      </option>
-                    ))}
+                  {data?.languages.map(({ code, name }) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))}
                 </Select>
               </FormControl>
             </Box>

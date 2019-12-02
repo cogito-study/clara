@@ -12,13 +12,13 @@ export const PasswordUserInfo: FC<{ token: string }> = ({ token }) => {
         <PasswordUserInfoPlaceholder />
       ) : (
         <>
-          <Avatar name={data && data.userInfo && data.userInfo.fullName} size="lg" />
+          <Avatar name={data?.userInfo?.fullName} size="lg" />
           <Flex direction="column" justify="center" ml={4}>
             <Heading as="h3" fontSize="md" color="blue.800">
-              {data && data.userInfo && data.userInfo.fullName}
+              {data?.userInfo?.fullName}
             </Heading>
             <Text color="grey.800" mt={2}>
-              {data && data.userInfo && data.userInfo.email}
+              {data?.userInfo?.email}
             </Text>
           </Flex>
         </>
