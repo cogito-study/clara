@@ -10,11 +10,11 @@ import {
   Text,
 } from '@chakra-ui/core';
 import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
-import { formatDistance } from 'date-fns';
 import React, { FC } from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
+import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
 
 export type SubjectNoteCardProps = {
   id: string;
@@ -40,6 +40,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
   onNoteDelete,
   ...rest
 }) => {
+  const { since } = useDateFormatter();
   const shouldShowMoreButton = isEditable || isDeletable;
 
   return (
@@ -107,10 +108,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
           </Flex>
           <Text mt={2} fontSize="xs" color="grey.600" lineHeight="normal">
             {/* TODO: Localize */}
-            Updated{' '}
-            {formatDistance(new Date(updatedAt), new Date(), {
-              addSuffix: true,
-            })}
+            {`Updated ${since(updatedAt)}`}
           </Text>
           <Text
             mt={3}

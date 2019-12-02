@@ -10,6 +10,9 @@ generates:
       - typescript
     config:
       maybeValue: T | undefined
+      scalars:
+        DateTime: Date
+        JSON: { [key: string]: any }
     hooks:
       afterOneFileWrite:
         - yarn format

@@ -1,7 +1,8 @@
-import { Box, Button, Collapse, Flex, Image, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Collapse, Flex, Text } from '@chakra-ui/core';
 import Delta from 'quill-delta';
 import React, { FC, useState } from 'react';
 import { FiMinus, FiMoreHorizontal } from 'react-icons/fi';
+import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
 import { QuillEditor } from '../editor/quill-editor';
 import { SuggestionData } from './suggestion-data';
 
@@ -20,7 +21,6 @@ export type SuggestionEventProps = SuggestionAcceptCancelEventProps &
 
 type Props = { suggestion: SuggestionData; quillEditor?: QuillEditor } & SuggestionEventProps;
 
-// eslint-disable-next-line complexity
 const prettifySuggestion = (delta: Delta, original: Delta) => {
   const invertedDelta = delta.invert(original);
   const deletedParts: string[] = [];
@@ -68,6 +68,7 @@ export const SuggestionItem: FC<Props> = ({
   onSuggestionBlurred,
   quillEditor,
 }) => {
+  const { since } = useDateFormatter();
   const [showOverflow, setShowOverflow] = useState(false);
 
   const { id, delta, createdAt, author } = suggestion;
@@ -84,17 +85,10 @@ export const SuggestionItem: FC<Props> = ({
       onMouseLeave={() => onSuggestionBlurred(id)}
     >
       <Flex>
-        <Image
-          rounded="full"
-          size="50px"
-          src={`https://randomuser.me/api/portraits/med/women/${Math.floor(
-            Math.random() * 100,
-          )}.jpg`}
-        />
+        <Avatar name={author} size="md" />
         <Flex direction="column" ml={5}>
           <Text>{author}</Text>
-          {/* TODO: date-fns */}
-          <Text as="cite">{createdAt.toDateString()}</Text>
+          <Text as="cite">{since(createdAt)}</Text>
         </Flex>
       </Flex>
       <Collapse startingHeight={50} isOpen={showOverflow} my={5} animateOpacity>
