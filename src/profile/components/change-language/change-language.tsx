@@ -1,27 +1,58 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Select,
-} from '@chakra-ui/core';
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Select } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../../auth/hooks';
+import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import { useChangeLanguageMutation } from './graphql/change-language-mutation.generated';
+import { LanguageFragment } from './graphql/language-fragment.generated';
+import { useLanguageListQuery } from './graphql/language-list-query.generated';
 
-/* eslint-disable complexity */
-// TODO: Localize
+const findLanguageByCode = ({
+  languages,
+  code,
+}: {
+  languages?: Readonly<LanguageFragment[]>;
+  code?: string;
+}) => {
+  if (code && languages) {
+    return languages.find((language) => language.code === code);
+  }
+
+  return undefined;
+};
+
 export const ChangeLanguage = () => {
-  const { errors, touched, handleSubmit } = useFormik({
+  const { i18n, t } = useTranslation(['profile', 'core']);
+  const { user } = useAuth();
+  const displayGraphQLError = useGraphQLErrorNotification();
+  const { data } = useLanguageListQuery();
+
+  const [changeLanguage, { loading: changeLanguageLoading }] = useChangeLanguageMutation();
+
+  const { errors, touched, handleSubmit, handleChange } = useFormik({
     initialValues: {
-      language: 'English',
+      language: 'en',
     },
-    validateOnChange: false,
-    onSubmit: async ({}, { resetForm }) => {
-      resetForm();
+    onSubmit: async ({ language }) => {
+      const selectedLanguage = findLanguageByCode({
+        languages: data && data.languages,
+        code: language,
+      });
+      if (user && selectedLanguage) {
+        try {
+          await changeLanguage({ variables: { userID: user.id, languageID: selectedLanguage.id } });
+          i18n.changeLanguage(language);
+        } catch (error) {
+          displayGraphQLError(error);
+        }
+      }
     },
+  });
+
+  const currentLanguage = findLanguageByCode({
+    languages: data && data.languages,
+    code: i18n.language,
   });
 
   return (
@@ -35,10 +66,10 @@ export const ChangeLanguage = () => {
         mt={[6, 6, 6, 8]}
         mb={[3, 3, 3, 4]}
       >
-        Change preferred language
+        {t('change.preferredLanguage.title')}
       </Heading>
       <Flex
-        borderWidth="1px"
+        borderWidth={1}
         borderColor="grey.100"
         bg="#fff"
         p={[4, 4, 5]}
@@ -47,29 +78,43 @@ export const ChangeLanguage = () => {
       >
         <Box maxW="480px" size="full">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+            <Heading as="h3" my={3} color="grey.600" fontWeight="semibold">
+              {t('change.preferredLanguage.current', {
+                language: currentLanguage && currentLanguage.name,
+              })}
+            </Heading>
             <Box h={100}>
               <FormControl isInvalid={errors.language && touched.language ? true : false}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                  Choose your preferred language
+                  {t('change.preferredLanguage.label')}
                 </FormLabel>
-                <Select aria-labelledby="language-picker" id="language" borderRadius={0}>
-                  <option value="en">English</option>
-                  <option value="hu">Hungarian</option>
+                <Select
+                  aria-labelledby="language-picker"
+                  id="language"
+                  isDisabled={changeLanguageLoading}
+                  borderRadius={0}
+                  onChange={handleChange}
+                >
+                  {data &&
+                    data.languages &&
+                    data.languages.map(({ code, name }) => (
+                      <option key={code} value={code}>
+                        {name}
+                      </option>
+                    ))}
                 </Select>
-
-                <FormErrorMessage fontSize={14}>{errors.language}</FormErrorMessage>
               </FormControl>
             </Box>
             <Flex justify="flex-end">
               <Button
-                isLoading={false}
+                isLoading={changeLanguageLoading}
                 variantColor="teal"
                 borderRadius={0}
                 type="submit"
                 variant="solid"
                 color="blue.800"
               >
-                save
+                {t('core:save')}
               </Button>
             </Flex>
           </form>
