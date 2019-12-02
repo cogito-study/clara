@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/core';
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import React, { useEffect, useRef, useState } from 'react';
@@ -52,7 +52,7 @@ export const CollabPage = () => {
   quillEditor && quillEditor.onStateChanged(handleEditorStateChanged);
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" bg="white">
       <Prompt
         when={(quillEditor && quillEditor.hasMySuggestion()) || false}
         message="You have unsaved changes, are you sure you want to leave?"
@@ -83,14 +83,16 @@ export const CollabPage = () => {
             }
             handleEditorModeChange={setEditorMode}
           />
-          <Flex mt={12}>
+          <Flex mt={[4, 4, 4, 12]} justify="center">
             <Flex direction="row">
               <Editor
                 quillEditor={quillEditor}
                 hasMySuggestion={hasMySuggestion}
                 original={originalDocument}
               />
-              <Suggestion quillEditor={quillEditor} />
+              <Box display={['none', 'none', 'none', 'block']}>
+                <Suggestion quillEditor={quillEditor} />
+              </Box>
             </Flex>
           </Flex>
         </>

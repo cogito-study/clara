@@ -1,4 +1,4 @@
-import { Button, Flex, Icon } from '@chakra-ui/core';
+import { Box, Button, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
@@ -36,8 +36,9 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
           size="32px"
           color="white"
         />
-
-        <EditorToolbar />
+        <Box display={['none', 'none', 'none', 'inline-flex']}>
+          <EditorToolbar />
+        </Box>
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
         <>

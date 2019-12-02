@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Collapse, Flex, Text } from '@chakra-ui/core';
+import { Avatar, Box, Button, Collapse, Flex, Heading, Text } from '@chakra-ui/core';
 import Delta from 'quill-delta';
-import React, { FC, useState } from 'react';
-import { FiMinus, FiMoreHorizontal } from 'react-icons/fi';
+import React, { FC, Fragment, useState } from 'react';
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
 import { QuillEditor } from '../editor/quill-editor';
 import { SuggestionData } from './suggestion-data';
@@ -48,10 +48,24 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
         if (op['insert']) {
           // TODO Fix
           // Localize
-          return <Text>INSERT: {typeof op.insert === 'string' ? op.insert : 'IMAGE'}</Text>;
+          return (
+            <Text>
+              <Text fontWeight={700} color="blue.800">
+                INSERT:
+              </Text>
+              {typeof op.insert === 'string' ? op.insert : 'IMAGE'}
+            </Text>
+          );
         } else if (op['delete']) {
           // Localize
-          return <Text>DELETE: {deletedParts.pop()}</Text>;
+          return (
+            <Text>
+              <Text fontWeight={700} color="red.600">
+                DELETE:
+              </Text>
+              {deletedParts.pop()}
+            </Text>
+          );
         } else {
           return null;
         }
@@ -77,32 +91,60 @@ export const SuggestionItem: FC<Props> = ({
   return (
     <Flex
       direction="column"
-      border="2px solid #00CCAA"
-      p={5}
+      borderWidth={1}
+      borderColor="grey.300"
+      bg="#fff"
+      p={3}
       width="300px"
-      height={showOverflow ? 'auto' : '250px'}
       onMouseEnter={() => onSuggestionHovered(id)}
       onMouseLeave={() => onSuggestionBlurred(id)}
     >
       <Flex>
-        <Avatar name={author} size="md" />
-        <Flex direction="column" ml={5}>
-          <Text>{author}</Text>
-          <Text as="cite">{since(createdAt)}</Text>
+        <Avatar name={author} />
+        <Flex direction="column" ml={4} my={2}>
+          <Heading as="h4" size="sm" color="blue.800">
+            {author}
+          </Heading>
+          {/* TODO: date-fns */}
+          <Text fontSize={14}>{since(createdAt)}</Text>
         </Flex>
       </Flex>
-      <Collapse startingHeight={50} isOpen={showOverflow} my={5} animateOpacity>
+      <Collapse startingHeight={100} isOpen={showOverflow} my={3} animateOpacity>
         {prettifySuggestion(delta, original || new Delta())}
       </Collapse>
-      <Button size="sm" onClick={() => setShowOverflow(!showOverflow)} width="40px" m={2}>
-        {showOverflow ? <FiMinus /> : <FiMoreHorizontal />}
-      </Button>
-      <Flex justifyContent="space-around">
-        <Button variantColor="teal" variant="outline" onClick={() => onSuggestionCancelled(id)}>
+      {delta.length() > 90 ? (
+        <Button
+          size="md"
+          variant="ghost"
+          outline="none"
+          boxShadow="-10px -15px 10px -8px #fff"
+          borderRadius={0}
+          mb={2}
+          onClick={() => setShowOverflow(!showOverflow)}
+        >
+          {showOverflow ? <FiChevronUp color="teal.600" /> : <FiChevronDown />}
+        </Button>
+      ) : (
+        <Fragment />
+      )}
+      <Flex justifyContent="flex-end">
+        <Button
+          variantColor="blue"
+          color="blue.800"
+          variant="outline"
+          borderRadius={0}
+          mr={2}
+          onClick={() => onSuggestionCancelled(id)}
+        >
           {/* TODO: Localize */}
           Cancel
         </Button>
-        <Button variantColor="teal" onClick={() => onSuggestionAccepted(id)}>
+        <Button
+          variantColor="teal"
+          color="blue.800"
+          borderRadius={0}
+          onClick={() => onSuggestionAccepted(id)}
+        >
           {/* TODO: Localize */}
           Accept
         </Button>

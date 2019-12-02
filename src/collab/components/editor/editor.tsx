@@ -48,13 +48,13 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   };
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" backgroundColor="white">
       <Button
-        display={hasMySuggestion ? 'inherit' : 'none'}
         m={4}
+        display={['none', 'none', 'none', hasMySuggestion ? 'inline-flex' : 'none']}
         position="fixed"
         zIndex={999}
-        backgroundColor="#fff"
+        bg="#fff"
         shadow="lg"
         onClick={handleSuggesting}
         rightIcon={FiPlusCircle}
