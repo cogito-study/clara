@@ -41,7 +41,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
         <>
-          <Link to={subjectRoute({ path: 'subjects', subjectCode: subject.code })}>
+          <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
             <Button
               leftIcon="chevron-left"
               onClick={() => {}}

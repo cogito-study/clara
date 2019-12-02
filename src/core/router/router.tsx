@@ -44,7 +44,13 @@ export const Router = () => {
               <Social />
             </Layout>
           </PrivateRoute>
-          <PrivateRoute path={subjectRoute({ path: 'subjects' })}>
+          <PrivateRoute
+            path={[
+              subjectRoute({ path: 'subjects-notes' }),
+              subjectRoute({ path: 'subjects-feed' }),
+              subjectRoute({ path: 'subjects-info' }),
+            ]}
+          >
             <Layout>
               <Subject />
             </Layout>
