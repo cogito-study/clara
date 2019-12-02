@@ -27,7 +27,7 @@ const SuggestionCard = styled(Flex)`
 
 export const SuggestionsContainer: FC<Props> = ({ suggestions, ...rest }) => {
   return (
-    <SuggestionGrid my={8} direction="column">
+    <SuggestionGrid my={8} direction="column" bg="white">
       {suggestions.map((suggestion) => (
         <SuggestionCard key={suggestion.id}>
           <SuggestionItem suggestion={suggestion} {...rest} />
