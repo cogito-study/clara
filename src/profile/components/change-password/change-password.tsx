@@ -158,7 +158,7 @@ export const ChangePassword = () => {
                 variant="solid"
                 color="blue.800"
               >
-                update password
+                save
               </Button>
             </Flex>
           </form>

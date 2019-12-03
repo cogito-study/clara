@@ -25,6 +25,7 @@ export const FeedPostInput = ({ id, subjectCode }: SubjectIdentifierProps) => {
         <Input
           id="content"
           type="text"
+          fontSize="medium"
           placeholder="Write your new post here..."
           borderRadius={0}
           borderWidth={1}
@@ -35,7 +36,7 @@ export const FeedPostInput = ({ id, subjectCode }: SubjectIdentifierProps) => {
           onBlur={handleBlur}
         />
         <Button
-          ml={1}
+          ml={2}
           px={4}
           isLoading={loading}
           type="submit"

@@ -56,9 +56,9 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
     <Box p={4} borderWidth="1px" borderColor="grey.100" minW="300px" maxW="800px" bg="#fff">
       <Flex align="flex-start" justify="space-between">
         <Flex align="center">
-          <Avatar mr={4} name={author.fullName} src={author.profilePictureURL} size="lg" />
+          <Avatar mr={3} name={author.fullName} src={author.profilePictureURL} size="md" />
           <Flex p={1} direction="column" align="start">
-            <Heading as="h3" fontSize="md" fontWeight={500} lineHeight="base" color="blue.800">
+            <Heading as="h3" fontSize="md" fontWeight={600} lineHeight="base" color="blue.800">
               {author.fullName}
             </Heading>
             <Text mt={1} fontSize="12px" color="grey.700" lineHeight="normal">

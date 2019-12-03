@@ -5,7 +5,7 @@ import { ProfileInformation } from '../components/profile-information/profile-in
 
 export const ProfilePage = () => {
   return (
-    <ContentWrapper mt={[10, 10, 20]} py={4}>
+    <ContentWrapper mt={[16, 16, 20]} py={4}>
       <ProfileInformation />
       <ChangeEmail />
       <ChangePassword />

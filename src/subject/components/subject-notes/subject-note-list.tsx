@@ -119,10 +119,10 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       )}
 
       <SimpleGrid
-        spacing={6}
-        minChildWidth={300}
+        spacing={[4, 4, 8]}
+        minChildWidth={288}
         mx={[4, 4, 8, 16, 'auto']}
-        mt={[6, 6, 10]}
+        mt={10}
         w={[null, null, null, null, 948]}
       >
         {subjectListLoading ? (
