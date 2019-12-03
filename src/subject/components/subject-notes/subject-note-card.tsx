@@ -1,20 +1,11 @@
-import {
-  Flex,
-  Heading,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  PseudoBox,
-  Text,
-} from '@chakra-ui/core';
+import { Flex, Heading, IconButton, PseudoBox, Text } from '@chakra-ui/core';
 import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
 import React, { FC } from 'react';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
 import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
+import { MoreMenu } from '../elements/more-menu';
 
 export type SubjectNoteCardProps = {
   id: string;
@@ -67,33 +58,24 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
           {number}
         </Text>
         {shouldShowMoreButton && (
-          <Menu>
-            <MenuButton>
+          <MoreMenu
+            isEditable={isEditable}
+            isDeletable={isDeletable}
+            onEdit={onNoteEdit}
+            onDelete={onNoteDelete}
+            trigger={
               <IconButton
                 aria-label=""
                 bg="transparent"
                 size="lg"
-                height={8}
                 variant="ghost"
-                color="blue.800"
+                color="teal.400"
                 variantColor="blue.700"
                 borderRadius="none"
                 icon={FiMoreHorizontal}
               />
-            </MenuButton>
-            <MenuList borderRadius="none">
-              {isEditable && (
-                <MenuItem color="blue.800" fontWeight="semibold" onClick={onNoteEdit}>
-                  edit
-                </MenuItem>
-              )}
-              {isDeletable && (
-                <MenuItem color="red.500" fontWeight="semibold" onClick={onNoteDelete}>
-                  delete
-                </MenuItem>
-              )}
-            </MenuList>
-          </Menu>
+            }
+          />
         )}
       </Flex>
       <Flex direction="column" p={3}>

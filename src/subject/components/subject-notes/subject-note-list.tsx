@@ -5,7 +5,7 @@ import { ModalOptions } from '../../../core/components/modal/types';
 import { NotePermissionType } from '../../../core/graphql/types.generated';
 import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
-import { AddNoteCard } from './add-note-card';
+import { AddItemCard } from '../elements/add-item-card';
 import { EditNoteModal } from './edit-note-modal';
 import { useCreateNoteMutation } from './graphql/create-note-mutation.generated';
 import { useDeleteNoteMutation } from './graphql/delete-note-mutation.generated';
@@ -143,7 +143,10 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
                 />
               );
             })}
-            <AddNoteCard onClick={() => setAddingNoteState({ isOpen: true })} />
+            <AddItemCard
+              title="add item card"
+              onClick={() => setAddingNoteState({ isOpen: true })}
+            />
           </>
         )}
       </SimpleGrid>

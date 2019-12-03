@@ -1,11 +1,14 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/core';
 import React, { FC } from 'react';
+import { MoreMenu } from '../elements/more-menu';
 
 export type SubjectInfoCardProps = {
   title: string;
   description: string;
   code?: string;
   department?: string;
+  isEditable?: boolean;
+  isDeletable?: boolean;
 };
 
 export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
@@ -13,6 +16,8 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
   description,
   code,
   department,
+  isEditable,
+  isDeletable,
 }) => (
   <Box>
     <Heading
@@ -35,12 +40,26 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
         </Text>
       </Flex>
     ) : null}
-    <Box mt={3} p={[4, 6]} borderWidth="1px" borderColor="grey.100" bg="#fff">
-      <Flex>
-        <Text fontSize="sm" color="grey.900" lineHeight="tall">
-          {description}
-        </Text>
-      </Flex>
-    </Box>
+    <Flex
+      mt={3}
+      borderWidth={1}
+      borderColor="grey.100"
+      bg="#fff"
+      p={[5, 6, 8]}
+      pt={isEditable || isDeletable ? [0, 0, 0] : [5, 6, 8]}
+      direction="column"
+      align="flex-end"
+    >
+      {isEditable || isDeletable ? (
+        <MoreMenu
+          isEditable={isEditable}
+          isDeletable={code && department ? false : isDeletable}
+          // TODO: add onEdit and onDelete handlers
+        />
+      ) : null}
+      <Text fontSize="sm" color="grey.900" lineHeight="tall">
+        {description}
+      </Text>
+    </Flex>
   </Box>
 );

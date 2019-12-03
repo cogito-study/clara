@@ -1,20 +1,8 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  Textarea,
-} from '@chakra-ui/core';
+import { Avatar, Box, Button, Flex, Heading, IconButton, Text, Textarea } from '@chakra-ui/core';
 import React, { FC, FormEvent, useState } from 'react';
-import { FiCheck, FiMoreHorizontal, FiThumbsUp, FiX } from 'react-icons/fi';
+import { FiCheck, FiThumbsUp, FiX } from 'react-icons/fi';
 import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
+import { MoreMenu } from '../../../subject/components/elements/more-menu';
 import { FeedPostFragment } from './graphql/feed-post-fragment.generated';
 
 export type FeedPostData = FeedPostFragment & { subject?: { name: string } };
@@ -107,32 +95,12 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
               />
             </Flex>
           ) : (
-            <Menu>
-              <MenuButton>
-                <IconButton
-                  aria-label=""
-                  bg="transparent"
-                  size="lg"
-                  variant="ghost"
-                  variantColor="grey"
-                  borderRadius="none"
-                  isLoading={isEditLoading}
-                  icon={FiMoreHorizontal}
-                />
-              </MenuButton>
-              <MenuList borderRadius="none">
-                <MenuItem
-                  color="blue.800"
-                  fontWeight="semibold"
-                  onClick={() => setIsEditing(!isEditing)}
-                >
-                  edit
-                </MenuItem>
-                <MenuItem color="red.500" fontWeight="semibold" onClick={onPostDelete}>
-                  delete
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <MoreMenu
+              isEditable
+              isDeletable
+              onEdit={() => setIsEditing(!isEditing)}
+              onDelete={onPostDelete}
+            />
           )
         ) : null}
       </Flex>

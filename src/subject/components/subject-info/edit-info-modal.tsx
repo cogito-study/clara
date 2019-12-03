@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -13,48 +12,42 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Scale,
+  Textarea,
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React, { useRef } from 'react';
 import * as Yup from 'yup';
-import { NoteDataFragment } from './graphql/note-data-fragment.generated';
+import { InfoDataFragment } from './info-data-fragment.generated';
 
-type EditNoteModalProps = {
+type EditInfoModalProps = {
   titleLabel: string;
-  note?: NoteDataFragment;
+  info?: InfoDataFragment;
   isLoading: boolean;
   isOpen: boolean;
   onClose?: () => void;
-  onEdit: (content: Partial<NoteDataFragment>) => void;
+  onEdit: (content: Partial<InfoDataFragment>) => void;
 };
 
-// TODO: Permitted numbers
-export const EditNoteModal = ({
+export const EditInfoModal = ({
   titleLabel,
-  note,
+  info,
   isLoading,
   isOpen,
   onClose,
   onEdit,
-}: EditNoteModalProps) => {
+}: EditInfoModalProps) => {
   const titleInputRef = useRef(null);
-  const { values, errors, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
+  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      title: note?.title,
-      description: note?.description,
-      number: note?.number,
+      title: info && info.title,
+      content: info && info.content,
     },
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
     }),
-    onSubmit: async (noteData, { resetForm }) => {
-      onEdit({ ...noteData });
+    onSubmit: async (infoData, { resetForm }) => {
+      onEdit({ ...infoData });
       resetForm();
     },
   });
@@ -77,11 +70,7 @@ export const EditNoteModal = ({
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <Flex
-                  direction={['column', 'column', 'row']}
-                  justify="flex-start"
-                  h={[200, 200, 100]}
-                >
+                <Box h={100}>
                   <FormControl
                     isInvalid={errors.title && touched.title ? true : false}
                     flex={['initial', 'initial', 5]}
@@ -106,35 +95,8 @@ export const EditNoteModal = ({
                     />
                     <FormErrorMessage fontSize={14}>{errors.title}</FormErrorMessage>
                   </FormControl>
-                  <FormControl
-                    isInvalid={errors.number && touched.number ? true : false}
-                    flex={['initial', 'initial', 2]}
-                    ml={[0, 0, 2]}
-                    h={100}
-                  >
-                    <FormLabel
-                      htmlFor="noteNumber"
-                      color="blue.800"
-                      fontSize={['sm', 'sm', 'md']}
-                      fontWeight="bold"
-                    >
-                      Number
-                    </FormLabel>
-                    <NumberInput
-                      min={0}
-                      max={200}
-                      defaultValue={note && note.number}
-                      onChange={(value) => setFieldValue('number', parseInt(value))}
-                    >
-                      <NumberInputField id="noteNumber" borderRadius={0} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormControl>
-                </Flex>
-                <Box h={100}>
+                </Box>
+                <Box h={120}>
                   <FormControl isInvalid={errors.title && touched.title ? true : false}>
                     <FormLabel
                       htmlFor="description"
@@ -142,13 +104,12 @@ export const EditNoteModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Keywords
+                      Description
                     </FormLabel>
-                    <Input
-                      id="description"
-                      type="text"
-                      placeholder="keyword1, keyword2, keyword3"
-                      value={values.description}
+                    <Textarea
+                      id="content"
+                      placeholder="Add a longer description for the info item"
+                      value={values.content}
                       onChange={handleChange}
                       borderRadius={0}
                     />

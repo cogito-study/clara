@@ -1,7 +1,8 @@
+import { LanguageFragment } from './language-fragment.generated';
+import gql from 'graphql-tag';
+import { LanguageFragmentDoc } from './language-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import { LanguageFragment, LanguageFragmentDoc } from './language-fragment.generated';
 
 export type LanguageListQueryVariables = {};
 
