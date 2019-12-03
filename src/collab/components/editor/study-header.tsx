@@ -29,13 +29,7 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeCha
         justifyContent={['space-between', 'space-between', 'flex-start']}
         width={['full', 'full', 'initial']}
       >
-        <Icon
-          mx={12}
-          // @ts-ignore
-          name="cogito"
-          size="32px"
-          color="blue.800"
-        />
+        <Icon mx={12} name="cogito" size="32px" color="blue.800" />
 
         <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
           <Button

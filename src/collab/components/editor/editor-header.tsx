@@ -29,13 +29,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
         justifyContent={['space-between', 'space-between', 'flex-start']}
         width={['full', 'full', 'initial']}
       >
-        <Icon
-          mx={12}
-          // @ts-ignore
-          name="cogito"
-          size="32px"
-          color="white"
-        />
+        <Icon mx={12} name="cogito" size="32px" color="white" />
         <Box display={['none', 'none', 'none', 'inline-flex']}>
           <EditorToolbar />
         </Box>

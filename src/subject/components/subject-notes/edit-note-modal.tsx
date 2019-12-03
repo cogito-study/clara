@@ -124,7 +124,7 @@ export const EditNoteModal = ({
                       min={0}
                       max={200}
                       defaultValue={note && note.number}
-                      onChange={(value) => setFieldValue('number', parseInt(value))}
+                      onChange={(value) => setFieldValue('number', value)}
                     >
                       <NumberInputField id="noteNumber" borderRadius={0} />
                       <NumberInputStepper>

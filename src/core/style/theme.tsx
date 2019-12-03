@@ -4,12 +4,14 @@ import React from 'react';
 export const theme = {
   ...baseTheme,
   fonts: {
+    ...baseTheme.fonts,
     heading: `"Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
     body: `"Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
     mono: `SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
   },
   breakpoints: ['432px', '576px', '900px', '1200px'],
   fontSizes: {
+    ...baseTheme.fontSizes,
     xs: '10px',
     sm: '16px',
     md: '18px',
@@ -18,6 +20,7 @@ export const theme = {
     '2xl': '44px',
   },
   lineHeights: {
+    ...baseTheme.lineHeights,
     shorter: '0.8',
     none: '1',
     normal: '1.2',

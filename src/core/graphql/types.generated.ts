@@ -44,6 +44,11 @@ export type BooleanFilter = {
   readonly not: Maybe<Scalars['Boolean']>;
 };
 
+export type ConnectOrDisconnectRelation = {
+  readonly connect: Maybe<ReadonlyArray<ConnectRelation>>;
+  readonly disconnect: Maybe<ReadonlyArray<ConnectRelation>>;
+};
+
 export type ConnectRelation = {
   readonly id: Scalars['ID'];
 };
@@ -56,9 +61,21 @@ export type CreateDepartmentInput = {
   readonly leader: ConnectRelation;
 };
 
+/** Input of create faculty */
+export type CreateFacultyInput = {
+  readonly name: Scalars['String'];
+  readonly institute: ConnectRelation;
+};
+
 /** Input of create institute */
 export type CreateInstituteInput = {
   readonly name: Scalars['String'];
+};
+
+/** Input of create major */
+export type CreateMajorInput = {
+  readonly name: Scalars['String'];
+  readonly faculty: ConnectRelation;
 };
 
 /** Input of create note comment */
@@ -234,6 +251,81 @@ export type DepartmentWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;
 };
 
+export type Faculty = {
+  readonly __typename?: 'Faculty';
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
+  readonly institute: Institute;
+  readonly majors: ReadonlyArray<Major>;
+  readonly permissions: ReadonlyArray<FacultyPermissionType>;
+  readonly createdAt: Scalars['DateTime'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export type FacultyMajorsArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
+};
+
+export type FacultyFilter = {
+  readonly every: Maybe<FacultyWhereInput>;
+  readonly some: Maybe<FacultyWhereInput>;
+  readonly none: Maybe<FacultyWhereInput>;
+};
+
+export type FacultyPermission = {
+  readonly __typename?: 'FacultyPermission';
+  readonly id: Scalars['ID'];
+  readonly type: FacultyPermissionType;
+  readonly object: Faculty;
+  readonly createdAt: Scalars['DateTime'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export type FacultyPermissionFilter = {
+  readonly every: Maybe<FacultyPermissionWhereInput>;
+  readonly some: Maybe<FacultyPermissionWhereInput>;
+  readonly none: Maybe<FacultyPermissionWhereInput>;
+};
+
+export enum FacultyPermissionType {
+  UpdateFaculty = 'UPDATE_FACULTY',
+  ReadFaculty = 'READ_FACULTY',
+  DeleteFaculty = 'DELETE_FACULTY',
+}
+
+export type FacultyPermissionWhereInput = {
+  readonly id: Maybe<StringFilter>;
+  readonly type: Maybe<FacultyPermissionType>;
+  readonly users: Maybe<UserFilter>;
+  readonly createdAt: Maybe<DateTimeFilter>;
+  readonly updatedAt: Maybe<DateTimeFilter>;
+  readonly deletedAt: Maybe<NullableDateTimeFilter>;
+  readonly AND: Maybe<ReadonlyArray<FacultyPermissionWhereInput>>;
+  readonly OR: Maybe<ReadonlyArray<FacultyPermissionWhereInput>>;
+  readonly NOT: Maybe<ReadonlyArray<FacultyPermissionWhereInput>>;
+  readonly object: Maybe<FacultyWhereInput>;
+};
+
+export type FacultyWhereInput = {
+  readonly id: Maybe<StringFilter>;
+  readonly name: Maybe<StringFilter>;
+  readonly majors: Maybe<MajorFilter>;
+  readonly permissions: Maybe<FacultyPermissionFilter>;
+  readonly createdAt: Maybe<DateTimeFilter>;
+  readonly updatedAt: Maybe<DateTimeFilter>;
+  readonly deletedAt: Maybe<NullableDateTimeFilter>;
+  readonly AND: Maybe<ReadonlyArray<FacultyWhereInput>>;
+  readonly OR: Maybe<ReadonlyArray<FacultyWhereInput>>;
+  readonly NOT: Maybe<ReadonlyArray<FacultyWhereInput>>;
+  readonly institute: Maybe<InstituteWhereInput>;
+};
+
 /** Input of forgot password */
 export type ForgotPasswordInput = {
   readonly email: Maybe<Scalars['String']>;
@@ -317,6 +409,7 @@ export type InstitutePermissionWhereInput = {
 export type InstituteWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly name: Maybe<StringFilter>;
+  readonly faculties: Maybe<FacultyFilter>;
   readonly departments: Maybe<DepartmentFilter>;
   readonly users: Maybe<UserFilter>;
   readonly permissions: Maybe<InstitutePermissionFilter>;
@@ -366,6 +459,81 @@ export type LanguageWhereUniqueInput = {
   readonly code: Maybe<Scalars['String']>;
 };
 
+export type Major = {
+  readonly __typename?: 'Major';
+  readonly id: Scalars['ID'];
+  readonly name: Scalars['String'];
+  readonly faculty: Faculty;
+  readonly subjects: ReadonlyArray<Subject>;
+  readonly permissions: ReadonlyArray<MajorPermissionType>;
+  readonly createdAt: Scalars['DateTime'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export type MajorSubjectsArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
+};
+
+export type MajorFilter = {
+  readonly every: Maybe<MajorWhereInput>;
+  readonly some: Maybe<MajorWhereInput>;
+  readonly none: Maybe<MajorWhereInput>;
+};
+
+export type MajorPermission = {
+  readonly __typename?: 'MajorPermission';
+  readonly id: Scalars['ID'];
+  readonly type: MajorPermissionType;
+  readonly object: Major;
+  readonly createdAt: Scalars['DateTime'];
+  readonly updatedAt: Scalars['DateTime'];
+  readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export type MajorPermissionFilter = {
+  readonly every: Maybe<MajorPermissionWhereInput>;
+  readonly some: Maybe<MajorPermissionWhereInput>;
+  readonly none: Maybe<MajorPermissionWhereInput>;
+};
+
+export enum MajorPermissionType {
+  UpdateMajor = 'UPDATE_MAJOR',
+  ReadMajor = 'READ_MAJOR',
+  DeleteMajor = 'DELETE_MAJOR',
+}
+
+export type MajorPermissionWhereInput = {
+  readonly id: Maybe<StringFilter>;
+  readonly type: Maybe<MajorPermissionType>;
+  readonly users: Maybe<UserFilter>;
+  readonly createdAt: Maybe<DateTimeFilter>;
+  readonly updatedAt: Maybe<DateTimeFilter>;
+  readonly deletedAt: Maybe<NullableDateTimeFilter>;
+  readonly AND: Maybe<ReadonlyArray<MajorPermissionWhereInput>>;
+  readonly OR: Maybe<ReadonlyArray<MajorPermissionWhereInput>>;
+  readonly NOT: Maybe<ReadonlyArray<MajorPermissionWhereInput>>;
+  readonly object: Maybe<MajorWhereInput>;
+};
+
+export type MajorWhereInput = {
+  readonly id: Maybe<StringFilter>;
+  readonly name: Maybe<StringFilter>;
+  readonly subjects: Maybe<SubjectFilter>;
+  readonly permissions: Maybe<MajorPermissionFilter>;
+  readonly createdAt: Maybe<DateTimeFilter>;
+  readonly updatedAt: Maybe<DateTimeFilter>;
+  readonly deletedAt: Maybe<NullableDateTimeFilter>;
+  readonly AND: Maybe<ReadonlyArray<MajorWhereInput>>;
+  readonly OR: Maybe<ReadonlyArray<MajorWhereInput>>;
+  readonly NOT: Maybe<ReadonlyArray<MajorWhereInput>>;
+  readonly faculty: Maybe<FacultyWhereInput>;
+};
+
 export type Mutation = {
   readonly __typename?: 'Mutation';
   readonly uploadImage: Scalars['String'];
@@ -380,9 +548,15 @@ export type Mutation = {
   readonly resetPassword: AuthenticationPayload;
   readonly updateDepartment: Department;
   readonly deleteDepartment: Department;
+  readonly createFaculty: Faculty;
+  readonly updateFaculty: Faculty;
+  readonly deleteFaculty: Faculty;
   readonly createInstitute: Institute;
   readonly updateInstitute: Institute;
   readonly deleteInstitute: Institute;
+  readonly createMajor: Major;
+  readonly updateMajor: Major;
+  readonly deleteMajor: Major;
   readonly createNote: Note;
   readonly updateNote: Note;
   readonly deleteNote: Note;
@@ -466,6 +640,19 @@ export type MutationDeleteDepartmentArgs = {
   where: WhereUniqueInput;
 };
 
+export type MutationCreateFacultyArgs = {
+  data: CreateFacultyInput;
+};
+
+export type MutationUpdateFacultyArgs = {
+  where: WhereUniqueInput;
+  data: UpdateFacultyInput;
+};
+
+export type MutationDeleteFacultyArgs = {
+  where: WhereUniqueInput;
+};
+
 export type MutationCreateInstituteArgs = {
   data: CreateInstituteInput;
 };
@@ -476,6 +663,19 @@ export type MutationUpdateInstituteArgs = {
 };
 
 export type MutationDeleteInstituteArgs = {
+  where: WhereUniqueInput;
+};
+
+export type MutationCreateMajorArgs = {
+  data: CreateMajorInput;
+};
+
+export type MutationUpdateMajorArgs = {
+  where: WhereUniqueInput;
+  data: UpdateMajorInput;
+};
+
+export type MutationDeleteMajorArgs = {
   where: WhereUniqueInput;
 };
 
@@ -1202,9 +1402,11 @@ export type Query = {
   readonly subjects: ReadonlyArray<Subject>;
   readonly institutes: ReadonlyArray<Institute>;
   readonly department: Maybe<Department>;
+  readonly faculties: ReadonlyArray<Faculty>;
   readonly institute: Maybe<Institute>;
   readonly language: Maybe<Language>;
   readonly languages: ReadonlyArray<Language>;
+  readonly majors: ReadonlyArray<Major>;
   readonly note: Maybe<Note>;
   readonly noteComment: Maybe<NoteComment>;
   readonly noteCommentThread: Maybe<NoteCommentThread>;
@@ -1249,6 +1451,14 @@ export type QueryDepartmentArgs = {
   where: DepartmentWhereUniqueInput;
 };
 
+export type QueryFacultiesArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
+};
+
 export type QueryInstituteArgs = {
   where: InstituteWhereUniqueInput;
 };
@@ -1258,6 +1468,14 @@ export type QueryLanguageArgs = {
 };
 
 export type QueryLanguagesArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
+};
+
+export type QueryMajorsArgs = {
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['ID']>;
   before: Maybe<Scalars['ID']>;
@@ -1561,6 +1779,7 @@ export type SubjectWhereInput = {
   readonly informations: Maybe<SubjectInformationFilter>;
   readonly notes: Maybe<NoteFilter>;
   readonly posts: Maybe<PostFilter>;
+  readonly majors: Maybe<MajorFilter>;
   readonly permissions: Maybe<SubjectPermissionFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
@@ -1703,9 +1922,25 @@ export type UpdateDepartmentInput = {
   readonly leader: Maybe<ConnectRelation>;
 };
 
+/** Input of update faculty */
+export type UpdateFacultyInput = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly institute: Maybe<ConnectRelation>;
+  readonly major: Maybe<ConnectOrDisconnectRelation>;
+};
+
 /** Input of update institute */
 export type UpdateInstituteInput = {
   readonly name: Maybe<Scalars['String']>;
+  readonly departments: Maybe<ConnectOrDisconnectRelation>;
+  readonly faculties: Maybe<ConnectOrDisconnectRelation>;
+};
+
+/** Input of update major */
+export type UpdateMajorInput = {
+  readonly name: Maybe<Scalars['String']>;
+  readonly faculty: Maybe<ConnectRelation>;
+  readonly subjects: Maybe<ConnectOrDisconnectRelation>;
 };
 
 /** Input of update note comment */
@@ -1758,6 +1993,8 @@ export type UpdateSubjectInput = {
   readonly code: Maybe<Scalars['String']>;
   readonly name: Maybe<Scalars['String']>;
   readonly description: Maybe<Scalars['String']>;
+  readonly students: Maybe<ConnectOrDisconnectRelation>;
+  readonly teachers: Maybe<ConnectOrDisconnectRelation>;
 };
 
 /** Input of update suggestion */
@@ -2009,7 +2246,9 @@ export type UserWhereInput = {
   readonly passwordToken: Maybe<PasswordTokenWhereInput>;
   readonly preferredLanguage: Maybe<LanguageWhereInput>;
   readonly departmentPermission: Maybe<DepartmentPermissionWhereInput>;
+  readonly facultyPermission: Maybe<FacultyPermissionWhereInput>;
   readonly institutePermission: Maybe<InstitutePermissionWhereInput>;
+  readonly majorPermission: Maybe<MajorPermissionWhereInput>;
   readonly noteCommentPermission: Maybe<NoteCommentPermissionWhereInput>;
   readonly noteCommentThreadPermission: Maybe<NoteCommentThreadPermissionWhereInput>;
   readonly noteHighlightPermission: Maybe<NoteHighlightPermissionWhereInput>;
