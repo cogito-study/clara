@@ -109,7 +109,8 @@ const TabLink: FC<{ to: string }> = ({ to, children }) => {
     <Button
       p={0}
       pt={2}
-      h="43px"
+      h="41px"
+      fontSize="sm"
       w={['100%', '100%', '100%', 128]}
       variant="ghost"
       variantColor="teal"

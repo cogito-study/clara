@@ -50,18 +50,20 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
       borderWidth={1}
       borderColor="grey.100"
       transition="transform 0.2s"
-      _hover={{ transition: 'transform 0.2s', transform: 'scale(1.02)', borderColor: 'blue.600' }}
+      _hover={{ transition: 'transform 0.25s', transform: 'scale(1.02)', borderColor: 'blue.100' }}
       _focus={{ borderColor: 'teal.500' }}
       {...rest}
     >
       <Flex
         align="center"
-        bg="blue.700"
         justify="space-between"
-        px={3}
+        pl={3}
+        pr={0}
         py={shouldShowMoreButton ? 0 : 2}
+        borderBottom="1px"
+        borderColor="blue.100"
       >
-        <Text fontSize="lg" fontWeight={500} lineHeight="none" color="grey.100" right="1">
+        <Text fontSize="md" fontWeight={800} lineHeight="none" color="blue.200" right="1">
           {number}
         </Text>
         {shouldShowMoreButton && (
@@ -71,8 +73,9 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
                 aria-label=""
                 bg="transparent"
                 size="lg"
+                height={8}
                 variant="ghost"
-                color="teal.400"
+                color="blue.800"
                 variantColor="blue.700"
                 borderRadius="none"
                 icon={FiMoreHorizontal}
@@ -95,10 +98,10 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
       </Flex>
       <Flex direction="column" p={3}>
         <Link to={collabRoute({ path: 'notes', noteID: id })}>
-          <Flex mt={1} height="40px" align="center">
+          <Flex mt={1} height="38px" align="center">
             <Heading
               fontSize="md"
-              fontWeight={600}
+              fontWeight={700}
               maxWidth="80%"
               color="blue.700"
               lineHeight="normal"
@@ -106,14 +109,14 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
               {title}
             </Heading>
           </Flex>
-          <Text mt={2} fontSize="xs" color="grey.600" lineHeight="normal">
+          <Text mt={2} fontSize="xs" color="grey.800" lineHeight="normal">
             {/* TODO: Localize */}
-            {`Updated ${since(updatedAt)}`}
+            {`updated ${since(updatedAt)}`}
           </Text>
           <Text
-            mt={3}
+            mt={2}
             fontSize="sm"
-            color="grey.600"
+            color="grey.800"
             lineHeight="normal"
             style={{
               display: '-webkit-box',
