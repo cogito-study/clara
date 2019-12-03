@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/core';
 import styled from '@emotion/styled-base';
+import Delta from 'quill-delta';
 import React, { FC } from 'react';
 import { QuillEditor } from '../editor/quill-editor';
 import { SuggestionData } from './suggestion-data';
@@ -18,6 +19,7 @@ const SuggestionCard = styled(Flex)`
   }
   &:hover,
   &:focus-within {
+    z-index: 999;
     transform: translateX(-4rem);
     ~ * {
       transform: translateY(6rem);
@@ -25,11 +27,44 @@ const SuggestionCard = styled(Flex)`
   }
 `;
 
-export const SuggestionsContainer: FC<Props> = ({ suggestions, ...rest }) => {
+const getDeltaY = (delta: Delta, editor: QuillEditor | undefined) => {
+  if (!editor) return 0;
+  if (delta.ops[0] && delta.ops[0]['retain']) {
+    const posInDocument = delta.ops[0]['retain'];
+    const { top } = editor.quill.getBounds(posInDocument);
+    return top;
+  }
+  return 0;
+};
+
+export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...rest }) => {
+  suggestions.sort((a, b) => {
+    const aPos = getDeltaY(a.delta, quillEditor);
+    const bPos = getDeltaY(b.delta, quillEditor);
+    return aPos - bPos;
+  });
+  const offsetTop = 30;
+  const offsetBetween = 130;
+  const positions = suggestions.map((s) => {
+    return getDeltaY(s.delta, quillEditor) + offsetTop;
+  });
+  for (let i = 0; i < positions.length; i++) {
+    const p = positions[i];
+    if (i === 0) {
+      positions[i] = p;
+    } else if (p === positions[i - 1]) {
+      positions[i] = p + offsetBetween;
+    } else if (p < positions[i - 1]) {
+      positions[i] = positions[i - 1] + offsetBetween;
+    } else {
+      positions[i] = p;
+    }
+  }
+  console.log(positions);
   return (
     <SuggestionGrid my={8} direction="column" bg="white">
-      {suggestions.map((suggestion) => (
-        <SuggestionCard key={suggestion.id}>
+      {suggestions.map((suggestion, idx) => (
+        <SuggestionCard key={suggestion.id} position="absolute" top={positions[idx]}>
           <SuggestionItem suggestion={suggestion} {...rest} />
         </SuggestionCard>
       ))}

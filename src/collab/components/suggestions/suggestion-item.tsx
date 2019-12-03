@@ -19,7 +19,10 @@ export type SuggestionAcceptCancelEventProps = {
 export type SuggestionEventProps = SuggestionAcceptCancelEventProps &
   SuggestionFocusHoverEventProps;
 
-type Props = { suggestion: SuggestionData; quillEditor?: QuillEditor } & SuggestionEventProps;
+type Props = {
+  suggestion: SuggestionData;
+  quillEditor?: QuillEditor;
+} & SuggestionEventProps;
 
 const prettifySuggestion = (delta: Delta, original: Delta) => {
   const invertedDelta = delta.invert(original);
@@ -74,6 +77,18 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
   );
 };
 
+const getDeltaLength = (delta: Delta) => {
+  let length = 0;
+  delta.ops.forEach((op) => {
+    if (op['insert'] && typeof op['insert'] === 'string') {
+      length += op['insert'].length;
+    } else if (op['delete']) {
+      length += op['delete'];
+    }
+  });
+  return length;
+};
+
 export const SuggestionItem: FC<Props> = ({
   suggestion,
   onSuggestionAccepted,
@@ -112,7 +127,7 @@ export const SuggestionItem: FC<Props> = ({
       <Collapse startingHeight={100} isOpen={showOverflow} my={3} animateOpacity>
         {prettifySuggestion(delta, original || new Delta())}
       </Collapse>
-      {delta.length() > 90 ? (
+      {getDeltaLength(delta) > 90 ? (
         <Button
           size="md"
           variant="ghost"
