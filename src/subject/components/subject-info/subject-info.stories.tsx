@@ -1,5 +1,8 @@
-import React from 'react';
+import { Button } from '@chakra-ui/core';
+import { action } from '@storybook/addon-actions';
+import React, { useState } from 'react';
 import { subjectComponents } from '../../utils/storybook';
+import { EditInfoModal } from './edit-info-modal';
 import { SubjectInfoCard, SubjectInfoCardProps } from './subject-info-card';
 import { SubjectTeacherCard, SubjectTeacherCardProps } from './subject-teacher-card';
 
@@ -23,4 +26,63 @@ export const infoCard = () => <SubjectInfoCard {...infoCardProps} />;
 export const infoCardWithGeneralInfos = () => (
   <SubjectInfoCard {...infoCardProps} code="NEPTUN" department="Vascular surgery department" />
 );
+
+export const infoCardWithMoreMenu = () => (
+  <SubjectInfoCard {...infoCardProps} isEditable isDeletable />
+);
+export const infoCardWithGeneralInfosWithMoreMenu = () => (
+  <SubjectInfoCard
+    {...infoCardProps}
+    code="NEPTUN"
+    department="Vascular surgery department"
+    isEditable
+    isDeletable
+  />
+);
+
 export const teacherCard = () => <SubjectTeacherCard {...teacherCardProps} />;
+
+export const addInfoModal = () => {
+  const ShowAddInfoModal = () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>trigger modal</Button>
+        <EditInfoModal
+          titleLabel="Add info"
+          isOpen={isOpen}
+          isLoading={false}
+          onClose={() => setOpen(false)}
+          onEdit={action('Add info')}
+        />
+      </>
+    );
+  };
+  return <ShowAddInfoModal />;
+};
+
+export const editInfoModal = () => {
+  const ShowEditInfoModal = () => {
+    const [isOpen, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>trigger modal</Button>
+        <EditInfoModal
+          titleLabel="Edit info"
+          info={{
+            id: 'asd',
+            title: 'Some info title',
+            content: 'Some useful information for the subject',
+          }}
+          isOpen={isOpen}
+          isLoading={false}
+          onClose={() => setOpen(false)}
+          onEdit={action('Edit info')}
+        />
+      </>
+    );
+  };
+  return <ShowEditInfoModal />;
+};

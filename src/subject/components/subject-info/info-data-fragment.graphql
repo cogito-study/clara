@@ -1,0 +1,5 @@
+fragment InfoData on SubjectInformation {
+  id
+  title
+  content
+}

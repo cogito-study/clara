@@ -1,7 +1,8 @@
+import { UserInfoFragment } from './user-info-fragment.generated';
+import gql from 'graphql-tag';
+import { UserInfoFragmentDoc } from './user-info-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import { UserInfoFragment, UserInfoFragmentDoc } from './user-info-fragment.generated';
 
 export type MyUserInfoQueryVariables = {};
 
