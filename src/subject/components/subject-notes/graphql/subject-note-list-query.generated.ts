@@ -12,7 +12,7 @@ export type SubjectNoteListQueryVariables = {
 
 export type SubjectNoteListQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
-    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'> & {
+    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id' | 'permissions'> & {
         readonly notes: ReadonlyArray<
           { readonly __typename?: 'Note' } & Pick<Types.Note, 'updatedAt' | 'permissions'> &
             NoteDataFragment
@@ -25,6 +25,7 @@ export const SubjectNoteListDocument = gql`
   query SubjectNoteList($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
       id
+      permissions
       notes {
         ...NoteData
         updatedAt

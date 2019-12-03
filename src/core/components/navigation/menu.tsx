@@ -123,13 +123,7 @@ export const MainMenuBase = ({
           alignContent="row"
           zIndex={2}
         >
-          <Icon
-            mx={2}
-            // @ts-ignore
-            name="cogito"
-            size="32px"
-            color="white"
-          />
+          <Icon mx={2} name="cogito" size="32px" color="white" />
           <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
             <Flex mt={16} direction="row" align="flex-start" w="100%">
               <Icon as={FiFileText} mx={2} size="32px" />

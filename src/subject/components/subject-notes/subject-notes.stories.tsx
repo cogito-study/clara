@@ -1,6 +1,8 @@
 import { Button } from '@chakra-ui/core';
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
+import { EmptyState } from '../../../core/components/empty-state/empty-state';
+import emptyIcon from '../../assets/notelist-empty.svg';
 import { subjectComponents } from '../../utils/storybook';
 import { EditNoteModal } from './edit-note-modal';
 import { SubjectNoteCard, SubjectNoteCardProps } from './subject-note-card';
@@ -69,3 +71,20 @@ export const editNoteModal = () => {
   };
   return <ShowEditNoteModal />;
 };
+
+export const emptyNoteListHasAddPermission = () => (
+  <EmptyState
+    onAdd={action('add')}
+    title="Vascular surgery note list is empty!"
+    icon={emptyIcon}
+    buttonTitle="add new note"
+  />
+);
+
+export const emptyNoteListHasNoAddPermission = () => (
+  <EmptyState
+    title="Vascular surgery note list is empty!"
+    icon={emptyIcon}
+    buttonTitle="add new note"
+  />
+);

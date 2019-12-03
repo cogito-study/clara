@@ -1,9 +1,11 @@
 import { SimpleGrid } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
+import { EmptyState } from '../../../core/components/empty-state/empty-state';
 import { ModalOptions } from '../../../core/components/modal/types';
-import { NotePermissionType } from '../../../core/graphql/types.generated';
+import { NotePermissionType, SubjectPermissionType } from '../../../core/graphql/types.generated';
 import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import EmptyIcon from '../../assets/notelist-empty.svg';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { AddItemCard } from '../elements/add-item-card';
 import { EditNoteModal } from './edit-note-modal';
@@ -86,6 +88,12 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
     }
   };
 
+  const hasCreateNotePermission = data?.subject?.permissions.includes(
+    SubjectPermissionType.CreateNote,
+  );
+
+  const isNoteListEmpty = data?.subject?.notes.length === 0;
+
   return (
     <>
       {deletingNoteState.isOpen && (
@@ -127,6 +135,13 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       >
         {subjectListLoading ? (
           Array.from({ length: 9 }).map((_, index) => <SubjectNotePlaceholder key={index} />)
+        ) : isNoteListEmpty ? (
+          <EmptyState
+            title="Note list is empty!"
+            icon={EmptyIcon}
+            buttonTitle="add new note"
+            onAdd={hasCreateNotePermission ? () => setAddingNoteState({ isOpen: true }) : undefined}
+          />
         ) : (
           <>
             {data?.subject?.notes?.map((note) => {

@@ -1,12 +1,21 @@
 import { Button, Flex, Input } from '@chakra-ui/core';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SubjectFeedDocument } from '../../../subject/components/subject-feed/graphql/subject-feed-query.generated';
 import { SubjectIdentifierProps } from '../../../subject/pages/subject-page';
 import { useCreatePostMutation } from './graphql/create-post-mutation.generated';
 
-export const FeedPostInput = ({ id, subjectCode }: SubjectIdentifierProps) => {
+type Props = { shouldFocus: boolean } & SubjectIdentifierProps;
+
+export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [createPost, { loading }] = useCreatePostMutation();
+
+  useEffect(() => {
+    if (shouldFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [shouldFocus]);
 
   const { values, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: { content: '' },
@@ -23,6 +32,7 @@ export const FeedPostInput = ({ id, subjectCode }: SubjectIdentifierProps) => {
     <form onSubmit={handleSubmit}>
       <Flex direction="row" minW="300px" maxW="800px">
         <Input
+          ref={inputRef}
           id="content"
           type="text"
           fontSize="medium"
