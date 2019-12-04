@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 import { subjectComponents } from '../../utils/storybook';
 import { EditInfoModal } from './edit-info-modal';
 import { SubjectInfoCard, SubjectInfoCardProps } from './subject-info-card';
+import {
+  InfoCardListPlaceholder,
+  SubjectInfoCardPlaceholder,
+} from './subject-info-card.placeholder';
 import { SubjectTeacherCard, SubjectTeacherCardProps } from './subject-teacher-card';
 
 export default {
@@ -86,3 +90,7 @@ export const editInfoModal = () => {
   };
   return <ShowEditInfoModal />;
 };
+
+export const infoCardPlaceholder = () => <SubjectInfoCardPlaceholder />;
+
+export const infoCardListPlaceholder = () => <InfoCardListPlaceholder />;

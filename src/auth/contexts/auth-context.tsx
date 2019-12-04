@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { useApolloClient } from '@apollo/react-hooks';
 import React, { createContext, FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';

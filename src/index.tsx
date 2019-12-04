@@ -5,6 +5,7 @@ import { isProduction } from './core/environment/config';
 import './core/i18n';
 
 // Allow only error log messages in production mode
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};
 if (isProduction) {
   console.log = noop;

@@ -72,7 +72,7 @@ export const ChangeLanguage = () => {
       >
         <Box maxW="480px" size="full">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-            <Heading as="h3" my={3} color="grey.600" fontWeight="semibold">
+            <Heading as="h3" my={3} color="grey.600" fontSize="md" fontWeight="semibold">
               {t('change.preferredLanguage.current', { language: currentLanguage?.name })}
             </Heading>
             <Box h={100}>

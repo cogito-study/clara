@@ -1,4 +1,4 @@
-import { Button, Flex, Icon } from '@chakra-ui/core';
+import { Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
 import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -32,33 +32,27 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeCha
         <Icon mx={12} name="cogito" size="32px" color="blue.800" />
 
         <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
-          <Button
-            leftIcon="chevron-left"
-            onClick={() => {}}
-            bg="transparent"
-            color="blue.800"
-            border="2px"
-            borderRadius="none"
-            borderColor="teal.500"
-          >
-            {subject.name}
-          </Button>
+          <StudyHeaderButton leftIcon="chevron-left">{subject.name}</StudyHeaderButton>
         </Link>
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <Button
-          rightIcon={FiEdit2}
-          onClick={() => handleEditorModeChange('edit')}
-          bg="transparent"
-          color="blue.800"
-          border="2px"
-          borderRadius="none"
-          borderColor="teal.500"
-        >
+        <StudyHeaderButton rightIcon={FiEdit2} onClick={() => handleEditorModeChange('edit')}>
           {/* TODO Localize */}
           edit
-        </Button>
+        </StudyHeaderButton>
       </Flex>
     </Flex>
   );
 };
+
+const StudyHeaderButton = (props: ButtonProps) => (
+  <Button
+    variant="outline"
+    variantColor="teal"
+    color="blue.800"
+    borderWidth={2}
+    borderRadius={0}
+    borderColor="teal.500"
+    {...props}
+  />
+);

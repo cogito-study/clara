@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon } from '@chakra-ui/core';
+import { Box, Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
@@ -35,35 +35,28 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
         </Box>
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <>
-          <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
-            <Button
-              leftIcon="chevron-left"
-              onClick={() => {}}
-              bg="transparent"
-              color="white"
-              border="2px"
-              borderRadius="none"
-              borderColor="teal.500"
-              mr={3}
-            >
-              {subject.name}
-            </Button>
-          </Link>
-          <Button
-            rightIcon="small-close"
-            onClick={() => handleEditorModeChange('study')}
-            bg="transparent"
-            color="white"
-            border="2px"
-            borderRadius="none"
-            borderColor="teal.500"
-          >
-            {/* TODO Localize */}
-            study
-          </Button>
-        </>
+        <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
+          <EditorHeaderButton leftIcon="chevron-left" mr={3}>
+            {subject.name}
+          </EditorHeaderButton>
+        </Link>
+        <EditorHeaderButton rightIcon="small-close" onClick={() => handleEditorModeChange('study')}>
+          {/* TODO Localize */}
+          study
+        </EditorHeaderButton>
       </Flex>
     </Flex>
   );
 };
+
+const EditorHeaderButton = (props: ButtonProps) => (
+  <Button
+    bg="transparent"
+    color="white"
+    borderWidth={2}
+    borderRadius={0}
+    borderColor="teal.500"
+    _hover={{ bg: 'teal.500', color: 'blue.800' }}
+    {...props}
+  />
+);
