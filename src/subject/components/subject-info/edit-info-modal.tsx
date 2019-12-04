@@ -18,7 +18,7 @@ import {
 import { useFormik } from 'formik';
 import React, { useRef } from 'react';
 import * as Yup from 'yup';
-import { InfoDataFragment } from './info-data-fragment.generated';
+import { InfoDataFragment } from './graphql/info-data-fragment.generated';
 
 type EditInfoModalProps = {
   titleLabel: string;
