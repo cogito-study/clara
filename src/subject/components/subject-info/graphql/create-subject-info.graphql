@@ -1,0 +1,7 @@
+mutation CreateSubjectInfo($subjectID: ID!, $title: String!, $content: String!) {
+  createSubjectInformation(
+    data: { title: $title, content: $content, subject: { id: $subjectID } }
+  ) {
+    id
+  }
+}

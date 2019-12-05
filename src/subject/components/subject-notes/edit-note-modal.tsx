@@ -13,15 +13,10 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Scale,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
-import React, { useRef } from 'react';
+import React from 'react';
+import useForm from 'react-hook-form';
 import * as Yup from 'yup';
 import { NoteDataFragment } from './graphql/note-data-fragment.generated';
 
@@ -43,9 +38,8 @@ export const EditNoteModal = ({
   onClose,
   onEdit,
 }: EditNoteModalProps) => {
-  const titleInputRef = useRef(null);
-  const { values, errors, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
-    initialValues: {
+  const { register, errors, handleSubmit } = useForm<NoteDataFragment>({
+    defaultValues: {
       title: note?.title,
       description: note?.description,
       number: note?.number,
@@ -53,29 +47,24 @@ export const EditNoteModal = ({
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
     }),
-    onSubmit: async (noteData, { resetForm }) => {
-      onEdit({ ...noteData });
-      resetForm();
-    },
+  });
+
+  const onSubmit = handleSubmit((noteData) => {
+    console.log(noteData);
+    onEdit({ ...noteData });
   });
 
   return (
     <Scale in={isOpen}>
       {(styles) => (
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          size={['full', 'full', 'lg']}
-          isCentered
-          initialFocusRef={titleInputRef}
-        >
+        <Modal isOpen={isOpen} onClose={onClose} size={['full', 'full', 'lg']} isCentered>
           <ModalOverlay opacity={styles.opacity} />
           <ModalContent {...styles}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
               <ModalHeader color="blue.800" fontWeight="bold">
                 {titleLabel}
               </ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton borderRadius={0} />
               <ModalBody>
                 <Flex
                   direction={['column', 'column', 'row']}
@@ -83,7 +72,7 @@ export const EditNoteModal = ({
                   h={[200, 200, 100]}
                 >
                   <FormControl
-                    isInvalid={errors.title && touched.title ? true : false}
+                    isInvalid={errors.title && true}
                     flex={['initial', 'initial', 5]}
                     h={100}
                   >
@@ -96,46 +85,30 @@ export const EditNoteModal = ({
                       Title
                     </FormLabel>
                     <Input
-                      id="title"
+                      name="title"
                       type="text"
-                      ref={titleInputRef}
+                      ref={register}
                       placeholder="Awesome title"
-                      value={values.title}
-                      onChange={handleChange}
                       borderRadius={0}
                     />
-                    <FormErrorMessage fontSize={14}>{errors.title}</FormErrorMessage>
+                    <FormErrorMessage fontSize={14}>{errors.title?.message}</FormErrorMessage>
                   </FormControl>
-                  <FormControl
-                    isInvalid={errors.number && touched.number ? true : false}
-                    flex={['initial', 'initial', 2]}
-                    ml={[0, 0, 2]}
-                    h={100}
-                  >
+
+                  <FormControl flex={['initial', 'initial', 2]} ml={[0, 0, 2]} h={100}>
                     <FormLabel
-                      htmlFor="noteNumber"
+                      htmlFor="number"
                       color="blue.800"
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
                       Number
                     </FormLabel>
-                    <NumberInput
-                      min={0}
-                      max={200}
-                      defaultValue={note && note.number}
-                      onChange={(value) => setFieldValue('number', value)}
-                    >
-                      <NumberInputField id="noteNumber" borderRadius={0} />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
+                    <Input name="number" type="number" ref={register} borderRadius={0} />
                   </FormControl>
                 </Flex>
+
                 <Box h={100}>
-                  <FormControl isInvalid={errors.title && touched.title ? true : false}>
+                  <FormControl>
                     <FormLabel
                       htmlFor="description"
                       color="blue.800"
@@ -145,11 +118,10 @@ export const EditNoteModal = ({
                       Keywords
                     </FormLabel>
                     <Input
-                      id="description"
+                      name="description"
+                      ref={register}
                       type="text"
                       placeholder="keyword1, keyword2, keyword3"
-                      value={values.description}
-                      onChange={handleChange}
                       borderRadius={0}
                     />
                   </FormControl>
@@ -158,11 +130,11 @@ export const EditNoteModal = ({
 
               <ModalFooter>
                 <Button
+                  type="submit"
+                  variant="solid"
                   isLoading={isLoading}
                   variantColor="teal"
                   borderRadius={0}
-                  type="submit"
-                  variant="solid"
                   color="blue.800"
                 >
                   save

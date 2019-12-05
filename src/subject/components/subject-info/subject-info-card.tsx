@@ -9,6 +9,8 @@ export type SubjectInfoCardProps = {
   department?: string;
   isEditable?: boolean;
   isDeletable?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
 export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
@@ -18,6 +20,7 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
   department,
   isEditable,
   isDeletable,
+  ...rest
 }) => (
   <Box>
     <Heading
@@ -54,7 +57,7 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
         <MoreMenu
           isEditable={isEditable}
           isDeletable={code && department ? false : isDeletable}
-          // TODO: add onEdit and onDelete handlers
+          {...rest}
         />
       ) : null}
       <Text fontSize="sm" color="grey.900" lineHeight="tall">

@@ -15,18 +15,18 @@ import {
   Scale,
   Textarea,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
-import React, { useRef } from 'react';
+import React from 'react';
+import useForm from 'react-hook-form';
 import * as Yup from 'yup';
-import { InfoDataFragment } from './graphql/info-data-fragment.generated';
+import { SubjectInfoDataFragment } from './graphql/subject-info-data-fragment.generated';
 
 type EditInfoModalProps = {
   titleLabel: string;
-  info?: InfoDataFragment;
+  info?: SubjectInfoDataFragment;
   isLoading: boolean;
   isOpen: boolean;
   onClose?: () => void;
-  onEdit: (content: Partial<InfoDataFragment>) => void;
+  onEdit: (content: Partial<SubjectInfoDataFragment>) => void;
 };
 
 export const EditInfoModal = ({
@@ -37,42 +37,35 @@ export const EditInfoModal = ({
   onClose,
   onEdit,
 }: EditInfoModalProps) => {
-  const titleInputRef = useRef(null);
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
-    initialValues: {
-      title: info && info.title,
-      content: info && info.content,
+  const { register, errors, handleSubmit } = useForm<Partial<SubjectInfoDataFragment>>({
+    defaultValues: {
+      title: info?.title,
+      content: info?.content,
     },
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
     }),
-    onSubmit: async (infoData, { resetForm }) => {
-      onEdit({ ...infoData });
-      resetForm();
-    },
+  });
+
+  const onSubmit = handleSubmit((infoData) => {
+    onEdit({ ...infoData });
   });
 
   return (
     <Scale in={isOpen}>
       {(styles) => (
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          size={['full', 'full', 'lg']}
-          isCentered
-          initialFocusRef={titleInputRef}
-        >
+        <Modal isOpen={isOpen} onClose={onClose} size={['full', 'full', 'lg']} isCentered>
           <ModalOverlay opacity={styles.opacity} />
           <ModalContent {...styles}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
               <ModalHeader color="blue.800" fontWeight="bold">
                 {titleLabel}
               </ModalHeader>
-              <ModalCloseButton />
+              <ModalCloseButton borderRadius={0} />
               <ModalBody>
                 <Box h={100}>
                   <FormControl
-                    isInvalid={errors.title && touched.title ? true : false}
+                    isInvalid={errors.title && true}
                     flex={['initial', 'initial', 5]}
                     h={100}
                   >
@@ -85,21 +78,19 @@ export const EditInfoModal = ({
                       Title
                     </FormLabel>
                     <Input
-                      id="title"
+                      name="title"
                       type="text"
-                      ref={titleInputRef}
+                      ref={register}
                       placeholder="Awesome title"
-                      value={values.title}
-                      onChange={handleChange}
                       borderRadius={0}
                     />
-                    <FormErrorMessage fontSize={14}>{errors.title}</FormErrorMessage>
+                    <FormErrorMessage fontSize={14}>{errors.title?.message}</FormErrorMessage>
                   </FormControl>
                 </Box>
                 <Box h={120}>
-                  <FormControl isInvalid={errors.title && touched.title ? true : false}>
+                  <FormControl isInvalid={errors.content && true}>
                     <FormLabel
-                      htmlFor="description"
+                      htmlFor="content"
                       color="blue.800"
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
@@ -107,10 +98,9 @@ export const EditInfoModal = ({
                       Description
                     </FormLabel>
                     <Textarea
-                      id="content"
+                      name="content"
                       placeholder="Add a longer description for the info item"
-                      value={values.content}
-                      onChange={handleChange}
+                      ref={register}
                       borderRadius={0}
                     />
                   </FormControl>
