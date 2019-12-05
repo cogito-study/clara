@@ -1,5 +1,6 @@
 query NoteContent($noteID: ID) {
   note(where: { id: $noteID }) {
+    title
     id
     content
     subject {

@@ -24,7 +24,10 @@ export const CollabPage = () => {
   const [editorMode, setEditorMode] = useState<EditorMode>('study');
   const [hasMySuggestion, setHasMySuggestion] = useState(false);
 
-  const { data: noteContentData } = useNoteContentQuery({ variables: { noteID } });
+  const { data: noteContentData } = useNoteContentQuery({
+    variables: { noteID },
+    fetchPolicy: 'cache-and-network',
+  });
 
   useEffect(() => {
     if (noteContentData?.note && editor) {
@@ -61,8 +64,8 @@ export const CollabPage = () => {
             subject={noteContentData?.note?.subject ?? { name: '', code: '' }}
             handleEditorModeChange={setEditorMode}
           />
-          <Flex mt={12} justifyContent="center">
-            <Study editor={editor} />
+          <Flex direction="column" mt={[4, 4, 4, 12]} align="center">
+            <Study editor={editor} noteContentData={noteContentData} />
           </Flex>
         </>
       ) : (
@@ -71,17 +74,16 @@ export const CollabPage = () => {
             subject={noteContentData?.note?.subject ?? { name: '', code: '' }}
             handleEditorModeChange={setEditorMode}
           />
-          <Flex mt={[4, 4, 4, 12]} justify="center">
-            <Flex direction="row">
-              <Editor
-                quillEditor={quillEditor}
-                hasMySuggestion={hasMySuggestion}
-                original={originalDocument}
-              />
-              <Box display={['none', 'none', 'none', 'block']}>
-                <Suggestion quillEditor={quillEditor} />
-              </Box>
-            </Flex>
+          <Flex direction="row" mt={[4, 4, 4, 12]} justify="center">
+            <Editor
+              title={noteContentData?.note?.title ?? 'Title of the note'}
+              quillEditor={quillEditor}
+              hasMySuggestion={hasMySuggestion}
+              original={originalDocument}
+            />
+            <Box display={['none', 'none', 'none', 'block']}>
+              <Suggestion quillEditor={quillEditor} />
+            </Box>
           </Flex>
         </>
       )}

@@ -10,7 +10,7 @@ export type NoteContentQueryVariables = {
 
 export type NoteContentQuery = { readonly __typename?: 'Query' } & {
   readonly note: Types.Maybe<
-    { readonly __typename?: 'Note' } & Pick<Types.Note, 'id' | 'content'> & {
+    { readonly __typename?: 'Note' } & Pick<Types.Note, 'title' | 'id' | 'content'> & {
         readonly subject: { readonly __typename?: 'Subject' } & Pick<
           Types.Subject,
           'code' | 'name'
@@ -22,6 +22,7 @@ export type NoteContentQuery = { readonly __typename?: 'Query' } & {
 export const NoteContentDocument = gql`
   query NoteContent($noteID: ID) {
     note(where: { id: $noteID }) {
+      title
       id
       content
       subject {
