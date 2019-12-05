@@ -15,16 +15,26 @@ export const Study: FC<{
 
   return (
     <Flex direction="column" align="center" mt={16}>
-      <Heading color="grey.900" w="100%" px={6} textAlign="start" fontSize={['lg', 'lg', 'xl']}>
+      <Heading
+        color="grey.900"
+        w="100%"
+        px={[2, 2, 10]}
+        mb={2}
+        textAlign="start"
+        lineHeight="normal"
+        fontSize={['lg', 'lg', 'xl']}
+      >
         {noteContentData?.note?.title ?? ''}
       </Heading>
       <Flex
         borderWidth={1}
         borderColor="grey.200"
-        width={['100%', '100%', '90%', '540px', '800px']}
+        bg="#fff"
+        width={['100%', '100%', '90%', '90%', '800px']}
+        maxW="800px"
         minHeight="80vh"
-        m={[2, 6]}
-        px={[2, 6]}
+        m={[0, 0, 6]}
+        px={[1, 1, 6]}
         py={10}
         borderRadius="none"
         flexGrow={1}

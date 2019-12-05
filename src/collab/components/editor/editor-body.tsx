@@ -7,19 +7,15 @@ export const EditorBody: FC = () => {
       borderWidth={1}
       borderColor="grey.200"
       bg="#fff"
-      width={['100%', '100%', '90%', '540px', '800px']}
+      width={['100%', '100%', '90%', '90%', '800px']}
+      maxW="800px"
       minHeight="80vh"
-      m={[2, 6]}
-      px={[2, 6]}
-      py={10}
+      m={[0, 0, 6]}
+      px={[1, 1, 6]}
+      py={[3, 3, 10]}
       borderRadius="none"
     >
-      <Flex
-        display="flex"
-        flexGrow={1}
-        className="collab-quill-editor"
-        style={{ border: 'none' }}
-      />
+      <Flex display="flex" w="100%" className="collab-quill-editor" style={{ border: 'none' }} />
     </Flex>
   );
 };
