@@ -1,0 +1,5 @@
+mutation DeleteSubjectInfo($subjectInfoID: ID!) {
+  deleteSubjectInformation(where: { id: $subjectInfoID }) {
+    id
+  }
+}

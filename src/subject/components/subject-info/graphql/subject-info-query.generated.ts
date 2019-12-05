@@ -1,6 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
+import { SubjectInfoDataFragment } from './subject-info-data-fragment.generated';
 import gql from 'graphql-tag';
+import { SubjectInfoDataFragmentDoc } from './subject-info-data-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -10,7 +12,10 @@ export type SubjectInfoQueryVariables = {
 
 export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
-    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id' | 'code' | 'description'> & {
+    { readonly __typename?: 'Subject' } & Pick<
+      Types.Subject,
+      'id' | 'code' | 'description' | 'permissions'
+    > & {
         readonly department: { readonly __typename?: 'Department' } & Pick<
           Types.Department,
           'id' | 'name'
@@ -24,8 +29,9 @@ export type SubjectInfoQuery = { readonly __typename?: 'Query' } & {
         readonly informations: ReadonlyArray<
           { readonly __typename?: 'SubjectInformation' } & Pick<
             Types.SubjectInformation,
-            'title' | 'subtitle' | 'content'
-          >
+            'permissions'
+          > &
+            SubjectInfoDataFragment
         >;
       }
   >;
@@ -37,6 +43,7 @@ export const SubjectInfoDocument = gql`
       id
       code
       description
+      permissions
       department {
         id
         name
@@ -47,12 +54,12 @@ export const SubjectInfoDocument = gql`
         profilePictureURL
       }
       informations {
-        title
-        subtitle
-        content
+        ...SubjectInfoData
+        permissions
       }
     }
   }
+  ${SubjectInfoDataFragmentDoc}
 `;
 
 /**

@@ -3,6 +3,7 @@ query SubjectInfo($subjectCode: String) {
     id
     code
     description
+    permissions
     department {
       id
       name
@@ -13,9 +14,8 @@ query SubjectInfo($subjectCode: String) {
       profilePictureURL
     }
     informations {
-      title
-      subtitle
-      content
+      ...SubjectInfoData
+      permissions
     }
   }
 }

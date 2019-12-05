@@ -23,10 +23,7 @@ import { SubjectNotePlaceholder } from './subject-note.placeholder';
 type DeletingNoteState = ModalOptions & { id?: string };
 type EditingNoteState = ModalOptions & { note?: NoteDataFragment };
 
-/**
- * TODO: Permissions
- * TODO: Localize
- */
+// TODO: Localize
 export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => {
   const [deletingNoteState, setDeletingNoteState] = useState<DeletingNoteState>({ isOpen: false });
   const [editingNoteState, setEditingNoteState] = useState<EditingNoteState>({ isOpen: false });
@@ -75,9 +72,9 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       await createNote({
         variables: {
           subjectID: id,
-          title: title || '',
-          description: description || '',
-          number: number || 0,
+          title: title ?? '',
+          description: description ?? '',
+          number: number ?? 0,
         },
         refetchQueries: [{ query: SubjectNoteListDocument, variables: { subjectCode } }],
       });
@@ -158,10 +155,12 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
                 />
               );
             })}
-            <AddItemCard
-              title="add item card"
-              onClick={() => setAddingNoteState({ isOpen: true })}
-            />
+            {hasCreateNotePermission && (
+              <AddItemCard
+                title="add item card"
+                onClick={() => setAddingNoteState({ isOpen: true })}
+              />
+            )}
           </>
         )}
       </SimpleGrid>
