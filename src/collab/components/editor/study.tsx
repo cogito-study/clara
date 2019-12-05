@@ -1,36 +1,35 @@
-import { Flex } from '@chakra-ui/core';
+import { Flex, Heading } from '@chakra-ui/core';
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import React, { FC, useEffect } from 'react';
-import { useParams } from 'react-router';
-import { CollabRouteParams } from '../../utils/collab-route';
-import { useNoteContentQuery } from './graphql/note-content-query.generated';
+import { NoteContentQuery } from './graphql/note-content-query.generated';
 
-export const Study: FC<{ editor: Quill | undefined }> = ({ editor }) => {
-  const { noteID } = useParams<CollabRouteParams>();
-
-  const { data: noteContentData } = useNoteContentQuery({
-    variables: { noteID },
-    fetchPolicy: 'cache-and-network',
-  });
-
+export const Study: FC<{
+  editor: Quill | undefined;
+  noteContentData: NoteContentQuery | undefined;
+}> = ({ editor, noteContentData }) => {
   useEffect(() => {
     if (noteContentData?.note)
       editor && editor.setContents(new Delta(JSON.parse(noteContentData.note.content)));
   }, [editor, noteContentData]);
 
   return (
-    <Flex
-      borderWidth={1}
-      borderColor="grey.200"
-      width="768px"
-      minHeight="80vh"
-      m={5}
-      px={6}
-      py={10}
-      borderRadius="none"
-    >
-      <Flex display="flex" flexGrow={1} className="study-mode-editor" style={{ border: 'none' }} />
+    <Flex direction="column" align="center" mt={16}>
+      <Heading color="grey.900" w="100%" px={6} textAlign="start" fontSize={['lg', 'lg', 'xl']}>
+        {noteContentData?.note?.title ?? ''}
+      </Heading>
+      <Flex
+        borderWidth={1}
+        borderColor="grey.200"
+        width={['100%', '100%', '90%', '540px', '800px']}
+        minHeight="80vh"
+        m={[2, 6]}
+        px={[2, 6]}
+        py={10}
+        borderRadius="none"
+        flexGrow={1}
+        className="study-mode-editor"
+      />
     </Flex>
   );
 };

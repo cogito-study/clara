@@ -1,4 +1,4 @@
-import { Button, Flex } from '@chakra-ui/core';
+import { Button, Flex, Heading } from '@chakra-ui/core';
 import Delta from 'quill-delta';
 import React, { FC, MutableRefObject, useEffect } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
@@ -10,12 +10,13 @@ import { useCreateSuggestionMutation } from './graphql/suggestion-create-mutatio
 import { QuillEditor } from './quill-editor';
 
 export interface EditorProps {
+  title: string;
   quillEditor?: QuillEditor;
   original: MutableRefObject<Delta>;
   hasMySuggestion: boolean;
 }
 
-export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion }) => {
+export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion, title }) => {
   const { noteID } = useParams<CollabRouteParams>();
 
   const [createSuggestion] = useCreateSuggestionMutation();
@@ -70,7 +71,10 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
         {/* TODO: Localize */}
         suggest
       </Button>
-      <Flex mt={12}>
+      <Flex direction="column" mt={16} align="center">
+        <Heading color="grey.900" w="full" px={6} textAlign="start" fontSize={['lg', 'lg', 'xl']}>
+          {title}
+        </Heading>
         <EditorBody />
       </Flex>
     </Flex>
