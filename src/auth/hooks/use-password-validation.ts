@@ -15,3 +15,13 @@ export const usePasswordValidation = () => {
 
   return { validationSchema };
 };
+
+export const useEmailValidation = () => {
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email('Invalid email format')
+      .required('Email is required'),
+  });
+
+  return { validationSchema };
+};

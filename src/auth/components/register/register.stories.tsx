@@ -7,6 +7,7 @@ import { authComponents } from '../../utils/storybook';
 import { passwordUserInfoMock } from '../password-user-info/graphql/user-info-query.mock';
 import { Register } from './register';
 
+// change it to something valid
 const token = 'asdfasdfad';
 
 export default {

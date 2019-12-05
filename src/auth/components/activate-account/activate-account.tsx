@@ -8,19 +8,13 @@ import {
   FormLabel,
   Heading,
   Input,
-  Select,
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import {
-  useAuth,
-  useEmailValidation,
-  usePasswordValidation,
-  useRouteQueryParams,
-} from '../../hooks';
+import { useAuth, usePasswordValidation, useRouteQueryParams } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
+import { PasswordUserInfo } from '../password-user-info/password-user-info';
 
 /**
  * TODO:
@@ -28,23 +22,15 @@ import { authRoute } from '../../utils/auth-route';
  * - Terms and legal link
  * - Validate token
  */
-export const Register = () => {
+export const ActivateAccount = () => {
   const { activateUser, isLoading } = useAuth();
-  const validationSchema = usePasswordValidation().validationSchema.concat(
-    useEmailValidation().validationSchema,
-  );
-
+  const { validationSchema } = usePasswordValidation();
   const { token } = useRouteQueryParams<{ token: string }>();
-  const { t } = useTranslation(['profile', 'core']);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
       password: '',
       passwordConfirm: '',
-      language: 'english',
       legalAccepted: false,
     },
     validateOnChange: false,
@@ -57,6 +43,7 @@ export const Register = () => {
 
   return (
     <Flex
+      h={530}
       py={8}
       px={[4, 8, 12]}
       bg="#fff"
@@ -65,62 +52,13 @@ export const Register = () => {
       align="center"
       direction="column"
     >
-      <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
+      <Heading as="h2" fontSize="lg" color="blue.800">
         Registration
       </Heading>
 
+      <PasswordUserInfo token={token} />
+
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-        <Box h={100}>
-          <FormControl isInvalid={errors.firstName && touched.firstName ? true : false}>
-            <FormLabel htmlFor="firstName" color="blue.800">
-              Fist Name
-            </FormLabel>
-            <Input
-              id="firstName"
-              type="text"
-              placeholder="John"
-              value={values.firstName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              borderRadius={0}
-            />
-            <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
-          </FormControl>
-        </Box>
-        <Box h={100}>
-          <FormControl isInvalid={errors.lastName && touched.lastName ? true : false}>
-            <FormLabel htmlFor="lastName" color="blue.800">
-              Last Name
-            </FormLabel>
-            <Input
-              id="lastName"
-              type="text"
-              placeholder="Doe"
-              value={values.lastName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              borderRadius={0}
-            />
-            <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
-          </FormControl>
-        </Box>
-        <Box h={100}>
-          <FormControl isInvalid={errors.email && touched.email ? true : false}>
-            <FormLabel htmlFor="email" color="blue.800">
-              Email
-            </FormLabel>
-            <Input
-              id="email"
-              type="text"
-              placeholder="love@learning.com"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              borderRadius={0}
-            />
-            <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
-          </FormControl>
-        </Box>
         <Box h={100}>
           <FormControl isRequired isInvalid={errors.password && touched.password ? true : false}>
             <FormLabel htmlFor="password" color="blue.800">
@@ -157,30 +95,6 @@ export const Register = () => {
               borderRadius={0}
             />
             <FormErrorMessage fontSize={14}>{errors.passwordConfirm}</FormErrorMessage>
-          </FormControl>
-        </Box>
-
-        <Box h={100}>
-          <FormControl isInvalid={errors.language && touched.language ? true : false}>
-            <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-              {t('change.preferredLanguage.label')}
-            </FormLabel>
-            <Select
-              aria-labelledby="language-picker"
-              id="language"
-              // isDisabled={changeLanguageLoading}
-              borderRadius={0}
-              onChange={handleChange}
-            >
-              {[
-                { name: 'english', code: 'en' },
-                { name: 'hungarian', code: 'hu' },
-              ].map(({ code, name }) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </Select>
           </FormControl>
         </Box>
 
