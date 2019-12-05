@@ -53,7 +53,7 @@ export const CollabPage = () => {
     quillEditor.onStateChanged(() => setHasMySuggestion(quillEditor.hasMySuggestion()));
 
   return (
-    <Flex direction="column" bg="white">
+    <Flex direction="column" bg="white" w="100%">
       <Prompt
         when={(quillEditor && quillEditor.hasMySuggestion()) || false}
         message="You have unsaved changes, are you sure you want to leave?"
@@ -74,7 +74,7 @@ export const CollabPage = () => {
             subject={noteContentData?.note?.subject ?? { name: '', code: '' }}
             handleEditorModeChange={setEditorMode}
           />
-          <Flex direction="row" mt={[4, 4, 4, 12]} justify="center">
+          <Flex direction="row" mt={[4, 4, 4, 12]} w="100%" justify="center">
             <Editor
               title={noteContentData?.note?.title ?? 'Title of the note'}
               quillEditor={quillEditor}

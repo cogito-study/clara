@@ -62,7 +62,7 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...r
   }
   console.log(positions);
   return (
-    <SuggestionGrid my={8} direction="column" bg="white">
+    <SuggestionGrid w="300px" my={8} direction="column" bg="white">
       {suggestions.map((suggestion, idx) => (
         <SuggestionCard key={suggestion.id} position="absolute" top={positions[idx]}>
           <SuggestionItem suggestion={suggestion} {...rest} />

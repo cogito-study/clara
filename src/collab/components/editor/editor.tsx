@@ -51,7 +51,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   };
 
   return (
-    <Flex direction="column" backgroundColor="white">
+    <Flex direction="column" backgroundColor="white" w={['100%', '100%', 'initial']}>
       <Button
         m={4}
         display={['none', 'none', 'none', hasMySuggestion ? 'inline-flex' : 'none']}
@@ -72,7 +72,15 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
         suggest
       </Button>
       <Flex direction="column" mt={16} align="center">
-        <Heading color="grey.900" w="full" px={6} textAlign="start" fontSize={['lg', 'lg', 'xl']}>
+        <Heading
+          color="grey.900"
+          w="100%"
+          px={[2, 2, 10]}
+          mb={2}
+          textAlign="start"
+          lineHeight="normal"
+          fontSize={['lg', 'lg', 'xl']}
+        >
           {title}
         </Heading>
         <EditorBody />
