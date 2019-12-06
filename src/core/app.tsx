@@ -1,12 +1,13 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from '@chakra-ui/core';
 import { captureException, init as initSentry } from '@sentry/browser';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { AuthProvider } from '../auth/contexts/auth-context';
+import { FullCogitoLoader } from './components/loader/cogito-loader';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
 import { Router } from './router/router';
@@ -32,18 +33,20 @@ export const App = () => {
       {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <ApolloProvider client={client}>
-          <ErrorBoundary onError={captureException}>
-            <BrowserRouter>
-              <AuthProvider>
-                <Route path="/">
-                  <Router />
-                </Route>
-              </AuthProvider>
-            </BrowserRouter>
-          </ErrorBoundary>
-        </ApolloProvider>
+        <Suspense fallback={<FullCogitoLoader />}>
+          <GlobalStyles />
+          <ApolloProvider client={client}>
+            <ErrorBoundary onError={captureException}>
+              <BrowserRouter>
+                <AuthProvider>
+                  <Route path="/">
+                    <Router />
+                  </Route>
+                </AuthProvider>
+              </BrowserRouter>
+            </ErrorBoundary>
+          </ApolloProvider>
+        </Suspense>
       </ThemeProvider>
     </>
   );
