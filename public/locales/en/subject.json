@@ -29,7 +29,7 @@
   },
   "notes": {
     "title": "notes",
-
+    "updatedAt": "updated {{ since }}",
     "of": "Notes of {{ subject }} subject",
     "add": "add new note",
     "empty": "Note list is empty!",

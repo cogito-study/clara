@@ -1,6 +1,7 @@
 import { Flex, Heading, IconButton, PseudoBox, Text } from '@chakra-ui/core';
 import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
@@ -31,6 +32,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
   onNoteDelete,
   ...rest
 }) => {
+  const { t } = useTranslation('subject');
   const { since } = useDateFormatter();
   const shouldShowMoreButton = isEditable || isDeletable;
 
@@ -92,8 +94,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
             </Heading>
           </Flex>
           <Text mt={2} fontSize="xs" color="grey.800" lineHeight="normal">
-            {/* TODO: Localize */}
-            {`updated ${since(updatedAt)}`}
+            {t('notes.updatedAt', { since: since(updatedAt) })}
           </Text>
           <Text
             mt={2}

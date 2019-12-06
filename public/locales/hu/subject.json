@@ -29,7 +29,7 @@
   },
   "notes": {
     "title": "jegyzetek",
-
+    "updatedAt": "frissítve {{ since }}",
     "of": "A {{ subject }} tárgy jegyzetei",
     "add": "új jegyzet hozzáadása",
     "empty": "A jegyzetlista üres!",
