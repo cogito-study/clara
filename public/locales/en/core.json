@@ -18,7 +18,7 @@
     "password": {
       "label": "Password",
       "validation": {
-        "minCharacter": "The password should be at least 8 character!",
+        "minCharacter": "The password should be at least 8 character long!",
         "required": "The password is required"
       },
       "confirm": {

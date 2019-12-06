@@ -94,7 +94,7 @@ export const ChangeEmail = () => {
                 <Input
                   id="email"
                   type="text"
-                  placeholder={t('form.email.placeholder')}
+                  placeholder={t('core:form.email.placeholder')}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -126,7 +126,7 @@ export const ChangeEmail = () => {
                 variant="solid"
                 color="blue.800"
               >
-                {t('button.update')}
+                {t('change.email.update')}
               </Button>
             </Flex>
           </form>

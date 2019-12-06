@@ -29,7 +29,7 @@ export const ForgotPassword = () => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email(t('core:form.email.validation.format'))
-        .required(t('coreform.email.validation.required')),
+        .required(t('core:form.email.validation.required')),
     }),
     onSubmit: async ({ email }) => {
       setSubmitted(true);
