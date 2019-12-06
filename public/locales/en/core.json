@@ -52,7 +52,9 @@
   },
   "menu": {
     "newsFeed": "news feed",
-    "subjects": "subjects"
+    "subjects": "subjects",
+    "privacyPolicy": "Privacy policy",
+    "termsOfUse": "Terms of Use"
   },
   "pages": {
     "feed": "Feed",

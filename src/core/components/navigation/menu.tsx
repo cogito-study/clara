@@ -10,12 +10,17 @@ import {
   Heading,
   Icon,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   PseudoBox,
+  Text,
   useDisclosure,
 } from '@chakra-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiBook, FiFileText, FiLogOut, FiMenu } from 'react-icons/fi';
+import { FiBook, FiFileText, FiInfo, FiLogOut, FiMenu, FiPlusCircle } from 'react-icons/fi';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../auth/hooks/use-auth';
 import { isProfilePath, profileRoute } from '../../../profile/utils/profile-route';
@@ -24,6 +29,7 @@ import { isSubjectsPath, subjectRoute } from '../../../subject/utils/subject-rou
 import { useTheme } from '../../hooks/use-theme';
 import { StudiedSubjectFragment } from '../layout/graphql/studied-subject-fragment.generated';
 import { MenuSubjectsPlaceholder, MobileMenuTitlePlaceholder } from './menu.placeholder';
+import { SubjectSelector } from './subject-selector';
 
 export interface MainMenuProps {
   title?: string;
@@ -107,6 +113,7 @@ export const MainMenuBase = ({
   const { user, logout } = useAuth();
   const location = useLocation();
   const { colors } = useTheme();
+  const [isSubjectSelectorOpen, setSubjectSelectorOpen] = useState(false);
 
   const navLinkStyles = {
     style: { color: colors.white },
@@ -127,7 +134,7 @@ export const MainMenuBase = ({
         >
           <Icon mx={2} name="cogito" size="32px" color="white" />
           <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
-            <Flex mt={16} direction="row" align="flex-start" w="100%">
+            <Flex mt={16} direction="row" align="start" w="100%">
               <Icon as={FiFileText} mx={2} size="32px" />
               <Heading
                 as="h4"
@@ -150,15 +157,35 @@ export const MainMenuBase = ({
               color={isSubjectsPath(location) ? 'teal.500' : 'blue.100'}
             />
             <Box px={3} py={2} flex="1">
-              <Heading
-                as="h4"
-                fontSize="md"
-                fontWeight="semibold"
-                color="blue.100"
-                textTransform="lowercase"
-              >
-                {t('menu.subjects')}
-              </Heading>
+              <Flex align="center">
+                <Heading
+                  as="h4"
+                  fontSize="md"
+                  fontWeight="semibold"
+                  color="blue.100"
+                  textTransform="lowercase"
+                >
+                  {t('menu.subjects')}
+                </Heading>
+                <IconButton
+                  aria-label=""
+                  as={FiPlusCircle}
+                  mx={3}
+                  size="xs"
+                  cursor="pointer"
+                  variant="ghost"
+                  bg="transparent"
+                  _hover={{ transform: 'scale(1.1)' }}
+                  _active={{ color: 'teal.700' }}
+                  color="teal.300"
+                  onClick={() => setSubjectSelectorOpen(true)}
+                />
+                <SubjectSelector
+                  isOpen={isSubjectSelectorOpen}
+                  isLoading={false}
+                  onClose={() => setSubjectSelectorOpen(false)}
+                />
+              </Flex>
               {subjectsLoading ? (
                 <MenuSubjectsPlaceholder />
               ) : (
@@ -185,27 +212,58 @@ export const MainMenuBase = ({
             </Box>
           </Flex>
         </Flex>
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" w="48px" align="center">
           <NavLink to={profileRoute({ path: 'profile' })}>
             <Avatar
               size="sm"
-              mx={2}
+              mb={5}
               showBorder={isProfilePath(location)}
-              borderColor="teal.500"
-              name={user && user.fullName}
-              src={user && user.profilePictureURL}
+              name={user?.fullName}
+              src={user?.profilePictureURL}
+              borderWidth={2}
+              borderColor="blue.50"
             />
           </NavLink>
+          <Menu>
+            <MenuButton mb={5}>
+              <IconButton
+                aria-label=""
+                as={FiInfo}
+                size="sm"
+                cursor="pointer"
+                variant="ghost"
+                bg="transparent"
+                _hover={{ transform: 'scale(1.1)' }}
+                _active={{ color: 'blue.300' }}
+                color="blue.50"
+              />
+            </MenuButton>
+            <MenuList borderRadius="none" zIndex={10}>
+              <MenuItem cursor="pointer">
+                <NavLink to="/terms-of-use" {...navLinkStyles}>
+                  <Text color="blue.800" fontWeight="semibold">
+                    {t('menu.termsOfUse')}
+                  </Text>
+                </NavLink>
+              </MenuItem>
+              <MenuItem cursor="pointer">
+                <NavLink to="/privacy-policy" {...navLinkStyles}>
+                  <Text color="blue.800" fontWeight="semibold">
+                    {t('menu.privacyPolicy')}
+                  </Text>
+                </NavLink>
+              </MenuItem>
+            </MenuList>
+          </Menu>
           <IconButton
             aria-label="Log out"
             variant="link"
             as={FiLogOut}
-            mt={4}
-            mx={2}
             size="sm"
             cursor="pointer"
-            color="blue.100"
+            color="blue.50"
             transform="rotate(-180deg)"
+            _active={{ color: 'blue.300' }}
             onClick={() => logout()}
           />
         </Flex>
