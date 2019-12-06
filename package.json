@@ -45,7 +45,7 @@
     "react-i18next": "10.13.1",
     "react-icons": "3.8.0",
     "react-router-dom": "5.1.2",
-    "react-scripts": "3.3.0-next.62",
+    "react-scripts": "3.3.0",
     "subscriptions-transport-ws": "0.9.16",
     "web-api-hooks": "2.0.0",
     "yup": "0.27.0"
