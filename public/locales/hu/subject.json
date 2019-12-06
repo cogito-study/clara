@@ -1,9 +1,67 @@
 {
   "title": "Tárgy címe",
   "info": {
-    "of": "Információk a {{ subjectCode }} tárgyról"
+    "title": "információk",
+    "of": "Információk a {{ subjectCode }} tárgyról",
+    "general": "Általános információk",
+    "teachers": "Oktatók",
+    "add": "új információ hozzáadása",
+    "modal": {
+      "title": {
+        "label": "Cím",
+        "placeholder": "Info1",
+        "validation": { "required": "A cím mező kötelező" }
+      },
+      "description": {
+        "label": "Leírás",
+        "placeholder": "Ezek az infók hasznosak lesznek a hallgatóknak..",
+        "validation": { "required": "A részletes leírás mező kötelező" }
+      },
+      "edit": "Információ szerkesztése",
+      "new": "Új információ"
+    },
+    "alert": {
+      "delete": {
+        "title": "Biztos törölni szeretnéd ezt az információt?",
+        "description": "Ezt a döntést nem tudod módosítani utólag."
+      }
+    }
   },
   "notes": {
-    "of": "A {{ subject }} tárgy jegyzetei"
+    "title": "jegyzetek",
+
+    "of": "A {{ subject }} tárgy jegyzetei",
+    "add": "új jegyzet hozzáadása",
+    "empty": "A jegyzetlista üres!",
+    "modal": {
+      "title": {
+        "label": "Cím",
+        "placeholder": "Menő cím",
+        "validation": { "required": "A cím mező kötelező" }
+      },
+      "keywords": {
+        "label": "Kulcsszavak",
+        "placeholder": "kulcsszó1, kulcsszó2, kulcsszó3,...",
+        "validation": { "required": "Kulcsszavak megadása kötelező" }
+      },
+      "number": {
+        "label": "Szám"
+      },
+      "edit": "Jegyzet szerkesztése",
+      "new": "Új jegyzet"
+    },
+    "alert": {
+      "delete": {
+        "title": "Biztos törölni szeretnéd ezt a jegyzetet?",
+        "description": "Ezt a döntést nem tudod módosítani utólag."
+      }
+    }
+  },
+  "feed": {
+    "title": "hírek",
+    "empty": {
+      "title": "A tárgyhoz nem tartoznak hírek!",
+      "button": "ossz meg valamit"
+    }
   }
 }

@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/core';
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Prompt, useParams } from 'react-router';
 import { Editor, EditorHeader } from '../components/editor';
 import { useNoteContentQuery } from '../components/editor/graphql/note-content-query.generated';
@@ -17,6 +18,7 @@ import './marks.css';
 export type EditorMode = 'edit' | 'study';
 
 export const CollabPage = () => {
+  const { t } = useTranslation('collab');
   const { noteID } = useParams<CollabRouteParams>();
   const [editor, setEditor] = useState<Quill | undefined>(undefined);
   const originalDocument = useRef<Delta>(new Delta());
@@ -56,7 +58,7 @@ export const CollabPage = () => {
     <Flex direction="column" bg="white" w="100%">
       <Prompt
         when={(quillEditor && quillEditor.hasMySuggestion()) || false}
-        message="You have unsaved changes, are you sure you want to leave?"
+        message={t('unsavedChanges')}
       />
       {editorMode === 'study' ? (
         <>

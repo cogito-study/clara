@@ -1,9 +1,67 @@
 {
   "title": "Title of Subject",
   "info": {
-    "of": "Information about {{ subjectCode }}"
+    "title": "information",
+    "of": "Information about {{ subjectCode }}",
+    "general": "General informations",
+    "teachers": "Teachers",
+    "add": "add new information",
+    "modal": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Info1",
+        "validation": { "required": "Title is required" }
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "This info should be useful for the students",
+        "validation": { "required": "Description is required" }
+      },
+      "edit": "Edit information",
+      "new": "New information"
+    },
+    "alert": {
+      "delete": {
+        "title": "Are you sure want to delete this info?",
+        "description": "You can't undo this action afterwards."
+      }
+    }
   },
   "notes": {
-    "of": "Notes of {{ subject }} subject"
+    "title": "notes",
+
+    "of": "Notes of {{ subject }} subject",
+    "add": "add new note",
+    "empty": "Note list is empty!",
+    "modal": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Awesome title",
+        "validation": { "required": "Title is required" }
+      },
+      "keywords": {
+        "label": "Keywords",
+        "placeholder": "keyword1, keyword2, keyword3,...",
+        "validation": { "required": "Description is required" }
+      },
+      "number": {
+        "label": "Number"
+      },
+      "edit": "Edit note",
+      "new": "New note"
+    },
+    "alert": {
+      "delete": {
+        "title": "Are you sure want to delete this note?",
+        "description": "You can't undo this action afterwards."
+      }
+    }
+  },
+  "feed": {
+    "title": "feed",
+    "empty": {
+      "title": "Subject feed is empty!",
+      "button": "share something"
+    }
   }
 }

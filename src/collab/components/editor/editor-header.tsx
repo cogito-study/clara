@@ -1,5 +1,6 @@
 import { Box, Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
 import { EditorMode } from '../../pages/collab-page';
@@ -11,6 +12,7 @@ export interface EditorHeaderProps {
 }
 
 export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeChange }) => {
+  const { t } = useTranslation('collab');
   return (
     <Flex
       flexGrow={1}
@@ -41,8 +43,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
           </EditorHeaderButton>
         </Link>
         <EditorHeaderButton rightIcon="small-close" onClick={() => handleEditorModeChange('study')}>
-          {/* TODO Localize */}
-          study
+          {t('button.study')}
         </EditorHeaderButton>
       </Flex>
     </Flex>

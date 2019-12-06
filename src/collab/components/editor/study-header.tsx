@@ -1,5 +1,6 @@
 import { Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiEdit2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
@@ -11,6 +12,7 @@ export interface StudyHeaderProps {
 }
 
 export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeChange }) => {
+  const { t } = useTranslation('collab');
   return (
     <Flex
       flexGrow={1}
@@ -37,8 +39,7 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeCha
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
         <StudyHeaderButton rightIcon={FiEdit2} onClick={() => handleEditorModeChange('edit')}>
-          {/* TODO Localize */}
-          edit
+          {t('button.edit')}
         </StudyHeaderButton>
       </Flex>
     </Flex>

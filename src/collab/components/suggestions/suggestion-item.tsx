@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Collapse, Flex, Heading, Text } from '@chakra-ui/core';
 import Delta from 'quill-delta';
 import React, { FC, Fragment, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
 import { QuillEditor } from '../editor/quill-editor';
@@ -25,6 +26,8 @@ type Props = {
 } & SuggestionEventProps;
 
 const prettifySuggestion = (delta: Delta, original: Delta) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { t } = useTranslation('collab');
   const invertedDelta = delta.invert(original);
   const deletedParts: string[] = [];
   let currentPart = '';
@@ -54,7 +57,7 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
           return (
             <Text>
               <Text fontWeight={700} color="blue.800">
-                INSERT:
+                {t('suggestion.insert')}
               </Text>
               {typeof op.insert === 'string' ? op.insert : 'IMAGE'}
             </Text>
@@ -64,7 +67,7 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
           return (
             <Text>
               <Text fontWeight={700} color="red.600">
-                DELETE:
+                {t('suggestion.delete')}
               </Text>
               {deletedParts.pop()}
             </Text>
@@ -97,6 +100,8 @@ export const SuggestionItem: FC<Props> = ({
   onSuggestionBlurred,
   quillEditor,
 }) => {
+  const { t } = useTranslation('collab');
+
   const { since } = useDateFormatter();
   const [showOverflow, setShowOverflow] = useState(false);
 
@@ -151,8 +156,7 @@ export const SuggestionItem: FC<Props> = ({
           mr={2}
           onClick={() => onSuggestionCancelled(id)}
         >
-          {/* TODO: Localize */}
-          Cancel
+          {t('suggestion.cancel')}
         </Button>
         <Button
           variantColor="teal"
@@ -160,8 +164,7 @@ export const SuggestionItem: FC<Props> = ({
           borderRadius={0}
           onClick={() => onSuggestionAccepted(id)}
         >
-          {/* TODO: Localize */}
-          Accept
+          {t('suggestion.accept')}
         </Button>
       </Flex>
     </Flex>

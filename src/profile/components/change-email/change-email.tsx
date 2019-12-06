@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { MyUserInfoDocument } from '../../../auth/contexts/graphql/my-user-info-query.generated';
 import { useAuth } from '../../../auth/hooks';
@@ -17,6 +18,7 @@ import { useChangeEmailMutation } from './graphql/change-email-mutation.generate
 
 // TODO: Localize
 export const ChangeEmail = () => {
+  const { t } = useTranslation(['profile', 'core']);
   const { user } = useAuth();
   const [changeEmail, { loading }] = useChangeEmailMutation();
   const {
@@ -34,8 +36,8 @@ export const ChangeEmail = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email('Invalid email format')
-        .required('Email is required'),
+        .email(t('core:form.email.validation.format'))
+        .required(t('core:form.email.validation.required')),
     }),
     onSubmit: async ({ email }, { resetForm }) => {
       if (user) {
@@ -59,7 +61,7 @@ export const ChangeEmail = () => {
         mt={[6, 6, 6, 8]}
         mb={[3, 3, 3, 4]}
       >
-        Change Email
+        {t('change.email.title')}
       </Heading>
       <Flex
         borderWidth={1}
@@ -72,7 +74,7 @@ export const ChangeEmail = () => {
         <Box maxW={480} size="full">
           <Flex align="center" mb={4} wrap="wrap">
             <Heading fontSize={['sm', 'sm', 'md']} fontWeight={500} pr={1} lineHeight="normal">
-              Your email address is
+              {t('change.email.current')}
             </Heading>
             <Heading
               color="blue.800"
@@ -87,12 +89,12 @@ export const ChangeEmail = () => {
             <Box h="100px">
               <FormControl isInvalid={errors.email && touched.email ? true : false}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                  New email address
+                  {t('change.email.new')}
                 </FormLabel>
                 <Input
                   id="email"
                   type="text"
-                  placeholder="love@learning.com"
+                  placeholder={t('form.email.placeholder')}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -112,7 +114,7 @@ export const ChangeEmail = () => {
                 borderWidth={2}
                 onClick={() => resetForm()}
               >
-                cancel
+                {t('core:button.cancel')}
               </Button>
               <Button
                 ml={3}
@@ -124,7 +126,7 @@ export const ChangeEmail = () => {
                 variant="solid"
                 color="blue.800"
               >
-                update email
+                {t('button.update')}
               </Button>
             </Flex>
           </form>

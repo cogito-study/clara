@@ -1,5 +1,61 @@
 {
-  "title": "Központ címe",
-  "save": "mentés",
-  "cancel": "mêgse"
+  "title": "Mag címe",
+  "button": {
+    "save": "mentés",
+    "cancel": "mégsem",
+    "edit": "szerkesztés",
+    "delete": "törlés"
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "szeretek@tanulni.hu",
+      "validation": {
+        "format": "Rossz e-mail formátum",
+        "required": "E-mail megadása kötelező"
+      }
+    },
+    "password": {
+      "label": "Jelszó",
+      "validation": {
+        "minCharacter": "A jelszó legyen legalább 8 karakter hosszúságú!",
+        "required": "Jelszó megadása kötelező"
+      },
+      "confirm": {
+        "label": "Jelszó megerősítése",
+        "validation": {
+          "different": "A két jelszó nem egyezik meg!",
+          "required": "Jelszó megerősítése kötelező"
+        }
+      }
+    },
+    "terms": {
+      "label": "Elfogadom a felhasználási feltételeket"
+    },
+    "firstName": {
+      "label": "Keresztnév",
+      "placeholder": "János",
+      "validation": {
+        "required": "Keresztnév megadása kötelező"
+      }
+    },
+    "lastName": {
+      "label": "Családnév",
+      "placeholder": "Szabó",
+      "validation": {
+        "required": "Családnév megadása kötelező"
+      }
+    },
+    "preferredLanguage": {
+      "label": "Preferált nyelv"
+    }
+  },
+  "menu": {
+    "newsFeed": "hírfolyam",
+    "subjects": "tárgyak"
+  },
+  "pages": {
+    "feed": "Hírek",
+    "profile": "Profil"
+  }
 }

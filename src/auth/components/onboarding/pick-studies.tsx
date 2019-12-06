@@ -1,7 +1,7 @@
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Select } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEmailValidation, usePasswordValidation } from '../../hooks';
 
 /**
@@ -15,7 +15,7 @@ export const PickStudies = () => {
     useEmailValidation().validationSchema,
   );
 
-  // const { t } = useTranslation(['profile', 'core']);
+  const { t } = useTranslation(['auth', 'core']);
 
   const { errors, touched, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -41,14 +41,14 @@ export const PickStudies = () => {
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
-        Specify your studies
+        {t('onboarding.studies.title')}
       </Heading>
 
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Box h={100}>
           <FormControl isInvalid={errors.university && touched.university ? true : false}>
             <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-              Choose your university
+              {t('onboarding.studies.pickers.university')}
             </FormLabel>
             <Select
               aria-labelledby="language-picker"
@@ -71,7 +71,7 @@ export const PickStudies = () => {
         <Box h={100}>
           <FormControl isInvalid={errors.faculty && touched.faculty ? true : false}>
             <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-              Choose your faculty
+              {t('onboarding.studies.pickers.faculty')}
             </FormLabel>
             <Select aria-labelledby="" id="faculty" borderRadius={0} onChange={handleChange}>
               {[
@@ -89,7 +89,7 @@ export const PickStudies = () => {
         <Box h={100}>
           <FormControl isInvalid={errors.major && touched.major ? true : false}>
             <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-              Choose your major
+              {t('onboarding.studies.pickers.major')}
             </FormLabel>
             <Select aria-labelledby="" id="major" borderRadius={0} onChange={handleChange}>
               {[

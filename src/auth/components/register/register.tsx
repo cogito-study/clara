@@ -35,7 +35,7 @@ export const Register = () => {
   );
 
   const { token } = useRouteQueryParams<{ token: string }>();
-  const { t } = useTranslation(['profile', 'core']);
+  const { t } = useTranslation(['auth', 'core']);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
@@ -66,19 +66,19 @@ export const Register = () => {
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
-        Registration
+        {t('register.title')}
       </Heading>
 
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Box h={100}>
           <FormControl isInvalid={errors.firstName && touched.firstName ? true : false}>
             <FormLabel htmlFor="firstName" color="blue.800">
-              Fist Name
+              {t('core:form.firstName.label')}
             </FormLabel>
             <Input
               id="firstName"
               type="text"
-              placeholder="John"
+              placeholder={t('core:form.firstName.placeholder')}
               value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -90,12 +90,12 @@ export const Register = () => {
         <Box h={100}>
           <FormControl isInvalid={errors.lastName && touched.lastName ? true : false}>
             <FormLabel htmlFor="lastName" color="blue.800">
-              Last Name
+              {t('core:form.lastName.label')}
             </FormLabel>
             <Input
               id="lastName"
               type="text"
-              placeholder="Doe"
+              placeholder={t('core:form.lastName.placeholder')}
               value={values.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -107,12 +107,12 @@ export const Register = () => {
         <Box h={100}>
           <FormControl isInvalid={errors.email && touched.email ? true : false}>
             <FormLabel htmlFor="email" color="blue.800">
-              Email
+              {t('core:form.email.label')}
             </FormLabel>
             <Input
               id="email"
               type="text"
-              placeholder="love@learning.com"
+              placeholder={t('core:form.email.placeholder')}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -124,7 +124,7 @@ export const Register = () => {
         <Box h={100}>
           <FormControl isRequired isInvalid={errors.password && touched.password ? true : false}>
             <FormLabel htmlFor="password" color="blue.800">
-              Password
+              {t('core:form.password.label')}
             </FormLabel>
             <Input
               id="password"
@@ -145,7 +145,7 @@ export const Register = () => {
             isInvalid={errors.passwordConfirm && touched.passwordConfirm ? true : false}
           >
             <FormLabel htmlFor="passwordConfirm" color="blue.800">
-              Confirm Password
+              {t('core:form.password.confirm.label')}
             </FormLabel>
             <Input
               id="passwordConfirm"
@@ -162,8 +162,8 @@ export const Register = () => {
 
         <Box h={100}>
           <FormControl isInvalid={errors.language && touched.language ? true : false}>
-            <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-              {t('change.preferredLanguage.label')}
+            <FormLabel htmlFor="language" color="blue.800" fontSize={['sm', 'sm', 'md']}>
+              {t('core:form.preferredLanguage.label')}
             </FormLabel>
             <Select
               aria-labelledby="language-picker"
@@ -192,7 +192,7 @@ export const Register = () => {
             size="sm"
             variantColor="teal"
           >
-            Accept terms of use and privacy policy
+            {t('core:form.terms.label')}
           </Checkbox>
         </FormControl>
 
@@ -206,12 +206,12 @@ export const Register = () => {
           variant="solid"
           color="blue.800"
         >
-          register
+          {t('button.register')}
         </Button>
       </form>
       <RouterLink to={authRoute({ path: 'login' })}>
         <Button variant="ghost" variantColor="teal" color="teal.700" size="sm" borderRadius={0}>
-          sign in
+          {t('button.signIn')}
         </Button>
       </RouterLink>
     </Flex>

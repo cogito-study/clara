@@ -1,5 +1,61 @@
 {
   "title": "Title of Core",
-  "save": "save",
-  "cancel": "cancel"
+  "button": {
+    "save": "save",
+    "cancel": "cancel",
+    "edit": "edit",
+    "delete": "delete"
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "love@learning.com",
+      "validation": {
+        "format": "Invalid e-mail format",
+        "required": "E-mail is required"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "validation": {
+        "minCharacter": "The password should be at least 8 character!",
+        "required": "The password is required"
+      },
+      "confirm": {
+        "label": "Confirm password",
+        "validation": {
+          "different": "The passwords must match!",
+          "required": "The password confirmation is required"
+        }
+      }
+    },
+    "terms": {
+      "label": "Accept terms of use and privacy policy"
+    },
+    "firstName": {
+      "label": "First Name",
+      "placeholder": "John",
+      "validation": {
+        "required": "First name is required"
+      }
+    },
+    "lastName": {
+      "label": "Last Name",
+      "placeholder": "Doe",
+      "validation": {
+        "required": "Last name is required"
+      }
+    },
+    "preferredLanguage": {
+      "label": "Preferred language"
+    }
+  },
+  "menu": {
+    "newsFeed": "news feed",
+    "subjects": "subjects"
+  },
+  "pages": {
+    "feed": "Feed",
+    "profile": "Profile"
+  }
 }

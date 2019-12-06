@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/core';
 import React, { lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
 import { collabRoute } from '../../collab/utils/collab-route';
@@ -20,6 +21,7 @@ const Profile = lazy(() => import('../../profile'));
 
 // TODO: Localize
 export const Router = () => {
+  const { t } = useTranslation('core');
   return (
     <Box h="100%">
       <Helmet script={[{ async: true, innerHTML: driftString }]} />
@@ -40,7 +42,7 @@ export const Router = () => {
             <Collab />
           </PrivateRoute>
           <PrivateRoute path={socialRoute({ path: 'feed' })}>
-            <Layout title="News Feed">
+            <Layout title={t('pages.feed')}>
               <Social />
             </Layout>
           </PrivateRoute>
@@ -56,7 +58,7 @@ export const Router = () => {
             </Layout>
           </PrivateRoute>
           <PrivateRoute path={profileRoute({ path: 'profile' })}>
-            <Layout title="Profile">
+            <Layout title={t('pages.profile')}>
               <Profile />
             </Layout>
           </PrivateRoute>

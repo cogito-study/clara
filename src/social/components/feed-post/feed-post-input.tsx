@@ -1,6 +1,7 @@
 import { Button, Flex, Input } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SubjectFeedDocument } from '../../../subject/components/subject-feed/graphql/subject-feed-query.generated';
 import { SubjectIdentifierProps } from '../../../subject/pages/subject-page';
 import { useCreatePostMutation } from './graphql/create-post-mutation.generated';
@@ -8,6 +9,7 @@ import { useCreatePostMutation } from './graphql/create-post-mutation.generated'
 type Props = { shouldFocus: boolean } & SubjectIdentifierProps;
 
 export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
+  const { t } = useTranslation('social');
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [createPost, { loading }] = useCreatePostMutation();
 
@@ -36,7 +38,7 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
           id="content"
           type="text"
           fontSize="medium"
-          placeholder="Write your new post here..."
+          placeholder={t('post.input.placeholder')}
           borderRadius={0}
           borderWidth={1}
           borderColor="grey.100"
@@ -54,7 +56,7 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
           color="blue.800"
           borderRadius={0}
         >
-          share
+          {t('post.share')}
         </Button>
       </Flex>
     </form>

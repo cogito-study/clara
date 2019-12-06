@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/core';
 import React from 'react';
 import useForm from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { NoteDataFragment } from './graphql/note-data-fragment.generated';
 
@@ -38,6 +39,7 @@ export const EditNoteModal = ({
   onClose,
   onEdit,
 }: EditNoteModalProps) => {
+  const { t } = useTranslation(['subject', 'core']);
   const { register, errors, handleSubmit } = useForm<NoteDataFragment>({
     defaultValues: {
       title: note?.title,
@@ -45,7 +47,7 @@ export const EditNoteModal = ({
       number: note?.number,
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('Title is required'),
+      title: Yup.string().required(t('notes.modal.title.validation.required')),
     }),
   });
 
@@ -82,13 +84,13 @@ export const EditNoteModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Title
+                      {t('notes.modal.title.label')}
                     </FormLabel>
                     <Input
                       name="title"
                       type="text"
                       ref={register}
-                      placeholder="Awesome title"
+                      placeholder={t('notes.modal.title.placeholder')}
                       borderRadius={0}
                     />
                     <FormErrorMessage fontSize={14}>{errors.title?.message}</FormErrorMessage>
@@ -101,7 +103,7 @@ export const EditNoteModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Number
+                      {t('notes.modal.number.label')}
                     </FormLabel>
                     <Input name="number" type="number" ref={register} borderRadius={0} />
                   </FormControl>
@@ -115,13 +117,13 @@ export const EditNoteModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Keywords
+                      {t('notes.modal.keywords.label')}
                     </FormLabel>
                     <Input
                       name="description"
                       ref={register}
                       type="text"
-                      placeholder="keyword1, keyword2, keyword3"
+                      placeholder={t('notes.modal.keywords.placeholder')}
                       borderRadius={0}
                     />
                   </FormControl>
@@ -137,7 +139,7 @@ export const EditNoteModal = ({
                   borderRadius={0}
                   color="blue.800"
                 >
-                  save
+                  {t('core:button.save')}
                 </Button>
               </ModalFooter>
             </form>

@@ -1,5 +1,6 @@
 import { Heading } from '@chakra-ui/core';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
 import { ModalOptions } from '../../../core/components/modal/types';
@@ -25,6 +26,8 @@ type EditingInfoState = ModalOptions & { info?: SubjectInfoDataFragment };
 
 // TODO: Localize
 export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
+  const { t } = useTranslation('subject');
+
   const [deletingInfoState, setDeletingInfoState] = useState<DeletingInfoState>({ isOpen: false });
   const [editingInfoState, setEditingInfoState] = useState<EditingInfoState>({ isOpen: false });
   const [addingInfoState, setAddingInfoState] = useState<ModalOptions>({ isOpen: false });
@@ -90,8 +93,8 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
         <>
           {deletingInfoState.isOpen && (
             <DeleteAlert
-              title="Are you sure want to delete this info?"
-              description="You can't undo this action afterwards."
+              title={t('info.alert.delete.title')}
+              description={t('info.alert.delete.description')}
               isLoading={deleteSubjectInfoLoading}
               isOpen={deletingInfoState.isOpen}
               onClose={() => setDeletingInfoState({ isOpen: false })}
@@ -100,7 +103,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
           )}
           {editingInfoState.isOpen && (
             <EditInfoModal
-              titleLabel="Edit information"
+              titleLabel={t('info.modal.edit')}
               info={editingInfoState.info}
               isOpen={editingInfoState.isOpen}
               isLoading={updateSubjectInfoLoading}
@@ -110,7 +113,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
           )}
           {addingInfoState.isOpen && (
             <EditInfoModal
-              titleLabel="New information"
+              titleLabel={t('info.modal.new')}
               isOpen={addingInfoState.isOpen}
               isLoading={createSubjectInfoLoading}
               onClose={() => setAddingInfoState({ isOpen: false })}
@@ -119,7 +122,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
           )}
 
           <SubjectInfoCard
-            title="General information"
+            title={t('info.general')}
             description={data?.subject?.description || ''}
             department={data?.subject?.department.name}
             code={data?.subject?.code}
@@ -134,7 +137,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
             color="blue.700"
             lineHeight="normal"
           >
-            Teachers
+            {t('info.teachers')}
           </Heading>
           {data?.subject?.teachers?.map(({ email, fullName }, index: number) => (
             <SubjectTeacherCard key={index} name={fullName} email={email} />
@@ -163,7 +166,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
 
           {hasCreateInfoPermission && (
             <AddItemCard
-              title="add new information"
+              title={t('info.add')}
               onClick={() => setAddingInfoState({ isOpen: true })}
               mt={[6, 6, 6, 8]}
               h={196}

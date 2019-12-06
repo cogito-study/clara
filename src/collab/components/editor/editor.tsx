@@ -1,6 +1,7 @@
 import { Button, Flex, Heading } from '@chakra-ui/core';
 import Delta from 'quill-delta';
 import React, { FC, MutableRefObject, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useParams } from 'react-router';
 import { CollabRouteParams } from '../../utils/collab-route';
@@ -17,6 +18,8 @@ export interface EditorProps {
 }
 
 export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion, title }) => {
+  const { t } = useTranslation('collab');
+
   const { noteID } = useParams<CollabRouteParams>();
 
   const [createSuggestion] = useCreateSuggestionMutation();
@@ -68,8 +71,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
         borderRadius="none"
         borderColor="teal.500"
       >
-        {/* TODO: Localize */}
-        suggest
+        {t('button.suggest')}
       </Button>
       <Flex direction="column" mt={16} align="center">
         <Heading
