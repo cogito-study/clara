@@ -36,6 +36,7 @@ export const PickSubjects = () => {
       borderWidth={1}
       justify="space-between"
       align="center"
+      width="100%"
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>

@@ -52,7 +52,9 @@
   },
   "menu": {
     "newsFeed": "hírfolyam",
-    "subjects": "tárgyak"
+    "subjects": "tárgyak",
+    "privacyPolicy": "Adatvédelmi irányelvek",
+    "termsOfUse": "Használati feltételek"
   },
   "pages": {
     "feed": "Hírek",
