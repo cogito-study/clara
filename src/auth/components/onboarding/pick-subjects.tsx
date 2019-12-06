@@ -1,7 +1,7 @@
 import { Button, Checkbox, Flex, FormControl, Heading } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useEmailValidation, usePasswordValidation } from '../../hooks';
 
 /**
@@ -15,7 +15,7 @@ export const PickSubjects = () => {
     useEmailValidation().validationSchema,
   );
 
-  // const { t } = useTranslation(['profile', 'core']);
+  const { t } = useTranslation(['auth', 'core']);
 
   const { errors, touched, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -39,7 +39,7 @@ export const PickSubjects = () => {
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
-        Select your subjects
+        {t('onboarding.subjects.title')}
       </Heading>
 
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
@@ -78,7 +78,7 @@ export const PickSubjects = () => {
           variant="solid"
           color="blue.800"
         >
-          save
+          {t('core:button.save')}
         </Button>
       </form>
     </Flex>

@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAuth } from '../../hooks/use-auth';
@@ -17,6 +18,7 @@ import { authRoute } from '../../utils/auth-route';
 
 // TODO: Localize
 export const Login = () => {
+  const { t } = useTranslation(['auth', 'core']);
   const { login, isLoading } = useAuth();
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
@@ -26,9 +28,9 @@ export const Login = () => {
     validateOnChange: false,
     validationSchema: Yup.object({
       email: Yup.string()
-        .email('Invalid email format')
-        .required('Email is required'),
-      password: Yup.string().required('Password is required'),
+        .email(t('core:form.email.validation.format'))
+        .required(t('core:form.email.validation.required')),
+      password: Yup.string().required(t('core:form.password.validation.required')),
     }),
     onSubmit: async ({ email, password }, { resetForm }) => {
       resetForm();
@@ -48,18 +50,18 @@ export const Login = () => {
       direction="column"
     >
       <Heading fontSize="lg" color="blue.800">
-        Login
+        {t('login.title')}
       </Heading>
       <form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Box h={100}>
           <FormControl isInvalid={errors.email && touched.email ? true : false}>
             <FormLabel htmlFor="email" color="blue.800">
-              Email
+              {t('core:form.email.label')}
             </FormLabel>
             <Input
               id="email"
               type="text"
-              placeholder="love@learning.com"
+              placeholder={t('core:form.email.placeholder')}
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -72,7 +74,7 @@ export const Login = () => {
         <Box h={100}>
           <FormControl isInvalid={errors.password && touched.password ? true : false}>
             <FormLabel htmlFor="password" color="blue.800">
-              Password
+              {t('core:form.password.label')}
             </FormLabel>
             <Input
               id="password"
@@ -97,12 +99,12 @@ export const Login = () => {
           variant="solid"
           color="blue.800"
         >
-          login
+          {t('button.login')}
         </Button>
       </form>
       <RouterLink to={authRoute({ path: 'forgot-password' })}>
         <Button variant="ghost" variantColor="teal" color="teal.700" size="sm" borderRadius={0}>
-          forgot your password?
+          {t('button.forgot')}
         </Button>
       </RouterLink>
     </Flex>

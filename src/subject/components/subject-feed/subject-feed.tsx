@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EmptyState } from '../../../core/components/empty-state/empty-state';
 import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
 import EmptyIcon from '../../../social/assets/news-feed-empty.svg';
@@ -10,6 +11,7 @@ import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { SubjectFeedDocument, useSubjectFeedQuery } from './graphql/subject-feed-query.generated';
 
 export const SubjectFeed = ({ id, subjectCode }: SubjectIdentifierProps) => {
+  const { t } = useTranslation('subject');
   const [shouldInputFocus, setShouldInputFocus] = useState(false);
   const { data, loading } = useSubjectFeedQuery({ variables: { subjectCode } });
 
@@ -28,9 +30,9 @@ export const SubjectFeed = ({ id, subjectCode }: SubjectIdentifierProps) => {
         <FeedPostListPlaceholder />
       ) : isSubjectFeedEmpty ? (
         <EmptyState
-          title="Subject feed is empty!"
+          title={t('feed.empty.title')}
           icon={EmptyIcon}
-          buttonTitle="share something"
+          buttonTitle={t('feed.empty.button')}
           onAdd={() => setShouldInputFocus(true)}
         />
       ) : (

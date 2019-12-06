@@ -1,6 +1,18 @@
 {
   "title": "Title of Profile",
   "change": {
+    "email": {
+      "title": "Change email",
+      "current": "Your email address is",
+      "new": "New email address",
+      "update": "update email"
+    },
+    "password": {
+      "title": "Change password",
+      "current": "Current Password",
+      "new": "New password",
+      "confirm": "Confirm password"
+    },
     "preferredLanguage": {
       "title": "Change preferred language",
       "current": "Current language: {{ language }}",

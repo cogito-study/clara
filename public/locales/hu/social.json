@@ -1,3 +1,16 @@
 {
-  "title": "Közösség címe"
+  "title": "Közösségi címe",
+  "post": {
+    "input": {
+      "placeholder": "Írd be az új posztodat ide..."
+    },
+    "share": "megosztás"
+  },
+  "alert": {
+    "delete": {
+      "title": "Biztos törölni szeretnéd ezt a posztot?",
+      "description": "Ezt a döntést nem tudod módosítani utólag."
+    }
+  },
+  "empty": "Üres hírfolyam. Ossz meg valamit egy tantárgy alatt!"
 }

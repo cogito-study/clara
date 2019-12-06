@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/core';
 import React, { CSSProperties, FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Route, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../../core/hooks/use-theme';
@@ -16,6 +17,7 @@ export type SubjectIdentifierProps = {
 };
 
 export const SubjectPage = () => {
+  const { t } = useTranslation('subject');
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data, loading } = useSubjectPageQuery({ variables: { subjectCode } });
 
@@ -73,9 +75,15 @@ export const SubjectPage = () => {
           width="100%"
           px={[0, 0, 0, 16]}
         >
-          <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>notes</TabLink>
-          <TabLink to={subjectRoute({ path: 'subjects-feed', subjectCode })}>feed</TabLink>
-          <TabLink to={subjectRoute({ path: 'subjects-info', subjectCode })}>information</TabLink>
+          <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>
+            {t('notes.title')}
+          </TabLink>
+          <TabLink to={subjectRoute({ path: 'subjects-feed', subjectCode })}>
+            {t('feed.title')}
+          </TabLink>
+          <TabLink to={subjectRoute({ path: 'subjects-info', subjectCode })}>
+            {t('info.title')}
+          </TabLink>
         </Flex>
       </Box>
       <Box width="100%" pt={[6, 10, 10, 20]}>

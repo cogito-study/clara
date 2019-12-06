@@ -9,6 +9,7 @@ import {
   Scale,
 } from '@chakra-ui/core';
 import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type DeleteAlertProps = {
   title: string;
@@ -28,7 +29,7 @@ export const DeleteAlert = ({
   onDelete,
 }: DeleteAlertProps) => {
   const cancelRef = useRef(null);
-
+  const { t } = useTranslation('core');
   return (
     <Scale in={isOpen}>
       {(styles) => (
@@ -51,7 +52,7 @@ export const DeleteAlert = ({
                 borderRadius={0}
                 borderWidth={2}
               >
-                cancel
+                {t('button.cancel')}
               </Button>
               <Button
                 variantColor="red"
@@ -60,7 +61,7 @@ export const DeleteAlert = ({
                 ml={3}
                 borderRadius={0}
               >
-                delete
+                {t('button.delete')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

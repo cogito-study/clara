@@ -1,6 +1,7 @@
 import { Box, Flex } from '@chakra-ui/core';
 import { DocumentNode } from 'graphql';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { useAuth } from '../../../auth/hooks/use-auth';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
@@ -20,6 +21,7 @@ export type FeedPostListProps = {
 };
 
 export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
+  const { t } = useTranslation('social');
   const { user } = useAuth();
   const { subjectCode } = useParams<SubjectRouteParams>();
   const [deletingPostState, setDeletingPostState] = useState<DeletingPostState>({ isOpen: false });
@@ -60,8 +62,8 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
   return (
     <>
       <DeleteAlert
-        title="Are you sure want to delete this post?"
-        description="You can't undo this action afterwards."
+        title={t('alert.delete.title')}
+        description={t('alert.delete.description')}
         isLoading={deletePostLoading}
         isOpen={deletingPostState.isOpen}
         onClose={() => setDeletingPostState({ isOpen: false })}

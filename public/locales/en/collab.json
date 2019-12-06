@@ -1,3 +1,15 @@
 {
-  "title": "Title of Collab"
+  "title": "Title of Collab",
+  "button": {
+    "study": "study",
+    "suggest": "suggest",
+    "edit": "edit"
+  },
+  "suggestion": {
+    "insert": "INSERT:",
+    "delete": "DELETED:",
+    "accept": "accept",
+    "cancel": "cancel"
+  },
+  "unsavedChanges": "You have unsaved changes, are you sure you want to leave?"
 }

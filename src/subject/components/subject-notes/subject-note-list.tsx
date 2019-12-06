@@ -1,5 +1,6 @@
 import { SimpleGrid } from '@chakra-ui/core';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { EmptyState } from '../../../core/components/empty-state/empty-state';
 import { ModalOptions } from '../../../core/components/modal/types';
@@ -25,6 +26,7 @@ type EditingNoteState = ModalOptions & { note?: NoteDataFragment };
 
 // TODO: Localize
 export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => {
+  const { t } = useTranslation('subject');
   const [deletingNoteState, setDeletingNoteState] = useState<DeletingNoteState>({ isOpen: false });
   const [editingNoteState, setEditingNoteState] = useState<EditingNoteState>({ isOpen: false });
   const [addingNoteState, setAddingNoteState] = useState<ModalOptions>({ isOpen: false });
@@ -95,8 +97,8 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
     <>
       {deletingNoteState.isOpen && (
         <DeleteAlert
-          title="Are you sure want to delete this note?"
-          description="You can't undo this action afterwards."
+          title={t('notes.alert.delete.title')}
+          description={t('notes.alert.delete.description')}
           isLoading={deleteNoteLoading}
           isOpen={deletingNoteState.isOpen}
           onClose={() => setDeletingNoteState({ isOpen: false })}
@@ -105,7 +107,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       )}
       {editingNoteState.isOpen && (
         <EditNoteModal
-          titleLabel="Edit note"
+          titleLabel={t('notes.modal.edit')}
           note={editingNoteState.note}
           isOpen={editingNoteState.isOpen}
           isLoading={updateNoteLoading}
@@ -115,7 +117,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       )}
       {addingNoteState.isOpen && (
         <EditNoteModal
-          titleLabel="New note"
+          titleLabel={t('notes.modal.new')}
           isOpen={addingNoteState.isOpen}
           isLoading={createNoteLoading}
           onClose={() => setAddingNoteState({ isOpen: false })}
@@ -134,9 +136,9 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
           Array.from({ length: 9 }).map((_, index) => <SubjectNotePlaceholder key={index} />)
         ) : isNoteListEmpty ? (
           <EmptyState
-            title="Note list is empty!"
+            title={t('notes.empty')}
             icon={EmptyIcon}
-            buttonTitle="add new note"
+            buttonTitle={t('notes.add')}
             onAdd={hasCreateNotePermission ? () => setAddingNoteState({ isOpen: true }) : undefined}
           />
         ) : (
@@ -157,7 +159,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
             })}
             {hasCreateNotePermission && (
               <AddItemCard
-                title="add item card"
+                title={t('notes.add')}
                 onClick={() => setAddingNoteState({ isOpen: true })}
               />
             )}

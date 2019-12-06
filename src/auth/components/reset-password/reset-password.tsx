@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { useAuth, usePasswordValidation, useRouteQueryParams } from '../../hooks';
@@ -25,6 +26,7 @@ import { PasswordUserInfo } from '../password-user-info/password-user-info';
  * - Validate token
  */
 export const ResetPassword = () => {
+  const { t } = useTranslation(['auth', 'core']);
   const [hasSubmitted, setSubmitted] = useState(false);
   const { resetPassword } = useAuth();
   const history = useHistory();
@@ -47,10 +49,10 @@ export const ResetPassword = () => {
 
   return hasSubmitted ? (
     <Feedback
-      title="Done"
+      title={t('resetPassword.feedback.title')}
       icon={<Icon as={FiCheckCircle} color="blue.600" size="96px" />}
-      description="Your password has been reset. Please log-in to your account with your new password!"
-      buttonLabel="login"
+      description={t('resetPassword.feedback.description')}
+      buttonLabel={t('button.login')}
       onButtonClick={() => history.push(authRoute({ path: 'login' }))}
     />
   ) : (
@@ -65,7 +67,7 @@ export const ResetPassword = () => {
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800">
-        Reset Password
+        {t('resetPassword.title')}
       </Heading>
 
       <PasswordUserInfo token={token} />
@@ -74,7 +76,7 @@ export const ResetPassword = () => {
         <Box h={100}>
           <FormControl isRequired isInvalid={errors.password && touched.password ? true : false}>
             <FormLabel htmlFor="password" color="blue.800">
-              Password
+              {t('core:form.password.label')}
             </FormLabel>
             <Input
               id="password"
@@ -95,7 +97,7 @@ export const ResetPassword = () => {
             isInvalid={errors.passwordConfirm && touched.passwordConfirm ? true : false}
           >
             <FormLabel htmlFor="passwordConfirm" color="blue.800">
-              Confirm Password
+              {t('core:form.password.confirm.label')}
             </FormLabel>
             <Input
               id="passwordConfirm"
@@ -119,7 +121,7 @@ export const ResetPassword = () => {
           variant="solid"
           color="blue.800"
         >
-          reset password
+          {t('button.reset')}
         </Button>
       </form>
     </Flex>

@@ -1,3 +1,16 @@
 {
-  "title": "Title of Social"
+  "title": "Title of social",
+  "post": {
+    "input": {
+      "placeholder": "Write your new post here..."
+    },
+    "share": "share"
+  },
+  "alert": {
+    "delete": {
+      "title": "Are you sure want to delete this post?",
+      "description": "You can't undo this action afterwards."
+    }
+  },
+  "empty": "News feed is empty!"
 }

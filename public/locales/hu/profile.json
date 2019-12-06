@@ -1,6 +1,19 @@
 {
   "title": "Profil címe",
+
   "change": {
+    "email": {
+      "title": "E-mail megváltoztatása",
+      "current": "A jelenlegi e-mail címed",
+      "new": "Új e-mail cím",
+      "update": "e-mail frissítése"
+    },
+    "password": {
+      "title": "Jelszó megváltoztatása",
+      "current": "Jelenlegi jelszó",
+      "new": "Új jelszó",
+      "confirm": "Jelszó megerősítése"
+    },
     "preferredLanguage": {
       "title": "Nyelv változtatása",
       "current": "Jelenlegi nyelv: {{ language }}",

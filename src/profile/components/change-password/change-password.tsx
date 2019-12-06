@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useAuth } from '../../../auth/hooks';
 import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
@@ -17,6 +18,7 @@ import { useChangePasswordMutation } from './graphql/change-password-mutation.ge
 
 // TODO: Localize
 export const ChangePassword = () => {
+  const { t } = useTranslation(['profile', 'core']);
   const { user } = useAuth();
   const [changePassword, { loading }] = useChangePasswordMutation();
   const displayGraphQLError = useGraphQLErrorNotification();
@@ -36,13 +38,13 @@ export const ChangePassword = () => {
       newPasswordConfirm: '',
     },
     validationSchema: Yup.object({
-      oldPassword: Yup.string().required('Password is required'),
+      oldPassword: Yup.string().required(t('core:form.password.validation.required')),
       newPassword: Yup.string()
-        .min(7, 'Password has to be longer than 7 characters!')
-        .required('Password is required'),
+        .min(8, t('core:form.password.validation.minCharacter'))
+        .required(t('core:form.password.validation.required')),
       newPasswordConfirm: Yup.string()
-        .oneOf([Yup.ref('newPassword')], 'Passwords must match')
-        .required('Password confirm is required'),
+        .oneOf([Yup.ref('newPassword')], t('core:form.password.confirm.validation.different'))
+        .required(t('core:form.password.confirm.validation.required')),
     }),
     onSubmit: async ({ oldPassword, newPassword }, { resetForm }) => {
       if (user) {
@@ -67,7 +69,7 @@ export const ChangePassword = () => {
         mt={[6, 6, 6, 8]}
         mb={[3, 3, 3, 4]}
       >
-        Change Password
+        {t('change.password.title')}
       </Heading>
       <Flex
         borderWidth={1}
@@ -82,7 +84,7 @@ export const ChangePassword = () => {
             <Box h={100}>
               <FormControl isInvalid={errors.oldPassword && touched.oldPassword ? true : false}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                  Current password
+                  {t('change.password.current')}
                 </FormLabel>
                 <Input
                   id="oldPassword"
@@ -99,7 +101,7 @@ export const ChangePassword = () => {
             <Box h={100}>
               <FormControl isInvalid={errors.newPassword && touched.newPassword ? true : false}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                  New password
+                  {t('change.password.new')}
                 </FormLabel>
                 <Input
                   id="newPassword"
@@ -118,7 +120,7 @@ export const ChangePassword = () => {
                 isInvalid={errors.newPasswordConfirm && touched.newPasswordConfirm ? true : false}
               >
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                  Repeat new password
+                  {t('change.password.confirm')}
                 </FormLabel>
                 <Input
                   id="newPasswordConfirm"
@@ -146,7 +148,7 @@ export const ChangePassword = () => {
                 borderWidth={2}
                 onClick={() => resetForm()}
               >
-                cancel
+                {t('core:button.cancel')}
               </Button>
               <Button
                 ml={3}
@@ -158,7 +160,7 @@ export const ChangePassword = () => {
                 variant="solid"
                 color="blue.800"
               >
-                save
+                {t('core:button.save')}
               </Button>
             </Flex>
           </form>

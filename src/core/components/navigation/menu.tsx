@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/core';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiBook, FiFileText, FiLogOut, FiMenu } from 'react-icons/fi';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../auth/hooks/use-auth';
@@ -102,6 +103,7 @@ export const MainMenuBase = ({
   subjects,
   subjectsLoading,
 }: Pick<MainMenuProps, 'subjects' | 'subjectsLoading'>) => {
+  const { t } = useTranslation('core');
   const { user, logout } = useAuth();
   const location = useLocation();
   const { colors } = useTheme();
@@ -135,8 +137,7 @@ export const MainMenuBase = ({
                 px={3}
                 py={2}
               >
-                {/* TODO: Localize */}
-                News feed
+                {t('menu.newsFeed')}
               </Heading>
             </Flex>
           </NavLink>
@@ -156,7 +157,7 @@ export const MainMenuBase = ({
                 color="blue.100"
                 textTransform="lowercase"
               >
-                Subjects
+                {t('menu.subjects')}
               </Heading>
               {subjectsLoading ? (
                 <MenuSubjectsPlaceholder />

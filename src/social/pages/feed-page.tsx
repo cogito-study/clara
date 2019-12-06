@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { EmptyState } from '../../core/components/empty-state/empty-state';
 import { ContentWrapper } from '../../core/components/layout/content-wrapper';
 import EmptyIcon from '../assets/news-feed-empty.svg';
@@ -7,6 +8,7 @@ import { FeedPostListPlaceholder } from '../components/feed-post/feed-post.place
 import { GlobalFeedDocument, useGlobalFeedQuery } from './graphql/global-feed-query.generated';
 
 export const FeedPage = () => {
+  const { t } = useTranslation('social');
   const { data, loading } = useGlobalFeedQuery({ fetchPolicy: 'cache-and-network' });
 
   const isFeedEmpty = data?.posts.length === 0;
@@ -16,7 +18,7 @@ export const FeedPage = () => {
       {loading ? (
         <FeedPostListPlaceholder />
       ) : isFeedEmpty ? (
-        <EmptyState title="News feed is empty!" icon={EmptyIcon} />
+        <EmptyState title={t('empty')} icon={EmptyIcon} />
       ) : (
         <FeedPostList posts={data?.posts ?? []} query={GlobalFeedDocument} />
       )}

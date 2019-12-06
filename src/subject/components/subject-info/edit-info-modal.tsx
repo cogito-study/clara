@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/core';
 import React from 'react';
 import useForm from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { SubjectInfoDataFragment } from './graphql/subject-info-data-fragment.generated';
 
@@ -37,13 +38,14 @@ export const EditInfoModal = ({
   onClose,
   onEdit,
 }: EditInfoModalProps) => {
+  const { t } = useTranslation(['subject', 'core']);
   const { register, errors, handleSubmit } = useForm<Partial<SubjectInfoDataFragment>>({
     defaultValues: {
       title: info?.title,
       content: info?.content,
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('Title is required'),
+      title: Yup.string().required(t('info.modal.title.validation.required')),
     }),
   });
 
@@ -75,13 +77,13 @@ export const EditInfoModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Title
+                      {t('info.modal.title.label')}
                     </FormLabel>
                     <Input
                       name="title"
                       type="text"
                       ref={register}
-                      placeholder="Awesome title"
+                      placeholder={t('info.modal.title.placeholder')}
                       borderRadius={0}
                     />
                     <FormErrorMessage fontSize={14}>{errors.title?.message}</FormErrorMessage>
@@ -95,11 +97,11 @@ export const EditInfoModal = ({
                       fontSize={['sm', 'sm', 'md']}
                       fontWeight="bold"
                     >
-                      Description
+                      {t('info.modal.description.label')}
                     </FormLabel>
                     <Textarea
                       name="content"
-                      placeholder="Add a longer description for the info item"
+                      placeholder={t('info.modal.description.placeholder')}
                       ref={register}
                       borderRadius={0}
                     />
@@ -116,7 +118,7 @@ export const EditInfoModal = ({
                   variant="solid"
                   color="blue.800"
                 >
-                  save
+                  {t('core:button.save')}
                 </Button>
               </ModalFooter>
             </form>

@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth, usePasswordValidation, useRouteQueryParams } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
@@ -26,6 +27,7 @@ export const ActivateAccount = () => {
   const { activateUser, isLoading } = useAuth();
   const { validationSchema } = usePasswordValidation();
   const { token } = useRouteQueryParams<{ token: string }>();
+  const { t } = useTranslation(['auth', 'core']);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
@@ -53,7 +55,7 @@ export const ActivateAccount = () => {
       direction="column"
     >
       <Heading as="h2" fontSize="lg" color="blue.800">
-        Registration
+        {t('activation.title')}
       </Heading>
 
       <PasswordUserInfo token={token} />
@@ -62,7 +64,7 @@ export const ActivateAccount = () => {
         <Box h={100}>
           <FormControl isRequired isInvalid={errors.password && touched.password ? true : false}>
             <FormLabel htmlFor="password" color="blue.800">
-              Password
+              {t('core:form.password.label')}
             </FormLabel>
             <Input
               id="password"
@@ -83,7 +85,7 @@ export const ActivateAccount = () => {
             isInvalid={errors.passwordConfirm && touched.passwordConfirm ? true : false}
           >
             <FormLabel htmlFor="passwordConfirm" color="blue.800">
-              Confirm Password
+              {t('core:form.password.confirm.label')}
             </FormLabel>
             <Input
               id="passwordConfirm"
@@ -106,7 +108,7 @@ export const ActivateAccount = () => {
             size="sm"
             variantColor="teal"
           >
-            Accept terms of use and privacy policy
+            {t('core:form.terms.label')}
           </Checkbox>
         </FormControl>
 
@@ -120,12 +122,12 @@ export const ActivateAccount = () => {
           variant="solid"
           color="blue.800"
         >
-          register
+          {t('button.register')}
         </Button>
       </form>
       <RouterLink to={authRoute({ path: 'login' })}>
         <Button variant="ghost" variantColor="teal" color="teal.700" size="sm" borderRadius={0}>
-          sign in
+          {t('button.signIn')}
         </Button>
       </RouterLink>
     </Flex>

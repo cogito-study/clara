@@ -1,3 +1,15 @@
 {
-  "title": "Kollaboráció címe"
+  "title": "Kollaboráció címe",
+  "button": {
+    "study": "olvasó mód",
+    "suggest": "javaslattevés",
+    "edit": "szerkesztés"
+  },
+  "suggestion": {
+    "insert": "BESZÚRVA:",
+    "delete": "TÖRÖLVE:",
+    "accept": "elfogad",
+    "cancel": "mégsem"
+  },
+  "unsavedChanges": "Vannak még nem mentett változtatásaid, biztosan elhagyod az oldalt?"
 }
