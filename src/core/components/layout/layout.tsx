@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/core';
 import React, { FC, Suspense, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
+import background from '../../assets/background-pattern.svg';
 import { FullCogitoLoader } from '../loader/cogito-loader';
 import { MainMenu } from '../navigation/menu';
 import { PageTitleHeader } from '../navigation/page-title-header';
@@ -27,7 +28,16 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
     : subjectTitleData && subjectTitleData.subject && subjectTitleData.subject.name;
 
   return (
-    <Flex direction={['column', 'column', 'row']} bg="white" minH="100vh">
+    <Flex
+      direction={['column', 'column', 'row']}
+      bg="white"
+      minH="100vh"
+      backgroundImage={`url(${background})`}
+      backgroundPosition={['center left', 'center left', 'center']}
+      backgroundRepeat="none"
+      backgroundSize="cover"
+      backgroundAttachment="fixed"
+    >
       <MainMenu
         title={layoutTitle}
         titleLoading={subjectTitleLoading}
