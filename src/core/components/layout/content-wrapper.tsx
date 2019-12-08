@@ -4,7 +4,7 @@ import { BoxProps } from '../../../../node_modules/@chakra-ui/core/dist/Box';
 
 export const ContentWrapper: FC<BoxProps> = ({ children, ...rest }) => {
   return (
-    <Flex width="full" justify="center">
+    <Flex width="full" justify="center" zIndex={10}>
       <Box
         width={['full', '400px', '540px', '600px', '800px']}
         mx={[4, 'initial']}

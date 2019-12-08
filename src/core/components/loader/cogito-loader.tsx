@@ -1,4 +1,4 @@
-import { Flex, Box } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/core';
 import { keyframes } from '@emotion/core';
 import React from 'react';
 import styled from '../../style/theme-styled';
