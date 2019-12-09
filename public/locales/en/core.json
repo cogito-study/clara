@@ -52,6 +52,7 @@
   },
   "menu": {
     "newsFeed": "news feed",
+    "profile": "profile",
     "subjects": "subjects",
     "privacyPolicy": "Privacy policy",
     "termsOfUse": "Terms of Use"

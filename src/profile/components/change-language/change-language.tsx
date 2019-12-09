@@ -48,6 +48,8 @@ export const ChangeLanguage = () => {
   });
 
   const currentLanguage = findLanguageByCode({ languages: data?.languages, code: i18n.language });
+  const sortedLanguages =
+    data && [...data.languages].sort(({ code }) => (code === currentLanguage?.code ? -1 : 1));
 
   return (
     <Box width="full">
@@ -73,7 +75,7 @@ export const ChangeLanguage = () => {
         <Box maxW="480px" size="full">
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <Heading as="h3" my={3} color="grey.600" fontSize="md" fontWeight="semibold">
-              {t('change.preferredLanguage.current', { language: currentLanguage?.name })}
+              {t('change.preferredLanguage.current', { language: currentLanguage?.name ?? '' })}
             </Heading>
             <Box h={100}>
               <FormControl isInvalid={errors.language && touched.language ? true : false}>
@@ -84,10 +86,10 @@ export const ChangeLanguage = () => {
                   aria-labelledby="language-picker"
                   id="language"
                   isDisabled={changeLanguageLoading}
-                  borderRadius={0}
+                  style={{ borderRadius: 0 }}
                   onChange={handleChange}
                 >
-                  {data?.languages.map(({ code, name }) => (
+                  {sortedLanguages?.map(({ code, name }) => (
                     <option key={code} value={code}>
                       {name}
                     </option>
@@ -104,7 +106,7 @@ export const ChangeLanguage = () => {
                 variant="solid"
                 color="blue.800"
               >
-                {t('core:save')}
+                {t('core:button.save')}
               </Button>
             </Flex>
           </form>

@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/core';
 import React, { CSSProperties, FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Route, useParams } from 'react-router';
+import { Redirect, Route, Switch, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../../core/hooks/use-theme';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
@@ -87,15 +87,18 @@ export const SubjectPage = () => {
         </Flex>
       </Box>
       <Box width="100%" pt={[6, 10, 10, 20]}>
-        <Route path={subjectRoute({ path: 'subjects-notes' })}>
-          <SubjectNoteList {...subjectIdentifierProps} />
-        </Route>
-        <Route path={subjectRoute({ path: 'subjects-feed' })}>
-          <SubjectFeed {...subjectIdentifierProps} />
-        </Route>
-        <Route path={subjectRoute({ path: 'subjects-info' })}>
-          <SubjectInfo {...subjectIdentifierProps} />
-        </Route>
+        <Switch>
+          <Route path={subjectRoute({ path: 'subjects-notes' })}>
+            <SubjectNoteList {...subjectIdentifierProps} />
+          </Route>
+          <Route path={subjectRoute({ path: 'subjects-feed' })}>
+            <SubjectFeed {...subjectIdentifierProps} />
+          </Route>
+          <Route path={subjectRoute({ path: 'subjects-info' })}>
+            <SubjectInfo {...subjectIdentifierProps} />
+          </Route>
+          <Redirect to={subjectRoute({ path: 'subjects-notes' })} />
+        </Switch>
       </Box>
     </Box>
   );
