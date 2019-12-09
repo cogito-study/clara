@@ -15,10 +15,11 @@ import {
   MenuItem,
   MenuList,
   PseudoBox,
+  PseudoBoxProps,
   Text,
   useDisclosure,
 } from '@chakra-ui/core';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiBook, FiFileText, FiInfo, FiLogOut, FiMenu, FiPlusCircle } from 'react-icons/fi';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -110,7 +111,7 @@ export const MainMenuBase = ({
   subjectsLoading,
 }: Pick<MainMenuProps, 'subjects' | 'subjectsLoading'>) => {
   const { t } = useTranslation('core');
-  const { user, logout } = useAuth();
+  const { logout, user } = useAuth();
   const location = useLocation();
   const { colors } = useTheme();
   const [isSubjectSelectorOpen, setSubjectSelectorOpen] = useState(false);
@@ -134,19 +135,21 @@ export const MainMenuBase = ({
         >
           <Icon mx={2} name="cogito" size="32px" color="white" />
           <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
-            <Flex mt={16} direction="row" align="start" w="100%">
-              <Icon as={FiFileText} mx={2} size="32px" />
-              <Heading
-                as="h4"
-                fontSize="md"
-                fontWeight="semibold"
-                textTransform="lowercase"
-                px={3}
-                py={2}
-              >
-                {t('menu.newsFeed')}
-              </Heading>
-            </Flex>
+            <MenuItemHover>
+              <Flex mt={16} direction="row" align="start" w="100%">
+                <Icon as={FiFileText} mx={2} size="32px" />
+                <Heading
+                  as="h4"
+                  fontSize="md"
+                  fontWeight="semibold"
+                  textTransform="lowercase"
+                  px={3}
+                  py={2}
+                >
+                  {t('menu.newsFeed')}
+                </Heading>
+              </Flex>
+            </MenuItemHover>
           </NavLink>
 
           <Flex mt={4} flexDirection="row" w="100%">
@@ -172,12 +175,12 @@ export const MainMenuBase = ({
                   as={FiPlusCircle}
                   mx={3}
                   size="xs"
-                  cursor="pointer"
+                  color="teal.300"
                   variant="ghost"
                   bg="transparent"
+                  cursor="pointer"
                   _hover={{ transform: 'scale(1.1)' }}
                   _active={{ color: 'teal.700' }}
-                  color="teal.300"
                   onClick={() => setSubjectSelectorOpen(true)}
                 />
                 <SubjectSelector
@@ -190,40 +193,37 @@ export const MainMenuBase = ({
                 <MenuSubjectsPlaceholder />
               ) : (
                 <Flex flexDirection="column" mt={1} ml={1}>
-                  {subjects &&
-                    subjects.map(({ code, name }) => (
-                      <NavLink
-                        key={code}
-                        to={subjectRoute({ path: 'subjects-notes', subjectCode: code })}
-                        {...navLinkStyles}
-                      >
-                        <PseudoBox
-                          mt={2}
-                          fontSize="sm"
-                          _hover={{ color: 'blue.200' }}
-                          _active={{ color: 'teal.500' }}
-                        >
-                          {name}
-                        </PseudoBox>
-                      </NavLink>
-                    ))}
+                  {subjects?.map(({ code, name }) => (
+                    <NavLink
+                      key={code}
+                      to={subjectRoute({ path: 'subjects', subjectCode: code })}
+                      {...navLinkStyles}
+                      exact={false}
+                    >
+                      <MenuItemHover mt={2} fontSize="sm">
+                        {name}
+                      </MenuItemHover>
+                    </NavLink>
+                  ))}
                 </Flex>
               )}
             </Box>
           </Flex>
         </Flex>
         <Flex flexDirection="column" w="48px" align="center">
-          <NavLink to={profileRoute({ path: 'profile' })}>
-            <Avatar
-              size="sm"
-              mb={5}
-              showBorder={isProfilePath(location)}
-              name={user?.fullName}
-              src={user?.profilePictureURL}
-              borderWidth={2}
-              borderColor="blue.50"
-            />
-          </NavLink>
+          <PseudoBox transition="all 0.2s ease-in-out" _hover={{ transform: 'scale(1.1)' }}>
+            <NavLink to={profileRoute({ path: 'profile' })}>
+              <Avatar
+                size="sm"
+                mb={5}
+                name={user?.fullName}
+                src={user?.profilePictureURL}
+                borderWidth={2}
+                borderColor="teal.500"
+                showBorder={isProfilePath(location)}
+              />
+            </NavLink>
+          </PseudoBox>
           <Menu>
             <MenuButton mb={5}>
               <IconButton
@@ -263,6 +263,7 @@ export const MainMenuBase = ({
             cursor="pointer"
             color="blue.50"
             transform="rotate(-180deg)"
+            _hover={{ transform: 'scale(1.1) rotate(-180deg)' }}
             _active={{ color: 'blue.300' }}
             onClick={() => logout()}
           />
@@ -271,3 +272,9 @@ export const MainMenuBase = ({
     </Flex>
   );
 };
+
+const MenuItemHover: FC<PseudoBoxProps> = ({ children, ...rest }) => (
+  <PseudoBox _hover={{ color: 'teal.300' }} {...rest}>
+    {children}
+  </PseudoBox>
+);

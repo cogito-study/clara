@@ -47,6 +47,7 @@ export const Router = () => {
         </PrivateRoute>
         <PrivateRoute
           path={[
+            subjectRoute({ path: 'subjects' }),
             subjectRoute({ path: 'subjects-notes' }),
             subjectRoute({ path: 'subjects-feed' }),
             subjectRoute({ path: 'subjects-info' }),
