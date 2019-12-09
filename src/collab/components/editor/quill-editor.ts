@@ -1,4 +1,4 @@
-import Quill from 'quill';
+import Quill, { BoundsStatic } from 'quill';
 import Delta from 'quill-delta';
 import { MutableRefObject } from 'react';
 import { EventDispatcher, Handler } from '../../utils/event-dispatcher';
@@ -13,6 +13,10 @@ export type EditorState =
 export interface StateChangedEventProps {
   oldState: EditorState;
   newState: EditorState;
+}
+
+export interface CursorPositionChangedEventProps {
+  position: BoundsStatic;
 }
 
 export class QuillEditor {
@@ -42,11 +46,26 @@ export class QuillEditor {
         this.typeSuggestion(delta);
       }
     });
+
+    quill.on('editor-change', (eventName: string, range: { index: number; length: number }) => {
+      if (eventName === 'selection-change' && range) {
+        this.cursorPositionChangedDispatcher.dispatch({
+          position: {
+            ...quill.getBounds(range.index),
+          },
+        });
+      }
+    });
   }
 
   private stateChangedDispatcher = new EventDispatcher<StateChangedEventProps>();
   public onStateChanged(handler: Handler<StateChangedEventProps>) {
     this.stateChangedDispatcher.register(handler);
+  }
+
+  private cursorPositionChangedDispatcher = new EventDispatcher<CursorPositionChangedEventProps>();
+  public onCursorPositionChanged(handler: Handler<CursorPositionChangedEventProps>) {
+    this.cursorPositionChangedDispatcher.register(handler);
   }
 
   private changeState(newState: EditorState) {

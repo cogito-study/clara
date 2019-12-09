@@ -37,7 +37,10 @@ export const Router = () => {
         >
           <Auth />
         </Route>
-        <PrivateRoute exact path={collabRoute({ path: 'notes' })}>
+        <PrivateRoute
+          exact
+          path={[collabRoute({ path: 'note-study' }), collabRoute({ path: 'note-edit' })]}
+        >
           <Collab />
         </PrivateRoute>
         <PrivateRoute path={socialRoute({ path: 'feed' })}>

@@ -9,12 +9,11 @@ export default {
 
 const editorHeaderProps: EditorHeaderProps = {
   subject: { name: 'Vascular surgery', code: 'asd' },
-  handleEditorModeChange: () => {},
+  hasMySuggestion: false,
 };
 
 const studyHeaderProps: StudyHeaderProps = {
   subject: { name: 'Vascular surgery', code: 'asd' },
-  handleEditorModeChange: () => {},
 };
 
 export const editorHeader = () => <EditorHeader {...editorHeaderProps} />;
