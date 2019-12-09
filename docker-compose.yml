@@ -2,7 +2,6 @@ version: '3.5'
 
 services:
   cogito-frontend:
-    container_name: cogito-frontend
     build:
       context: .
       dockerfile: Dockerfile
