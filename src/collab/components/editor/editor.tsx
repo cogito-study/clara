@@ -1,6 +1,7 @@
 import { Button, Flex, Heading } from '@chakra-ui/core';
+import { BoundsStatic } from 'quill';
 import Delta from 'quill-delta';
-import React, { FC, MutableRefObject, useEffect } from 'react';
+import React, { FC, MutableRefObject, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useParams } from 'react-router';
@@ -8,7 +9,7 @@ import { CollabRouteParams } from '../../utils/collab-route';
 import { useSuggestionApproveSubscription } from '../suggestions/graphql/suggestion-approve-subscription.generated';
 import { EditorBody } from './editor-body';
 import { useCreateSuggestionMutation } from './graphql/suggestion-create-mutation.generated';
-import { QuillEditor } from './quill-editor';
+import { CursorPositionChangedEventProps, EditorState, QuillEditor } from './quill-editor';
 
 export interface EditorProps {
   title: string;
@@ -21,6 +22,17 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   const { t } = useTranslation('collab');
 
   const { noteID } = useParams<CollabRouteParams>();
+
+  const [cursorPosition, setCursorPosition] = useState<BoundsStatic>({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: 0,
+    height: 0,
+  });
+
+  const [editorState, setEditorState] = useState<EditorState>('original');
 
   const [createSuggestion] = useCreateSuggestionMutation();
 
@@ -39,6 +51,17 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
     }
   }, [original, quillEditor, suggestionApproveData]);
 
+  useEffect(() => {
+    if (quillEditor) {
+      quillEditor.onCursorPositionChanged(({ position }: CursorPositionChangedEventProps) => {
+        setCursorPosition(position);
+      });
+      quillEditor.onStateChanged(({ newState }) => {
+        setEditorState(newState);
+      });
+    }
+  }, [quillEditor]);
+
   const publishSuggestion = (suggestion: Delta) => {
     console.log('sendPublishSuggestionToServer', suggestion);
     if (noteID) {
@@ -54,11 +77,22 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   };
 
   return (
-    <Flex direction="column" backgroundColor="white" w={['100%', '100%', 'initial']}>
+    <Flex
+      direction="column"
+      backgroundColor="white"
+      w={['100%', '100%', 'initial']}
+      align="flex-end"
+    >
       <Button
         m={4}
-        display={['none', 'none', 'none', hasMySuggestion ? 'inline-flex' : 'none']}
-        position="fixed"
+        display={[
+          'none',
+          'none',
+          'none',
+          hasMySuggestion && editorState === 'mySuggestionApplied' ? 'inline-flex' : 'none',
+        ]}
+        position="absolute"
+        top={cursorPosition.top + 100}
         zIndex={999}
         bg="#fff"
         shadow="lg"

@@ -2,17 +2,18 @@ import { Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiEdit2 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
-import { EditorMode } from '../../pages/collab-page';
+import { collabRoute, CollabRouteParams } from '../../utils/collab-route';
 
 export interface StudyHeaderProps {
   subject: { name: string; code: string };
-  handleEditorModeChange: (newState: EditorMode) => void;
 }
 
-export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeChange }) => {
+export const StudyHeader: FC<StudyHeaderProps> = ({ subject }) => {
   const { t } = useTranslation('collab');
+  const { noteID } = useParams<CollabRouteParams>();
+
   return (
     <Flex
       flexGrow={1}
@@ -38,9 +39,9 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject, handleEditorModeCha
         </Link>
       </Flex>
       <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <StudyHeaderButton rightIcon={FiEdit2} onClick={() => handleEditorModeChange('edit')}>
-          {t('button.edit')}
-        </StudyHeaderButton>
+        <Link to={collabRoute({ path: 'note-edit', noteID })}>
+          <StudyHeaderButton rightIcon={FiEdit2}>{t('button.edit')}</StudyHeaderButton>
+        </Link>
       </Flex>
     </Flex>
   );

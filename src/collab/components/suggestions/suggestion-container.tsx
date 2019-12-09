@@ -19,7 +19,6 @@ const SuggestionCard = styled(Flex)`
   }
   &:hover,
   &:focus-within {
-    z-index: 999;
     transform: translateX(-4rem);
     ~ * {
       transform: translateY(6rem);
@@ -43,7 +42,7 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...r
     const bPos = getDeltaY(b.delta, quillEditor);
     return aPos - bPos;
   });
-  const offsetTop = 30;
+  const offsetTop = 130;
   const offsetBetween = 130;
   const positions = suggestions.map((s) => {
     return getDeltaY(s.delta, quillEditor) + offsetTop;
@@ -54,13 +53,12 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...r
       positions[i] = p;
     } else if (p === positions[i - 1]) {
       positions[i] = p + offsetBetween;
-    } else if (p < positions[i - 1]) {
+    } else if (p < positions[i - 1] + offsetBetween) {
       positions[i] = positions[i - 1] + offsetBetween;
     } else {
       positions[i] = p;
     }
   }
-  console.log(positions);
   return (
     <SuggestionGrid w="300px" my={8} direction="column" bg="white">
       {suggestions.map((suggestion, idx) => (

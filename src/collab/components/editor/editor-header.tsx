@@ -1,18 +1,28 @@
 import { Box, Button, ButtonProps, Flex, Icon } from '@chakra-ui/core';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, Prompt, useParams } from 'react-router-dom';
 import { subjectRoute } from '../../../subject/utils/subject-route';
-import { EditorMode } from '../../pages/collab-page';
+import { collabRoute, CollabRouteParams } from '../../utils/collab-route';
 import { EditorToolbar } from './editor-toolbar';
 
 export interface EditorHeaderProps {
   subject: { name: string; code: string };
-  handleEditorModeChange: (newState: EditorMode) => void;
+  hasMySuggestion: boolean;
 }
 
-export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeChange }) => {
+export const EditorHeader: FC<EditorHeaderProps> = ({ subject, hasMySuggestion }) => {
   const { t } = useTranslation('collab');
+  const { noteID } = useParams<CollabRouteParams>();
+
+  useEffect(() => {
+    if (hasMySuggestion) {
+      window.onbeforeunload = () => true;
+    } else {
+      window.onbeforeunload = null;
+    }
+  }, [hasMySuggestion]);
+
   return (
     <Flex
       flexGrow={1}
@@ -25,6 +35,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
       justifyContent="space-between"
       backgroundColor="blue.800"
     >
+      <Prompt when={hasMySuggestion} message={t('unsavedChanges')} />
       <Flex
         align="center"
         direction={['row-reverse', 'row-reverse', 'row']}
@@ -42,9 +53,9 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, handleEditorModeC
             {subject.name}
           </EditorHeaderButton>
         </Link>
-        <EditorHeaderButton rightIcon="small-close" onClick={() => handleEditorModeChange('study')}>
-          {t('button.study')}
-        </EditorHeaderButton>
+        <Link to={collabRoute({ path: 'note-study', noteID })}>
+          <EditorHeaderButton rightIcon="small-close">{t('button.study')}</EditorHeaderButton>
+        </Link>
       </Flex>
     </Flex>
   );

@@ -81,7 +81,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
         )}
       </Flex>
       <Flex direction="column" p={3}>
-        <Link to={collabRoute({ path: 'notes', noteID: id })}>
+        <Link to={collabRoute({ path: 'note-study', noteID: id })}>
           <Flex mt={1} height="38px" align="center">
             <Heading
               fontSize="md"
