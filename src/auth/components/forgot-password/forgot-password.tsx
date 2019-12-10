@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiSend } from 'react-icons/fi';
-import { useFormValidationSchema } from '../../../core/hooks';
+import { useDocumentTitle, useFormValidationSchema } from '../../../core/hooks';
 import { Feedback } from '../feedback/feedback';
 import { useForgotPasswordMutation } from './graphql/forgot-password-mutation.generated';
 
@@ -23,6 +23,8 @@ export const ForgotPassword = () => {
   const { t } = useTranslation(['auth', 'core']);
   const { emailSchema } = useFormValidationSchema();
   const [forgotPassword] = useForgotPasswordMutation();
+
+  useDocumentTitle(t('forgotPassword.title'));
 
   const { register, handleSubmit, errors } = useForm({ validationSchema: emailSchema });
 

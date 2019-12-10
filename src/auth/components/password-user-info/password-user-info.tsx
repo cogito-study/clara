@@ -1,10 +1,16 @@
 import { Avatar, Flex, Heading, Text } from '@chakra-ui/core';
-import React, { FC } from 'react';
-import { useUserInfoQuery } from './graphql/user-info-query.generated';
+import React, { FC, useEffect } from 'react';
+import { useUserInfoLazyQuery } from './graphql/user-info-query.generated';
 import { PasswordUserInfoPlaceholder } from './password-user-info.placeholder';
 
-export const PasswordUserInfo: FC<{ token: string }> = ({ token }) => {
-  const { data, loading } = useUserInfoQuery({ variables: { token } });
+export const PasswordUserInfo: FC<{ token?: string }> = ({ token }) => {
+  const [fetchUserInfo, { data, loading }] = useUserInfoLazyQuery();
+
+  useEffect(() => {
+    if (token) {
+      fetchUserInfo({ variables: { token } });
+    }
+  }, [token, fetchUserInfo]);
 
   return (
     <Flex direction="row" w="100%" align="center">

@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/core';
 import Quill from 'quill';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDocumentTitle } from '../../core/hooks';
 import { useNoteContentQuery } from '../components/editor/graphql/note-content-query.generated';
 import { Study } from '../components/editor/study';
 import { StudyHeader } from '../components/editor/study-header';
@@ -17,6 +18,8 @@ export const StudyPage: React.FC = () => {
     variables: { noteID },
     fetchPolicy: 'cache-and-network',
   });
+
+  useDocumentTitle(noteContentData?.note?.title);
 
   useEffect(() => {
     setEditor(createStudyModeQuill());

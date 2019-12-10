@@ -24,7 +24,6 @@ import { SubjectNotePlaceholder } from './subject-note.placeholder';
 type DeletingNoteState = ModalOptions & { id?: string };
 type EditingNoteState = ModalOptions & { note?: NoteDataFragment };
 
-// TODO: Localize
 export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => {
   const { t } = useTranslation('subject');
   const [deletingNoteState, setDeletingNoteState] = useState<DeletingNoteState>({ isOpen: false });

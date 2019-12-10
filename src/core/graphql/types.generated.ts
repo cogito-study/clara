@@ -584,7 +584,7 @@ export type Mutation = {
   readonly updateUser: User;
   readonly sendActivationEmails: Scalars['Boolean'];
   readonly login: AuthenticationPayload;
-  readonly register: Scalars['Boolean'];
+  readonly register: User;
   readonly activateRegistration: Scalars['Boolean'];
   readonly activateInvitation: Scalars['Boolean'];
   readonly validateToken: Scalars['Boolean'];
@@ -1685,6 +1685,7 @@ export type Subject = {
   readonly name: Scalars['String'];
   readonly description: Scalars['String'];
   readonly department: Department;
+  readonly moderators: ReadonlyArray<User>;
   readonly teachers: ReadonlyArray<User>;
   readonly students: ReadonlyArray<User>;
   readonly informations: ReadonlyArray<SubjectInformation>;
@@ -1695,6 +1696,14 @@ export type Subject = {
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
+};
+
+export type SubjectModeratorsArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
 };
 
 export type SubjectTeachersArgs = {
@@ -1864,6 +1873,7 @@ export type SubjectWhereInput = {
   readonly code: Maybe<StringFilter>;
   readonly name: Maybe<StringFilter>;
   readonly description: Maybe<StringFilter>;
+  readonly moderators: Maybe<UserFilter>;
   readonly teachers: Maybe<UserFilter>;
   readonly students: Maybe<UserFilter>;
   readonly informations: Maybe<SubjectInformationFilter>;
@@ -2082,6 +2092,7 @@ export type UpdateSubjectInput = {
   readonly description: Maybe<Scalars['String']>;
   readonly students: Maybe<ConnectOrDisconnectRelation>;
   readonly teachers: Maybe<ConnectOrDisconnectRelation>;
+  readonly moderators: Maybe<ConnectOrDisconnectRelation>;
 };
 
 /** Input of update suggestion */
@@ -2243,6 +2254,7 @@ export type UserPermissionFilter = {
 
 export enum UserPermissionType {
   UpdateUser = 'UPDATE_USER',
+  UpdateProfile = 'UPDATE_PROFILE',
   DeleteUser = 'DELETE_USER',
 }
 
@@ -2303,6 +2315,7 @@ export type UserWhereInput = {
   readonly noteHighlights: Maybe<NoteHighlightFilter>;
   readonly suggestions: Maybe<SuggestionFilter>;
   readonly approvedSuggestions: Maybe<SuggestionFilter>;
+  readonly moderatedSubjects: Maybe<SubjectFilter>;
   readonly teachedSubjects: Maybe<SubjectFilter>;
   readonly studiedSubjects: Maybe<SubjectFilter>;
   readonly likedNotes: Maybe<NoteFilter>;

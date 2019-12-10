@@ -1,3 +1,5 @@
 mutation RegisterUser($data: RegisterUserInput!) {
-  register(data: $data)
+  register(data: $data) {
+    id
+  }
 }

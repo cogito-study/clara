@@ -15,7 +15,11 @@ import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
+import {
+  useDocumentTitle,
+  useFormValidationSchema,
+  useGraphQLErrorNotification,
+} from '../../../core/hooks';
 import { socialRoute } from '../../../social/utils/social-route';
 import { useAuthToken } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
@@ -26,6 +30,8 @@ export const Login = () => {
   const history = useHistory();
   const { setAuthToken } = useAuthToken();
   const displayGraphQLError = useGraphQLErrorNotification();
+
+  useDocumentTitle(t('login.title'));
 
   const { emailSchema } = useFormValidationSchema();
   const validationSchema = emailSchema.shape({

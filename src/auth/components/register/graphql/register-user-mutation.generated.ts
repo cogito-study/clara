@@ -8,14 +8,15 @@ export type RegisterUserMutationVariables = {
   data: Types.RegisterUserInput;
 };
 
-export type RegisterUserMutation = { readonly __typename?: 'Mutation' } & Pick<
-  Types.Mutation,
-  'register'
->;
+export type RegisterUserMutation = { readonly __typename?: 'Mutation' } & {
+  readonly register: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
+};
 
 export const RegisterUserDocument = gql`
   mutation RegisterUser($data: RegisterUserInput!) {
-    register(data: $data)
+    register(data: $data) {
+      id
+    }
   }
 `;
 export type RegisterUserMutationFn = ApolloReactCommon.MutationFunction<

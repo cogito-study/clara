@@ -4,6 +4,7 @@ import Delta from 'quill-delta';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt, useParams } from 'react-router';
+import { useDocumentTitle } from '../../core/hooks';
 import { Editor, EditorHeader } from '../components/editor';
 import { useNoteContentQuery } from '../components/editor/graphql/note-content-query.generated';
 import { QuillEditor } from '../components/editor/quill-editor';
@@ -24,6 +25,8 @@ export const CollabPage = () => {
     variables: { noteID },
     fetchPolicy: 'cache-and-network',
   });
+
+  useDocumentTitle(noteContentData?.note?.title);
 
   useEffect(() => {
     if (noteContentData?.note && editor) {
