@@ -32,7 +32,7 @@ const ToolBarButtonBase = css`
     border: 1px solid lightblue !important;
   }
 
-  margin-right: 10px;
+  margin-right: 5px;
 `;
 
 const BoldButton = styled.button`

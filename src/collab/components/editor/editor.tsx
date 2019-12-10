@@ -77,36 +77,33 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
   };
 
   return (
-    <Flex
-      direction="column"
-      backgroundColor="white"
-      w={['100%', '100%', 'initial']}
-      align="flex-end"
-    >
-      <Button
-        m={4}
-        display={[
-          'none',
-          'none',
-          'none',
-          hasMySuggestion && editorState === 'mySuggestionApplied' ? 'inline-flex' : 'none',
-        ]}
-        position="absolute"
-        top={cursorPosition.top + 100}
-        zIndex={999}
-        bg="#fff"
-        shadow="lg"
-        onClick={handleSuggesting}
-        rightIcon={FiPlusCircle}
-        variantColor="teal"
-        variant="outline"
-        color="blue.800"
-        border="2px"
-        borderRadius="none"
-        borderColor="teal.500"
-      >
-        {t('button.suggest')}
-      </Button>
+    <Flex direction="column" backgroundColor="white" w={['100%', '100%', 'initial']} align="center">
+      <Flex w="100%" justify="flex-end">
+        <Button
+          m={4}
+          display={[
+            'none',
+            'none',
+            'none',
+            hasMySuggestion && editorState === 'mySuggestionApplied' ? 'inline-flex' : 'none',
+          ]}
+          position="absolute"
+          top={cursorPosition.top + 100}
+          zIndex={999}
+          bg="#fff"
+          shadow="lg"
+          onClick={handleSuggesting}
+          rightIcon={FiPlusCircle}
+          variantColor="teal"
+          variant="outline"
+          color="blue.800"
+          border="2px"
+          borderRadius="none"
+          borderColor="teal.500"
+        >
+          {t('button.suggest')}
+        </Button>
+      </Flex>
       <Flex direction="column" mt={16} align="center">
         <Heading
           color="grey.900"

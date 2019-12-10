@@ -23,11 +23,11 @@ export const StudyPage: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <Flex bg="white">
       <StudyHeader subject={noteContentData?.note?.subject ?? { name: '', code: '' }} />
-      <Flex direction="column" mt={[4, 4, 4, 12]} align="center">
+      <Flex direction="column" mt={[4, 4, 4, 12]} align="center" w="100%">
         <Study editor={editor} noteContentData={noteContentData} />
       </Flex>
-    </>
+    </Flex>
   );
 };

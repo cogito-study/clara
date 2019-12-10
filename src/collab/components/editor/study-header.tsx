@@ -20,28 +20,41 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject }) => {
       position="fixed"
       top={0}
       width="full"
-      height="50px"
+      height="56px"
       zIndex={2}
-      alignItems="center"
-      justifyContent="space-between"
-      backgroundColor="white"
+      justify="center"
+      backgroundColor="#FFF"
+      borderBottomWidth={1}
+      borderBottomColor="grey.100"
     >
-      <Flex
-        align="center"
-        direction={['row-reverse', 'row-reverse', 'row']}
-        justifyContent={['space-between', 'space-between', 'flex-start']}
-        width={['full', 'full', 'initial']}
-      >
-        <Icon mx={12} name="cogito" size="32px" color="blue.800" />
+      <Flex flexGrow={1} maxWidth="1400px" align="center" justifyContent="space-between">
+        <Flex
+          align="center"
+          direction={['row-reverse', 'row-reverse', 'row']}
+          justifyContent={['space-between', 'space-between', 'flex-start']}
+          width={['full', 'full', 'initial']}
+          maxWidth="1400px"
+        >
+          <Icon mx={[2, 10]} name="cogito" size="32px" color="blue.800" />
 
-        <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
-          <StudyHeaderButton leftIcon="chevron-left">{subject.name}</StudyHeaderButton>
-        </Link>
-      </Flex>
-      <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <Link to={collabRoute({ path: 'note-edit', noteID })}>
-          <StudyHeaderButton rightIcon={FiEdit2}>{t('button.edit')}</StudyHeaderButton>
-        </Link>
+          <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
+            <StudyHeaderButton display={['none', 'none', 'initial']} leftIcon="chevron-left" mx={3}>
+              {subject.name}
+            </StudyHeaderButton>
+            <StudyHeaderButton
+              display={['initial', 'initial', 'none']}
+              leftIcon="chevron-left"
+              mx={3}
+            >
+              {t('button.back')}
+            </StudyHeaderButton>
+          </Link>
+        </Flex>
+        <Flex alignItems="center" mx={2} display={['none', 'none', 'initial']}>
+          <Link to={collabRoute({ path: 'note-edit', noteID })}>
+            <StudyHeaderButton rightIcon={FiEdit2}>{t('button.edit')}</StudyHeaderButton>
+          </Link>
+        </Flex>
       </Flex>
     </Flex>
   );
