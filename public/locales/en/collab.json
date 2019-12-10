@@ -3,7 +3,8 @@
   "button": {
     "study": "study",
     "suggest": "suggest",
-    "edit": "edit"
+    "edit": "edit",
+    "back": "back"
   },
   "suggestion": {
     "insert": "INSERT:",

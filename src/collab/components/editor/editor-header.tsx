@@ -29,33 +29,38 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, hasMySuggestion }
       position="fixed"
       top={0}
       width="full"
-      height="50px"
+      height="56px"
       zIndex={2}
-      alignItems="center"
-      justifyContent="space-between"
       backgroundColor="blue.800"
+      justify="center"
     >
       <Prompt when={hasMySuggestion} message={t('unsavedChanges')} />
-      <Flex
-        align="center"
-        direction={['row-reverse', 'row-reverse', 'row']}
-        justifyContent={['space-between', 'space-between', 'flex-start']}
-        width={['full', 'full', 'initial']}
-      >
-        <Icon mx={12} name="cogito" size="32px" color="white" />
-        <Box display={['none', 'none', 'none', 'inline-flex']}>
-          <EditorToolbar />
-        </Box>
-      </Flex>
-      <Flex alignItems="center" mx={12} display={['none', 'none', 'initial']}>
-        <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
-          <EditorHeaderButton leftIcon="chevron-left" mr={3}>
-            {subject.name}
-          </EditorHeaderButton>
-        </Link>
-        <Link to={collabRoute({ path: 'note-study', noteID })}>
-          <EditorHeaderButton rightIcon="small-close">{t('button.study')}</EditorHeaderButton>
-        </Link>
+      <Flex flexGrow={1} maxWidth="1400px" alignItems="center" justifyContent="space-between">
+        <Flex
+          align="center"
+          justifyContent={['space-between', 'space-between', 'flex-start']}
+          width={['full', 'full', 'initial']}
+          maxWidth="1200px"
+        >
+          <Icon mx={[5, 3, 3, 3, 10]} name="cogito" size="32px" color="white" />
+          <Box display={['none', 'none', 'none', 'inline-flex']} minWidth="390px">
+            <EditorToolbar />
+          </Box>
+        </Flex>
+        <Flex alignItems="center" mx={2}>
+          <Link to={subjectRoute({ path: 'subjects-notes', subjectCode: subject.code })}>
+            <EditorHeaderButton
+              leftIcon="chevron-left"
+              display={['none', 'none', 'none', 'inline-flex']}
+              mr={2}
+            >
+              {subject.name}
+            </EditorHeaderButton>
+          </Link>
+          <Link to={collabRoute({ path: 'note-study', noteID })}>
+            <EditorHeaderButton rightIcon="small-close">{t('button.study')}</EditorHeaderButton>
+          </Link>
+        </Flex>
       </Flex>
     </Flex>
   );

@@ -3,7 +3,8 @@
   "button": {
     "study": "olvasó mód",
     "suggest": "javaslattevés",
-    "edit": "szerkesztés"
+    "edit": "szerkesztés",
+    "back": "vissza"
   },
   "suggestion": {
     "insert": "BESZÚRVA:",
