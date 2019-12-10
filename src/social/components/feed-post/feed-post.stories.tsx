@@ -22,12 +22,12 @@ const postCardProps: FeedPostCardProps = {
       'This is my Lorem ipsum post. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This is my Lorem ipsum post. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     id: 'adfsdf3e',
     likesCount: 18,
+    hasLikedPost: true,
+    permissions: [],
     updatedAt: new Date(),
     subject: { name: 'Vascular surgery' },
     likers: [],
   },
-  isOwnPost: false,
-  hasLikedPost: true,
   isEditLoading: false,
   onPostDelete: action('On Post delete'),
   onPostLike: action('On Post like'),
@@ -36,7 +36,7 @@ const postCardProps: FeedPostCardProps = {
 
 export const othersPostCard = () => <FeedPostCard {...postCardProps} />;
 
-export const usersPostCard = () => <FeedPostCard {...postCardProps} isOwnPost />;
+export const usersPostCard = () => <FeedPostCard {...postCardProps} />;
 
 export const postPlaceholder = () => <FeedPostPlaceholder />;
 

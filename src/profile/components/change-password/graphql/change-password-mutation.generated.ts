@@ -11,12 +11,12 @@ export type ChangePasswordMutationVariables = {
 };
 
 export type ChangePasswordMutation = { readonly __typename?: 'Mutation' } & {
-  readonly updateProfile: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
+  readonly changePassword: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
 };
 
 export const ChangePasswordDocument = gql`
   mutation ChangePassword($userID: ID!, $oldPassword: String!, $newPassword: String!) {
-    updateProfile(
+    changePassword(
       where: { id: $userID }
       data: { oldPassword: $oldPassword, newPassword: $newPassword }
     ) {

@@ -3,9 +3,9 @@ import { DocumentNode } from 'graphql';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import { useAuth } from '../../../auth/hooks/use-auth';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { ModalOptions } from '../../../core/components/modal/types';
+import { PostPermissionType } from '../../../core/graphql/types.generated';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
 import { FeedPostCard, FeedPostData } from './feed-post-card';
 import { useDeletePostMutation } from './graphql/delete-post-mutation.generated';
@@ -22,7 +22,6 @@ export type FeedPostListProps = {
 
 export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
   const { t } = useTranslation('social');
-  const { user } = useAuth();
   const { subjectCode } = useParams<SubjectRouteParams>();
   const [deletingPostState, setDeletingPostState] = useState<DeletingPostState>({ isOpen: false });
   const [editingPostID, setEditingPostID] = useState<string | undefined>(undefined);
@@ -53,10 +52,7 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
 
   const handlePostEdit = (id: string, content: string) => {
     setEditingPostID(id);
-    editPost({
-      variables: { postID: id, content },
-      refetchQueries: [{ query, variables: { subjectCode } }],
-    });
+    editPost({ variables: { postID: id, content } });
   };
 
   return (
@@ -71,20 +67,22 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
       />
       <Flex direction="column">
         {posts.map((post) => {
-          const { id, likers, author } = post;
-          const hasLikedPost =
-            (user && likers?.map((liker) => liker.id).includes(user.id)) || false;
+          const { id, hasLikedPost } = post;
+
+          const hasPostEditPermission = post.permissions.includes(PostPermissionType.UpdatePost);
+          const onPostEdit = (content: string) => handlePostEdit(id, content);
+
+          const hasPostDeletePermission = post.permissions.includes(PostPermissionType.DeletePost);
+          const onPostDelete = () => setDeletingPostState({ id, isOpen: true });
 
           return (
-            <Box key={id} my={2}>
+            <Box key={post.id} my={2}>
               <FeedPostCard
                 feedPost={post}
-                isOwnPost={author?.id === user?.id}
-                hasLikedPost={hasLikedPost}
                 isEditLoading={!!(editPostLoading && editingPostID === id)}
-                onPostDelete={() => setDeletingPostState({ id, isOpen: true })}
                 onPostLike={() => handlePostLike(id, hasLikedPost)}
-                onPostEdit={(content) => handlePostEdit(id, content)}
+                onPostDelete={hasPostDeletePermission ? onPostDelete : undefined}
+                onPostEdit={hasPostEditPermission ? onPostEdit : undefined}
               />
             </Box>
           );

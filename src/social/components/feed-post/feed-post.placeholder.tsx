@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/core';
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-import { useTheme } from '../../../core/hooks/use-theme';
+import { useTheme } from '../../../core/hooks/';
 
 export const FeedPostPlaceholder = () => {
   const { colors } = useTheme();

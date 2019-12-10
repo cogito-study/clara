@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
-import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
+import { useDateFormatter } from '../../../core/hooks/';
 import { MoreMenu } from '../elements/more-menu';
 
 export type SubjectNoteCardProps = {

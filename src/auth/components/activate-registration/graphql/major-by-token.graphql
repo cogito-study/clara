@@ -1,0 +1,8 @@
+query MajorByToken($token: String!, $majorID: ID!) {
+  majorByToken(data: { token: $token }, where: { id: $majorID }) {
+    subjects {
+      id
+      name
+    }
+  }
+}

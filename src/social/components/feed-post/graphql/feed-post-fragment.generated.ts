@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 export type FeedPostFragment = { readonly __typename?: 'Post' } & Pick<
   Types.Post,
-  'id' | 'content' | 'updatedAt' | 'likesCount'
+  'id' | 'hasLikedPost' | 'permissions' | 'content' | 'updatedAt' | 'likesCount'
 > & {
     readonly author: { readonly __typename?: 'User' } & Pick<
       Types.User,
@@ -22,6 +22,8 @@ export const FeedPostFragmentDoc = gql`
       profilePictureURL
       position
     }
+    hasLikedPost
+    permissions
     content
     updatedAt
     likesCount

@@ -8,46 +8,38 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
 import React from 'react';
+import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
-import { MyUserInfoDocument } from '../../../auth/contexts/graphql/my-user-info-query.generated';
-import { useAuth } from '../../../auth/hooks';
+import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
 import { useChangeEmailMutation } from './graphql/change-email-mutation.generated';
 
-// TODO: Localize
-export const ChangeEmail = () => {
+type ChangeEmailProps = {
+  userID?: string;
+  email?: string;
+};
+
+export const ChangeEmail = ({ userID, email }: ChangeEmailProps) => {
   const { t } = useTranslation(['profile', 'core']);
-  const { user } = useAuth();
+  const displayGraphQLError = useGraphQLErrorNotification();
+  const { emailSchema } = useFormValidationSchema();
   const [changeEmail, { loading }] = useChangeEmailMutation();
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    resetForm,
-    isValid,
-  } = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email(t('core:form.email.validation.format'))
-        .required(t('core:form.email.validation.required')),
-    }),
-    onSubmit: async ({ email }, { resetForm }) => {
-      if (user) {
-        changeEmail({
-          variables: { email, userID: user.id },
-          refetchQueries: [{ query: MyUserInfoDocument }],
-        });
+
+  const { register, errors, handleSubmit, reset, formState } = useForm<{ email: string }>({
+    mode: 'onChange',
+    validationSchema: emailSchema,
+  });
+
+  const onSubmit = handleSubmit(async ({ email }) => {
+    if (userID) {
+      try {
+        await changeEmail({ variables: { email, userID } });
+      } catch (error) {
+        displayGraphQLError(error);
+      } finally {
+        reset();
       }
-      resetForm();
-    },
+    }
   });
 
   return (
@@ -82,44 +74,42 @@ export const ChangeEmail = () => {
               fontWeight={500}
               lineHeight="normal"
             >
-              {user?.email}
+              {email}
             </Heading>
           </Flex>
-          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <form onSubmit={onSubmit} style={{ width: '100%' }}>
             <Box h="100px">
-              <FormControl isInvalid={errors.email && touched.email ? true : false}>
+              <FormControl isInvalid={errors.email && true}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.email.new')}
                 </FormLabel>
                 <Input
-                  id="email"
-                  type="text"
+                  name="email"
+                  type="email"
                   placeholder={t('core:form.email.placeholder')}
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
+                  ref={register}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.email?.message}</FormErrorMessage>
               </FormControl>
             </Box>
             <Flex justify="flex-end">
               <Button
-                isDisabled={!values.email || loading}
+                isDisabled={loading}
                 variantColor="teal"
                 borderRadius={0}
                 variant="outline"
                 color="blue.800"
                 borderColor="teal.500"
                 borderWidth={2}
-                onClick={() => resetForm()}
+                onClick={() => reset()}
               >
                 {t('core:button.cancel')}
               </Button>
               <Button
                 ml={3}
                 isLoading={loading}
-                isDisabled={!isValid}
+                isDisabled={!formState.isValid}
                 variantColor="teal"
                 borderRadius={0}
                 type="submit"

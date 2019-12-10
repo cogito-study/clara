@@ -3,6 +3,8 @@ type AuthRouteOption =
   | { path: 'register' }
   | { path: 'reset-password' }
   | { path: 'forgot-password' }
+  | { path: 'activate-invitation' }
+  | { path: 'activate-registration' }
   | { path: 'link-expired' };
 
 export const authRoute = (option: AuthRouteOption): string => {
@@ -15,6 +17,10 @@ export const authRoute = (option: AuthRouteOption): string => {
       return '/reset-password';
     case 'forgot-password':
       return '/forgot-password';
+    case 'activate-invitation':
+      return '/activate-invitation';
+    case 'activate-registration':
+      return '/activate-registration';
     case 'link-expired':
       return '/link-expired';
   }

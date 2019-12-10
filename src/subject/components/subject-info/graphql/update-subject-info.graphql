@@ -4,5 +4,7 @@ mutation UpdateSubjectInfo($subjectInfoID: ID!, $title: String, $content: String
     data: { title: $title, content: $content }
   ) {
     id
+    title
+    content
   }
 }

@@ -9,10 +9,17 @@ export type Scalars = {
   DateTime: Date;
 };
 
-/** Input of activation user */
-export type ActivateUserInput = {
+/** Input of invite activation */
+export type ActivateInvitationInput = {
   readonly token: Scalars['String'];
   readonly password: Scalars['String'];
+};
+
+/** Input of register activation */
+export type ActivateRegistrationInput = {
+  readonly token: Scalars['String'];
+  readonly subjects: ReadonlyArray<ConnectRelation>;
+  readonly major: ConnectRelation;
 };
 
 export type ActivationToken = {
@@ -42,6 +49,20 @@ export type AuthenticationPayload = {
 export type BooleanFilter = {
   readonly equals: Maybe<Scalars['Boolean']>;
   readonly not: Maybe<Scalars['Boolean']>;
+};
+
+export type ChangeEmailInput = {
+  readonly email: Scalars['String'];
+};
+
+export type ChangePasswordInput = {
+  readonly oldPassword: Scalars['String'];
+  readonly newPassword: Scalars['String'];
+};
+
+/** Input of update user's profile */
+export type ChangePreferredLanguageInput = {
+  readonly preferredLanguage: ConnectRelation;
 };
 
 export type ConnectOrDisconnectRelation = {
@@ -343,6 +364,7 @@ export type Institute = {
   readonly name: Scalars['String'];
   readonly departments: ReadonlyArray<Department>;
   readonly users: ReadonlyArray<User>;
+  readonly faculties: ReadonlyArray<Faculty>;
   readonly permissions: ReadonlyArray<InstitutePermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
@@ -358,6 +380,14 @@ export type InstituteDepartmentsArgs = {
 };
 
 export type InstituteUsersArgs = {
+  skip: Maybe<Scalars['Int']>;
+  after: Maybe<Scalars['ID']>;
+  before: Maybe<Scalars['ID']>;
+  first: Maybe<Scalars['Int']>;
+  last: Maybe<Scalars['Int']>;
+};
+
+export type InstituteFacultiesArgs = {
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['ID']>;
   before: Maybe<Scalars['ID']>;
@@ -459,6 +489,12 @@ export type LanguageWhereUniqueInput = {
   readonly code: Maybe<Scalars['String']>;
 };
 
+/** Input of login */
+export type LoginUserInput = {
+  readonly email: Scalars['String'];
+  readonly password: Scalars['String'];
+};
+
 export type Major = {
   readonly __typename?: 'Major';
   readonly id: Scalars['ID'];
@@ -477,6 +513,10 @@ export type MajorSubjectsArgs = {
   before: Maybe<Scalars['ID']>;
   first: Maybe<Scalars['Int']>;
   last: Maybe<Scalars['Int']>;
+};
+
+export type MajorByTokenInput = {
+  readonly token: Scalars['String'];
 };
 
 export type MajorFilter = {
@@ -524,6 +564,7 @@ export type MajorWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly name: Maybe<StringFilter>;
   readonly subjects: Maybe<SubjectFilter>;
+  readonly users: Maybe<UserFilter>;
   readonly permissions: Maybe<MajorPermissionFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
@@ -541,11 +582,14 @@ export type Mutation = {
   readonly createSubject: Subject;
   readonly createUser: User;
   readonly updateUser: User;
-  readonly sendActivationEmails: ReadonlyArray<User>;
+  readonly sendActivationEmails: Scalars['Boolean'];
   readonly login: AuthenticationPayload;
-  readonly forgotPassword: Scalars['String'];
-  readonly activateUser: AuthenticationPayload;
-  readonly resetPassword: AuthenticationPayload;
+  readonly register: Scalars['Boolean'];
+  readonly activateRegistration: Scalars['Boolean'];
+  readonly activateInvitation: Scalars['Boolean'];
+  readonly validateToken: Scalars['Boolean'];
+  readonly forgotPassword: Scalars['Boolean'];
+  readonly resetPassword: Scalars['Boolean'];
   readonly updateDepartment: Department;
   readonly deleteDepartment: Department;
   readonly createFaculty: Faculty;
@@ -586,7 +630,9 @@ export type Mutation = {
   readonly approveSuggestion: Suggestion;
   readonly rejectSuggestion: Suggestion;
   readonly deleteSuggestion: Suggestion;
-  readonly updateProfile: User;
+  readonly changePassword: User;
+  readonly changeEmail: User;
+  readonly changePreferredLanguage: User;
   readonly deleteUser: User;
 };
 
@@ -616,15 +662,27 @@ export type MutationSendActivationEmailsArgs = {
 };
 
 export type MutationLoginArgs = {
-  data: UserLoginInput;
+  data: LoginUserInput;
+};
+
+export type MutationRegisterArgs = {
+  data: RegisterUserInput;
+};
+
+export type MutationActivateRegistrationArgs = {
+  data: ActivateRegistrationInput;
+};
+
+export type MutationActivateInvitationArgs = {
+  data: ActivateInvitationInput;
+};
+
+export type MutationValidateTokenArgs = {
+  data: Maybe<ValidateTokenInput>;
 };
 
 export type MutationForgotPasswordArgs = {
   data: ForgotPasswordInput;
-};
-
-export type MutationActivateUserArgs = {
-  data: ActivateUserInput;
 };
 
 export type MutationResetPasswordArgs = {
@@ -803,9 +861,19 @@ export type MutationDeleteSuggestionArgs = {
   where: WhereUniqueInput;
 };
 
-export type MutationUpdateProfileArgs = {
+export type MutationChangePasswordArgs = {
   where: WhereUniqueInput;
-  data: UpdateProfileInput;
+  data: ChangePasswordInput;
+};
+
+export type MutationChangeEmailArgs = {
+  where: WhereUniqueInput;
+  data: ChangeEmailInput;
+};
+
+export type MutationChangePreferredLanguageArgs = {
+  where: WhereUniqueInput;
+  data: ChangePreferredLanguageInput;
 };
 
 export type MutationDeleteUserArgs = {
@@ -1231,6 +1299,8 @@ export type Post = {
   readonly likers: ReadonlyArray<User>;
   readonly subject: Subject;
   readonly comments: ReadonlyArray<PostComment>;
+  /** Whether the logged in user liked a post before */
+  readonly hasLikedPost: Scalars['Boolean'];
   /** Number of likes on the post */
   readonly likesCount: Scalars['Int'];
   readonly permissions: ReadonlyArray<PostPermissionType>;
@@ -1404,9 +1474,11 @@ export type Query = {
   readonly department: Maybe<Department>;
   readonly faculties: ReadonlyArray<Faculty>;
   readonly institute: Maybe<Institute>;
+  readonly institutesByToken: ReadonlyArray<Institute>;
   readonly language: Maybe<Language>;
   readonly languages: ReadonlyArray<Language>;
   readonly majors: ReadonlyArray<Major>;
+  readonly majorByToken: Maybe<Major>;
   readonly note: Maybe<Note>;
   readonly noteComment: Maybe<NoteComment>;
   readonly noteCommentThread: Maybe<NoteCommentThread>;
@@ -1463,6 +1535,10 @@ export type QueryInstituteArgs = {
   where: InstituteWhereUniqueInput;
 };
 
+export type QueryInstitutesByTokenArgs = {
+  token: Scalars['String'];
+};
+
 export type QueryLanguageArgs = {
   where: LanguageWhereUniqueInput;
 };
@@ -1481,6 +1557,11 @@ export type QueryMajorsArgs = {
   before: Maybe<Scalars['ID']>;
   first: Maybe<Scalars['Int']>;
   last: Maybe<Scalars['Int']>;
+};
+
+export type QueryMajorByTokenArgs = {
+  data: Maybe<MajorByTokenInput>;
+  where: Maybe<WhereUniqueInput>;
 };
 
 export type QueryNoteArgs = {
@@ -1541,9 +1622,18 @@ export type QueryUsersWhereInput = {
   readonly firstName: Maybe<StringFilter>;
   readonly lastName: Maybe<StringFilter>;
   readonly phoneNumber: Maybe<NullableStringFilter>;
-  readonly identifier: Maybe<StringFilter>;
+  readonly identifier: Maybe<NullableStringFilter>;
   readonly isActive: Maybe<BooleanFilter>;
   readonly role: Maybe<UserRoleWhereInput>;
+};
+
+/** Input of register */
+export type RegisterUserInput = {
+  readonly firstName: Scalars['String'];
+  readonly lastName: Scalars['String'];
+  readonly email: Scalars['String'];
+  readonly password: Scalars['String'];
+  readonly preferredLanguage: Maybe<ConnectRelation>;
 };
 
 /** Input of reset password */
@@ -1915,6 +2005,11 @@ export type SuggestionWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;
 };
 
+export enum TokenType {
+  ResetPassword = 'RESET_PASSWORD',
+  Activation = 'ACTIVATION',
+}
+
 /** Input of update department */
 export type UpdateDepartmentInput = {
   readonly name: Maybe<Scalars['String']>;
@@ -1973,14 +2068,6 @@ export type UpdatePostInput = {
   readonly content: Maybe<Scalars['String']>;
 };
 
-/** Input of update user's profile */
-export type UpdateProfileInput = {
-  readonly email: Maybe<Scalars['String']>;
-  readonly oldPassword: Maybe<Scalars['String']>;
-  readonly newPassword: Maybe<Scalars['String']>;
-  readonly preferredLanguage: Maybe<ConnectRelation>;
-};
-
 /** Input of update subject information */
 export type UpdateSubjectInformationInput = {
   readonly title: Maybe<Scalars['String']>;
@@ -2021,11 +2108,12 @@ export type User = {
   readonly password: Scalars['String'];
   readonly profilePictureURL: Maybe<Scalars['String']>;
   readonly phoneNumber: Maybe<Scalars['String']>;
-  readonly identifier: Scalars['String'];
+  readonly identifier: Maybe<Scalars['String']>;
   readonly position: Maybe<Scalars['String']>;
   readonly fullName: Scalars['String'];
   readonly permissions: ReadonlyArray<UserPermissionType>;
-  readonly role: UserRole;
+  readonly role: Maybe<UserRole>;
+  readonly major: Maybe<Major>;
   readonly notes: ReadonlyArray<Note>;
   readonly noteHighlights: ReadonlyArray<NoteHighlight>;
   readonly suggestions: ReadonlyArray<Suggestion>;
@@ -2137,12 +2225,6 @@ export type UserFilter = {
   readonly none: Maybe<UserWhereInput>;
 };
 
-/** Input of login */
-export type UserLoginInput = {
-  readonly email: Scalars['String'];
-  readonly password: Scalars['String'];
-};
-
 export type UserPermission = {
   readonly __typename?: 'UserPermission';
   readonly id: Scalars['ID'];
@@ -2214,7 +2296,7 @@ export type UserWhereInput = {
   readonly firstName: Maybe<StringFilter>;
   readonly lastName: Maybe<StringFilter>;
   readonly phoneNumber: Maybe<NullableStringFilter>;
-  readonly identifier: Maybe<StringFilter>;
+  readonly identifier: Maybe<NullableStringFilter>;
   readonly position: Maybe<NullableStringFilter>;
   readonly isActive: Maybe<BooleanFilter>;
   readonly notes: Maybe<NoteFilter>;
@@ -2233,7 +2315,21 @@ export type UserWhereInput = {
   readonly likedSuggestions: Maybe<SuggestionFilter>;
   readonly departments: Maybe<DepartmentFilter>;
   readonly institutes: Maybe<InstituteFilter>;
+  readonly departmentPermissions: Maybe<DepartmentPermissionFilter>;
+  readonly facultyPermissions: Maybe<FacultyPermissionFilter>;
+  readonly institutePermissions: Maybe<InstitutePermissionFilter>;
+  readonly majorPermissions: Maybe<MajorPermissionFilter>;
+  readonly notePermissions: Maybe<NotePermissionFilter>;
+  readonly noteCommentPermissions: Maybe<NoteCommentPermissionFilter>;
+  readonly noteCommentThreadPermissions: Maybe<NoteCommentThreadPermissionFilter>;
+  readonly noteHighlightPermissions: Maybe<NoteHighlightPermissionFilter>;
+  readonly postPermissions: Maybe<PostPermissionFilter>;
+  readonly postCommentPermissions: Maybe<PostCommentPermissionFilter>;
+  readonly subjectPermissions: Maybe<SubjectPermissionFilter>;
+  readonly subjectInformationPermissions: Maybe<SubjectInformationPermissionFilter>;
+  readonly suggestionPermissions: Maybe<SuggestionPermissionFilter>;
   readonly userPermissions: Maybe<UserPermissionFilter>;
+  readonly permissions: Maybe<UserPermissionFilter>;
   readonly createdAt: Maybe<DateTimeFilter>;
   readonly updatedAt: Maybe<DateTimeFilter>;
   readonly deletedAt: Maybe<NullableDateTimeFilter>;
@@ -2243,27 +2339,19 @@ export type UserWhereInput = {
   readonly activationToken: Maybe<ActivationTokenWhereInput>;
   readonly ResetPasswordToken: Maybe<ResetPasswordTokenWhereInput>;
   readonly role: Maybe<UserRoleWhereInput>;
+  readonly major: Maybe<MajorWhereInput>;
   readonly passwordToken: Maybe<PasswordTokenWhereInput>;
   readonly preferredLanguage: Maybe<LanguageWhereInput>;
-  readonly departmentPermission: Maybe<DepartmentPermissionWhereInput>;
-  readonly facultyPermission: Maybe<FacultyPermissionWhereInput>;
-  readonly institutePermission: Maybe<InstitutePermissionWhereInput>;
-  readonly majorPermission: Maybe<MajorPermissionWhereInput>;
-  readonly noteCommentPermission: Maybe<NoteCommentPermissionWhereInput>;
-  readonly noteCommentThreadPermission: Maybe<NoteCommentThreadPermissionWhereInput>;
-  readonly noteHighlightPermission: Maybe<NoteHighlightPermissionWhereInput>;
-  readonly notePermission: Maybe<NotePermissionWhereInput>;
-  readonly postCommentPermission: Maybe<PostCommentPermissionWhereInput>;
-  readonly postPermission: Maybe<PostPermissionWhereInput>;
-  readonly subjectPermission: Maybe<SubjectPermissionWhereInput>;
-  readonly subjectInformationPermission: Maybe<SubjectInformationPermissionWhereInput>;
-  readonly suggestionPermission: Maybe<SuggestionPermissionWhereInput>;
-  readonly userPermission: Maybe<UserPermissionWhereInput>;
 };
 
 export type UserWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;
   readonly email: Maybe<Scalars['String']>;
+};
+
+export type ValidateTokenInput = {
+  readonly token: Scalars['String'];
+  readonly type: TokenType;
 };
 
 /** Unique input */

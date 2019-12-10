@@ -8,7 +8,7 @@ import {
   SubjectInformationPermissionType,
   SubjectPermissionType,
 } from '../../../core/graphql/types.generated';
-import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import { useGraphQLErrorNotification } from '../../../core/hooks';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { AddItemCard } from '../elements/add-item-card';
 import { EditInfoModal } from './edit-info-modal';
@@ -58,7 +58,6 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
       try {
         await updateSubjectInfo({
           variables: { subjectInfoID: editingInfoState.info.id, title, content },
-          refetchQueries: [{ query: SubjectInfoDocument, variables: { subjectCode } }],
         });
       } catch (error) {
         displayGraphQLError(error);

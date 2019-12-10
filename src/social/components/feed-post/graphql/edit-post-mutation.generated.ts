@@ -10,13 +10,14 @@ export type EditPostMutationVariables = {
 };
 
 export type EditPostMutation = { readonly __typename?: 'Mutation' } & {
-  readonly updatePost: { readonly __typename?: 'Post' } & Pick<Types.Post, 'id'>;
+  readonly updatePost: { readonly __typename?: 'Post' } & Pick<Types.Post, 'id' | 'content'>;
 };
 
 export const EditPostDocument = gql`
   mutation EditPost($postID: ID!, $content: String!) {
     updatePost(where: { id: $postID }, data: { content: $content }) {
       id
+      content
     }
   }
 `;

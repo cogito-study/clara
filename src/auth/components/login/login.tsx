@@ -4,38 +4,50 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Heading,
   Input,
+  PseudoBox,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
 import React from 'react';
+import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useAuth } from '../../hooks/use-auth';
+import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
+import { socialRoute } from '../../../social/utils/social-route';
+import { useAuthToken } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
+import { useLoginUserMutation } from './graphql/login-user-mutation.generated';
 
-// TODO: Localize
 export const Login = () => {
   const { t } = useTranslation(['auth', 'core']);
-  const { login, isLoading } = useAuth();
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validateOnChange: false,
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email(t('core:form.email.validation.format'))
-        .required(t('core:form.email.validation.required')),
-      password: Yup.string().required(t('core:form.password.validation.required')),
-    }),
-    onSubmit: async ({ email, password }, { resetForm }) => {
-      resetForm();
-      login(email, password);
-    },
+  const history = useHistory();
+  const { setAuthToken } = useAuthToken();
+  const displayGraphQLError = useGraphQLErrorNotification();
+
+  const { emailSchema } = useFormValidationSchema();
+  const validationSchema = emailSchema.shape({
+    password: Yup.string().required(t('core:form.password.validation.required')),
+  });
+
+  const [login, { loading }] = useLoginUserMutation();
+  const { register, handleSubmit, errors, reset } = useForm({ validationSchema });
+
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    try {
+      const { data } = await login({ variables: { email, password } });
+
+      if (data) {
+        setAuthToken(data.login.token);
+        history.push(socialRoute({ path: 'feed' }));
+      }
+    } catch (error) {
+      displayGraphQLError(error);
+    } finally {
+      reset();
+    }
   });
 
   return (
@@ -52,45 +64,44 @@ export const Login = () => {
       <Heading fontSize="lg" color="blue.800">
         {t('login.title')}
       </Heading>
-      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+      <form onSubmit={onSubmit} style={{ width: '100%' }}>
         <Box h={100}>
-          <FormControl isInvalid={errors.email && touched.email ? true : false}>
+          <FormControl isInvalid={errors.email && true}>
             <FormLabel htmlFor="email" color="blue.800">
               {t('core:form.email.label')}
             </FormLabel>
             <Input
-              id="email"
-              type="text"
+              name="email"
+              type="email"
               placeholder={t('core:form.email.placeholder')}
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              ref={register}
               borderRadius={0}
             />
-            <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
+            <FormErrorMessage fontSize={14}>{errors.email?.message}</FormErrorMessage>
           </FormControl>
         </Box>
 
-        <Box h={100}>
-          <FormControl isInvalid={errors.password && touched.password ? true : false}>
+        <Box h={118}>
+          <FormControl isInvalid={errors.password && true}>
             <FormLabel htmlFor="password" color="blue.800">
               {t('core:form.password.label')}
             </FormLabel>
             <Input
-              id="password"
+              name="password"
               type="password"
               placeholder="*******"
-              value={values.password}
-              onBlur={handleBlur}
-              onChange={handleChange}
+              ref={register}
               borderRadius={0}
             />
-            <FormErrorMessage fontSize={14}>{errors.password}</FormErrorMessage>
+            <FormHelperText color="teal.700" borderRadius={0} textTransform="lowercase">
+              <Link to={authRoute({ path: 'forgot-password' })}>{t('button.forgot')}</Link>
+            </FormHelperText>
+            <FormErrorMessage fontSize={14}>{errors.password?.message}</FormErrorMessage>
           </FormControl>
         </Box>
 
         <Button
-          isLoading={isLoading}
+          isLoading={loading}
           mt={4}
           variantColor="teal"
           width="100%"
@@ -102,11 +113,21 @@ export const Login = () => {
           {t('button.login')}
         </Button>
       </form>
-      <RouterLink to={authRoute({ path: 'forgot-password' })}>
-        <Button variant="ghost" variantColor="teal" color="teal.700" size="sm" borderRadius={0}>
-          {t('button.forgot')}
-        </Button>
-      </RouterLink>
+
+      <Link to={authRoute({ path: 'register' })}>
+        <PseudoBox
+          p={2}
+          textAlign="center"
+          fontFamily="heading"
+          fontWeight="semibold"
+          color="teal.700"
+          borderRadius={0}
+          textTransform="lowercase"
+          _hover={{ bg: 'teal.50' }}
+        >
+          {t('button.register')}
+        </PseudoBox>
+      </Link>
     </Flex>
   );
 };

@@ -1,12 +1,21 @@
-import React from 'react';
-import { MockAuthProvider } from '../../contexts/auth-context.mock';
-import { authComponents } from '../../utils/storybook';
-import { Login } from './login';
+import { MockedProvider } from '@apollo/react-testing';
 import { Box } from '@chakra-ui/core';
+import React from 'react';
+import StoryRouter from 'storybook-react-router';
+import { authComponents } from '../../utils/storybook';
+import { loginUserMock } from './graphql/login-user-mutation.mock';
+import { Login } from './login';
 
 export default {
   title: authComponents('Login'),
-  decorators: [(storyFn) => <MockAuthProvider>{storyFn()}</MockAuthProvider>],
+  decorators: [
+    (storyFn) => (
+      <MockedProvider mocks={[loginUserMock({ email: 'asd@email.com', password: 'password' })]}>
+        {storyFn()}
+      </MockedProvider>
+    ),
+    StoryRouter({}),
+  ],
 };
 
 export const loginCard = () => (

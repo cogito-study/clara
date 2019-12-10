@@ -5,7 +5,7 @@ import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { EmptyState } from '../../../core/components/empty-state/empty-state';
 import { ModalOptions } from '../../../core/components/modal/types';
 import { NotePermissionType, SubjectPermissionType } from '../../../core/graphql/types.generated';
-import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import { useGraphQLErrorNotification } from '../../../core/hooks';
 import EmptyIcon from '../../assets/notelist-empty.svg';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { AddItemCard } from '../elements/add-item-card';
@@ -59,7 +59,6 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
       try {
         await updateNote({
           variables: { id: editingNoteState.note.id, title, description, number },
-          refetchQueries: [{ query: SubjectNoteListDocument, variables: { subjectCode } }],
         });
       } catch (error) {
         displayGraphQLError(error);

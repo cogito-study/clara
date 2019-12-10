@@ -32,6 +32,8 @@ export const Router = () => {
             authRoute({ path: 'register' }),
             authRoute({ path: 'reset-password' }),
             authRoute({ path: 'forgot-password' }),
+            authRoute({ path: 'activate-invitation' }),
+            authRoute({ path: 'activate-registration' }),
             authRoute({ path: 'link-expired' }),
           ]}
         >

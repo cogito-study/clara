@@ -13,7 +13,7 @@ export type UpdateSubjectInfoMutationVariables = {
 export type UpdateSubjectInfoMutation = { readonly __typename?: 'Mutation' } & {
   readonly updateSubjectInformation: { readonly __typename?: 'SubjectInformation' } & Pick<
     Types.SubjectInformation,
-    'id'
+    'id' | 'title' | 'content'
   >;
 };
 
@@ -24,6 +24,8 @@ export const UpdateSubjectInfoDocument = gql`
       data: { title: $title, content: $content }
     ) {
       id
+      title
+      content
     }
   }
 `;

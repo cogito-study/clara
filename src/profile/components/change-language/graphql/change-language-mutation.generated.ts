@@ -10,13 +10,23 @@ export type ChangeLanguageMutationVariables = {
 };
 
 export type ChangeLanguageMutation = { readonly __typename?: 'Mutation' } & {
-  readonly updateProfile: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
+  readonly changePreferredLanguage: { readonly __typename?: 'User' } & Pick<Types.User, 'id'> & {
+      readonly preferredLanguage: Types.Maybe<
+        { readonly __typename?: 'Language' } & Pick<Types.Language, 'id'>
+      >;
+    };
 };
 
 export const ChangeLanguageDocument = gql`
   mutation ChangeLanguage($userID: ID!, $languageID: ID!) {
-    updateProfile(where: { id: $userID }, data: { preferredLanguage: { id: $languageID } }) {
+    changePreferredLanguage(
+      where: { id: $userID }
+      data: { preferredLanguage: { id: $languageID } }
+    ) {
       id
+      preferredLanguage {
+        id
+      }
     }
   }
 `;

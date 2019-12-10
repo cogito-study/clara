@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { useAuth } from '../../auth/hooks/use-auth';
+import { useAuthToken } from '../../auth/hooks';
 import { authRoute } from '../../auth/utils/auth-route';
 
 export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
-  const { authToken } = useAuth();
+  const { authToken } = useAuthToken();
 
   return (
     <Route

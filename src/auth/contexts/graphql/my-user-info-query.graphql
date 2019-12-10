@@ -1,5 +1,0 @@
-query MyUserInfo {
-  me {
-    ...UserInfo
-  }
-}

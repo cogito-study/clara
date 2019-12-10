@@ -1,11 +1,19 @@
-import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
-import { ForgotPassword, Login, Register, ResetPassword } from '../components';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import {
+  ActivateInvitation,
+  ActivateRegistration,
+  ForgotPassword,
+  Login,
+  Register,
+  ResetPassword,
+} from '../components';
+import { LinkExpired } from '../components/feedback/link-expired';
 import { authRoute } from '../utils/auth-route';
 
 export const AuthRouter = () => {
   return (
-    <Fragment>
+    <Switch>
       <Route path={authRoute({ path: 'register' })}>
         <Register />
       </Route>
@@ -18,6 +26,15 @@ export const AuthRouter = () => {
       <Route path={authRoute({ path: 'reset-password' })}>
         <ResetPassword />
       </Route>
-    </Fragment>
+      <Route path={authRoute({ path: 'activate-invitation' })}>
+        <ActivateInvitation />
+      </Route>
+      <Route path={authRoute({ path: 'activate-registration' })}>
+        <ActivateRegistration />
+      </Route>
+      <Route path={authRoute({ path: 'link-expired' })}>
+        <LinkExpired />
+      </Route>
+    </Switch>
   );
 };

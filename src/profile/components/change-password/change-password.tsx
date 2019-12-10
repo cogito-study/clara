@@ -8,54 +8,47 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
 import React from 'react';
+import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { useAuth } from '../../../auth/hooks';
-import { useGraphQLErrorNotification } from '../../../core/hooks/use-graphql-error-notification';
+import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
 import { useChangePasswordMutation } from './graphql/change-password-mutation.generated';
 
-// TODO: Localize
-export const ChangePassword = () => {
+type ChangePasswordForm = {
+  oldPassword: string;
+  password: string;
+  passwordConfirm: string;
+};
+
+type ChangePasswordProps = {
+  userID?: string;
+};
+
+export const ChangePassword = ({ userID }: ChangePasswordProps) => {
   const { t } = useTranslation(['profile', 'core']);
-  const { user } = useAuth();
-  const [changePassword, { loading }] = useChangePasswordMutation();
+  const { passwordConfirmSchema } = useFormValidationSchema();
   const displayGraphQLError = useGraphQLErrorNotification();
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    resetForm,
-    isValid,
-  } = useFormik({
-    initialValues: {
-      oldPassword: '',
-      newPassword: '',
-      newPasswordConfirm: '',
-    },
-    validationSchema: Yup.object({
+
+  const [changePassword, { loading }] = useChangePasswordMutation();
+
+  const { register, handleSubmit, errors, reset, formState } = useForm<ChangePasswordForm>({
+    mode: 'onBlur',
+    validationSchema: passwordConfirmSchema.shape({
       oldPassword: Yup.string().required(t('core:form.password.validation.required')),
-      newPassword: Yup.string()
-        .min(8, t('core:form.password.validation.minCharacter'))
-        .required(t('core:form.password.validation.required')),
-      newPasswordConfirm: Yup.string()
-        .oneOf([Yup.ref('newPassword')], t('core:form.password.confirm.validation.different'))
-        .required(t('core:form.password.confirm.validation.required')),
     }),
-    onSubmit: async ({ oldPassword, newPassword }, { resetForm }) => {
-      if (user) {
-        try {
-          await changePassword({ variables: { userID: user.id, oldPassword, newPassword } });
-        } catch (error) {
-          displayGraphQLError(error);
-        }
+  });
+
+  const onSubmit = handleSubmit(async ({ oldPassword, password }) => {
+    console.log({ old: oldPassword, new: password });
+    if (userID) {
+      try {
+        await changePassword({ variables: { userID, oldPassword, newPassword: password } });
+      } catch (error) {
+        displayGraphQLError(error);
       }
-      resetForm();
-    },
+    }
+    reset();
   });
 
   return (
@@ -80,79 +73,68 @@ export const ChangePassword = () => {
         align="center"
       >
         <Box maxW={480} size="full">
-          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <form onSubmit={onSubmit}>
             <Box h={100}>
-              <FormControl isInvalid={errors.oldPassword && touched.oldPassword ? true : false}>
-                <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
+              <FormControl isInvalid={errors.oldPassword && true}>
+                <FormLabel htmlFor="oldPassword" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.current')}
                 </FormLabel>
                 <Input
-                  id="oldPassword"
+                  name="oldPassword"
                   type="password"
                   placeholder="********"
-                  value={values.oldPassword}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
+                  ref={register}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.oldPassword}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.oldPassword?.message}</FormErrorMessage>
               </FormControl>
             </Box>
             <Box h={100}>
-              <FormControl isInvalid={errors.newPassword && touched.newPassword ? true : false}>
-                <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
+              <FormControl isInvalid={errors.password && true}>
+                <FormLabel htmlFor="password" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.new')}
                 </FormLabel>
                 <Input
-                  id="newPassword"
+                  name="password"
                   type="password"
                   placeholder="********"
-                  value={values.newPassword}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
+                  ref={register}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.newPassword}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.password?.message}</FormErrorMessage>
               </FormControl>
             </Box>
             <Box h={100}>
-              <FormControl
-                isInvalid={errors.newPasswordConfirm && touched.newPasswordConfirm ? true : false}
-              >
-                <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
+              <FormControl isInvalid={errors.passwordConfirm && true}>
+                <FormLabel htmlFor="passwordConfirm" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.confirm')}
                 </FormLabel>
                 <Input
-                  id="newPasswordConfirm"
+                  name="passwordConfirm"
                   type="password"
                   placeholder="********"
-                  value={values.newPasswordConfirm}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
+                  ref={register}
                   borderRadius={0}
                 />
-                <FormErrorMessage fontSize={14}>{errors.newPasswordConfirm}</FormErrorMessage>
+                <FormErrorMessage fontSize={14}>{errors.passwordConfirm?.message}</FormErrorMessage>
               </FormControl>
             </Box>
             <Flex justify="flex-end">
               <Button
-                isDisabled={
-                  (!values.oldPassword && !values.newPassword && !values.newPasswordConfirm) ||
-                  loading
-                }
+                isDisabled={loading}
                 variantColor="teal"
                 borderRadius={0}
                 variant="outline"
                 color="blue.800"
                 borderColor="teal.500"
                 borderWidth={2}
-                onClick={() => resetForm()}
+                onClick={() => reset()}
               >
                 {t('core:button.cancel')}
               </Button>
               <Button
                 ml={3}
-                isDisabled={!isValid}
+                isDisabled={!formState.isValid}
                 isLoading={loading}
                 variantColor="teal"
                 borderRadius={0}

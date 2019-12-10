@@ -6,16 +6,11 @@ import background from '../../assets/background-pattern.svg';
 import { FullCogitoLoader } from '../loader/cogito-loader';
 import { MainMenu } from '../navigation/menu';
 import { PageTitleHeader } from '../navigation/page-title-header';
-import { useStudiedSubjectsQuery } from './graphql/studied-subjects-query.generated';
 import { useSubjectTitleLazyQuery } from './graphql/subject-title-query.generated';
 
 export const Layout: FC<{ title?: string }> = ({ title, children }) => {
   const { subjectCode } = useParams<SubjectRouteParams>();
-  const { data: studiedSubjectsData, loading: studiedSubjectsLoading } = useStudiedSubjectsQuery();
-  const [
-    fetchSubjectTitle,
-    { data: subjectTitleData, loading: subjectTitleLoading },
-  ] = useSubjectTitleLazyQuery();
+  const [fetchSubjectTitle, { data, loading }] = useSubjectTitleLazyQuery();
 
   useEffect(() => {
     if (subjectCode) {
@@ -23,9 +18,7 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
     }
   }, [fetchSubjectTitle, subjectCode]);
 
-  const layoutTitle = title
-    ? title
-    : subjectTitleData && subjectTitleData.subject && subjectTitleData.subject.name;
+  const layoutTitle = title ? title : data?.subject?.name;
 
   return (
     <Flex
@@ -38,18 +31,7 @@ export const Layout: FC<{ title?: string }> = ({ title, children }) => {
       backgroundSize="cover"
       backgroundAttachment="fixed"
     >
-      <MainMenu
-        title={layoutTitle}
-        titleLoading={subjectTitleLoading}
-        subjects={
-          (studiedSubjectsData &&
-            studiedSubjectsData.me &&
-            studiedSubjectsData.me.studiedSubjects) ||
-          []
-        }
-        subjectsLoading={studiedSubjectsLoading}
-      />
-      {/* TODO: Normal loading screen */}
+      <MainMenu title={layoutTitle} titleLoading={loading} />
       <Suspense fallback={<FullCogitoLoader />}>
         <Box width="100%" ml={['initial', 'initial', 'initial', '250px']}>
           {title && <PageTitleHeader title={title} />}

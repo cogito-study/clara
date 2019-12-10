@@ -6,7 +6,6 @@ import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { AuthProvider } from '../auth/contexts/auth-context';
 import { FullCogitoLoader } from './components/loader/cogito-loader';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
@@ -38,11 +37,9 @@ export const App = () => {
           <ApolloProvider client={client}>
             <ErrorBoundary onError={captureException}>
               <BrowserRouter>
-                <AuthProvider>
-                  <Route path="/">
-                    <Router />
-                  </Route>
-                </AuthProvider>
+                <Route path="/">
+                  <Router />
+                </Route>
               </BrowserRouter>
             </ErrorBoundary>
           </ApolloProvider>
