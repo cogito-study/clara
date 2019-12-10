@@ -1,0 +1,7 @@
+mutation ActivateRegistration(
+  $token: String!
+  $subjects: [ConnectRelation!]!
+  $major: ConnectRelation!
+) {
+  activateRegistration(data: { token: $token, subjects: $subjects, major: $major })
+}

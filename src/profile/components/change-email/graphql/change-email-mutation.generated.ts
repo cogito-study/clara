@@ -10,13 +10,14 @@ export type ChangeEmailMutationVariables = {
 };
 
 export type ChangeEmailMutation = { readonly __typename?: 'Mutation' } & {
-  readonly updateProfile: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
+  readonly changeEmail: { readonly __typename?: 'User' } & Pick<Types.User, 'id' | 'email'>;
 };
 
 export const ChangeEmailDocument = gql`
   mutation ChangeEmail($userID: ID!, $email: String!) {
-    updateProfile(where: { id: $userID }, data: { email: $email }) {
+    changeEmail(where: { id: $userID }, data: { email: $email }) {
       id
+      email
     }
   }
 `;

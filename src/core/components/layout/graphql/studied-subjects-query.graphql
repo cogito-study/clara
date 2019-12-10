@@ -1,8 +1,0 @@
-query StudiedSubjects {
-  me {
-    id
-    studiedSubjects {
-      ...StudiedSubject
-    }
-  }
-}

@@ -30,7 +30,10 @@
       }
     },
     "terms": {
-      "label": "Accept terms of use and privacy policy"
+      "label": "Accept terms of use and privacy policy",
+      "validation": {
+        "required": "It's required to accept our terms and policy"
+      }
     },
     "firstName": {
       "label": "First Name",

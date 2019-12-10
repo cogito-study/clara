@@ -30,7 +30,10 @@
       }
     },
     "terms": {
-      "label": "Elfogadom a felhasználási feltételeket"
+      "label": "Elfogadom a felhasználási feltételeket",
+      "validation": {
+        "required": "A felhasználási feltételek elfogadása kötelező."
+      }
     },
     "firstName": {
       "label": "Keresztnév",

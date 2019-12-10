@@ -1,12 +1,19 @@
+import { MockedProvider } from '@apollo/react-testing';
 import { Box } from '@chakra-ui/core';
 import React from 'react';
-import { MockAuthProvider } from '../../contexts/auth-context.mock';
 import { authComponents } from '../../utils/storybook';
 import { ForgotPassword } from './forgot-password';
+import { forgotPasswordMock } from './graphql/forgot-password-mutation.mock';
 
 export default {
   title: authComponents('Forgot Password'),
-  decorators: [(storyFn) => <MockAuthProvider>{storyFn()}</MockAuthProvider>],
+  decorators: [
+    (storyFn) => (
+      <MockedProvider mocks={[forgotPasswordMock({ email: 'asd@email.com' })]}>
+        {storyFn()}
+      </MockedProvider>
+    ),
+  ],
 };
 
 export const forgotPassword = () => (

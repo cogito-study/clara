@@ -6,6 +6,8 @@ fragment FeedPost on Post {
     profilePictureURL
     position
   }
+  hasLikedPost
+  permissions
   content
   updatedAt
   likesCount

@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Flex, Heading, IconButton, Text, Textarea } from '@chakra-ui/core';
 import React, { FC, FormEvent, useState } from 'react';
 import { FiCheck, FiThumbsUp, FiX } from 'react-icons/fi';
-import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
+import { useDateFormatter } from '../../../core/hooks';
 import { MoreMenu } from '../../../subject/components/elements/more-menu';
 import { FeedPostFragment } from './graphql/feed-post-fragment.generated';
 
@@ -9,18 +9,14 @@ export type FeedPostData = FeedPostFragment & { subject?: { name: string } };
 
 export type FeedPostCardProps = {
   feedPost: FeedPostData;
-  isOwnPost: boolean;
-  hasLikedPost: boolean;
   isEditLoading: boolean;
-  onPostDelete: () => void;
   onPostLike: () => void;
-  onPostEdit: (content: string) => void;
+  onPostDelete?: () => void;
+  onPostEdit?: (content: string) => void;
 };
 
 export const FeedPostCard: FC<FeedPostCardProps> = ({
-  feedPost: { author, content, likesCount, updatedAt, subject },
-  isOwnPost,
-  hasLikedPost,
+  feedPost: { author, content, likesCount, updatedAt, subject, hasLikedPost },
   isEditLoading,
   onPostDelete,
   onPostLike,
@@ -30,15 +26,12 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
   const [value, setValue] = useState(content);
   const { since } = useDateFormatter();
 
-  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
-    const inputValue = event.currentTarget.value;
-    setValue(inputValue);
-  };
-
   const handleEditDone = () => {
-    onPostEdit(value);
+    onPostEdit && onPostEdit(value);
     setIsEditing(!isEditing);
   };
+
+  const shouldShowMenu = onPostDelete !== undefined || onPostEdit !== undefined;
 
   return (
     <Box p={4} borderWidth="1px" borderColor="grey.100" minW="300px" maxW="800px" bg="#fff">
@@ -68,7 +61,7 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
             )}
           </Flex>
         </Flex>
-        {isOwnPost ? (
+        {shouldShowMenu ? (
           isEditing ? (
             <Flex align="center">
               <IconButton
@@ -96,8 +89,8 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
             </Flex>
           ) : (
             <MoreMenu
-              isEditable
-              isDeletable
+              isEditable={onPostEdit !== undefined}
+              isDeletable={onPostDelete !== undefined}
               onEdit={() => setIsEditing(!isEditing)}
               onDelete={onPostDelete}
             />
@@ -105,12 +98,12 @@ export const FeedPostCard: FC<FeedPostCardProps> = ({
         ) : null}
       </Flex>
       <Flex mt={4}>
-        {isEditing && isOwnPost ? (
+        {isEditing ? (
           <Textarea
             isDisabled={isEditLoading}
             focusBorderColor="blue.200"
             fontSize="sm"
-            onChange={handleInputChange}
+            onChange={(event: FormEvent<HTMLInputElement>) => setValue(event.currentTarget.value)}
             borderRadius="none"
           >
             {value}

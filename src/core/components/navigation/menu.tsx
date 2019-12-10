@@ -19,27 +19,24 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/core';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiBook, FiFileText, FiInfo, FiLogOut, FiMenu, FiPlusCircle } from 'react-icons/fi';
+import { FiBook, FiFileText, FiInfo, FiLogOut, FiMenu } from 'react-icons/fi';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useAuth } from '../../../auth/hooks/use-auth';
+import { useLogout } from '../../../auth/hooks';
 import { isProfilePath, profileRoute } from '../../../profile/utils/profile-route';
 import { socialRoute } from '../../../social/utils/social-route';
 import { isSubjectsPath, subjectRoute } from '../../../subject/utils/subject-route';
-import { useTheme } from '../../hooks/use-theme';
-import { StudiedSubjectFragment } from '../layout/graphql/studied-subject-fragment.generated';
+import { useTheme } from '../../hooks/';
+import { useMenuDataQuery } from './graphql/menu-data-query.generated';
 import { MenuSubjectsPlaceholder, MobileMenuTitlePlaceholder } from './menu.placeholder';
-import { SubjectSelector } from './subject-selector';
 
 export interface MainMenuProps {
   title?: string;
   titleLoading: boolean;
-  subjects?: ReadonlyArray<StudiedSubjectFragment>;
-  subjectsLoading: boolean;
 }
 
-export const MainMenu = ({ title, titleLoading, ...rest }: MainMenuProps) => {
+export const MainMenu = ({ title, titleLoading }: MainMenuProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -89,13 +86,13 @@ export const MainMenu = ({ title, titleLoading, ...rest }: MainMenuProps) => {
           <DrawerContent>
             <DrawerCloseButton color="teal.400" />
             <DrawerBody bg="blue.700" p={0}>
-              <MainMenuBase {...rest} />
+              <MainMenuBase />
             </DrawerBody>
           </DrawerContent>
         </Drawer>
       </Box>
       <Box display={['none', 'none', 'none', 'initial']} pos="relative" height="100vh">
-        <MainMenuBase {...rest} />
+        <MainMenuBase />
       </Box>
     </>
   );
@@ -103,18 +100,14 @@ export const MainMenu = ({ title, titleLoading, ...rest }: MainMenuProps) => {
 
 MainMenu.defaultProps = {
   titleLoading: false,
-  subjectsLoading: false,
 } as Partial<MainMenuProps>;
 
-export const MainMenuBase = ({
-  subjects,
-  subjectsLoading,
-}: Pick<MainMenuProps, 'subjects' | 'subjectsLoading'>) => {
+export const MainMenuBase = () => {
   const { t } = useTranslation('core');
-  const { logout, user } = useAuth();
   const location = useLocation();
+  const logout = useLogout();
+  const { data, loading } = useMenuDataQuery();
   const { colors } = useTheme();
-  const [isSubjectSelectorOpen, setSubjectSelectorOpen] = useState(false);
 
   const navLinkStyles = {
     style: { color: colors.white },
@@ -160,40 +153,20 @@ export const MainMenuBase = ({
               color={isSubjectsPath(location) ? 'teal.500' : 'blue.100'}
             />
             <Box px={3} py={2} flex="1">
-              <Flex align="center">
-                <Heading
-                  as="h4"
-                  fontSize="md"
-                  fontWeight="semibold"
-                  color="blue.100"
-                  textTransform="lowercase"
-                >
-                  {t('menu.subjects')}
-                </Heading>
-                <IconButton
-                  aria-label=""
-                  as={FiPlusCircle}
-                  mx={3}
-                  size="xs"
-                  color="teal.300"
-                  variant="ghost"
-                  bg="transparent"
-                  cursor="pointer"
-                  _hover={{ transform: 'scale(1.1)' }}
-                  _active={{ color: 'teal.700' }}
-                  onClick={() => setSubjectSelectorOpen(true)}
-                />
-                <SubjectSelector
-                  isOpen={isSubjectSelectorOpen}
-                  isLoading={false}
-                  onClose={() => setSubjectSelectorOpen(false)}
-                />
-              </Flex>
-              {subjectsLoading ? (
+              <Heading
+                as="h4"
+                fontSize="md"
+                fontWeight="semibold"
+                color="blue.100"
+                textTransform="lowercase"
+              >
+                {t('menu.subjects')}
+              </Heading>
+              {loading ? (
                 <MenuSubjectsPlaceholder />
               ) : (
                 <Flex flexDirection="column" mt={1} ml={1}>
-                  {subjects?.map(({ code, name }) => (
+                  {data?.me.studiedSubjects?.map(({ code, name }) => (
                     <NavLink
                       key={code}
                       to={subjectRoute({ path: 'subjects', subjectCode: code })}
@@ -216,8 +189,8 @@ export const MainMenuBase = ({
               <Avatar
                 size="sm"
                 mb={5}
-                name={user?.fullName}
-                src={user?.profilePictureURL}
+                name={data?.me.fullName}
+                src={data?.me.profilePictureURL}
                 borderWidth={2}
                 borderColor="teal.500"
                 showBorder={isProfilePath(location)}

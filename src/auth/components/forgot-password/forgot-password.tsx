@@ -10,31 +10,25 @@ import {
   Input,
   Text,
 } from '@chakra-ui/core';
-import { useFormik } from 'formik';
 import React, { useState } from 'react';
+import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiSend } from 'react-icons/fi';
-import * as Yup from 'yup';
-import { useAuth } from '../../hooks/use-auth';
+import { useFormValidationSchema } from '../../../core/hooks';
 import { Feedback } from '../feedback/feedback';
+import { useForgotPasswordMutation } from './graphql/forgot-password-mutation.generated';
 
-// TODO: Localize
 export const ForgotPassword = () => {
-  const { t } = useTranslation(['auth', 'core']);
-  const { forgotPassword } = useAuth();
   const [hasSubmitted, setSubmitted] = useState(false);
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: { email: '' },
-    validateOnChange: false,
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email(t('core:form.email.validation.format'))
-        .required(t('core:form.email.validation.required')),
-    }),
-    onSubmit: async ({ email }) => {
-      setSubmitted(true);
-      forgotPassword(email);
-    },
+  const { t } = useTranslation(['auth', 'core']);
+  const { emailSchema } = useFormValidationSchema();
+  const [forgotPassword] = useForgotPasswordMutation();
+
+  const { register, handleSubmit, errors } = useForm({ validationSchema: emailSchema });
+
+  const onSubmit = handleSubmit(({ email }) => {
+    forgotPassword({ variables: { email } });
+    setSubmitted(true);
   });
 
   return hasSubmitted ? (
@@ -61,22 +55,20 @@ export const ForgotPassword = () => {
         {t('forgotPassword.description')}
       </Text>
 
-      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+      <form onSubmit={onSubmit} style={{ width: '100%' }}>
         <Box h={100}>
-          <FormControl isInvalid={errors.email && touched.email ? true : false}>
+          <FormControl isInvalid={errors.email && true}>
             <FormLabel htmlFor="email" color="blue.800">
               {t('core:form.email.label')}
             </FormLabel>
             <Input
-              id="email"
+              name="email"
               type="text"
               placeholder={t('core:form.email.placeholder')}
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              ref={register}
               borderRadius={0}
             />
-            <FormErrorMessage fontSize={14}>{errors.email}</FormErrorMessage>
+            <FormErrorMessage fontSize={14}>{errors.email?.message}</FormErrorMessage>
           </FormControl>
         </Box>
 

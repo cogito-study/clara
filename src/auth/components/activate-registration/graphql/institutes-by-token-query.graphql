@@ -1,0 +1,14 @@
+query InstitutesByToken($token: String!) {
+  institutesByToken(token: $token) {
+    id
+    name
+    faculties {
+      id
+      name
+      majors {
+        id
+        name
+      }
+    }
+  }
+}

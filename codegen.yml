@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://staging-api.cogito.study/'
+schema: ${REACT_APP_API_URL}
 documents: 'src/**/*.graphql'
 config:
   avoidOptionals: true

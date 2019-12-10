@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/core';
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-import { useTheme } from '../../hooks/use-theme';
+import { useTheme } from '../../hooks/';
 
 export const MenuSubjectsPlaceholder = () => {
   const {

@@ -3,7 +3,7 @@ import Delta from 'quill-delta';
 import React, { FC, Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
-import { useDateFormatter } from '../../../core/hooks/use-date-formatter';
+import { useDateFormatter } from '../../../core/hooks';
 import { QuillEditor } from '../editor/quill-editor';
 import { SuggestionData } from './suggestion-data';
 

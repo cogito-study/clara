@@ -1,0 +1,8 @@
+query MyUser {
+  me {
+    id
+    fullName
+    email
+    profilePictureURL
+  }
+}
