@@ -6,20 +6,24 @@ import {
   ValidateTokenMutationVariables,
 } from './graphql/validate-token-mutation.generated';
 
-export const useTokenValidation = (variables: ValidateTokenMutationVariables) => {
+export const useTokenValidation = ({ token, type }: Partial<ValidateTokenMutationVariables>) => {
   const history = useHistory();
-  const [validateToken, { loading }] = useValidateTokenMutation({ variables });
+  const [validateToken, { loading }] = useValidateTokenMutation();
 
   useEffect(() => {
     const validate = async () => {
-      const { data } = await validateToken();
-      if (!data?.validateToken) {
+      if (token && type) {
+        const { data } = await validateToken({ variables: { token, type } });
+        if (!data?.validateToken) {
+          history.push(authRoute({ path: 'link-expired' }));
+        }
+      } else {
         history.push(authRoute({ path: 'link-expired' }));
       }
     };
 
     validate();
-  }, [validateToken, history]);
+  }, [validateToken, history, token, type]);
 
   return { isTokenValidationLoading: loading };
 };

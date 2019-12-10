@@ -24,7 +24,6 @@ import { SubjectTeacherCard } from './subject-teacher-card';
 type DeletingInfoState = ModalOptions & { id?: string };
 type EditingInfoState = ModalOptions & { info?: SubjectInfoDataFragment };
 
-// TODO: Localize
 export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
   const { t } = useTranslation('subject');
 

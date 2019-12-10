@@ -25,6 +25,7 @@ import {
 } from '../../../core/graphql/language';
 import {
   mergeValidationSchemas,
+  useDocumentTitle,
   useFormValidationSchema,
   useGraphQLErrorNotification,
 } from '../../../core/hooks';
@@ -49,6 +50,8 @@ type RegisterForm = {
 export const Register = () => {
   const { t, i18n } = useTranslation(['auth', 'core']);
   const displayGraphQLError = useGraphQLErrorNotification();
+
+  useDocumentTitle(t('register.title'));
 
   const { passwordConfirmSchema, emailSchema, legalCheckboxSchema } = useFormValidationSchema();
   const schema = mergeValidationSchemas([emailSchema, passwordConfirmSchema, legalCheckboxSchema]);

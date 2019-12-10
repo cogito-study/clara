@@ -1,4 +1,4 @@
-import { useLocalStorage } from 'web-api-hooks';
+import { useLocalStorage } from 'react-use';
 
 export const AUTH_TOKEN_KEY = 'AUTH_TOKEN';
 

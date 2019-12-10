@@ -13,13 +13,17 @@ export type LoginUserMutation = { readonly __typename?: 'Mutation' } & {
   readonly login: { readonly __typename?: 'AuthenticationPayload' } & Pick<
     Types.AuthenticationPayload,
     'token'
-  >;
+  > & { readonly user: { readonly __typename?: 'User' } & Pick<Types.User, 'id' | 'fullName'> };
 };
 
 export const LoginUserDocument = gql`
   mutation LoginUser($email: String!, $password: String!) {
     login(data: { email: $email, password: $password }) {
       token
+      user {
+        id
+        fullName
+      }
     }
   }
 `;

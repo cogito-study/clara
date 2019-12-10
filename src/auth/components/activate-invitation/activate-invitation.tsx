@@ -19,6 +19,7 @@ import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
 import {
   mergeValidationSchemas,
+  useDocumentTitle,
   useFormValidationSchema,
   useRouteQueryParams,
 } from '../../../core/hooks';
@@ -35,7 +36,10 @@ import { useActivateInvitationMutation } from './graphql/activate-invitation-mut
 export const ActivateInvitation = () => {
   const history = useHistory();
   const { t } = useTranslation(['auth', 'core']);
-  const { token } = useRouteQueryParams<{ token: string }>();
+  const { token } = useRouteQueryParams<{ token?: string }>();
+
+  useDocumentTitle(t('activation.title'));
+
   const { passwordConfirmSchema, legalCheckboxSchema } = useFormValidationSchema();
   const validationSchema = mergeValidationSchemas([passwordConfirmSchema, legalCheckboxSchema]);
 
@@ -45,7 +49,9 @@ export const ActivateInvitation = () => {
   const { register, handleSubmit, errors } = useForm({ validationSchema });
 
   const onSubmit = handleSubmit(({ password }) => {
-    activateInvitation({ variables: { password, token } });
+    if (token) {
+      activateInvitation({ variables: { password, token } });
+    }
   });
 
   return isTokenValidationLoading ? (

@@ -18,7 +18,6 @@ const Social = lazy(() => import('../../social'));
 const Subject = lazy(() => import('../../subject'));
 const Profile = lazy(() => import('../../profile'));
 
-// TODO: Localize
 export const Router = () => {
   const { t } = useTranslation('core');
 

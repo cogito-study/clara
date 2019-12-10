@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
-import { useGraphQLErrorNotification, useRouteQueryParams } from '../../../core/hooks';
+import {
+  useDocumentTitle,
+  useGraphQLErrorNotification,
+  useRouteQueryParams,
+} from '../../../core/hooks';
 import { useTokenValidation } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
@@ -16,14 +20,16 @@ export const ActivateRegistration = () => {
   const history = useHistory();
   const { t } = useTranslation(['auth', 'core']);
   const [selectedMajorID, setSelectedMajorID] = useState<string | undefined>(undefined);
-  const { token } = useRouteQueryParams<{ token: string }>();
+  const { token } = useRouteQueryParams<{ token?: string }>();
   const displayGraphQLError = useGraphQLErrorNotification();
+
+  useDocumentTitle(t('activation.title'));
 
   const { isTokenValidationLoading } = useTokenValidation({ token, type: TokenType.Activation });
   const [activateRegistration, { data, loading }] = useActivateRegistrationMutation();
 
   const handleSave = async (subjectIDs: string[]) => {
-    if (selectedMajorID && subjectIDs) {
+    if (selectedMajorID && subjectIDs && token) {
       try {
         await activateRegistration({
           variables: {
@@ -58,16 +64,20 @@ export const ActivateRegistration = () => {
     );
   }
 
-  if (selectedMajorID) {
-    return (
-      <PickSubjects
-        token={token}
-        majorID={selectedMajorID}
-        isSubmitting={loading}
-        onSave={handleSave}
-      />
-    );
-  } else {
-    return <PickStudies token={token} onFormSubmit={(majorID) => setSelectedMajorID(majorID)} />;
+  if (token) {
+    if (selectedMajorID) {
+      return (
+        <PickSubjects
+          token={token}
+          majorID={selectedMajorID}
+          isSubmitting={loading}
+          onSave={handleSave}
+        />
+      );
+    } else {
+      return <PickStudies token={token} onFormSubmit={(majorID) => setSelectedMajorID(majorID)} />;
+    }
   }
+
+  return null;
 };

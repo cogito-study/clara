@@ -52,8 +52,6 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
     <Box>
       {delta.ops.map((op) => {
         if (op['insert']) {
-          // TODO Fix
-          // Localize
           return (
             <Text>
               <Text fontWeight={700} color="blue.800">
@@ -63,7 +61,6 @@ const prettifySuggestion = (delta: Delta, original: Delta) => {
             </Text>
           );
         } else if (op['delete']) {
-          // Localize
           return (
             <Text>
               <Text fontWeight={700} color="red.600">
@@ -125,7 +122,6 @@ export const SuggestionItem: FC<Props> = ({
           <Heading as="h4" size="sm" color="blue.800">
             {author}
           </Heading>
-          {/* TODO: date-fns */}
           <Text fontSize={14}>{since(createdAt)}</Text>
         </Flex>
       </Flex>

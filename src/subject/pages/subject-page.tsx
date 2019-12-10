@@ -3,7 +3,7 @@ import React, { CSSProperties, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useTheme } from '../../core/hooks/';
+import { useDocumentTitle, useTheme } from '../../core/hooks/';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
 import { SubjectInfo } from '../components/subject-info/subject-info';
 import { SubjectNoteList } from '../components/subject-notes/subject-note-list';
@@ -20,6 +20,8 @@ export const SubjectPage = () => {
   const { t } = useTranslation('subject');
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data, loading } = useSubjectPageQuery({ variables: { subjectCode } });
+
+  useDocumentTitle(data?.subject?.name);
 
   const subjectIdentifierProps: SubjectIdentifierProps = {
     subjectCode,

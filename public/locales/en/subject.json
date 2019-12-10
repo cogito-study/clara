@@ -1,5 +1,4 @@
 {
-  "title": "Title of Subject",
   "info": {
     "title": "information",
     "of": "Information about {{ subjectCode }}",

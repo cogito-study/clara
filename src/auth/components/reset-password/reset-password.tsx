@@ -16,7 +16,11 @@ import { useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
-import { useFormValidationSchema, useRouteQueryParams } from '../../../core/hooks';
+import {
+  useDocumentTitle,
+  useFormValidationSchema,
+  useRouteQueryParams,
+} from '../../../core/hooks';
 import { useTokenValidation } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
@@ -33,6 +37,8 @@ export const ResetPassword = () => {
   const history = useHistory();
   const { token } = useRouteQueryParams<{ token: string }>();
   const { passwordConfirmSchema } = useFormValidationSchema();
+
+  useDocumentTitle(t('resetPassword.title'));
 
   const { isTokenValidationLoading } = useTokenValidation({ token, type: TokenType.ResetPassword });
   const [resetPassword, { data, loading }] = useResetPasswordMutation();

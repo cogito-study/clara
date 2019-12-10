@@ -1,11 +1,14 @@
 import React from 'react';
 import { ContentWrapper } from '../../core/components/layout/content-wrapper';
+import { useDocumentTitle } from '../../core/hooks';
 import { ChangeEmail, ChangeLanguage, ChangePassword } from '../components';
 import { ProfileInformation } from '../components/profile-information/profile-information';
 import { useMyUserQuery } from './graphql/my-user-query.generated';
 
 export const ProfilePage = () => {
   const { data } = useMyUserQuery();
+
+  useDocumentTitle(data?.me.fullName);
   const userID = data?.me.id;
 
   return (
