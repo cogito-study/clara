@@ -1,8 +1,7 @@
-import { Flex, Heading, IconButton, PseudoBox, Text } from '@chakra-ui/core';
+import { Flex, Heading, PseudoBox, Text } from '@chakra-ui/core';
 import { PseudoBoxProps } from '@chakra-ui/core/dist/PseudoBox/index';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiMoreHorizontal } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
 import { useDateFormatter } from '../../../core/hooks/';
@@ -65,24 +64,12 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
             isDeletable={isDeletable}
             onEdit={onNoteEdit}
             onDelete={onNoteDelete}
-            trigger={
-              <IconButton
-                aria-label=""
-                bg="transparent"
-                size="lg"
-                variant="ghost"
-                color="teal.400"
-                variantColor="blue.700"
-                borderRadius="none"
-                icon={FiMoreHorizontal}
-              />
-            }
           />
         )}
       </Flex>
       <Flex direction="column" p={3}>
         <Link to={collabRoute({ path: 'note-study', noteID: id })}>
-          <Flex mt={1} height="38px" align="center">
+          <Flex mt={1} height="50px" align="center">
             <Heading
               fontSize="md"
               fontWeight={700}

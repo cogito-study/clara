@@ -28,7 +28,8 @@ export const MoreMenu: FC<MoreMenuProps> = ({
             bg="transparent"
             size="lg"
             variant="ghost"
-            variantColor="grey"
+            variantColor="blue"
+            color="blue.700"
             borderRadius="none"
             icon={FiMoreHorizontal}
           />
