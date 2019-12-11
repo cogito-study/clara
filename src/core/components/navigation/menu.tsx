@@ -10,13 +10,13 @@ import {
   Heading,
   Icon,
   IconButton,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   PseudoBox,
   PseudoBoxProps,
-  Text,
   useDisclosure,
 } from '@chakra-ui/core';
 import React, { FC } from 'react';
@@ -212,19 +212,29 @@ export const MainMenuBase = () => {
               />
             </MenuButton>
             <MenuList borderRadius="none" zIndex={10}>
-              <MenuItem cursor="pointer">
-                <NavLink to="/terms-of-use" {...navLinkStyles}>
-                  <Text color="blue.800" fontWeight="semibold">
-                    {t('menu.termsOfUse')}
-                  </Text>
-                </NavLink>
+              <MenuItem>
+                <Link
+                  color="blue.800"
+                  fontWeight="semibold"
+                  key="terms and conditions"
+                  href="https://cogito.study/static/ASZF-f0964df8436132791334d163c6f55b02.pdf"
+                  isExternal={true}
+                  _hover={{ textDecor: 'none' }}
+                >
+                  {t('menu.termsOfUse')}
+                </Link>
               </MenuItem>
-              <MenuItem cursor="pointer">
-                <NavLink to="/privacy-policy" {...navLinkStyles}>
-                  <Text color="blue.800" fontWeight="semibold">
-                    {t('menu.privacyPolicy')}
-                  </Text>
-                </NavLink>
+              <MenuItem>
+                <Link
+                  color="blue.800"
+                  fontWeight="semibold"
+                  key="privacy policy"
+                  href="https://cogito.study/static/Adatvedelem-b012186546a53fc977309f0f2822bf5d.pdf"
+                  isExternal={true}
+                  _hover={{ textDecor: 'none' }}
+                >
+                  {t('menu.privacyPolicy')}
+                </Link>
               </MenuItem>
             </MenuList>
           </Menu>

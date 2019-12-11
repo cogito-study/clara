@@ -9,14 +9,15 @@ import {
   Heading,
   Icon,
   Input,
+  Link,
   PseudoBox,
   Select,
 } from '@chakra-ui/core';
 import React from 'react';
 import useForm from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { FiSend } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import {
   findLanguageByCode,
@@ -218,10 +219,26 @@ export const Register = () => {
           </FormControl>
         </Box>
 
-        <Box h="52px">
+        <Box h={80}>
           <FormControl isRequired isInvalid={errors.legal && true}>
             <Checkbox name="legal" size="sm" variantColor="teal" ref={register}>
-              {t('core:form.terms.label')}
+              <Trans
+                i18nKey="core:form.terms.label"
+                components={[
+                  <Link
+                    color="teal.700"
+                    href="https://cogito.study/static/Adatvedelem-b012186546a53fc977309f0f2822bf5d.pdf"
+                    key="privacy policy"
+                    isExternal={true}
+                  />,
+                  <Link
+                    color="teal.700"
+                    href="https://cogito.study/static/ASZF-f0964df8436132791334d163c6f55b02.pdf"
+                    key="terms and conditions"
+                    isExternal={true}
+                  />,
+                ]}
+              />
             </Checkbox>
             <FormErrorMessage fontSize={14}>{errors.legal?.message}</FormErrorMessage>
           </FormControl>
@@ -241,7 +258,7 @@ export const Register = () => {
         </Button>
       </form>
 
-      <Link to={authRoute({ path: 'login' })}>
+      <RouterLink to={authRoute({ path: 'login' })}>
         <PseudoBox
           mt={2}
           py={2}
@@ -256,7 +273,7 @@ export const Register = () => {
         >
           {t('button.signIn')}
         </PseudoBox>
-      </Link>
+      </RouterLink>
     </Flex>
   );
 };

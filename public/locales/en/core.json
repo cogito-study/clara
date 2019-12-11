@@ -29,7 +29,7 @@
       }
     },
     "terms": {
-      "label": "Accept terms of use and privacy policy",
+      "label": "Accept <0>privacy policy</0> and <1>terms and conditions</1>.",
       "validation": {
         "required": "It's required to accept our terms and policy"
       }

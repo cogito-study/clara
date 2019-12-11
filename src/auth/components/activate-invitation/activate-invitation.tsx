@@ -9,11 +9,12 @@ import {
   Heading,
   Icon,
   Input,
+  Link,
   Spinner,
 } from '@chakra-ui/core';
 import React from 'react';
 import useForm from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
@@ -122,7 +123,23 @@ export const ActivateInvitation = () => {
         <Box h="52px">
           <FormControl isRequired isInvalid={errors.legal && true}>
             <Checkbox name="legal" size="sm" variantColor="teal" ref={register}>
-              {t('core:form.terms.label')}
+              <Trans
+                i18nKey="core:form.terms.label"
+                components={[
+                  <Link
+                    color="teal.700"
+                    href="https://cogito.study/static/Adatvedelem-b012186546a53fc977309f0f2822bf5d.pdf"
+                    key="privacy policy"
+                    isExternal={true}
+                  />,
+                  <Link
+                    color="teal.700"
+                    href="https://cogito.study/static/ASZF-f0964df8436132791334d163c6f55b02.pdf"
+                    key="terms and conditions"
+                    isExternal={true}
+                  />,
+                ]}
+              />
             </Checkbox>
             <FormErrorMessage fontSize={14}>{errors.legal?.message}</FormErrorMessage>
           </FormControl>
