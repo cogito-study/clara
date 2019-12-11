@@ -115,6 +115,7 @@ const TabLink: FC<{ to: string }> = ({ to, children }) => {
       borderBottom: '2px solid',
       borderColor: 'transparent',
       padding: '6px 12px',
+      zIndex: 2,
     },
     activeStyle: { color: colors.teal[800], borderColor: colors.teal[600] },
   };
