@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { ModalOptions } from '../../../core/components/modal/types';
 import { PostPermissionType } from '../../../core/graphql/types.generated';
+import { useErrorToast } from '../../../core/hooks';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
 import { FeedPostCard, FeedPostData } from './feed-post-card';
 import { useDeletePostMutation } from './graphql/delete-post-mutation.generated';
@@ -25,6 +26,7 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const [deletingPostState, setDeletingPostState] = useState<DeletingPostState>({ isOpen: false });
   const [editingPostID, setEditingPostID] = useState<string | undefined>(undefined);
+  const errorToast = useErrorToast();
 
   const [editPost, { loading: editPostLoading }] = useEditPostMutation();
   const [deletePost, { loading: deletePostLoading }] = useDeletePostMutation();
@@ -38,21 +40,31 @@ export const FeedPostList = ({ posts, query }: FeedPostListProps) => {
           variables: { postID: deletingPostState.id },
           refetchQueries: [{ query, variables: { subjectCode } }],
         });
+      } catch (error) {
+        errorToast(error);
       } finally {
         setDeletingPostState({ isOpen: false });
       }
     }
   };
 
-  const handlePostLike = (id: string, hasLikedPost: boolean) => {
-    hasLikedPost
-      ? dislikePost({ variables: { postID: id } })
-      : likePost({ variables: { postID: id } });
+  const handlePostLike = async (id: string, hasLikedPost: boolean) => {
+    try {
+      hasLikedPost
+        ? await dislikePost({ variables: { postID: id } })
+        : await likePost({ variables: { postID: id } });
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
-  const handlePostEdit = (id: string, content: string) => {
+  const handlePostEdit = async (id: string, content: string) => {
     setEditingPostID(id);
-    editPost({ variables: { postID: id, content } });
+    try {
+      await editPost({ variables: { postID: id, content } });
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (

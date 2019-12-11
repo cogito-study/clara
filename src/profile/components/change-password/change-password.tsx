@@ -12,7 +12,7 @@ import React from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
+import { useErrorToast, useFormValidationSchema } from '../../../core/hooks';
 import { useChangePasswordMutation } from './graphql/change-password-mutation.generated';
 
 type ChangePasswordForm = {
@@ -28,7 +28,7 @@ type ChangePasswordProps = {
 export const ChangePassword = ({ userID }: ChangePasswordProps) => {
   const { t } = useTranslation(['profile', 'core']);
   const { passwordConfirmSchema } = useFormValidationSchema();
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   const [changePassword, { loading }] = useChangePasswordMutation();
 
@@ -45,7 +45,7 @@ export const ChangePassword = ({ userID }: ChangePasswordProps) => {
       try {
         await changePassword({ variables: { userID, oldPassword, newPassword: password } });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       }
     }
     reset();

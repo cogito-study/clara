@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
 import {
   useDocumentTitle,
+  useErrorToast,
   useFormValidationSchema,
   useRouteQueryParams,
 } from '../../../core/hooks';
@@ -35,6 +36,7 @@ type ResetPasswordForm = {
 export const ResetPassword = () => {
   const { t } = useTranslation(['auth', 'core']);
   const history = useHistory();
+  const errorToast = useErrorToast();
   const { token } = useRouteQueryParams<{ token: string }>();
   const { passwordConfirmSchema } = useFormValidationSchema();
 
@@ -47,12 +49,15 @@ export const ResetPassword = () => {
     validationSchema: passwordConfirmSchema,
   });
 
-  const onSubmit = handleSubmit(({ password }) => {
-    resetPassword({ variables: { password, token } });
-    reset();
+  const onSubmit = handleSubmit(async ({ password }) => {
+    try {
+      await resetPassword({ variables: { password, token } });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      reset();
+    }
   });
-
-  console.log(token);
 
   return isTokenValidationLoading ? (
     <Flex align="center" justify="center">

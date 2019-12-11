@@ -2,6 +2,7 @@ import { Button, Flex, Input } from '@chakra-ui/core';
 import React, { useEffect, useRef } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useErrorToast } from '../../../core/hooks';
 import { SubjectFeedDocument } from '../../../subject/components/subject-feed/graphql/subject-feed-query.generated';
 import { SubjectIdentifierProps } from '../../../subject/pages/subject-page';
 import { useCreatePostMutation } from './graphql/create-post-mutation.generated';
@@ -10,6 +11,7 @@ type Props = { shouldFocus: boolean } & SubjectIdentifierProps;
 
 export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
   const { t } = useTranslation('social');
+  const errorToast = useErrorToast();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [createPost, { loading }] = useCreatePostMutation();
 
@@ -22,11 +24,16 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
   }, [shouldFocus]);
 
   const onSubmit = handleSubmit(async ({ content }) => {
-    createPost({
-      variables: { content, subjectID: id },
-      refetchQueries: [{ query: SubjectFeedDocument, variables: { subjectCode } }],
-    });
-    reset();
+    try {
+      await createPost({
+        variables: { content, subjectID: id },
+        refetchQueries: [{ query: SubjectFeedDocument, variables: { subjectCode } }],
+      });
+    } catch (error) {
+      errorToast(error);
+    } finally {
+      reset();
+    }
   });
 
   return (

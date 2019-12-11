@@ -61,6 +61,14 @@
   },
   "pages": {
     "feed": "Hírek",
-    "profile": "Profil"
+    "profile": "Profil",
+    "error": {
+      "title": "Elnézést, valamilyen hiba történt",
+      "description": "Megteszünk mindent annak érdekében, hogy kijavítsuk, addig is próbáld meg újratölteni az oldalt!",
+      "button": {
+        "tryAgain": "frissítés",
+        "report": "jelentés"
+      }
+    }
   }
 }

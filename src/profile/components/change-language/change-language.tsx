@@ -7,7 +7,7 @@ import {
   sortLanguagesBySelectedFirst,
   useLanguageListQuery,
 } from '../../../core/graphql/language';
-import { useGraphQLErrorNotification } from '../../../core/hooks';
+import { useErrorToast } from '../../../core/hooks';
 import { useChangeLanguageMutation } from './graphql/change-language-mutation.generated';
 
 type ChangeLanguageProps = {
@@ -16,7 +16,7 @@ type ChangeLanguageProps = {
 
 export const ChangeLanguage = ({ userID }: ChangeLanguageProps) => {
   const { i18n, t } = useTranslation(['profile', 'core']);
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
   const { data } = useLanguageListQuery();
 
   const [changeLanguage, { loading: changeLanguageLoading }] = useChangeLanguageMutation();
@@ -34,7 +34,7 @@ export const ChangeLanguage = ({ userID }: ChangeLanguageProps) => {
         await changeLanguage({ variables: { userID, languageID: selectedLanguage.id } });
         i18n.changeLanguage(language);
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       }
     }
   });

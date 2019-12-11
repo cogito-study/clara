@@ -585,7 +585,7 @@ export type Mutation = {
   readonly sendActivationEmails: Scalars['Boolean'];
   readonly login: AuthenticationPayload;
   readonly register: User;
-  readonly activateRegistration: Scalars['Boolean'];
+  readonly activateRegistration: User;
   readonly activateInvitation: Scalars['Boolean'];
   readonly validateToken: Scalars['Boolean'];
   readonly forgotPassword: Scalars['Boolean'];

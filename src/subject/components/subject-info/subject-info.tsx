@@ -8,7 +8,7 @@ import {
   SubjectInformationPermissionType,
   SubjectPermissionType,
 } from '../../../core/graphql/types.generated';
-import { useGraphQLErrorNotification } from '../../../core/hooks';
+import { useErrorToast } from '../../../core/hooks';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { AddItemCard } from '../elements/add-item-card';
 import { EditInfoModal } from './edit-info-modal';
@@ -30,7 +30,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
   const [deletingInfoState, setDeletingInfoState] = useState<DeletingInfoState>({ isOpen: false });
   const [editingInfoState, setEditingInfoState] = useState<EditingInfoState>({ isOpen: false });
   const [addingInfoState, setAddingInfoState] = useState<ModalOptions>({ isOpen: false });
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   const { data, loading: subjectInfoLoading } = useSubjectInfoQuery({ variables: { subjectCode } });
   const [createSubjectInfo, { loading: createSubjectInfoLoading }] = useCreateSubjectInfoMutation();
@@ -45,7 +45,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
           refetchQueries: [{ query: SubjectInfoDocument, variables: { subjectCode } }],
         });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       } finally {
         setDeletingInfoState({ isOpen: false });
       }
@@ -59,7 +59,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
           variables: { subjectInfoID: editingInfoState.info.id, title, content },
         });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       } finally {
         setEditingInfoState({ isOpen: false });
       }
@@ -73,7 +73,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
         refetchQueries: [{ query: SubjectInfoDocument, variables: { subjectCode } }],
       });
     } catch (error) {
-      displayGraphQLError(error);
+      errorToast(error);
     } finally {
       setAddingInfoState({ isOpen: false });
     }
