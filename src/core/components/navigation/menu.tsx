@@ -69,7 +69,14 @@ export const MainMenu = ({ title, titleLoading }: MainMenuProps) => {
           {titleLoading ? (
             <MobileMenuTitlePlaceholder />
           ) : (
-            <Heading flex="1" fontSize="sm" fontWeight="semibold" color="white" textAlign="center">
+            <Heading
+              flex="1"
+              fontSize="sm"
+              fontWeight="semibold"
+              color="white"
+              lineHeight="normal"
+              textAlign="center"
+            >
               {title}
             </Heading>
           )}
@@ -118,14 +125,7 @@ export const MainMenuBase = () => {
     <Flex bg="blue.700" width={['100%', '100%', '100%', '250px']} h="100vh" pos="fixed">
       <Box pos="absolute" top="0" left="0" bottom="0" bg="blue.800" width={12} zIndex={0} />
       <Flex flexDirection="column" h="100vh" w="100%" justifyContent="space-between" py={4}>
-        <Flex
-          h="100%"
-          w="100%"
-          flexDirection="column"
-          justifyContent="row"
-          alignContent="row"
-          zIndex={2}
-        >
+        <Flex w="100%" flexDirection="column" justifyContent="row" alignContent="row" zIndex={2}>
           <Icon mx={2} name="cogito" size="32px" color="white" />
           <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
             <MenuItemHover>
@@ -173,7 +173,7 @@ export const MainMenuBase = () => {
                       {...navLinkStyles}
                       exact={false}
                     >
-                      <MenuItemHover mt={2} fontSize="sm">
+                      <MenuItemHover mt={2} ml={[2, 2, 0]} fontSize={['18px', '18px', 'sm']}>
                         {name}
                       </MenuItemHover>
                     </NavLink>
