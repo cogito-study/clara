@@ -1,6 +1,7 @@
 import React from 'react';
 import { collabComponents } from '../../utils/storybook';
 import { EditorHeader, EditorHeaderProps } from './editor-header';
+import { EditorPlaceholder } from './editor.placeholder';
 import { StudyHeader, StudyHeaderProps } from './study-header';
 
 export default {
@@ -18,3 +19,4 @@ const studyHeaderProps: StudyHeaderProps = {
 
 export const editorHeader = () => <EditorHeader {...editorHeaderProps} />;
 export const studyHeader = () => <StudyHeader {...studyHeaderProps} />;
+export const editorPlaceholder = () => <EditorPlaceholder />;
