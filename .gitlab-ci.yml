@@ -20,7 +20,7 @@ cache:
 install-dependencies:
   stage: install-dependencies
   script:
-    - npm install
+    - yarn install
   artifacts:
     paths:
       - node_modules/
@@ -32,18 +32,63 @@ install-dependencies:
 build:
   stage: build
   script:
-    - npm run codegen
-    - npm run build
+    - yarn run build
   only:
     - development
     - demo
     - master
 
-deploy-production:
+deploy-app:
   image: alpine
   stage: deploy
   environment:
-    name: production
+    name: app
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USERNAME@$HOST "
+      REACT_APP_ENVIRONMENT=${REACT_APP_ENVIRONMENT}
+      REACT_APP_API_URL=${REACT_APP_API_URL}
+      cd $DIRECTORY && git pull && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-sote:
+  image: alpine
+  stage: deploy
+  environment:
+    name: sote
+  before_script:
+    - apk add --no-cache openssh-client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+  script:
+    - ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USERNAME@$HOST "
+      REACT_APP_ENVIRONMENT=${REACT_APP_ENVIRONMENT}
+      REACT_APP_API_URL=${REACT_APP_API_URL}
+      cd $DIRECTORY && git pull && docker-compose build && docker-compose up -d && exit"
+    - rm -rf ~/.ssh/id_rsa
+    - 'echo Deploy done [ $(date "+%F %H:$M:$S") ]'
+  only:
+    - master
+
+deploy-unesco:
+  image: alpine
+  stage: deploy
+  environment:
+    name: unesco
   before_script:
     - apk add --no-cache openssh-client
     - mkdir -p ~/.ssh
