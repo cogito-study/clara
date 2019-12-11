@@ -15,11 +15,7 @@ import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
-import {
-  useDocumentTitle,
-  useFormValidationSchema,
-  useGraphQLErrorNotification,
-} from '../../../core/hooks';
+import { useDocumentTitle, useErrorToast, useFormValidationSchema } from '../../../core/hooks';
 import { socialRoute } from '../../../social/utils/social-route';
 import { useAuthToken } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
@@ -29,7 +25,7 @@ export const Login = () => {
   const { t } = useTranslation(['auth', 'core']);
   const history = useHistory();
   const { setAuthToken } = useAuthToken();
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   useDocumentTitle(t('login.title'));
 
@@ -39,6 +35,7 @@ export const Login = () => {
   });
 
   const [login, { loading }] = useLoginUserMutation();
+
   const { register, handleSubmit, errors, reset } = useForm({ validationSchema });
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
@@ -50,7 +47,7 @@ export const Login = () => {
         history.push(socialRoute({ path: 'feed' }));
       }
     } catch (error) {
-      displayGraphQLError(error);
+      errorToast(error);
     } finally {
       reset();
     }

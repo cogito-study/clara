@@ -10,10 +10,9 @@ export type ActivateRegistrationMutationVariables = {
   major: Types.ConnectRelation;
 };
 
-export type ActivateRegistrationMutation = { readonly __typename?: 'Mutation' } & Pick<
-  Types.Mutation,
-  'activateRegistration'
->;
+export type ActivateRegistrationMutation = { readonly __typename?: 'Mutation' } & {
+  readonly activateRegistration: { readonly __typename?: 'User' } & Pick<Types.User, 'id'>;
+};
 
 export const ActivateRegistrationDocument = gql`
   mutation ActivateRegistration(
@@ -21,7 +20,9 @@ export const ActivateRegistrationDocument = gql`
     $subjects: [ConnectRelation!]!
     $major: ConnectRelation!
   ) {
-    activateRegistration(data: { token: $token, subjects: $subjects, major: $major })
+    activateRegistration(data: { token: $token, subjects: $subjects, major: $major }) {
+      id
+    }
   }
 `;
 export type ActivateRegistrationMutationFn = ApolloReactCommon.MutationFunction<

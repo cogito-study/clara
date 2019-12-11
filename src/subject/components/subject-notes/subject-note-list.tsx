@@ -5,7 +5,7 @@ import { DeleteAlert } from '../../../core/components/alert/delete-alert';
 import { EmptyState } from '../../../core/components/empty-state/empty-state';
 import { ModalOptions } from '../../../core/components/modal/types';
 import { NotePermissionType, SubjectPermissionType } from '../../../core/graphql/types.generated';
-import { useGraphQLErrorNotification } from '../../../core/hooks';
+import { useErrorToast } from '../../../core/hooks';
 import EmptyIcon from '../../assets/notelist-empty.svg';
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { AddItemCard } from '../elements/add-item-card';
@@ -29,7 +29,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
   const [deletingNoteState, setDeletingNoteState] = useState<DeletingNoteState>({ isOpen: false });
   const [editingNoteState, setEditingNoteState] = useState<EditingNoteState>({ isOpen: false });
   const [addingNoteState, setAddingNoteState] = useState<ModalOptions>({ isOpen: false });
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   const { data, loading: subjectListLoading } = useSubjectNoteListQuery({
     variables: { subjectCode },
@@ -46,7 +46,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
           refetchQueries: [{ query: SubjectNoteListDocument, variables: { subjectCode } }],
         });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       } finally {
         setDeletingNoteState({ isOpen: false });
       }
@@ -60,7 +60,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
           variables: { id: editingNoteState.note.id, title, description, number },
         });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       } finally {
         setEditingNoteState({ isOpen: false });
       }
@@ -79,7 +79,7 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
         refetchQueries: [{ query: SubjectNoteListDocument, variables: { subjectCode } }],
       });
     } catch (error) {
-      displayGraphQLError(error);
+      errorToast(error);
     } finally {
       setAddingNoteState({ isOpen: false });
     }

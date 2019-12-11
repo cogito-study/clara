@@ -11,7 +11,7 @@ import {
 import React from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useFormValidationSchema, useGraphQLErrorNotification } from '../../../core/hooks';
+import { useErrorToast, useFormValidationSchema } from '../../../core/hooks';
 import { useChangeEmailMutation } from './graphql/change-email-mutation.generated';
 
 type ChangeEmailProps = {
@@ -21,7 +21,7 @@ type ChangeEmailProps = {
 
 export const ChangeEmail = ({ userID, email }: ChangeEmailProps) => {
   const { t } = useTranslation(['profile', 'core']);
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
   const { emailSchema } = useFormValidationSchema();
   const [changeEmail, { loading }] = useChangeEmailMutation();
 
@@ -35,7 +35,7 @@ export const ChangeEmail = ({ userID, email }: ChangeEmailProps) => {
       try {
         await changeEmail({ variables: { email, userID } });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       } finally {
         reset();
       }

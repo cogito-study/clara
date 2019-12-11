@@ -26,8 +26,8 @@ import {
 import {
   mergeValidationSchemas,
   useDocumentTitle,
+  useErrorToast,
   useFormValidationSchema,
-  useGraphQLErrorNotification,
 } from '../../../core/hooks';
 import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
@@ -43,13 +43,10 @@ type RegisterForm = {
   legal: boolean;
 };
 
-/**
- * TODO:
- * - Terms and legal link
- */
+// TODO: Terms and legal link
 export const Register = () => {
   const { t, i18n } = useTranslation(['auth', 'core']);
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   useDocumentTitle(t('register.title'));
 
@@ -92,7 +89,7 @@ export const Register = () => {
         });
         i18n.changeLanguage(language);
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       }
     }
   });

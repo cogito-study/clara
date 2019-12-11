@@ -61,6 +61,14 @@
   },
   "pages": {
     "feed": "Feed",
-    "profile": "Profile"
+    "profile": "Profile",
+    "error": {
+      "title": "Sorry, something went wrong",
+      "description": "Try reloading the page, We are working hard to fix Cogito for you as soon as possible.",
+      "button": {
+        "tryAgain": "reload",
+        "report": "report"
+      }
+    }
   }
 }

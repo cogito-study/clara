@@ -1,11 +1,12 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from '@chakra-ui/core';
-import { captureException, init as initSentry } from '@sentry/browser';
+import { init as initSentry } from '@sentry/browser';
 import React, { Suspense } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { ErrorPage } from './components/error/error-page';
 import { FullCogitoLoader } from './components/loader/cogito-loader';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
@@ -35,7 +36,7 @@ export const App = () => {
         <Suspense fallback={<FullCogitoLoader />}>
           <GlobalStyles />
           <ApolloProvider client={client}>
-            <ErrorBoundary onError={captureException}>
+            <ErrorBoundary FallbackComponent={ErrorPage}>
               <BrowserRouter>
                 <Route path="/">
                   <Router />

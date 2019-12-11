@@ -20,6 +20,7 @@ import { TokenType } from '../../../core/graphql/types.generated';
 import {
   mergeValidationSchemas,
   useDocumentTitle,
+  useErrorToast,
   useFormValidationSchema,
   useRouteQueryParams,
 } from '../../../core/hooks';
@@ -29,14 +30,12 @@ import { Feedback } from '../feedback/feedback';
 import { PasswordUserInfo } from '../password-user-info/password-user-info';
 import { useActivateInvitationMutation } from './graphql/activate-invitation-mutation.generated';
 
-/**
- * TODO:
- * - Terms and legal link
- */
+// TODO: Terms and legal link
 export const ActivateInvitation = () => {
   const history = useHistory();
   const { t } = useTranslation(['auth', 'core']);
   const { token } = useRouteQueryParams<{ token?: string }>();
+  const errorToast = useErrorToast();
 
   useDocumentTitle(t('activation.title'));
 
@@ -48,9 +47,13 @@ export const ActivateInvitation = () => {
 
   const { register, handleSubmit, errors } = useForm({ validationSchema });
 
-  const onSubmit = handleSubmit(({ password }) => {
+  const onSubmit = handleSubmit(async ({ password }) => {
     if (token) {
-      activateInvitation({ variables: { password, token } });
+      try {
+        await activateInvitation({ variables: { password, token } });
+      } catch (error) {
+        errorToast(error);
+      }
     }
   });
 

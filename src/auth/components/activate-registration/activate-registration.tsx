@@ -4,11 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { TokenType } from '../../../core/graphql/types.generated';
-import {
-  useDocumentTitle,
-  useGraphQLErrorNotification,
-  useRouteQueryParams,
-} from '../../../core/hooks';
+import { useDocumentTitle, useErrorToast, useRouteQueryParams } from '../../../core/hooks';
 import { useTokenValidation } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
@@ -21,7 +17,7 @@ export const ActivateRegistration = () => {
   const { t } = useTranslation(['auth', 'core']);
   const [selectedMajorID, setSelectedMajorID] = useState<string | undefined>(undefined);
   const { token } = useRouteQueryParams<{ token?: string }>();
-  const displayGraphQLError = useGraphQLErrorNotification();
+  const errorToast = useErrorToast();
 
   useDocumentTitle(t('activation.title'));
 
@@ -39,7 +35,7 @@ export const ActivateRegistration = () => {
           },
         });
       } catch (error) {
-        displayGraphQLError(error);
+        errorToast(error);
       }
     }
   };
