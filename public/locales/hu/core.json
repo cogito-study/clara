@@ -29,7 +29,7 @@
       }
     },
     "terms": {
-      "label": "Elfogadom a felhasználási feltételeket",
+      "label": "Elfogadom az <0>adatkezelési szabályzatot</0> és a <1>szerződési feltételeket</1>.",
       "validation": {
         "required": "A felhasználási feltételek elfogadása kötelező."
       }
