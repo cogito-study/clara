@@ -1,15 +1,23 @@
-import { Flex } from '@chakra-ui/core';
+import { Flex, FlexProps } from '@chakra-ui/core';
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 import { useTheme } from '../../../core/hooks/';
 
-export const SuggestionPlaceholder = () => {
+export const SuggestionPlaceholder = (props: FlexProps) => {
   const {
     colors: { grey },
   } = useTheme();
 
   return (
-    <Flex direction="column" borderWidth={1} bg="#fff" p={3} width="300px">
+    <Flex
+      direction="column"
+      borderWidth={1}
+      borderColor="grey.200"
+      bg="white"
+      p={3}
+      width="300px"
+      {...props}
+    >
       <ContentLoader
         height={230}
         width={320}

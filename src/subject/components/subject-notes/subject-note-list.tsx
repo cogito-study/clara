@@ -12,7 +12,7 @@ import { AddItemCard } from '../elements/add-item-card';
 import { EditNoteModal } from './edit-note-modal';
 import { useCreateNoteMutation } from './graphql/create-note-mutation.generated';
 import { useDeleteNoteMutation } from './graphql/delete-note-mutation.generated';
-import { NoteDataFragment } from './graphql/note-data-fragment.generated';
+import { SubjectNoteDataFragment } from './graphql/subject-note-data-fragment.generated';
 import {
   SubjectNoteListDocument,
   useSubjectNoteListQuery,
@@ -22,7 +22,7 @@ import { SubjectNoteCard } from './subject-note-card';
 import { SubjectNotePlaceholder } from './subject-note.placeholder';
 
 type DeletingNoteState = ModalOptions & { id?: string };
-type EditingNoteState = ModalOptions & { note?: NoteDataFragment };
+type EditingNoteState = ModalOptions & { note?: SubjectNoteDataFragment };
 
 export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => {
   const { t } = useTranslation('subject');
@@ -53,7 +53,11 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
     }
   };
 
-  const handleNoteEdit = async ({ title, number, description }: Partial<NoteDataFragment>) => {
+  const handleNoteEdit = async ({
+    title,
+    number,
+    description,
+  }: Partial<SubjectNoteDataFragment>) => {
     if (editingNoteState.note) {
       try {
         await updateNote({
@@ -67,7 +71,11 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
     }
   };
 
-  const handleNoteAdd = async ({ title, number, description }: Partial<NoteDataFragment>) => {
+  const handleNoteAdd = async ({
+    title,
+    number,
+    description,
+  }: Partial<SubjectNoteDataFragment>) => {
     try {
       await createNote({
         variables: {

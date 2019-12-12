@@ -2,16 +2,20 @@ import { Flex, Heading } from '@chakra-ui/core';
 import Quill from 'quill';
 import Delta from 'quill-delta';
 import React, { FC, useEffect } from 'react';
-import { NoteContentQuery } from './graphql/note-content-query.generated';
+import { NoteDataFragment } from '../../pages/graphql/note-data-fragment.generated';
 
-export const Study: FC<{
-  editor: Quill | undefined;
-  noteContentData: NoteContentQuery | undefined;
-}> = ({ editor, noteContentData }) => {
+export interface StudyProps {
+  editor?: Quill;
+  noteData?: NoteDataFragment;
+}
+
+export const Study: FC<StudyProps> = ({ editor, noteData }) => {
   useEffect(() => {
-    if (noteContentData?.note)
-      editor && editor.setContents(new Delta(JSON.parse(noteContentData.note.content)));
-  }, [editor, noteContentData]);
+    if (noteData) {
+      const content = noteData.content ? new Delta(JSON.parse(noteData.content)) : new Delta();
+      editor && editor.setContents(content);
+    }
+  }, [editor, noteData]);
 
   return (
     <Flex direction="column" align="center" mt={16}>
@@ -24,7 +28,7 @@ export const Study: FC<{
         lineHeight="normal"
         fontSize={['lg', 'lg', 'xl']}
       >
-        {noteContentData?.note?.title ?? ''}
+        {noteData?.title}
       </Heading>
       <Flex
         borderWidth={1}

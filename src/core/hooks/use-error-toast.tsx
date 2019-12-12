@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/core';
 import { ApolloError } from 'apollo-client';
 import React, { useEffect } from 'react';
+import { useThrottle } from 'react-use';
 import { ErrorToast } from '../components/toast/toast';
 
 export const useErrorToast = () => {
@@ -25,10 +26,11 @@ export const useErrorToast = () => {
 
 export const useErrorToastEffect = (error?: ApolloError | Error) => {
   const errorToast = useErrorToast();
+  const throttledError = useThrottle(error, 500);
 
   useEffect(() => {
-    if (error) {
-      errorToast(error);
+    if (throttledError) {
+      errorToast(throttledError);
     }
-  }, [error, errorToast]);
+  }, [throttledError, errorToast]);
 };

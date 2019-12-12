@@ -6,10 +6,10 @@
     "back": "vissza"
   },
   "suggestion": {
-    "insert": "BESZÚRVA:",
-    "delete": "TÖRÖLVE:",
+    "insert": "beszúrva",
+    "delete": "törölve",
     "accept": "elfogad",
-    "cancel": "mégsem"
+    "cancel": "visszautasít"
   },
   "unsavedChanges": "Vannak még nem mentett változtatásaid, biztosan elhagyod az oldalt?"
 }

@@ -3,6 +3,6 @@ mutation UpdateNote($id: ID!, $title: String, $description: String, $number: Int
     where: { id: $id }
     data: { title: $title, description: $description, number: $number }
   ) {
-    ...NoteData
+    ...SubjectNoteData
   }
 }

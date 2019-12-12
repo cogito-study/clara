@@ -6,10 +6,10 @@
     "back": "back"
   },
   "suggestion": {
-    "insert": "INSERT:",
-    "delete": "DELETED:",
+    "insert": "insert",
+    "delete": "delete",
     "accept": "accept",
-    "cancel": "cancel"
+    "cancel": "reject"
   },
   "unsavedChanges": "You have unsaved changes, are you sure you want to leave?"
 }

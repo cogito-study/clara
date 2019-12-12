@@ -19,15 +19,15 @@ import React from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { NoteDataFragment } from './graphql/note-data-fragment.generated';
+import { SubjectNoteDataFragment } from './graphql/subject-note-data-fragment.generated';
 
 type EditNoteModalProps = {
   titleLabel: string;
-  note?: NoteDataFragment;
+  note?: SubjectNoteDataFragment;
   isLoading: boolean;
   isOpen: boolean;
   onClose?: () => void;
-  onEdit: (content: Partial<NoteDataFragment>) => void;
+  onEdit: (content: Partial<SubjectNoteDataFragment>) => void;
 };
 
 type EditNoteModalForm = {

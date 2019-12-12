@@ -5,11 +5,11 @@ import React, { FC, MutableRefObject, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useParams } from 'react-router';
+import { useErrorToast } from '../../../core/hooks';
+import { CursorPositionChangedEventProps, EditorState, QuillEditor } from '../../quills';
 import { CollabRouteParams } from '../../utils/collab-route';
 import { useSuggestionApproveSubscription } from '../suggestions/graphql/suggestion-approve-subscription.generated';
-import { EditorBody } from './editor-body';
 import { useCreateSuggestionMutation } from './graphql/suggestion-create-mutation.generated';
-import { CursorPositionChangedEventProps, EditorState, QuillEditor } from './quill-editor';
 
 export interface EditorProps {
   title: string;
@@ -20,8 +20,9 @@ export interface EditorProps {
 
 export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion, title }) => {
   const { t } = useTranslation('collab');
-
   const { noteID } = useParams<CollabRouteParams>();
+  const [editorState, setEditorState] = useState<EditorState>('original');
+  const errorToast = useErrorToast();
 
   const [cursorPosition, setCursorPosition] = useState<BoundsStatic>({
     top: 0,
@@ -32,24 +33,18 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
     height: 0,
   });
 
-  const [editorState, setEditorState] = useState<EditorState>('original');
+  const [createSuggestion, { loading }] = useCreateSuggestionMutation();
 
-  const [createSuggestion] = useCreateSuggestionMutation();
-
-  const { data: suggestionApproveData } = useSuggestionApproveSubscription({
-    variables: { noteID },
-  });
+  const { data } = useSuggestionApproveSubscription({ variables: { noteID } });
   useEffect(() => {
-    if (suggestionApproveData) {
-      console.log('APPROVED_SUGGESTION', suggestionApproveData.approvedSuggestion);
-
-      const delta = new Delta(JSON.parse(suggestionApproveData.approvedSuggestion.delta));
+    if (data) {
+      const delta = new Delta(JSON.parse(data.approvedSuggestion.delta));
       if (quillEditor) {
         quillEditor.approveSuggestion(delta);
         original.current = original.current.compose(delta);
       }
     }
-  }, [original, quillEditor, suggestionApproveData]);
+  }, [original, quillEditor, data]);
 
   useEffect(() => {
     if (quillEditor) {
@@ -62,17 +57,16 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
     }
   }, [quillEditor]);
 
-  const publishSuggestion = (suggestion: Delta) => {
-    console.log('sendPublishSuggestionToServer', suggestion);
-    if (noteID) {
-      createSuggestion({ variables: { delta: JSON.stringify(suggestion), noteID } });
-    }
-  };
-
-  const handleSuggesting = () => {
-    if (quillEditor?.hasMySuggestion()) {
-      publishSuggestion(quillEditor.mySuggestion);
-      quillEditor.publishSuggestion();
+  const handleSuggesting = async () => {
+    if (quillEditor?.hasMySuggestion() && noteID) {
+      try {
+        await createSuggestion({
+          variables: { delta: JSON.stringify(quillEditor.mySuggestion), noteID },
+        });
+        quillEditor.publishSuggestion();
+      } catch (error) {
+        errorToast(error);
+      }
     }
   };
 
@@ -89,6 +83,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
           ]}
           position="absolute"
           top={cursorPosition.top + 100}
+          isLoading={loading}
           zIndex={999}
           bg="#fff"
           shadow="lg"
@@ -97,9 +92,11 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
           variantColor="teal"
           variant="outline"
           color="blue.800"
-          border="2px"
-          borderRadius="none"
+          borderWidth={2}
+          borderRadius={0}
           borderColor="teal.500"
+          _disabled={{ bg: '#fff' }}
+          _active={{ bg: '#fff' }}
         >
           {t('button.suggest')}
         </Button>
@@ -116,7 +113,25 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
         >
           {title}
         </Heading>
-        <EditorBody />
+        <Flex
+          borderWidth={1}
+          borderColor="grey.200"
+          bg="#fff"
+          width={['100%', '100%', '90%', '90%', '800px']}
+          maxW="800px"
+          minHeight="80vh"
+          m={[0, 0, 6]}
+          px={[1, 1, 6]}
+          py={[3, 3, 10]}
+          borderRadius="none"
+        >
+          <Flex
+            display="flex"
+            w="100%"
+            className="collab-quill-editor"
+            style={{ border: 'none' }}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );

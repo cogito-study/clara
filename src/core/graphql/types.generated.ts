@@ -469,13 +469,18 @@ export type IntFilter = {
 export type Language = {
   readonly __typename?: 'Language';
   readonly id: Scalars['ID'];
-  readonly code: Scalars['String'];
+  readonly code: LanguageCode;
   readonly name: Scalars['String'];
 };
 
+export enum LanguageCode {
+  Hu = 'hu',
+  En = 'en',
+}
+
 export type LanguageWhereInput = {
   readonly id: Maybe<StringFilter>;
-  readonly code: Maybe<StringFilter>;
+  readonly code: Maybe<LanguageCode>;
   readonly name: Maybe<StringFilter>;
   readonly users: Maybe<UserFilter>;
   readonly subjects: Maybe<SubjectFilter>;
@@ -486,7 +491,7 @@ export type LanguageWhereInput = {
 
 export type LanguageWhereUniqueInput = {
   readonly id: Maybe<Scalars['ID']>;
-  readonly code: Maybe<Scalars['String']>;
+  readonly code: Maybe<LanguageCode>;
 };
 
 /** Input of login */

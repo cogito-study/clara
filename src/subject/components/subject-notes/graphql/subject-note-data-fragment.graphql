@@ -1,0 +1,6 @@
+fragment SubjectNoteData on Note {
+  id
+  title
+  description
+  number
+}
