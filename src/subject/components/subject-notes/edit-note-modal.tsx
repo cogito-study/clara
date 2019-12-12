@@ -30,6 +30,12 @@ type EditNoteModalProps = {
   onEdit: (content: Partial<NoteDataFragment>) => void;
 };
 
+type EditNoteModalForm = {
+  title: string;
+  description: string;
+  number: string;
+};
+
 // TODO: Permitted numbers
 export const EditNoteModal = ({
   titleLabel,
@@ -40,20 +46,19 @@ export const EditNoteModal = ({
   onEdit,
 }: EditNoteModalProps) => {
   const { t } = useTranslation(['subject', 'core']);
-  const { register, errors, handleSubmit } = useForm<NoteDataFragment>({
+  const { register, errors, handleSubmit } = useForm<EditNoteModalForm>({
     defaultValues: {
       title: note?.title,
       description: note?.description,
-      number: note?.number,
+      number: note?.number.toString(),
     },
     validationSchema: Yup.object({
       title: Yup.string().required(t('notes.modal.title.validation.required')),
     }),
   });
 
-  const onSubmit = handleSubmit((noteData) => {
-    console.log(noteData);
-    onEdit({ ...noteData });
+  const onSubmit = handleSubmit(({ number, ...rest }) => {
+    onEdit({ number: parseInt(number), ...rest });
   });
 
   return (
