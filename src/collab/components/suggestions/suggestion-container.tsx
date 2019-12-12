@@ -2,13 +2,12 @@ import { Flex } from '@chakra-ui/core';
 import styled from '@emotion/styled-base';
 import Delta from 'quill-delta';
 import React, { FC } from 'react';
-import { QuillEditor } from '../editor/quill-editor';
+import { QuillEditor } from '../../quills';
 import { SuggestionData } from './suggestion-data';
 import { SuggestionEventProps, SuggestionItem } from './suggestion-item';
 
 type Props = { suggestions: SuggestionData[]; quillEditor?: QuillEditor } & SuggestionEventProps;
 
-const SuggestionGrid = styled(Flex)``;
 const SuggestionCard = styled(Flex)`
   z-index: 1;
   background-color: #fff;
@@ -28,8 +27,8 @@ const SuggestionCard = styled(Flex)`
 
 const getDeltaY = (delta: Delta, editor: QuillEditor | undefined) => {
   if (!editor) return 0;
-  if (delta.ops[0] && delta.ops[0]['retain']) {
-    const posInDocument = delta.ops[0]['retain'];
+  if (delta.ops[0] && delta.ops[0].retain) {
+    const posInDocument = delta.ops[0].retain;
     const { top } = editor.quill.getBounds(posInDocument);
     return top;
   }
@@ -37,16 +36,14 @@ const getDeltaY = (delta: Delta, editor: QuillEditor | undefined) => {
 };
 
 export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...rest }) => {
-  suggestions.sort((a, b) => {
-    const aPos = getDeltaY(a.delta, quillEditor);
-    const bPos = getDeltaY(b.delta, quillEditor);
-    return aPos - bPos;
-  });
+  const sortedSuggestions = [...suggestions].sort(
+    (a, b) => getDeltaY(a.delta, quillEditor) - getDeltaY(b.delta, quillEditor),
+  );
   const offsetTop = 130;
   const offsetBetween = 130;
-  const positions = suggestions.map((s) => {
-    return getDeltaY(s.delta, quillEditor) + offsetTop;
-  });
+  const positions = sortedSuggestions.map((s) => getDeltaY(s.delta, quillEditor) + offsetTop);
+
+  // TODO: Refactor
   for (let i = 0; i < positions.length; i++) {
     const p = positions[i];
     if (i === 0) {
@@ -60,12 +57,12 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...r
     }
   }
   return (
-    <SuggestionGrid w="300px" my={8} direction="column" bg="white">
-      {suggestions.map((suggestion, idx) => (
+    <>
+      {sortedSuggestions.map((suggestion, idx) => (
         <SuggestionCard key={suggestion.id} position="absolute" top={positions[idx]}>
           <SuggestionItem suggestion={suggestion} {...rest} />
         </SuggestionCard>
       ))}
-    </SuggestionGrid>
+    </>
   );
 };

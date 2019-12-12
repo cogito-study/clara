@@ -10,6 +10,6 @@ mutation CreateNote($subjectID: ID!, $title: String!, $description: String, $num
       noteCategory: NOTE
     }
   ) {
-    ...NoteData
+    ...SubjectNoteData
   }
 }

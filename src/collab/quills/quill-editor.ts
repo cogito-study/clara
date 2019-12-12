@@ -1,8 +1,8 @@
 import Quill, { BoundsStatic } from 'quill';
 import Delta from 'quill-delta';
 import { MutableRefObject } from 'react';
-import { EventDispatcher, Handler } from '../../utils/event-dispatcher';
-import { SuggestionData } from './../suggestions/suggestion-data';
+import { SuggestionData } from '../components/suggestions/suggestion-data';
+import { EventDispatcher, Handler } from '../utils/event-dispatcher';
 
 export type EditorState =
   | 'original'

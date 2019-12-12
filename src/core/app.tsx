@@ -36,13 +36,13 @@ export const App = () => {
         <Suspense fallback={<FullCogitoLoader />}>
           <GlobalStyles />
           <ApolloProvider client={client}>
-            <ErrorBoundary FallbackComponent={ErrorPage}>
-              <BrowserRouter>
+            <BrowserRouter>
+              <ErrorBoundary FallbackComponent={ErrorPage}>
                 <Route path="/">
                   <Router />
                 </Route>
-              </BrowserRouter>
-            </ErrorBoundary>
+              </ErrorBoundary>
+            </BrowserRouter>
           </ApolloProvider>
         </Suspense>
       </ThemeProvider>

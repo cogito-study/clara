@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/core';
 import React from 'react';
 import ContentLoader from 'react-content-loader';
-import { useTheme } from '../../../core/hooks/';
+import { useTheme } from '../../../core/hooks';
 
-export const EditorPlaceholder = () => {
+export const CollabPagePlaceholder = () => {
   const { colors } = useTheme();
 
   const props = {

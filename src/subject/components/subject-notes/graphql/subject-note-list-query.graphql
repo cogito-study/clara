@@ -3,7 +3,7 @@ query SubjectNoteList($subjectCode: String) {
     id
     permissions
     notes {
-      ...NoteData
+      ...SubjectNoteData
 
       updatedAt
       permissions

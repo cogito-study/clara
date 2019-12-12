@@ -1,6 +1,5 @@
 fragment NoteData on Note {
   id
   title
-  description
-  number
+  content
 }

@@ -1,8 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
-import { NoteDataFragment } from './note-data-fragment.generated';
+import { SubjectNoteDataFragment } from './subject-note-data-fragment.generated';
 import gql from 'graphql-tag';
-import { NoteDataFragmentDoc } from './note-data-fragment.generated';
+import { SubjectNoteDataFragmentDoc } from './subject-note-data-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -14,7 +14,7 @@ export type CreateNoteMutationVariables = {
 };
 
 export type CreateNoteMutation = { readonly __typename?: 'Mutation' } & {
-  readonly createNote: { readonly __typename?: 'Note' } & NoteDataFragment;
+  readonly createNote: { readonly __typename?: 'Note' } & SubjectNoteDataFragment;
 };
 
 export const CreateNoteDocument = gql`
@@ -30,10 +30,10 @@ export const CreateNoteDocument = gql`
         noteCategory: NOTE
       }
     ) {
-      ...NoteData
+      ...SubjectNoteData
     }
   }
-  ${NoteDataFragmentDoc}
+  ${SubjectNoteDataFragmentDoc}
 `;
 export type CreateNoteMutationFn = ApolloReactCommon.MutationFunction<
   CreateNoteMutation,

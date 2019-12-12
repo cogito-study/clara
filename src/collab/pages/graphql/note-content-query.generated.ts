@@ -1,6 +1,8 @@
-import * as Types from '../../../../core/graphql/types.generated';
+import * as Types from '../../../core/graphql/types.generated';
 
+import { NoteDataFragment } from './note-data-fragment.generated';
 import gql from 'graphql-tag';
+import { NoteDataFragmentDoc } from './note-data-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -10,27 +12,23 @@ export type NoteContentQueryVariables = {
 
 export type NoteContentQuery = { readonly __typename?: 'Query' } & {
   readonly note: Types.Maybe<
-    { readonly __typename?: 'Note' } & Pick<Types.Note, 'title' | 'id' | 'content'> & {
-        readonly subject: { readonly __typename?: 'Subject' } & Pick<
-          Types.Subject,
-          'code' | 'name'
-        >;
-      }
+    { readonly __typename?: 'Note' } & {
+      readonly subject: { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'code' | 'name'>;
+    } & NoteDataFragment
   >;
 };
 
 export const NoteContentDocument = gql`
   query NoteContent($noteID: ID) {
     note(where: { id: $noteID }) {
-      title
-      id
-      content
+      ...NoteData
       subject {
         code
         name
       }
     }
   }
+  ${NoteDataFragmentDoc}
 `;
 
 /**
