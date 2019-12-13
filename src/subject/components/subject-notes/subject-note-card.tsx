@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { collabRoute } from '../../../collab/utils/collab-route';
 import { useDateFormatter } from '../../../core/hooks/';
+import { lineClamp } from '../../../core/style';
 import { MoreMenu } from '../elements/more-menu';
 
 export type SubjectNoteCardProps = {
@@ -37,7 +38,6 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
 
   return (
     <PseudoBox
-      cursor="pointer"
       bg="#fff"
       borderWidth={1}
       borderColor="grey.100"
@@ -69,33 +69,20 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
       </Flex>
       <Flex direction="column" p={3}>
         <Link to={collabRoute({ path: 'note-study', noteID: id })}>
-          <Flex mt={1} height="50px" align="center">
-            <Heading
-              fontSize="md"
-              fontWeight={700}
-              maxWidth="80%"
-              color="blue.700"
-              lineHeight="normal"
-            >
-              {title}
-            </Heading>
-          </Flex>
+          <Heading
+            mt={1}
+            fontSize="md"
+            fontWeight={700}
+            color="blue.700"
+            lineHeight="normal"
+            css={lineClamp(3)}
+          >
+            {title}
+          </Heading>
           <Text mt={2} fontSize="xs" color="grey.800" lineHeight="normal">
             {t('notes.updatedAt', { since: since(updatedAt) })}
           </Text>
-          <Text
-            mt={2}
-            fontSize="sm"
-            color="grey.800"
-            lineHeight="normal"
-            style={{
-              display: '-webkit-box',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
+          <Text mt={2} fontSize="sm" color="grey.800" lineHeight="normal" css={lineClamp(3)}>
             {description}
           </Text>
         </Link>
