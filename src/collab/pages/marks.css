@@ -26,7 +26,8 @@
   outline: none;
 }
 
-.ql-editor .ql-size-huge {
+.ql-editor .ql-size-huge,
+h1 {
   font-size: 2.2em;
   font-family: 'Raleway';
   line-height: 1.2;
@@ -35,12 +36,15 @@
 }
 
 @media only screen and (max-width: 576px) {
-  .ql-editor .ql-size-huge {
+  .ql-editor .ql-size-huge,
+  h1 {
     font-size: 1.5em;
   }
 }
 
-.ql-editor .ql-size-large {
+.ql-editor .ql-size-large,
+h2,
+h3 {
   font-size: 1.5em;
   font-family: 'Raleway';
   line-height: 1.3;
@@ -49,7 +53,9 @@
 }
 
 @media only screen and (max-width: 576px) {
-  .ql-editor .ql-size-large {
+  .ql-editor .ql-size-large,
+  h2,
+  h3 {
     font-size: 1.1em;
   }
 }
