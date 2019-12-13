@@ -91,7 +91,7 @@ export const MainMenu = ({ title, titleLoading }: MainMenuProps) => {
         >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerCloseButton color="teal.400" />
+            <DrawerCloseButton borderRadius={0} color="teal.400" />
             <DrawerBody bg="blue.700" p={0}>
               <MainMenuBase />
             </DrawerBody>

@@ -48,16 +48,14 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
           borderRadius={0}
           borderWidth={1}
           borderColor="grey.100"
-          flex="4"
           bg="#fff"
         />
         <Button
           ref={buttonRef}
-          ml={2}
-          px={4}
-          flex="1"
-          isLoading={loading}
           type="submit"
+          ml={2}
+          minW={120}
+          isLoading={loading}
           variantColor="teal"
           color="blue.800"
           borderRadius={0}

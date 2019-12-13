@@ -121,10 +121,9 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
 
           <SubjectInfoCard
             title={t('info.general')}
-            description={data?.subject?.description || ''}
+            description={data?.subject?.description ?? ''}
             department={data?.subject?.department.name}
             code={data?.subject?.code}
-            isEditable
           />
           <Heading
             mt={[6, 6, 6, 8]}

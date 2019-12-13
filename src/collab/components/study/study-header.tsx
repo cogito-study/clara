@@ -50,7 +50,7 @@ export const StudyHeader: FC<StudyHeaderProps> = ({ subject }) => {
             </StudyHeaderButton>
           </Link>
         </Flex>
-        <Flex alignItems="center" mx={2} display={['none', 'none', 'initial']}>
+        <Flex alignItems="center" mx={2} display={['none', 'none', 'none', 'initial']}>
           <Link to={collabRoute({ path: 'note-edit', noteID })}>
             <StudyHeaderButton rightIcon={FiEdit2}>{t('button.edit')}</StudyHeaderButton>
           </Link>

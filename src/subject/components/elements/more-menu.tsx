@@ -24,6 +24,7 @@ export const MoreMenu: FC<MoreMenuProps> = ({
       <MenuButton>
         {trigger || (
           <IconButton
+            as="div"
             aria-label=""
             bg="transparent"
             size="lg"
