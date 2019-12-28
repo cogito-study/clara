@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from '@chakra-ui/core';
-import { init as initSentry } from '@sentry/browser';
+import Sentry from '@sentry/browser';
 import React, { Suspense } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import ReactGA from 'react-ga';
@@ -15,17 +15,10 @@ import { driftString } from './scripts/drift';
 import { hotjarString } from './scripts/hotjar';
 import { GlobalStyles, theme } from './style';
 
-const initializeGA = () => {
-  ReactGA.initialize(config.googleAnalyticsKey);
-  ReactGA.pageview(window.location.pathname + window.location.search);
-};
-
-const initializeErrorReporter = () => initSentry({ dsn: config.sentryDSN });
-
 export const App = () => {
   if (isProduction) {
-    initializeGA();
-    initializeErrorReporter();
+    ReactGA.initialize(config.googleAnalyticsKey);
+    Sentry.init({ dsn: config.sentryDSN });
   }
 
   return (
