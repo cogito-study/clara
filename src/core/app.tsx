@@ -1,9 +1,9 @@
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider } from '@chakra-ui/core';
-import Sentry from '@sentry/browser';
+import { init as initSentry } from '@sentry/browser';
 import React, { Suspense } from 'react';
 import ErrorBoundary from 'react-error-boundary';
-import ReactGA from 'react-ga';
+import { initialize as initGoogleAnalytics } from 'react-ga';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ErrorPage } from './components/error/error-page';
@@ -17,8 +17,10 @@ import { GlobalStyles, theme } from './style';
 
 export const App = () => {
   if (isProduction) {
-    ReactGA.initialize(config.googleAnalyticsKey);
-    Sentry.init({ dsn: config.sentryDSN });
+    const { sentryDSN, googleAnalyticsKey } = config;
+
+    initGoogleAnalytics(googleAnalyticsKey);
+    initSentry({ dsn: sentryDSN });
   }
 
   return (
