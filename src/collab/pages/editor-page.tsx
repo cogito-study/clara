@@ -4,7 +4,7 @@ import Delta from 'quill-delta';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Prompt, useParams } from 'react-router';
-import { useDocumentTitle } from '../../core/hooks';
+import { Head } from '../../core/components';
 import { CollabPagePlaceholder } from '../components/common';
 import { Editor, EditorHeader } from '../components/editor';
 import { Suggestion } from '../components/suggestions';
@@ -26,8 +26,6 @@ export const EditorPage = () => {
     variables: { noteID },
     fetchPolicy: 'cache-and-network',
   });
-
-  useDocumentTitle(data?.note?.title);
 
   useEffect(() => {
     if (data?.note && editor) {
@@ -55,33 +53,36 @@ export const EditorPage = () => {
     quillEditor.onStateChanged(() => setHasMySuggestion(quillEditor.hasMySuggestion()));
 
   return (
-    <Flex direction="column" bg="white" w="100%">
-      <Prompt when={quillEditor?.hasMySuggestion() ?? false} message={t('unsavedChanges')} />
-      {!loading && (
-        <EditorHeader
-          subject={data?.note?.subject ?? { name: '', code: '' }}
-          hasMySuggestion={hasMySuggestion}
-        />
-      )}
-      <Flex direction="row" mt={[4, 4, 4, 12]} w="100%" justify="center">
-        {loading ? (
-          <CollabPagePlaceholder />
-        ) : (
-          <Suspense fallback={<CollabPagePlaceholder />}>
-            <Editor
-              title={data?.note?.title ?? 'Title of the note'}
-              quillEditor={quillEditor}
-              hasMySuggestion={hasMySuggestion}
-              original={originalDocument}
-            />
-          </Suspense>
+    <>
+      <Head title={data?.note?.title} description={data?.note?.description} />
+      <Flex direction="column" bg="white" w="100%">
+        <Prompt when={quillEditor?.hasMySuggestion() ?? false} message={t('unsavedChanges')} />
+        {!loading && (
+          <EditorHeader
+            subject={data?.note?.subject ?? { name: '', code: '' }}
+            hasMySuggestion={hasMySuggestion}
+          />
         )}
-        <Box display={['none', 'none', 'none', 'block']}>
-          <Suspense fallback={<SuggestionPlaceholder mt={10} />}>
-            <Suggestion quillEditor={quillEditor} />
-          </Suspense>
-        </Box>
+        <Flex direction="row" mt={[4, 4, 4, 12]} w="100%" justify="center">
+          {loading ? (
+            <CollabPagePlaceholder />
+          ) : (
+            <Suspense fallback={<CollabPagePlaceholder />}>
+              <Editor
+                title={data?.note?.title ?? 'Title of the note'}
+                quillEditor={quillEditor}
+                hasMySuggestion={hasMySuggestion}
+                original={originalDocument}
+              />
+            </Suspense>
+          )}
+          <Box display={['none', 'none', 'none', 'block']}>
+            <Suspense fallback={<SuggestionPlaceholder mt={10} />}>
+              <Suggestion quillEditor={quillEditor} />
+            </Suspense>
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };

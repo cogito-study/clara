@@ -27,6 +27,10 @@ export const GlobalStyles = () => (
         div {
           font-family: ${theme.fonts.body};
         }
+
+        input {
+          -webkit-appearance: none;
+        }
       `}
     />
   </Fragment>

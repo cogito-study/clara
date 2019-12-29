@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/core';
 import { ApolloError } from 'apollo-client';
 import React, { useEffect } from 'react';
 import { useThrottle } from 'react-use';
-import { ErrorToast } from '../components/toast/toast';
+import { ErrorToast } from '../components';
 
 export const useErrorToast = () => {
   const toast = useToast();

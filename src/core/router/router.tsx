@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/core';
 import React, { lazy } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
@@ -8,8 +7,7 @@ import { collabRoute } from '../../collab/utils/collab-route';
 import { profileRoute } from '../../profile/utils/profile-route';
 import { socialRoute } from '../../social/utils/social-route';
 import { subjectRoute } from '../../subject/utils/subject-route';
-import { Layout } from '../components/layout/layout';
-import { driftString } from '../scripts/drift';
+import { Layout } from '../components';
 import { PrivateRoute } from './private-route';
 
 const Auth = lazy(() => import('../../auth'));
@@ -23,7 +21,6 @@ export const Router = () => {
 
   return (
     <Box h="100%">
-      <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <Switch>
         <Route
           path={[

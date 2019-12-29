@@ -52,6 +52,9 @@
       "label": "Preferált nyelv"
     }
   },
+  "meta": {
+    "description": "Cogito egy közösségi média környezetbe ágyazott kollaboratív dokumentumszerkesztő, mely egyaránt kommunikációs és információmenedzsment platformként szolgál."
+  },
   "menu": {
     "newsFeed": "hírfolyam",
     "profile": "profil",

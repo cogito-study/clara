@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import React from 'react';
-import { EmptyState } from '../../../core/components/empty-state/empty-state';
+import { EmptyState } from '../../../core/components';
 import EmptyIcon from '../../assets/news-feed-empty.svg';
 import { socialComponents } from '../../utils/storybook';
 import { FeedPostCard, FeedPostCardProps } from './feed-post-card';

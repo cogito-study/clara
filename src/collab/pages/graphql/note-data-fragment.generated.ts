@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 export type NoteDataFragment = { readonly __typename?: 'Note' } & Pick<
   Types.Note,
-  'id' | 'title' | 'content'
+  'id' | 'title' | 'content' | 'description'
 >;
 
 export const NoteDataFragmentDoc = gql`
@@ -12,5 +12,6 @@ export const NoteDataFragmentDoc = gql`
     id
     title
     content
+    description
   }
 `;

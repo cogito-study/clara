@@ -1,9 +1,7 @@
 import { SimpleGrid } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeleteAlert } from '../../../core/components/alert/delete-alert';
-import { EmptyState } from '../../../core/components/empty-state/empty-state';
-import { ModalOptions } from '../../../core/components/modal/types';
+import { DeleteAlert, EmptyState, ModalOptions } from '../../../core/components';
 import { NotePermissionType, SubjectPermissionType } from '../../../core/graphql/types.generated';
 import { useErrorToast } from '../../../core/hooks';
 import EmptyIcon from '../../assets/notelist-empty.svg';

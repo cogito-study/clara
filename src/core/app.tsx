@@ -4,15 +4,11 @@ import { init as initSentry } from '@sentry/browser';
 import React, { Suspense } from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import { initialize as initGoogleAnalytics } from 'react-ga';
-import { Helmet } from 'react-helmet';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { ErrorPage } from './components/error/error-page';
-import { FullCogitoLoader } from './components/loader/cogito-loader';
+import { ErrorPage, FullCogitoLoader, RootHead } from './components';
 import { config, isProduction } from './environment/config';
 import { client } from './graphql/client';
 import { Router } from './router/router';
-import { driftString } from './scripts/drift';
-import { hotjarString } from './scripts/hotjar';
 import { GlobalStyles, theme } from './style';
 
 export const App = () => {
@@ -25,14 +21,13 @@ export const App = () => {
 
   return (
     <>
-      {isProduction && <Helmet script={[{ async: true, innerHTML: hotjarString }]} />}
-      <Helmet script={[{ async: true, innerHTML: driftString }]} />
       <ThemeProvider theme={theme}>
         <Suspense fallback={<FullCogitoLoader />}>
           <GlobalStyles />
           <ApolloProvider client={client}>
             <BrowserRouter>
               <ErrorBoundary FallbackComponent={ErrorPage}>
+                <RootHead />
                 <Route path="/">
                   <Router />
                 </Route>

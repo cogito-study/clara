@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/core';
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { EmptyState } from '../../../core/components/empty-state/empty-state';
+import { EmptyState } from '../../../core/components';
 import emptyIcon from '../../assets/notelist-empty.svg';
 import { subjectComponents } from '../../utils/storybook';
 import { EditNoteModal } from './edit-note-modal';
