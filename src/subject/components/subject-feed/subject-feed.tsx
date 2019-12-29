@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { EmptyState } from '../../../core/components/empty-state/empty-state';
-import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
+import { ContentWrapper, EmptyState } from '../../../core/components';
 import EmptyIcon from '../../../social/assets/news-feed-empty.svg';
 import { FeedPostInput } from '../../../social/components/feed-post/feed-post-input';
 import { FeedPostList } from '../../../social/components/feed-post/feed-post-list';

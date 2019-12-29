@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiCheckCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
+import { Head } from '../../../core/components';
 import { TokenType } from '../../../core/graphql/types.generated';
-import { useDocumentTitle, useErrorToast, useRouteQueryParams } from '../../../core/hooks';
+import { useErrorToast, useRouteQueryParams } from '../../../core/hooks';
 import { useTokenValidation } from '../../hooks';
 import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
@@ -18,8 +19,6 @@ export const ActivateRegistration = () => {
   const [selectedMajorID, setSelectedMajorID] = useState<string | undefined>(undefined);
   const { token } = useRouteQueryParams<{ token?: string }>();
   const errorToast = useErrorToast();
-
-  useDocumentTitle(t('activation.title'));
 
   const { isTokenValidationLoading } = useTokenValidation({ token, type: TokenType.Activation });
   const [activateRegistration, { data, loading }] = useActivateRegistrationMutation();
@@ -40,40 +39,34 @@ export const ActivateRegistration = () => {
     }
   };
 
-  if (isTokenValidationLoading) {
-    return (
-      <Flex align="center" justify="center">
-        <Spinner size="xl" color="blue.800" thickness="3px" />
-      </Flex>
-    );
-  }
-
-  if (data?.activateRegistration) {
-    return (
-      <Feedback
-        title={t('activation.feedback.title')}
-        icon={<Icon as={FiCheckCircle} color="blue.600" size="96px" />}
-        description={t('activation.feedback.description')}
-        buttonLabel={t('button.login')}
-        onButtonClick={() => history.push(authRoute({ path: 'login' }))}
-      />
-    );
-  }
-
-  if (token) {
-    if (selectedMajorID) {
-      return (
-        <PickSubjects
-          token={token}
-          majorID={selectedMajorID}
-          isSubmitting={loading}
-          onSave={handleSave}
+  return (
+    <>
+      <Head title={t('activation.title')} />
+      {isTokenValidationLoading ? (
+        <Flex align="center" justify="center">
+          <Spinner size="xl" color="blue.800" thickness="3px" />
+        </Flex>
+      ) : data?.activateRegistration ? (
+        <Feedback
+          title={t('activation.feedback.title')}
+          icon={<Icon as={FiCheckCircle} color="blue.600" size="96px" />}
+          description={t('activation.feedback.description')}
+          buttonLabel={t('button.login')}
+          onButtonClick={() => history.push(authRoute({ path: 'login' }))}
         />
-      );
-    } else {
-      return <PickStudies token={token} onFormSubmit={(majorID) => setSelectedMajorID(majorID)} />;
-    }
-  }
-
-  return null;
+      ) : (
+        token &&
+        (selectedMajorID ? (
+          <PickSubjects
+            token={token}
+            majorID={selectedMajorID}
+            isSubmitting={loading}
+            onSave={handleSave}
+          />
+        ) : (
+          <PickStudies token={token} onFormSubmit={(majorID) => setSelectedMajorID(majorID)} />
+        ))
+      )}
+    </>
+  );
 };

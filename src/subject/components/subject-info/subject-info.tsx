@@ -1,9 +1,7 @@
 import { Heading } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeleteAlert } from '../../../core/components/alert/delete-alert';
-import { ContentWrapper } from '../../../core/components/layout/content-wrapper';
-import { ModalOptions } from '../../../core/components/modal/types';
+import { ContentWrapper, DeleteAlert, ModalOptions } from '../../../core/components';
 import {
   SubjectInformationPermissionType,
   SubjectPermissionType,

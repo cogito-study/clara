@@ -3,7 +3,8 @@ import React, { CSSProperties, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redirect, Route, Switch, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useDocumentTitle, useTheme } from '../../core/hooks/';
+import { Head } from '../../core/components';
+import { useTheme } from '../../core/hooks/';
 import { SubjectFeed } from '../components/subject-feed/subject-feed';
 import { SubjectInfo } from '../components/subject-info/subject-info';
 import { SubjectNoteList } from '../components/subject-notes/subject-note-list';
@@ -21,43 +22,43 @@ export const SubjectPage = () => {
   const { subjectCode } = useParams<SubjectRouteParams>();
   const { data, loading } = useSubjectPageQuery({ variables: { subjectCode } });
 
-  useDocumentTitle(data?.subject?.name);
-
   const subjectIdentifierProps: SubjectIdentifierProps = {
     subjectCode,
     id: data?.subject?.id ?? '',
   };
 
   return (
-    <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
-      <Box
-        pos="fixed"
-        bg="#fff"
-        pt={['initial', 'initial', 'initial', 5]}
-        width="100%"
-        zIndex={10}
-        borderBottom="1px"
-        borderColor="grey.100"
-      >
-        {loading ? (
-          <SubjectPagePlaceholder />
-        ) : (
-          <Flex direction="row" justify="space-between" width="100%">
-            <Heading
-              as="h2"
-              display={['none', 'none', 'none', 'initial']}
-              fontSize="xl"
-              color="black"
-              px={16}
-              pb={1}
-              bg="#fff"
-            >
-              {data?.subject?.name}
-            </Heading>
+    <>
+      <Head title={data?.subject?.name} />
+      <Box width="100%" mt={[12, 12, 12, 'initial']} pb={12}>
+        <Box
+          pos="fixed"
+          bg="#fff"
+          pt={['initial', 'initial', 'initial', 5]}
+          width="100%"
+          zIndex={10}
+          borderBottom="1px"
+          borderColor="grey.100"
+        >
+          {loading ? (
+            <SubjectPagePlaceholder />
+          ) : (
+            <Flex direction="row" justify="space-between" width="100%">
+              <Heading
+                as="h2"
+                display={['none', 'none', 'none', 'initial']}
+                fontSize="xl"
+                color="black"
+                px={16}
+                pb={1}
+                bg="#fff"
+              >
+                {data?.subject?.name}
+              </Heading>
 
-            {
-              // TBD ux-wise
-              /* <Button
+              {
+                // TBD ux-wise
+                /* <Button
             size="md"
             bg="teal.500"
             color="blue.800"
@@ -68,41 +69,42 @@ export const SubjectPage = () => {
           >
             add new note
           </Button> */
-            }
+              }
+            </Flex>
+          )}
+          <Flex
+            bg="#fff"
+            justify={['stretch', 'stretch', 'flex-start']}
+            width="100%"
+            px={[0, 0, 0, 16]}
+          >
+            <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>
+              {t('notes.title')}
+            </TabLink>
+            <TabLink to={subjectRoute({ path: 'subjects-feed', subjectCode })}>
+              {t('feed.title')}
+            </TabLink>
+            <TabLink to={subjectRoute({ path: 'subjects-info', subjectCode })}>
+              {t('info.title')}
+            </TabLink>
           </Flex>
-        )}
-        <Flex
-          bg="#fff"
-          justify={['stretch', 'stretch', 'flex-start']}
-          width="100%"
-          px={[0, 0, 0, 16]}
-        >
-          <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>
-            {t('notes.title')}
-          </TabLink>
-          <TabLink to={subjectRoute({ path: 'subjects-feed', subjectCode })}>
-            {t('feed.title')}
-          </TabLink>
-          <TabLink to={subjectRoute({ path: 'subjects-info', subjectCode })}>
-            {t('info.title')}
-          </TabLink>
-        </Flex>
+        </Box>
+        <Box width="100%" pt={[6, 10, 10, 20]}>
+          <Switch>
+            <Route path={subjectRoute({ path: 'subjects-notes' })}>
+              <SubjectNoteList {...subjectIdentifierProps} />
+            </Route>
+            <Route path={subjectRoute({ path: 'subjects-feed' })}>
+              <SubjectFeed {...subjectIdentifierProps} />
+            </Route>
+            <Route path={subjectRoute({ path: 'subjects-info' })}>
+              <SubjectInfo {...subjectIdentifierProps} />
+            </Route>
+            <Redirect to={subjectRoute({ path: 'subjects-notes' })} />
+          </Switch>
+        </Box>
       </Box>
-      <Box width="100%" pt={[6, 10, 10, 20]}>
-        <Switch>
-          <Route path={subjectRoute({ path: 'subjects-notes' })}>
-            <SubjectNoteList {...subjectIdentifierProps} />
-          </Route>
-          <Route path={subjectRoute({ path: 'subjects-feed' })}>
-            <SubjectFeed {...subjectIdentifierProps} />
-          </Route>
-          <Route path={subjectRoute({ path: 'subjects-info' })}>
-            <SubjectInfo {...subjectIdentifierProps} />
-          </Route>
-          <Redirect to={subjectRoute({ path: 'subjects-notes' })} />
-        </Switch>
-      </Box>
-    </Box>
+    </>
   );
 };
 

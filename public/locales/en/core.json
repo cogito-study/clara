@@ -52,6 +52,9 @@
       "label": "Preferred language"
     }
   },
+  "meta": {
+    "description": "Cogito is a collaborative document editor tool embedded in a social media environment that serves both as a communication and information management system."
+  },
   "menu": {
     "newsFeed": "news feed",
     "profile": "profile",

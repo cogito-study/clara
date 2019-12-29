@@ -3,7 +3,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, configure } from '@storybook/react';
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { FullCogitoLoader } from '../src/core/components/loader/cogito-loader';
+import { FullCogitoLoader } from '../src/core/components';
 import { GlobalStyles, theme } from '../src/core/style';
 
 addDecorator(withKnobs);

@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/core';
 import Quill from 'quill';
 import React, { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDocumentTitle } from '../../core/hooks';
+import { Head } from '../../core/components';
 import { CollabPagePlaceholder } from '../components/common';
 import { Study, StudyHeader } from '../components/study';
 import { createStudyModeQuill } from '../quills/';
@@ -19,8 +19,6 @@ export const StudyPage: React.FC = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  useDocumentTitle(data?.note?.title);
-
   useEffect(() => {
     if (!loading) {
       setEditor(createStudyModeQuill());
@@ -28,17 +26,20 @@ export const StudyPage: React.FC = () => {
   }, [loading]);
 
   return (
-    <Flex bg="white">
-      {loading ? (
-        <CollabPagePlaceholder />
-      ) : (
-        <Suspense fallback={<CollabPagePlaceholder />}>
-          <StudyHeader subject={data?.note?.subject ?? { name: '', code: '' }} />
-          <Flex direction="column" mt={[4, 4, 4, 12]} align="center" w="100%">
-            <Study editor={editor} noteData={data?.note} />
-          </Flex>
-        </Suspense>
-      )}
-    </Flex>
+    <>
+      <Head title={data?.note?.title} description={data?.note?.description} />
+      <Flex bg="white">
+        {loading ? (
+          <CollabPagePlaceholder />
+        ) : (
+          <Suspense fallback={<CollabPagePlaceholder />}>
+            <StudyHeader subject={data?.note?.subject ?? { name: '', code: '' }} />
+            <Flex direction="column" mt={[4, 4, 4, 12]} align="center" w="100%">
+              <Study editor={editor} noteData={data?.note} />
+            </Flex>
+          </Suspense>
+        )}
+      </Flex>
+    </>
   );
 };

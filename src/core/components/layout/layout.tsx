@@ -1,9 +1,9 @@
 import { Box, Flex } from '@chakra-ui/core';
 import React, { FC, Suspense, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { FullCogitoLoader } from '../';
 import { SubjectRouteParams } from '../../../subject/utils/subject-route';
 import background from '../../assets/background-pattern.svg';
-import { FullCogitoLoader } from '../loader/cogito-loader';
 import { MainMenu } from '../navigation/menu';
 import { PageTitleHeader } from '../navigation/page-title-header';
 import { useSubjectTitleLazyQuery } from './graphql/subject-title-query.generated';
