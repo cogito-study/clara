@@ -12,15 +12,13 @@ export type ActiveSuggestionsQueryVariables = {
 
 export type ActiveSuggestionsQuery = { readonly __typename?: 'Query' } & {
   readonly activeSuggestions: ReadonlyArray<
-    { readonly __typename?: 'Suggestion' } & Pick<Types.Suggestion, 'likesCount'> &
-      SuggestionFragment
+    { readonly __typename?: 'Suggestion' } & SuggestionFragment
   >;
 };
 
 export const ActiveSuggestionsDocument = gql`
   query ActiveSuggestions($noteID: ID) {
     activeSuggestions(where: { noteID: $noteID }) {
-      likesCount
       ...Suggestion
     }
   }

@@ -26,7 +26,7 @@ export const useErrorToast = () => {
 
 export const useErrorToastEffect = (error?: ApolloError | Error) => {
   const errorToast = useErrorToast();
-  const throttledError = useThrottle(error, 500);
+  const throttledError = useThrottle(error, 1000);
 
   useEffect(() => {
     if (throttledError) {

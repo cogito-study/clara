@@ -1,6 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
+import { SuggestionFragment } from './suggestion-fragment.generated';
 import gql from 'graphql-tag';
+import { SuggestionFragmentDoc } from './suggestion-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -9,19 +11,16 @@ export type SuggestionApproveSubscriptionVariables = {
 };
 
 export type SuggestionApproveSubscription = { readonly __typename?: 'Subscription' } & {
-  readonly approvedSuggestion: { readonly __typename?: 'Suggestion' } & Pick<
-    Types.Suggestion,
-    'id' | 'delta'
-  >;
+  readonly approvedSuggestion: { readonly __typename?: 'Suggestion' } & SuggestionFragment;
 };
 
 export const SuggestionApproveDocument = gql`
   subscription SuggestionApprove($noteID: ID) {
     approvedSuggestion(where: { id: $noteID }) {
-      id
-      delta
+      ...Suggestion
     }
   }
+  ${SuggestionFragmentDoc}
 `;
 
 /**

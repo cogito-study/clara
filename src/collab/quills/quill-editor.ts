@@ -37,6 +37,7 @@ export class QuillEditor {
       id: '',
       delta: '{"ops":[]}',
       createdAt: new Date(),
+      permissions: [],
       author: { id: '', fullName: '' },
     });
     this.original = original;
