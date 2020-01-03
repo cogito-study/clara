@@ -3,6 +3,7 @@ import Delta from 'quill-delta';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { SuggestionPermissionType } from '../../../core/graphql/types.generated';
 import { useDateFormatter, useErrorToast } from '../../../core/hooks';
 import { QuillEditor } from '../../quills';
 import { useApproveSuggestionMutation } from './graphql/suggestion-approve-mutation.generated';
@@ -44,8 +45,10 @@ export const SuggestionItem: FC<Props> = ({
   const errorToast = useErrorToast();
   const [showOverflow, setShowOverflow] = useState(false);
 
-  const { id, delta, createdAt, author } = suggestion;
+  const { id, delta, createdAt, author, permissions } = suggestion;
   const original = quillEditor?.original.current;
+  const hasRejectPermission = permissions.includes(SuggestionPermissionType.RejectSuggestion);
+  const hasApprovePermission = permissions.includes(SuggestionPermissionType.ApproveSuggestion);
 
   const [approveSuggestion, { loading: approveSuggestionLoading }] = useApproveSuggestionMutation();
   const [rejectSuggestion, { loading: rejectSuggestionLoading }] = useRejectSuggestionMutation();
@@ -110,29 +113,33 @@ export const SuggestionItem: FC<Props> = ({
         </Flex>
       )}
       <Flex w="full" justifyContent="flex-end">
-        <Button
-          size="sm"
-          variant="outline"
-          variantColor="red"
-          borderRadius={0}
-          mr={2}
-          isLoading={rejectSuggestionLoading}
-          isDisabled={operationLoading}
-          onClick={handleCancelSuggestion}
-        >
-          {t('suggestion.cancel')}
-        </Button>
-        <Button
-          size="sm"
-          variantColor="teal"
-          color="blue.800"
-          borderRadius={0}
-          isLoading={approveSuggestionLoading}
-          isDisabled={operationLoading}
-          onClick={handleAcceptSuggestion}
-        >
-          {t('suggestion.accept')}
-        </Button>
+        {hasRejectPermission && (
+          <Button
+            size="sm"
+            variant="outline"
+            variantColor="red"
+            borderRadius={0}
+            mr={2}
+            isLoading={rejectSuggestionLoading}
+            isDisabled={operationLoading}
+            onClick={handleCancelSuggestion}
+          >
+            {t('suggestion.cancel')}
+          </Button>
+        )}
+        {hasApprovePermission && (
+          <Button
+            size="sm"
+            variantColor="teal"
+            color="blue.800"
+            borderRadius={0}
+            isLoading={approveSuggestionLoading}
+            isDisabled={operationLoading}
+            onClick={handleAcceptSuggestion}
+          >
+            {t('suggestion.accept')}
+          </Button>
+        )}
       </Flex>
     </Flex>
   );

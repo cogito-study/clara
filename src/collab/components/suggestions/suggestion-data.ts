@@ -1,17 +1,20 @@
 import Delta from 'quill-delta';
+import { SuggestionPermissionType } from '../../../core/graphql/types.generated';
 import { SuggestionFragment } from './graphql/suggestion-fragment.generated';
 
 export class SuggestionData {
-  author: string;
   id: string;
   delta: Delta;
+  author: string;
   createdAt: Date;
+  permissions: SuggestionPermissionType[];
 
-  constructor({ id, delta, createdAt, author: { fullName } }: SuggestionFragment) {
+  constructor({ id, delta, createdAt, permissions, author: { fullName } }: SuggestionFragment) {
     this.id = id;
     this.delta = new Delta(JSON.parse(delta));
     this.author = fullName;
-    this.createdAt = new Date(createdAt);
+    this.createdAt = createdAt;
+    this.permissions = [...permissions];
   }
 
   inverseDelta(base: Delta): Delta {

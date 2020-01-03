@@ -1,5 +1,5 @@
 mutation RejectSuggestion($suggestionID: ID!) {
   rejectSuggestion(where: { id: $suggestionID }) {
-    id
+    ...Suggestion
   }
 }

@@ -1,6 +1,8 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
+import { SuggestionFragment } from './suggestion-fragment.generated';
 import gql from 'graphql-tag';
+import { SuggestionFragmentDoc } from './suggestion-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -9,15 +11,16 @@ export type ApproveSuggestionMutationVariables = {
 };
 
 export type ApproveSuggestionMutation = { readonly __typename?: 'Mutation' } & {
-  readonly approveSuggestion: { readonly __typename?: 'Suggestion' } & Pick<Types.Suggestion, 'id'>;
+  readonly approveSuggestion: { readonly __typename?: 'Suggestion' } & SuggestionFragment;
 };
 
 export const ApproveSuggestionDocument = gql`
   mutation ApproveSuggestion($suggestionID: ID!) {
     approveSuggestion(where: { id: $suggestionID }) {
-      id
+      ...Suggestion
     }
   }
+  ${SuggestionFragmentDoc}
 `;
 export type ApproveSuggestionMutationFn = ApolloReactCommon.MutationFunction<
   ApproveSuggestionMutation,

@@ -1,6 +1,5 @@
 query ActiveSuggestions($noteID: ID) {
   activeSuggestions(where: { noteID: $noteID }) {
-    likesCount
     ...Suggestion
   }
 }

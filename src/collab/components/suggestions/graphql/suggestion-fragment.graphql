@@ -2,6 +2,7 @@ fragment Suggestion on Suggestion {
   id
   delta
   createdAt
+  permissions
   author {
     id
     fullName
