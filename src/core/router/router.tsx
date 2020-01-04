@@ -31,6 +31,7 @@ export const Router = () => {
             authRoute({ path: 'activate-invitation' }),
             authRoute({ path: 'activate-registration' }),
             authRoute({ path: 'link-expired' }),
+            authRoute({ path: 'new-major' }),
           ]}
         >
           <Auth />

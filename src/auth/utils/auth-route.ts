@@ -5,7 +5,8 @@ type AuthRouteOption =
   | { path: 'forgot-password' }
   | { path: 'activate-invitation' }
   | { path: 'activate-registration' }
-  | { path: 'link-expired' };
+  | { path: 'link-expired' }
+  | { path: 'new-major' };
 
 export const authRoute = (option: AuthRouteOption): string => {
   switch (option.path) {
@@ -23,5 +24,7 @@ export const authRoute = (option: AuthRouteOption): string => {
       return '/activate-registration';
     case 'link-expired':
       return '/link-expired';
+    case 'new-major':
+      return '/new-major';
   }
 };

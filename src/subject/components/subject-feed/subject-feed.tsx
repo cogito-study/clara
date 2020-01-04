@@ -9,6 +9,7 @@ import { FeedPostListPlaceholder } from '../../../social/components/feed-post/fe
 import { SubjectIdentifierProps } from '../../pages/subject-page';
 import { SubjectFeedDocument, useSubjectFeedQuery } from './graphql/subject-feed-query.generated';
 
+// TODO: Order by post creation date
 export const SubjectFeed = ({ id, subjectCode }: SubjectIdentifierProps) => {
   const { t } = useTranslation('subject');
   const [shouldInputFocus, setShouldInputFocus] = useState(false);
