@@ -22,7 +22,7 @@ export const SubjectFeedDocument = gql`
   query SubjectFeed($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
       id
-      posts(orderBy: { createdAt: desc }) {
+      posts {
         ...FeedPost
       }
     }

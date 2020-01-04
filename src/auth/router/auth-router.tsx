@@ -5,6 +5,7 @@ import {
   ActivateRegistration,
   ForgotPassword,
   Login,
+  NewMajorRequest,
   Register,
   ResetPassword,
 } from '../components';
@@ -31,6 +32,9 @@ export const AuthRouter = () => {
       </Route>
       <Route path={authRoute({ path: 'activate-registration' })}>
         <ActivateRegistration />
+      </Route>
+      <Route path={authRoute({ path: 'new-major' })}>
+        <NewMajorRequest />
       </Route>
       <Route path={authRoute({ path: 'link-expired' })}>
         <LinkExpired />

@@ -99,6 +99,14 @@ export type CreateMajorInput = {
   readonly faculty: ConnectRelation;
 };
 
+/** Input of create new major request */
+export type CreateNewMajorRequest = {
+  readonly institute: Scalars['String'];
+  readonly faculty: Scalars['String'];
+  readonly major: Scalars['String'];
+  readonly token: Scalars['String'];
+};
+
 /** Input of create note comment */
 export type CreateNoteCommentInput = {
   readonly name: Scalars['String'];
@@ -194,20 +202,12 @@ export type Department = {
   readonly name: Scalars['String'];
   readonly description: Scalars['String'];
   readonly leader: User;
-  readonly subjects: ReadonlyArray<Subject>;
   readonly institute: Institute;
+  readonly subjects: ReadonlyArray<Subject>;
   readonly permissions: ReadonlyArray<DepartmentPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type DepartmentSubjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type DepartmentFilter = {
@@ -268,10 +268,6 @@ export type DepartmentWhereInput = {
   readonly institute: Maybe<InstituteWhereInput>;
 };
 
-export type DepartmentWhereUniqueInput = {
-  readonly id: Maybe<Scalars['ID']>;
-};
-
 export type Faculty = {
   readonly __typename?: 'Faculty';
   readonly id: Scalars['ID'];
@@ -282,14 +278,6 @@ export type Faculty = {
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
-};
-
-export type FacultyMajorsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
 };
 
 export type FacultyFilter = {
@@ -512,14 +500,6 @@ export type Major = {
   readonly deletedAt: Maybe<Scalars['DateTime']>;
 };
 
-export type MajorSubjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type MajorByTokenInput = {
   readonly token: Scalars['String'];
 };
@@ -606,6 +586,7 @@ export type Mutation = {
   readonly createMajor: Major;
   readonly updateMajor: Major;
   readonly deleteMajor: Major;
+  readonly createNewMajorRequest: NewMajorRequest;
   readonly createNote: Note;
   readonly updateNote: Note;
   readonly deleteNote: Note;
@@ -740,6 +721,10 @@ export type MutationUpdateMajorArgs = {
 
 export type MutationDeleteMajorArgs = {
   where: WhereUniqueInput;
+};
+
+export type MutationCreateNewMajorRequestArgs = {
+  data: CreateNewMajorRequest;
 };
 
 export type MutationCreateNoteArgs = {
@@ -883,6 +868,29 @@ export type MutationChangePreferredLanguageArgs = {
 
 export type MutationDeleteUserArgs = {
   where: WhereUniqueInput;
+};
+
+export type NewMajorRequest = {
+  readonly __typename?: 'NewMajorRequest';
+  readonly id: Scalars['ID'];
+  readonly institute: Scalars['String'];
+  readonly faculty: Scalars['String'];
+  readonly major: Scalars['String'];
+  readonly user: User;
+};
+
+export type NewMajorRequestWhereInput = {
+  readonly id: Maybe<StringFilter>;
+  readonly institute: Maybe<StringFilter>;
+  readonly major: Maybe<StringFilter>;
+  readonly faculty: Maybe<StringFilter>;
+  readonly createdAt: Maybe<DateTimeFilter>;
+  readonly updatedAt: Maybe<DateTimeFilter>;
+  readonly deletedAt: Maybe<NullableDateTimeFilter>;
+  readonly AND: Maybe<ReadonlyArray<NewMajorRequestWhereInput>>;
+  readonly OR: Maybe<ReadonlyArray<NewMajorRequestWhereInput>>;
+  readonly NOT: Maybe<ReadonlyArray<NewMajorRequestWhereInput>>;
+  readonly user: Maybe<UserWhereInput>;
 };
 
 export type Note = {
@@ -1240,10 +1248,6 @@ export type NoteWhereInput = {
   readonly subject: Maybe<SubjectWhereInput>;
 };
 
-export type NoteWhereUniqueInput = {
-  readonly id: Maybe<Scalars['ID']>;
-};
-
 export type NullableDateTimeFilter = {
   readonly equals: Maybe<Scalars['DateTime']>;
   readonly not: Maybe<Scalars['DateTime']>;
@@ -1268,11 +1272,6 @@ export type NullableStringFilter = {
   readonly startsWith: Maybe<Scalars['String']>;
   readonly endsWith: Maybe<Scalars['String']>;
 };
-
-export enum OrderByArg {
-  Asc = 'asc',
-  Desc = 'desc',
-}
 
 export type PasswordToken = {
   readonly __typename?: 'PasswordToken';
@@ -1322,20 +1321,12 @@ export type PostLikersArgs = {
   last: Maybe<Scalars['Int']>;
 };
 
-export type PostCommentsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
 export type PostComment = {
   readonly __typename?: 'PostComment';
   readonly id: Scalars['ID'];
   readonly content: Scalars['String'];
   readonly author: User;
-  readonly post: Post;
+  readonly post: Maybe<Post>;
   readonly likers: ReadonlyArray<User>;
   /** Number of likes on the postComment */
   readonly likesCount: Scalars['Int'];
@@ -1478,6 +1469,7 @@ export type Query = {
   readonly institutes: ReadonlyArray<Institute>;
   readonly department: Maybe<Department>;
   readonly faculties: ReadonlyArray<Faculty>;
+  readonly faculty: Maybe<Faculty>;
   readonly institute: Maybe<Institute>;
   readonly institutesByToken: ReadonlyArray<Institute>;
   readonly language: Maybe<Language>;
@@ -1525,15 +1517,11 @@ export type QueryInstitutesArgs = {
 };
 
 export type QueryDepartmentArgs = {
-  where: DepartmentWhereUniqueInput;
+  where: WhereUniqueInput;
 };
 
-export type QueryFacultiesArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
+export type QueryFacultyArgs = {
+  where: WhereUniqueInput;
 };
 
 export type QueryInstituteArgs = {
@@ -1570,7 +1558,7 @@ export type QueryMajorByTokenArgs = {
 };
 
 export type QueryNoteArgs = {
-  where: NoteWhereUniqueInput;
+  where: WhereUniqueInput;
 };
 
 export type QueryNoteCommentArgs = {
@@ -1691,12 +1679,12 @@ export type Subject = {
   readonly description: Scalars['String'];
   readonly department: Department;
   readonly moderators: ReadonlyArray<User>;
-  readonly teachers: ReadonlyArray<User>;
-  readonly students: ReadonlyArray<User>;
+  readonly language: Language;
   readonly informations: ReadonlyArray<SubjectInformation>;
   readonly notes: ReadonlyArray<Note>;
   readonly posts: ReadonlyArray<Post>;
-  readonly language: Language;
+  readonly students: ReadonlyArray<User>;
+  readonly teachers: ReadonlyArray<User>;
   readonly permissions: ReadonlyArray<SubjectPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
@@ -1704,47 +1692,6 @@ export type Subject = {
 };
 
 export type SubjectModeratorsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type SubjectTeachersArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type SubjectStudentsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type SubjectInformationsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type SubjectNotesArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type SubjectPostsArgs = {
-  orderBy: Maybe<SubjectPostsOrderByInput>;
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['ID']>;
   before: Maybe<Scalars['ID']>;
@@ -1869,10 +1816,6 @@ export type SubjectPermissionWhereInput = {
   readonly object: Maybe<SubjectWhereInput>;
 };
 
-export type SubjectPostsOrderByInput = {
-  readonly createdAt: Maybe<OrderByArg>;
-};
-
 export type SubjectWhereInput = {
   readonly id: Maybe<StringFilter>;
   readonly code: Maybe<StringFilter>;
@@ -1897,7 +1840,7 @@ export type SubjectWhereInput = {
 };
 
 export type SubjectWhereUniqueInput = {
-  readonly id: Maybe<Scalars['ID']>;
+  readonly id: Maybe<Scalars['String']>;
   readonly code: Maybe<Scalars['String']>;
 };
 
@@ -2127,21 +2070,22 @@ export type User = {
   readonly identifier: Maybe<Scalars['String']>;
   readonly position: Maybe<Scalars['String']>;
   readonly fullName: Scalars['String'];
-  readonly permissions: ReadonlyArray<UserPermissionType>;
   readonly role: Maybe<UserRole>;
   readonly major: Maybe<Major>;
   readonly notes: ReadonlyArray<Note>;
   readonly noteHighlights: ReadonlyArray<NoteHighlight>;
   readonly suggestions: ReadonlyArray<Suggestion>;
   readonly approvedSuggestions: ReadonlyArray<Suggestion>;
-  readonly teachedSubjects: ReadonlyArray<Subject>;
-  readonly studiedSubjects: ReadonlyArray<Subject>;
   readonly likedNotes: ReadonlyArray<Note>;
   readonly noteComments: ReadonlyArray<NoteComment>;
   readonly likedPostComments: ReadonlyArray<PostComment>;
   readonly departments: ReadonlyArray<Department>;
   readonly institutes: ReadonlyArray<Institute>;
   readonly preferredLanguage: Maybe<Language>;
+  readonly newMajorRequest: Maybe<NewMajorRequest>;
+  readonly teachedSubjects: ReadonlyArray<Subject>;
+  readonly studiedSubjects: ReadonlyArray<Subject>;
+  readonly permissions: ReadonlyArray<UserPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
   readonly deletedAt: Maybe<Scalars['DateTime']>;
@@ -2172,22 +2116,6 @@ export type UserSuggestionsArgs = {
 };
 
 export type UserApprovedSuggestionsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type UserTeachedSubjectsArgs = {
-  skip: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['ID']>;
-  before: Maybe<Scalars['ID']>;
-  first: Maybe<Scalars['Int']>;
-  last: Maybe<Scalars['Int']>;
-};
-
-export type UserStudiedSubjectsArgs = {
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['ID']>;
   before: Maybe<Scalars['ID']>;
@@ -2360,6 +2288,7 @@ export type UserWhereInput = {
   readonly major: Maybe<MajorWhereInput>;
   readonly passwordToken: Maybe<PasswordTokenWhereInput>;
   readonly preferredLanguage: Maybe<LanguageWhereInput>;
+  readonly newMajorRequest: Maybe<NewMajorRequestWhereInput>;
 };
 
 export type UserWhereUniqueInput = {

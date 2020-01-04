@@ -1,0 +1,12 @@
+mutation CreateNewMajorRequest(
+  $institute: String!
+  $faculty: String!
+  $major: String!
+  $token: String!
+) {
+  createNewMajorRequest(
+    data: { institute: $institute, faculty: $faculty, major: $major, token: $token }
+  ) {
+    id
+  }
+}
