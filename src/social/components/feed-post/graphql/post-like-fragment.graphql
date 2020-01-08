@@ -1,8 +1,0 @@
-fragment PostLike on Post {
-  id
-  likesCount
-  hasLikedPost
-  likers {
-    id
-  }
-}

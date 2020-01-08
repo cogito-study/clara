@@ -3,7 +3,7 @@ query MenuData {
     id
     fullName
     profilePictureURL
-    studiedSubjects {
+    studiedSubjects(where: { deletedAt: null }) {
       name
       code
     }

@@ -26,7 +26,6 @@ const postCardProps: FeedPostCardProps = {
     permissions: [],
     updatedAt: new Date(),
     subject: { name: 'Vascular surgery' },
-    likers: [],
   },
   isEditLoading: false,
   onPostDelete: action('On Post delete'),

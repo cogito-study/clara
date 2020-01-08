@@ -1,8 +1,6 @@
 import * as Types from '../../../../core/graphql/types.generated';
 
-import { PostLikeFragment } from './post-like-fragment.generated';
 import gql from 'graphql-tag';
-import { PostLikeFragmentDoc } from './post-like-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 
@@ -11,16 +9,20 @@ export type LikePostMutationVariables = {
 };
 
 export type LikePostMutation = { readonly __typename?: 'Mutation' } & {
-  readonly likePost: { readonly __typename?: 'Post' } & PostLikeFragment;
+  readonly likePost: { readonly __typename?: 'Post' } & Pick<
+    Types.Post,
+    'id' | 'likesCount' | 'hasLikedPost'
+  >;
 };
 
 export const LikePostDocument = gql`
   mutation LikePost($postID: ID!) {
     likePost(where: { id: $postID }) {
-      ...PostLike
+      id
+      likesCount
+      hasLikedPost
     }
   }
-  ${PostLikeFragmentDoc}
 `;
 export type LikePostMutationFn = ApolloReactCommon.MutationFunction<
   LikePostMutation,

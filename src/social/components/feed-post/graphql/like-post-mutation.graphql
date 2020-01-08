@@ -1,5 +1,7 @@
 mutation LikePost($postID: ID!) {
   likePost(where: { id: $postID }) {
-    ...PostLike
+    id
+    likesCount
+    hasLikedPost
   }
 }

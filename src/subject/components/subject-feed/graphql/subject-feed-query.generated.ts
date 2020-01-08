@@ -12,7 +12,7 @@ export type SubjectFeedQueryVariables = {
 
 export type SubjectFeedQuery = { readonly __typename?: 'Query' } & {
   readonly subject: Types.Maybe<
-    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id'> & {
+    { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'id' | 'permissions'> & {
         readonly posts: ReadonlyArray<{ readonly __typename?: 'Post' } & FeedPostFragment>;
       }
   >;
@@ -22,7 +22,8 @@ export const SubjectFeedDocument = gql`
   query SubjectFeed($subjectCode: String) {
     subject(where: { code: $subjectCode }) {
       id
-      posts {
+      permissions
+      posts(where: { deletedAt: null }, orderBy: { createdAt: desc }) {
         ...FeedPost
       }
     }

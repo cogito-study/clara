@@ -216,8 +216,7 @@ export const MainMenuBase = () => {
                 <Link
                   color="blue.800"
                   fontWeight="semibold"
-                  key="terms and conditions"
-                  href="https://cogito.study/static/ASZF-f0964df8436132791334d163c6f55b02.pdf"
+                  href="https://cogito.study/terms-conditions"
                   isExternal={true}
                   _hover={{ textDecor: 'none' }}
                 >
@@ -228,8 +227,7 @@ export const MainMenuBase = () => {
                 <Link
                   color="blue.800"
                   fontWeight="semibold"
-                  key="privacy policy"
-                  href="https://cogito.study/static/Adatvedelem-b012186546a53fc977309f0f2822bf5d.pdf"
+                  href="https://cogito.study/privacy-policy"
                   isExternal={true}
                   _hover={{ textDecor: 'none' }}
                 >

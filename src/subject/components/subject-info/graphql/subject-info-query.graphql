@@ -8,12 +8,12 @@ query SubjectInfo($subjectCode: String) {
       id
       name
     }
-    teachers {
+    teachers(where: { deletedAt: null }) {
       fullName
       email
       profilePictureURL
     }
-    informations {
+    informations(where: { deletedAt: null }) {
       ...SubjectInfoData
       permissions
     }
