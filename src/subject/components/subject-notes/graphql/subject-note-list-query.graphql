@@ -2,7 +2,7 @@ query SubjectNoteList($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
     id
     permissions
-    notes {
+    notes(where: { deletedAt: null }) {
       ...SubjectNoteData
 
       updatedAt

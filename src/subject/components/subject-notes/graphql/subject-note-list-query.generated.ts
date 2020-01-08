@@ -26,7 +26,7 @@ export const SubjectNoteListDocument = gql`
     subject(where: { code: $subjectCode }) {
       id
       permissions
-      notes {
+      notes(where: { deletedAt: null }) {
         ...SubjectNoteData
         updatedAt
         permissions
