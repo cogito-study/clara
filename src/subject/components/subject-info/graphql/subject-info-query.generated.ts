@@ -48,12 +48,12 @@ export const SubjectInfoDocument = gql`
         id
         name
       }
-      teachers {
+      teachers(where: { deletedAt: null }) {
         fullName
         email
         profilePictureURL
       }
-      informations {
+      informations(where: { deletedAt: null }) {
         ...SubjectInfoData
         permissions
       }

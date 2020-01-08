@@ -10,7 +10,6 @@ export type FeedPostFragment = { readonly __typename?: 'Post' } & Pick<
       Types.User,
       'id' | 'fullName' | 'profilePictureURL' | 'position'
     >;
-    readonly likers: ReadonlyArray<{ readonly __typename?: 'User' } & Pick<Types.User, 'id'>>;
   };
 
 export const FeedPostFragmentDoc = gql`
@@ -27,8 +26,5 @@ export const FeedPostFragmentDoc = gql`
     content
     updatedAt
     likesCount
-    likers {
-      id
-    }
   }
 `;

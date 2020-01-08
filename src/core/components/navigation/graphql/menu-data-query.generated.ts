@@ -23,7 +23,7 @@ export const MenuDataDocument = gql`
       id
       fullName
       profilePictureURL
-      studiedSubjects {
+      studiedSubjects(where: { deletedAt: null }) {
         name
         code
       }

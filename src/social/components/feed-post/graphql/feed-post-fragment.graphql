@@ -11,7 +11,4 @@ fragment FeedPost on Post {
   content
   updatedAt
   likesCount
-  likers {
-    id
-  }
 }

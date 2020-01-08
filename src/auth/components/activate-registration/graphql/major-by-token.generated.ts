@@ -22,7 +22,7 @@ export type MajorByTokenQuery = { readonly __typename?: 'Query' } & {
 export const MajorByTokenDocument = gql`
   query MajorByToken($token: String!, $majorID: ID!) {
     majorByToken(data: { token: $token }, where: { id: $majorID }) {
-      subjects {
+      subjects(where: { deletedAt: null }) {
         id
         name
       }

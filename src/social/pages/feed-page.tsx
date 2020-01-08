@@ -2,8 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContentWrapper, EmptyState, Head } from '../../core/components';
 import EmptyIcon from '../assets/news-feed-empty.svg';
-import { FeedPostList } from '../components/feed-post/feed-post-list';
-import { FeedPostListPlaceholder } from '../components/feed-post/feed-post.placeholder';
+import { FeedPostList, FeedPostListPlaceholder } from '../components/feed-post';
 import { GlobalFeedDocument, useGlobalFeedQuery } from './graphql/global-feed-query.generated';
 
 export const FeedPage = () => {

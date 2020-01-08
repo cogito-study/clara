@@ -1,7 +1,8 @@
 query SubjectFeed($subjectCode: String) {
   subject(where: { code: $subjectCode }) {
     id
-    posts {
+    permissions
+    posts(where: { deletedAt: null }, orderBy: { createdAt: desc }) {
       ...FeedPost
     }
   }

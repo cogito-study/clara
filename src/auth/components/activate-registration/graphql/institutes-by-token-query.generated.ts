@@ -27,10 +27,10 @@ export const InstitutesByTokenDocument = gql`
     institutesByToken(token: $token) {
       id
       name
-      faculties {
+      faculties(where: { deletedAt: null }) {
         id
         name
-        majors {
+        majors(where: { deletedAt: null }) {
           id
           name
         }

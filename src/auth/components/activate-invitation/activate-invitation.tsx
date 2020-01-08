@@ -128,13 +128,13 @@ export const ActivateInvitation = () => {
                     components={[
                       <Link
                         color="teal.700"
-                        href="https://cogito.study/static/Adatvedelem-b012186546a53fc977309f0f2822bf5d.pdf"
+                        href="https://cogito.study/privacy-policy"
                         key="privacy policy"
                         isExternal={true}
                       />,
                       <Link
                         color="teal.700"
-                        href="https://cogito.study/static/ASZF-f0964df8436132791334d163c6f55b02.pdf"
+                        href="https://cogito.study/terms-conditions"
                         key="terms and conditions"
                         isExternal={true}
                       />,
