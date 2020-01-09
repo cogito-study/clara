@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
   Modal,
@@ -18,7 +17,6 @@ import {
 import React from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
 import { SubjectNoteDataFragment } from './graphql/subject-note-data-fragment.generated';
 
 type EditNoteModalProps = {
@@ -36,7 +34,6 @@ type EditNoteModalForm = {
   number: string;
 };
 
-// TODO: Permitted numbers
 export const EditNoteModal = ({
   titleLabel,
   note,
@@ -46,15 +43,12 @@ export const EditNoteModal = ({
   onEdit,
 }: EditNoteModalProps) => {
   const { t } = useTranslation(['subject', 'core']);
-  const { register, errors, handleSubmit } = useForm<EditNoteModalForm>({
+  const { register, handleSubmit } = useForm<EditNoteModalForm>({
     defaultValues: {
       title: note?.title,
       description: note?.description,
       number: note?.number.toString(),
     },
-    validationSchema: Yup.object({
-      title: Yup.string().required(t('notes.modal.title.validation.required')),
-    }),
   });
 
   const onSubmit = handleSubmit(({ number, ...rest }) => {
@@ -78,11 +72,7 @@ export const EditNoteModal = ({
                   justify="flex-start"
                   h={[200, 200, 100]}
                 >
-                  <FormControl
-                    isInvalid={errors.title && true}
-                    flex={['initial', 'initial', 5]}
-                    h={100}
-                  >
+                  <FormControl isRequired flex={['initial', 'initial', 5]} h={100}>
                     <FormLabel
                       htmlFor="title"
                       color="blue.800"
@@ -94,14 +84,13 @@ export const EditNoteModal = ({
                     <Input
                       name="title"
                       type="text"
-                      ref={register}
+                      ref={register({ required: true })}
                       placeholder={t('notes.modal.title.placeholder')}
                       borderRadius={0}
                     />
-                    <FormErrorMessage fontSize={14}>{errors.title?.message}</FormErrorMessage>
                   </FormControl>
 
-                  <FormControl flex={['initial', 'initial', 2]} ml={[0, 0, 2]} h={100}>
+                  <FormControl isRequired flex={['initial', 'initial', 2]} ml={[0, 0, 2]} h={100}>
                     <FormLabel
                       htmlFor="number"
                       color="blue.800"
@@ -110,7 +99,12 @@ export const EditNoteModal = ({
                     >
                       {t('notes.modal.number.label')}
                     </FormLabel>
-                    <Input name="number" type="number" ref={register} borderRadius={0} />
+                    <Input
+                      name="number"
+                      type="number"
+                      ref={register({ required: true })}
+                      borderRadius={0}
+                    />
                   </FormControl>
                 </Flex>
 
