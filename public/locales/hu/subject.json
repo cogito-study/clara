@@ -44,7 +44,8 @@
         "validation": { "required": "Kulcsszavak megadása kötelező" }
       },
       "number": {
-        "label": "Szám"
+        "label": "Szám",
+        "validation": { "required": "A szám mező kötelező" }
       },
       "edit": "Jegyzet szerkesztése",
       "new": "Új jegyzet"
