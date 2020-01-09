@@ -44,7 +44,8 @@
         "validation": { "required": "Description is required" }
       },
       "number": {
-        "label": "Number"
+        "label": "Number",
+        "validation": { "required": "Number is required" }
       },
       "edit": "Edit note",
       "new": "New note"

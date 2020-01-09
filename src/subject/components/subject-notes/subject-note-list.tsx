@@ -161,13 +161,13 @@ export const SubjectNoteList = ({ subjectCode, id }: SubjectIdentifierProps) => 
                 />
               );
             })}
-            {hasCreateNotePermission && (
-              <AddItemCard
-                h={180}
-                title={t('notes.add')}
-                onClick={() => setAddingNoteState({ isOpen: true })}
-              />
-            )}
+            {/* {hasCreateNotePermission && ( */}
+            <AddItemCard
+              h={180}
+              title={t('notes.add')}
+              onClick={() => setAddingNoteState({ isOpen: true })}
+            />
+            {/* )} */}
           </>
         )}
       </SimpleGrid>
