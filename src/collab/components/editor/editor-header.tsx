@@ -30,7 +30,7 @@ export const EditorHeader: FC<EditorHeaderProps> = ({ subject, hasMySuggestion }
       top={0}
       width="full"
       height="56px"
-      zIndex={2}
+      zIndex={5400}
       backgroundColor="blue.800"
       justify="center"
     >

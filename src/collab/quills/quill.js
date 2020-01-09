@@ -1,6 +1,6 @@
 import Quill from 'quill';
-import Module from 'quill/core/module';
 import Delta from 'quill-delta';
+import Module from 'quill/core/module';
 
 const Parchment = Quill.import('parchment');
 const Inline = Quill.import('blots/inline');
@@ -113,10 +113,10 @@ Quill.import('modules/text-marking');
 const options = {
   theme: 'snow',
   debug: 'warn',
+  scrollingContainer: document.documentElement,
   modules: {
     toolbar: '#toolbar',
     'text-marking': true,
-    clipboard: {},
     keyboard: {
       bindings: {
         // backspace: {
