@@ -195,10 +195,27 @@ export class QuillEditor {
         break;
       case 'otherSuggestionAppliedWithMySuggestion':
       case 'otherSuggestionAppliedWithoutMySuggestion':
-        console.error('Cannot apply mySuggestion, because an other Suggestion is hovered.');
+        console.error('Cannot apply mySuggestion, because another Suggestion is hovered.');
         break;
       default:
         console.error('Invalid state:', this.editorState);
+        break;
+    }
+  }
+
+  cancelMySuggestion() {
+    switch (this.editorState) {
+      case 'original':
+      case 'otherSuggestionAppliedWithoutMySuggestion':
+        console.error('Cannot cancel mySuggestion it is not present.');
+        break;
+      case 'otherSuggestionAppliedWithMySuggestion':
+        console.error('Cannot cancel mySuggestion, another suggestion is applied.');
+        break;
+      case 'mySuggestionApplied':
+        const inverseMySuggestion = this.mySuggestion.invert(this.original.current);
+        this.quill.updateContents(inverseMySuggestion);
+        this.changeState('original');
         break;
     }
   }

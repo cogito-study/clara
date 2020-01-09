@@ -36,6 +36,7 @@ export const Study: FC<StudyProps> = ({ editor, noteData }) => {
         bg="#fff"
         width={['100%', '100%', '90%', '90%', '800px']}
         maxW="800px"
+        minW={['300px', '400px', '500px', '800px']}
         minHeight="80vh"
         m={[0, 0, 6]}
         px={[1, 1, 6]}

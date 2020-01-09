@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Collapse, Flex, Heading, Text } from '@chakra-ui/core';
+import styled from '@emotion/styled';
 import Delta from 'quill-delta';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +34,10 @@ const shouldTextCollapse = (delta: Delta): boolean => {
 
   return deltaLength > 90;
 };
+
+const BreakText = styled(Text)`
+  word-break: break-all;
+`;
 
 export const SuggestionItem: FC<Props> = ({
   suggestion,
@@ -191,7 +196,7 @@ const PrettifiedSuggestionText = ({ delta, original }: PrettifiedSuggestionTextP
               >
                 {t('suggestion.insert')}
               </Text>
-              {typeof op.insert === 'string' ? op.insert : 'IMAGE'}
+              <BreakText>{typeof op.insert === 'string' ? op.insert : 'IMAGE'}</BreakText>
             </Box>
           );
         }

@@ -3,7 +3,7 @@ import { BoundsStatic } from 'quill';
 import Delta from 'quill-delta';
 import React, { FC, MutableRefObject, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiPlusCircle } from 'react-icons/fi';
+import { FiMinusCircle, FiPlusCircle } from 'react-icons/fi';
 import { useParams } from 'react-router';
 import { useErrorToast } from '../../../core/hooks';
 import { CursorPositionChangedEventProps, EditorState, QuillEditor } from '../../quills';
@@ -100,6 +100,33 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
         >
           {t('button.suggest')}
         </Button>
+        <Button
+          m={4}
+          display={[
+            'none',
+            'none',
+            'none',
+            hasMySuggestion && editorState === 'mySuggestionApplied' ? 'inline-flex' : 'none',
+          ]}
+          position="absolute"
+          top={cursorPosition.top + 150}
+          isLoading={loading}
+          zIndex={999}
+          bg="#fff"
+          shadow="lg"
+          onClick={() => quillEditor?.cancelMySuggestion()}
+          rightIcon={FiMinusCircle}
+          variantColor="red"
+          variant="outline"
+          color="blue.800"
+          borderWidth={2}
+          borderRadius={0}
+          borderColor="red.400"
+          _disabled={{ bg: '#fff' }}
+          _active={{ bg: '#fff' }}
+        >
+          cancel
+        </Button>
       </Flex>
       <Flex direction="column" mt={16} align="center">
         <Heading
@@ -119,6 +146,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
           bg="#fff"
           width={['100%', '100%', '90%', '90%', '800px']}
           maxW="800px"
+          minW={['300px', '400px', '500px', '800px']}
           minHeight="80vh"
           m={[0, 0, 6]}
           px={[1, 1, 6]}
