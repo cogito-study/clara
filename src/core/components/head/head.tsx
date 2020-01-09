@@ -41,14 +41,14 @@ drift.load('dzw4g36p7k4z');
 `;
 
 const hotjarScript = `
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:1150411,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+(function(h,o,t,j,a,r){
+  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+  h._hjSettings={hjid:1636816,hjsv:6};
+  a=o.getElementsByTagName('head')[0];
+  r=o.createElement('script');r.async=1;
+  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+  a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 `;
 
 type HeadProps = {
@@ -74,27 +74,10 @@ export const RootHead = () => {
 
   return (
     <Helmet titleTemplate="%s | cogito" defaultTitle="cogito">
-      <meta name="google-site-verification" content="2jExzb8ZkkicxqZ0PNaLt96aDlZZSj0QBK43j4bC_7Y" />
       <meta name="description" content={t('meta.description')} />
-      <meta name="keywords" content="education" />
-
-      <meta name="author" content="Cogito" />
-      <meta name="copyright" content="Cogito" />
-      <meta name="application-name" content="Cogito" />
-
-      <meta property="og:title" content="Cogito" />
       <meta property="og:description" content={t('meta.description')} />
-      <meta property="og:image" content="../../assets/ogimage.png" />
-      <meta property="og:url" content="https://cogito.study" />
-      <meta property="og:type" content="education" />
 
-      <meta name="twitter:site" content="@cogitostudy" />
-      <meta name="twitter:creator" content="@cogitostudy" />
-      <meta name="twitter:card" content="summary" />
-
-      <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-
-      <script>{driftScript}</script>
+      {isProduction && <script>{driftScript}</script>}
       {isProduction && <script>{hotjarScript}</script>}
     </Helmet>
   );
