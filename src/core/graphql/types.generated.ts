@@ -2313,6 +2313,7 @@ export type User = {
   readonly studiedSubjects: ReadonlyArray<Subject>;
   readonly suggestions: ReadonlyArray<Suggestion>;
   readonly teachedSubjects: ReadonlyArray<Subject>;
+  readonly subjects: ReadonlyArray<Subject>;
   readonly permissions: ReadonlyArray<UserPermissionType>;
   readonly createdAt: Scalars['DateTime'];
   readonly updatedAt: Scalars['DateTime'];
