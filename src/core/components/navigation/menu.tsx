@@ -166,7 +166,7 @@ export const MainMenuBase = () => {
                 <MenuSubjectsPlaceholder />
               ) : (
                 <Flex flexDirection="column" mt={1} ml={1}>
-                  {data?.me.studiedSubjects?.map(({ code, name }) => (
+                  {data?.me.subjects?.map(({ code, name }) => (
                     <NavLink
                       key={code}
                       to={subjectRoute({ path: 'subjects', subjectCode: code })}

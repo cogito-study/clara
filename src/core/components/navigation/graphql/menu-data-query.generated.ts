@@ -11,7 +11,7 @@ export type MenuDataQuery = { readonly __typename?: 'Query' } & {
     Types.User,
     'id' | 'fullName' | 'profilePictureURL'
   > & {
-      readonly studiedSubjects: ReadonlyArray<
+      readonly subjects: ReadonlyArray<
         { readonly __typename?: 'Subject' } & Pick<Types.Subject, 'name' | 'code'>
       >;
     };
@@ -23,7 +23,7 @@ export const MenuDataDocument = gql`
       id
       fullName
       profilePictureURL
-      studiedSubjects(where: { deletedAt: null }) {
+      subjects {
         name
         code
       }
