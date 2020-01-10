@@ -25,7 +25,7 @@ export const CreateNoteDocument = gql`
         title: $title
         description: $description
         number: $number
-        content: ""
+        content: "{ops:[]}"
         contentHTML: ""
         noteCategory: NOTE
       }
