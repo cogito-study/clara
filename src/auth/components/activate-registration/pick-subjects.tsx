@@ -4,6 +4,7 @@ import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useErrorToast } from '../../../core/hooks';
 import { useMajorByTokenQuery } from './graphql/major-by-token.generated';
 
 export type PickSubjectsProps = {
@@ -22,6 +23,7 @@ export const PickSubjects = ({
   onBack,
 }: PickSubjectsProps) => {
   const { t } = useTranslation(['auth', 'core']);
+  const errorToast = useErrorToast();
 
   const { data, loading } = useMajorByTokenQuery({ variables: { token, majorID } });
   const { register, handleSubmit } = useForm();
@@ -30,7 +32,10 @@ export const PickSubjects = ({
     const selectedSubjectIDs = Object.entries(formData)
       .filter(([, value]) => value)
       .map(([key]) => key);
-    onSave(selectedSubjectIDs);
+
+    selectedSubjectIDs.length
+      ? onSave(selectedSubjectIDs)
+      : errorToast(new Error(t('onboarding.subjects.error')));
   });
 
   return (
@@ -84,7 +89,7 @@ export const PickSubjects = ({
 
           <Button
             mt={3}
-            isLoading={isSubmitting}
+            isDisabled={isSubmitting}
             variant="ghost"
             variantColor="teal"
             borderRadius={0}

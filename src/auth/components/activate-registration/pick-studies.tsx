@@ -34,7 +34,7 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
   const { data, loading } = useInstitutesByTokenQuery({ variables: { token } });
 
   const { register, handleSubmit, watch, formState } = useForm<PickStudiesForm>({
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmit = handleSubmit(({ major }) => {
