@@ -17,7 +17,6 @@ i18n
   .init({
     fallbackLng: 'en',
     defaultNS: 'core',
-    lng: 'en',
     debug: true,
   });
 
