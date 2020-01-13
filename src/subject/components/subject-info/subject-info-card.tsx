@@ -63,10 +63,11 @@ export const SubjectInfoCard: FC<SubjectInfoCardProps> = ({
         ) : null}
         <Text
           fontSize="sm"
-          m={[5, 6, 8]}
-          mt={shouldShowMoreMenu ? [0, 0, 0] : [5, 6, 8]}
+          p={[5, 6, 8]}
+          pt={shouldShowMoreMenu ? [0, 0, 0] : [5, 6, 8]}
           color="grey.900"
           lineHeight="tall"
+          w="100%"
         >
           {description}
         </Text>
