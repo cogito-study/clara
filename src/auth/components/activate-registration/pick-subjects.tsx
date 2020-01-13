@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Button, Checkbox, Flex, Heading, Spinner } from '@chakra-ui/core';
 import { jsx } from '@emotion/core';
+import { Fragment } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useMajorByTokenQuery } from './graphql/major-by-token.generated';
@@ -10,9 +11,16 @@ export type PickSubjectsProps = {
   majorID: string;
   isSubmitting: boolean;
   onSave: (subjectIDs: string[]) => void;
+  onBack: () => void;
 };
 
-export const PickSubjects = ({ token, majorID, isSubmitting, onSave }: PickSubjectsProps) => {
+export const PickSubjects = ({
+  token,
+  majorID,
+  isSubmitting,
+  onSave,
+  onBack,
+}: PickSubjectsProps) => {
   const { t } = useTranslation(['auth', 'core']);
 
   const { data, loading } = useMajorByTokenQuery({ variables: { token, majorID } });
@@ -42,36 +50,50 @@ export const PickSubjects = ({ token, majorID, isSubmitting, onSave }: PickSubje
       {loading ? (
         <Spinner size="xl" m={10} />
       ) : (
-        <form onSubmit={onSubmit} css={{ width: '100%' }}>
-          <Flex direction="column">
-            {data?.majorByToken?.subjects.map(({ id, name }) => (
-              <Checkbox
-                key={id}
-                name={id}
-                ref={register}
-                size="md"
-                variantColor="teal"
-                mt={3}
-                color="grey.800"
-              >
-                {name}
-              </Checkbox>
-            ))}
-          </Flex>
+        <Fragment>
+          <form onSubmit={onSubmit} css={{ width: '100%' }}>
+            <Flex direction="column">
+              {data?.majorByToken?.subjects.map(({ id, name }) => (
+                <Checkbox
+                  key={id}
+                  name={id}
+                  ref={register}
+                  size="md"
+                  variantColor="teal"
+                  mt={3}
+                  color="grey.800"
+                >
+                  {name}
+                </Checkbox>
+              ))}
+            </Flex>
+
+            <Button
+              mt={8}
+              isLoading={isSubmitting}
+              variantColor="teal"
+              width="100%"
+              borderRadius={0}
+              type="submit"
+              variant="solid"
+              color="blue.800"
+            >
+              {t('core:button.save')}
+            </Button>
+          </form>
 
           <Button
-            mt={8}
+            mt={3}
             isLoading={isSubmitting}
+            variant="ghost"
             variantColor="teal"
-            width="100%"
             borderRadius={0}
-            type="submit"
-            variant="solid"
-            color="blue.800"
+            color="teal.700"
+            onClick={onBack}
           >
-            {t('core:button.save')}
+            {t('core:button.back')}
           </Button>
-        </form>
+        </Fragment>
       )}
     </Flex>
   );

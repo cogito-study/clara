@@ -30,10 +30,11 @@ export const pickStudies = () => (
 export const pickSubjects = () => (
   <Box maxW={400}>
     <PickSubjects
-      onSave={action('Save form')}
       majorID="asdf"
       token="asdf123"
       isSubmitting={false}
+      onSave={action('Save form')}
+      onBack={action('Back')}
     />
   </Box>
 );

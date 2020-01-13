@@ -2,6 +2,7 @@
   "button": {
     "save": "mentés",
     "cancel": "mégsem",
+    "back": "vissza",
     "edit": "szerkesztés",
     "delete": "törlés"
   },

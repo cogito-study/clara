@@ -2,6 +2,7 @@
   "button": {
     "save": "save",
     "cancel": "cancel",
+    "back": "back",
     "edit": "edit",
     "delete": "delete"
   },

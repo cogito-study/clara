@@ -62,6 +62,7 @@ export const ActivateRegistration = () => {
             majorID={selectedMajorID}
             isSubmitting={loading}
             onSave={handleSave}
+            onBack={() => setSelectedMajorID(undefined)}
           />
         ) : (
           <PickStudies token={token} onFormSubmit={(majorID) => setSelectedMajorID(majorID)} />
