@@ -12,14 +12,14 @@ type Props = { shouldFocus: boolean } & SubjectIdentifierProps;
 export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
   const { t } = useTranslation('social');
   const errorToast = useErrorToast();
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const inputRef = useRef<HTMLFormElement | null>(null);
   const [createPost, { loading }] = useCreatePostMutation();
 
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
-    if (shouldFocus && buttonRef.current) {
-      buttonRef.current.focus();
+    if (shouldFocus && inputRef.current) {
+      inputRef.current.focus();
     }
   }, [shouldFocus]);
 
@@ -40,7 +40,10 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
     <form onSubmit={onSubmit}>
       <Flex direction="row">
         <Input
-          ref={register({ required: true })}
+          ref={(instance) => {
+            register(instance, { required: true });
+            inputRef.current = instance;
+          }}
           name="content"
           type="text"
           fontSize="medium"
@@ -51,7 +54,6 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
           bg="#fff"
         />
         <Button
-          ref={buttonRef}
           type="submit"
           ml={2}
           minW={120}
