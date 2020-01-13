@@ -9,8 +9,19 @@ export const AuthLayout: FC = ({ children }) => {
   const { data } = useLanguageListQuery();
 
   return (
-    <Flex direction="column" h="100vh">
-      <Flex bg="#fff" borderColor="blue.100" borderWidth={1} h={16} align="center" flexShrink={0}>
+    <>
+      <Flex
+        h={16}
+        align="center"
+        pos="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bg="#fff"
+        borderColor="blue.100"
+        borderWidth={1}
+        zIndex={3}
+      >
         <Box flex="1" ml={[4, 4, 8]}>
           <Link href="https://cogito.study">
             <Icon color="blue.800" size="80px" name="cogito-with-text" />
@@ -35,19 +46,19 @@ export const AuthLayout: FC = ({ children }) => {
         </Box>
       </Flex>
       <Flex
+        minH="100vh"
         bg="white"
         backgroundImage={`url(${background})`}
         backgroundPosition={['center left', 'center left', 'center']}
         backgroundRepeat="repeat"
-        flex="1"
         align={['start', 'start', 'center']}
         justify="center"
         p={4}
       >
-        <Box maxW={400} flex="1">
+        <Box maxW={400} mt={16} flex="1">
           {children}
         </Box>
       </Flex>
-    </Flex>
+    </>
   );
 };
