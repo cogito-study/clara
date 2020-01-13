@@ -58,7 +58,7 @@ export const EditInfoModal = ({
       {(styles) => (
         <Modal isOpen={isOpen} onClose={onClose} size={['full', 'full', 'lg']} isCentered>
           <ModalOverlay opacity={styles.opacity} />
-          <ModalContent {...styles}>
+          <ModalContent mx={[2, 'auto']} {...styles}>
             <form onSubmit={onSubmit}>
               <ModalHeader color="blue.800" fontWeight="bold">
                 {titleLabel}
