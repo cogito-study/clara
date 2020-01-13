@@ -42,7 +42,7 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
       borderWidth={1}
       borderColor="grey.100"
       transition="transform 0.2s"
-      _hover={{ transition: 'transform 0.25s', transform: 'scale(1.02)', borderColor: 'blue.100' }}
+      _hover={{ transition: 'transform 0.25s', borderColor: 'blue.300' }}
       _focus={{ borderColor: 'teal.500' }}
       {...rest}
     >
@@ -67,8 +67,8 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
           />
         )}
       </Flex>
-      <Flex direction="column" p={3}>
-        <Link to={collabRoute({ path: 'note-study', noteID: id })}>
+      <Link to={collabRoute({ path: 'note-study', noteID: id })}>
+        <Flex direction="column" p={3} height="100%">
           <Heading
             mt={1}
             fontSize="md"
@@ -85,8 +85,8 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
           <Text mt={2} fontSize="sm" color="grey.800" lineHeight="normal" css={lineClamp(3)}>
             {description}
           </Text>
-        </Link>
-      </Flex>
+        </Flex>
+      </Link>
     </PseudoBox>
   );
 };
