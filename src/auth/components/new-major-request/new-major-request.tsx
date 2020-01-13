@@ -79,7 +79,7 @@ export const NewMajorRequest = () => {
           </Text>
 
           <form onSubmit={onSubmit}>
-            <FormControl mt={5}>
+            <FormControl isRequired mt={5}>
               <FormLabel htmlFor="institute" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.institute.label')}
               </FormLabel>
@@ -92,7 +92,7 @@ export const NewMajorRequest = () => {
               />
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl isRequired mt={4}>
               <FormLabel htmlFor="faculty" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.faculty.label')}
               </FormLabel>
@@ -105,7 +105,7 @@ export const NewMajorRequest = () => {
               />
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl isRequired mt={4}>
               <FormLabel htmlFor="major" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.major.label')}
               </FormLabel>
