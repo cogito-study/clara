@@ -14,7 +14,7 @@ import {
   ModalOverlay,
   Scale,
 } from '@chakra-ui/core';
-import React from 'react';
+import React, { useRef } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { SubjectNoteDataFragment } from './graphql/subject-note-data-fragment.generated';
@@ -43,6 +43,7 @@ export const EditNoteModal = ({
   onEdit,
 }: EditNoteModalProps) => {
   const { t } = useTranslation(['subject', 'core']);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
   const { register, handleSubmit } = useForm<EditNoteModalForm>({
     defaultValues: {
       title: note?.title,
@@ -58,7 +59,13 @@ export const EditNoteModal = ({
   return (
     <Scale in={isOpen}>
       {(styles) => (
-        <Modal isOpen={isOpen} onClose={onClose} size={['full', 'full', 'lg']} isCentered>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          size={['full', 'full', 'lg']}
+          isCentered
+          initialFocusRef={firstInputRef}
+        >
           <ModalOverlay opacity={styles.opacity} />
           <ModalContent mx={[2, 'auto']} {...styles}>
             <form onSubmit={onSubmit}>
@@ -84,7 +91,10 @@ export const EditNoteModal = ({
                     <Input
                       name="title"
                       type="text"
-                      ref={register({ required: true })}
+                      ref={(instance) => {
+                        register(instance, { required: true });
+                        firstInputRef.current = instance;
+                      }}
                       placeholder={t('notes.modal.title.placeholder')}
                       borderRadius={0}
                     />

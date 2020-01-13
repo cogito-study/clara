@@ -15,7 +15,7 @@ import {
   Scale,
   Textarea,
 } from '@chakra-ui/core';
-import React from 'react';
+import React, { useRef } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
@@ -39,6 +39,7 @@ export const EditInfoModal = ({
   onEdit,
 }: EditInfoModalProps) => {
   const { t } = useTranslation(['subject', 'core']);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
   const { register, errors, handleSubmit } = useForm<Partial<SubjectInfoDataFragment>>({
     defaultValues: {
       title: info?.title,
@@ -56,7 +57,13 @@ export const EditInfoModal = ({
   return (
     <Scale in={isOpen}>
       {(styles) => (
-        <Modal isOpen={isOpen} onClose={onClose} size={['full', 'full', 'lg']} isCentered>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          size={['full', 'full', 'lg']}
+          isCentered
+          initialFocusRef={firstInputRef}
+        >
           <ModalOverlay opacity={styles.opacity} />
           <ModalContent mx={[2, 'auto']} {...styles}>
             <form onSubmit={onSubmit}>
@@ -82,7 +89,10 @@ export const EditInfoModal = ({
                     <Input
                       name="title"
                       type="text"
-                      ref={register}
+                      ref={(instance) => {
+                        register(instance);
+                        firstInputRef.current = instance;
+                      }}
                       placeholder={t('info.modal.title.placeholder')}
                       borderRadius={0}
                     />
