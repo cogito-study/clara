@@ -79,7 +79,7 @@ export const ResetPassword = () => {
           align="center"
           direction="column"
         >
-          <Heading as="h2" fontSize="lg" color="blue.800">
+          <Heading as="h2" fontSize="lg" color="blue.800" textAlign="center">
             {t('resetPassword.title')}
           </Heading>
 

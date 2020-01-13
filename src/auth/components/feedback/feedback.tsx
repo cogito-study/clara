@@ -26,7 +26,7 @@ export const Feedback: FC<FeedbackProps> = ({
     borderColor="grey.200"
     borderWidth={1}
   >
-    <Heading as="h2" fontSize="lg" color="blue.800" mb={8}>
+    <Heading as="h2" fontSize="lg" color="blue.800" mb={8} textAlign="center">
       {title}
     </Heading>
     {icon}

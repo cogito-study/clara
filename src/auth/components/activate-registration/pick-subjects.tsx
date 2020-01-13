@@ -49,7 +49,7 @@ export const PickSubjects = ({
       width="100%"
       direction="column"
     >
-      <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
+      <Heading as="h2" fontSize="lg" color="blue.800" mb={5} textAlign="center">
         {t('onboarding.subjects.title')}
       </Heading>
       {loading ? (

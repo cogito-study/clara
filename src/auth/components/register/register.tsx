@@ -117,7 +117,7 @@ export const Register = () => {
             align="center"
             direction="column"
           >
-            <Heading as="h2" fontSize="lg" color="blue.800" mb={5}>
+            <Heading as="h2" fontSize="lg" color="blue.800" mb={5} textAlign="center">
               {t('register.title')}
             </Heading>
 

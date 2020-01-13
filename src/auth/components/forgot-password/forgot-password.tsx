@@ -59,7 +59,7 @@ export const ForgotPassword = () => {
           align="center"
           direction="column"
         >
-          <Heading fontSize="lg" color="blue.800">
+          <Heading fontSize="lg" color="blue.800" textAlign="center">
             {t('forgotPassword.title')}
           </Heading>
           <Text textAlign="center" color="grey.800">
