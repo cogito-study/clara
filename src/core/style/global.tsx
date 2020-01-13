@@ -28,7 +28,8 @@ export const GlobalStyles = () => (
           font-family: ${theme.fonts.body};
         }
 
-        input {
+        input,
+        textarea {
           -webkit-appearance: none;
         }
       `}
