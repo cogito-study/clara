@@ -8,14 +8,17 @@ import {
   Heading,
   Icon,
   Input,
+  PseudoBox,
   Text,
 } from '@chakra-ui/core';
 import React, { useState } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { FiSend } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { Head } from '../../../core/components';
 import { useErrorToast, useFormValidationSchema } from '../../../core/hooks';
+import { authRoute } from '../../utils/auth-route';
 import { Feedback } from '../feedback/feedback';
 import { useForgotPasswordMutation } from './graphql/forgot-password-mutation.generated';
 
@@ -95,6 +98,22 @@ export const ForgotPassword = () => {
               {t('button.sendMail')}
             </Button>
           </form>
+
+          <Link to={authRoute({ path: 'login' })}>
+            <PseudoBox
+              p={2}
+              mt={2}
+              textAlign="center"
+              fontFamily="heading"
+              fontWeight="semibold"
+              color="teal.700"
+              borderRadius={0}
+              textTransform="lowercase"
+              _hover={{ bg: 'teal.50' }}
+            >
+              {t('button.login')}
+            </PseudoBox>
+          </Link>
         </Flex>
       )}
     </>

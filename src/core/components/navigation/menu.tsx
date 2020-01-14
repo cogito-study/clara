@@ -82,13 +82,7 @@ export const MainMenu = ({ title, titleLoading }: MainMenuProps) => {
           )}
           <Box size={12} p={2} />
         </Flex>
-        <Drawer
-          isOpen={isOpen}
-          placement="left"
-          // @ts-ignore
-          size={['full', 'full', '320px']}
-          onClose={onClose}
-        >
+        <Drawer isOpen={isOpen} placement="left" isFullHeight size="xs" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton borderRadius={0} color="teal.400" />
@@ -183,7 +177,7 @@ export const MainMenuBase = () => {
             </Box>
           </Flex>
         </Flex>
-        <Flex flexDirection="column" w="48px" align="center">
+        <Flex flexDirection="column" w="48px" align="center" mb={[24, 0]}>
           <PseudoBox transition="all 0.2s ease-in-out" _hover={{ transform: 'scale(1.1)' }}>
             <NavLink to={profileRoute({ path: 'profile' })}>
               <Avatar
