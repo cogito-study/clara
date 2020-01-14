@@ -1,9 +1,9 @@
-import { css } from '@emotion/core';
+import { CSSProperties } from 'react';
 
-export const lineClamp = (numberOfLines = 2) => css`
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: ${numberOfLines};
-`;
+export const lineClamp = (lines = 3): CSSProperties => ({
+  display: '-webkit-box',
+  overflow: 'hidden',
+  WebkitBoxOrient: 'vertical',
+  textOverflow: 'ellipsis',
+  WebkitLineClamp: lines,
+});
