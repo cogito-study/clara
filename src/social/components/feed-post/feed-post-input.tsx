@@ -1,7 +1,8 @@
-import { Button, Flex, Input } from '@chakra-ui/core';
+import { Button, Flex, IconButton, Textarea } from '@chakra-ui/core';
 import React, { useEffect, useRef } from 'react';
 import useForm from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { FiSend } from 'react-icons/fi';
 import { useErrorToast } from '../../../core/hooks';
 import { SubjectFeedDocument } from '../../../subject/components/subject-feed/graphql/subject-feed-query.generated';
 import { SubjectIdentifierProps } from '../../../subject/pages/subject-page';
@@ -38,22 +39,36 @@ export const FeedPostInput = ({ id, subjectCode, shouldFocus }: Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Flex direction="row">
-        <Input
+      <Flex direction="row" align="center">
+        <Textarea
           ref={(instance) => {
             register(instance, { required: true });
             inputRef.current = instance;
           }}
           name="content"
           type="text"
-          fontSize="medium"
+          fontSize="sm"
+          resize="vertical"
+          minH={10}
           placeholder={t('post.input.placeholder')}
           borderRadius={0}
           borderWidth={1}
-          borderColor="grey.100"
           bg="#fff"
         />
+        <IconButton
+          d={['inherit', 'none']}
+          aria-label={t('post.share')}
+          icon={FiSend}
+          type="submit"
+          ml={2}
+          isLoading={loading}
+          variantColor="teal"
+          color="blue.800"
+          borderRadius={0}
+        />
+
         <Button
+          d={['none', 'inherit']}
           type="submit"
           ml={2}
           minW={120}
