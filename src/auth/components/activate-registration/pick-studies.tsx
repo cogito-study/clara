@@ -70,11 +70,12 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
           <form onSubmit={onSubmit} css={{ width: '100%' }}>
             <FormControl mt={4}>
               <FormLabel htmlFor="university" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                {t('onboarding.studies.pickers.university')}
+                {t('onboarding.studies.pickers.university.title')}
               </FormLabel>
               <StyledSelect
                 aria-labelledby="university-picker"
                 name="university"
+                placeholder={t('onboarding.studies.pickers.university.placeholder')}
                 ref={register({ required: true })}
               >
                 {data?.institutesByToken?.map(({ id, name }) => (
@@ -87,11 +88,12 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
 
             <FormControl mt={4}>
               <FormLabel htmlFor="faculty" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                {t('onboarding.studies.pickers.faculty')}
+                {t('onboarding.studies.pickers.faculty.title')}
               </FormLabel>
               <StyledSelect
                 aria-labelledby="faculty-picker"
                 name="faculty"
+                placeholder={t('onboarding.studies.pickers.faculty.placeholder')}
                 ref={register({ required: true })}
                 isDisabled={faculties?.length === 0}
               >
@@ -105,12 +107,13 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
 
             <FormControl mt={4}>
               <FormLabel htmlFor="major" color="blue.800" fontSize={['sm', 'sm', 'md']}>
-                {t('onboarding.studies.pickers.major')}
+                {t('onboarding.studies.pickers.major.title')}
               </FormLabel>
               <StyledSelect
                 aria-labelledby="major-picker"
                 name="major"
                 ref={register({ required: true })}
+                placeholder={t('onboarding.studies.pickers.major.placeholder')}
                 isDisabled={majors?.length === 0}
               >
                 {majors?.map(({ id, name }) => (
