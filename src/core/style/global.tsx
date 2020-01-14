@@ -7,7 +7,14 @@ export const GlobalStyles = () => (
     <CSSReset />
     <Global
       styles={(theme) => css`
-        * {
+        :focus {
+          outline: none;
+        }
+        ::-moz-focus-inner {
+          border: 0;
+        }
+
+        button:-moz-focu * {
           @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap');
           @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&display=swap');
         }
