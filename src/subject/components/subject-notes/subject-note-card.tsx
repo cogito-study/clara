@@ -75,14 +75,14 @@ export const SubjectNoteCard: FC<SubjectNoteCardProps> = ({
             fontWeight={700}
             color="blue.700"
             lineHeight="normal"
-            css={lineClamp(3)}
+            style={lineClamp()}
           >
             {title}
           </Heading>
           <Text mt={2} fontSize="xs" color="grey.800" lineHeight="normal">
             {t('notes.updatedAt', { since: since(updatedAt) })}
           </Text>
-          <Text mt={2} fontSize="sm" color="grey.800" lineHeight="normal" css={lineClamp(3)}>
+          <Text mt={2} fontSize="sm" color="grey.800" lineHeight="normal" style={lineClamp()}>
             {description}
           </Text>
         </Flex>
