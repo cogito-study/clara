@@ -121,8 +121,8 @@ export const MainMenuBase = () => {
       <Flex flexDirection="column" h="100vh" w="100%" justifyContent="space-between" py={4}>
         <Flex w="100%" flexDirection="column" justifyContent="row" alignContent="row" zIndex={2}>
           <Icon mx={2} name="cogito" size="32px" color="white" />
-          <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
-            <MenuItemHover>
+          <MenuItemHover>
+            <NavLink to={socialRoute({ path: 'feed' })} {...navLinkStyles}>
               <Flex mt={16} direction="row" align="start" w="100%">
                 <Icon as={FiFileText} mx={2} size="32px" />
                 <Heading
@@ -136,8 +136,8 @@ export const MainMenuBase = () => {
                   {t('menu.newsFeed')}
                 </Heading>
               </Flex>
-            </MenuItemHover>
-          </NavLink>
+            </NavLink>
+          </MenuItemHover>
 
           <Flex mt={4} flexDirection="row" w="100%">
             <Icon
