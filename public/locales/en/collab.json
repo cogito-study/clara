@@ -7,7 +7,7 @@
   },
   "suggestion": {
     "insert": "insert",
-    "delete": "delete",
+    "delete": "delete suggested phrases",
     "accept": "accept",
     "cancel": "reject"
   },

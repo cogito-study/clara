@@ -1,7 +1,7 @@
 {
   "post": {
     "input": {
-      "placeholder": "Write your new post here..."
+      "placeholder": "Share news about this subject..."
     },
     "share": "share"
   },

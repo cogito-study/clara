@@ -7,9 +7,9 @@
   },
   "suggestion": {
     "insert": "beszúrva",
-    "delete": "törölve",
+    "delete": "javasolt szövegrész törlése",
     "accept": "elfogad",
-    "cancel": "visszautasít"
+    "cancel": "elutasít"
   },
-  "unsavedChanges": "Vannak még nem mentett változtatásaid, biztosan elhagyod az oldalt?"
+  "unsavedChanges": "Vannak még el nem mentett változtatásaid, biztosan kilépsz?"
 }

@@ -2,18 +2,18 @@
   "info": {
     "title": "information",
     "of": "Information about {{ subjectCode }}",
-    "general": "General informations",
+    "general": "General information",
     "teachers": "Teachers",
     "add": "add new information",
     "modal": {
       "title": {
         "label": "Title",
-        "placeholder": "Info1",
+        "placeholder": "What will be this about?",
         "validation": { "required": "Title is required" }
       },
       "description": {
         "label": "Description",
-        "placeholder": "This info should be useful for the students",
+        "placeholder": "This info should be useful for everyone",
         "validation": { "required": "Description is required" }
       },
       "edit": "Edit information",
@@ -35,7 +35,7 @@
     "modal": {
       "title": {
         "label": "Title",
-        "placeholder": "Awesome title",
+        "placeholder": "Note title",
         "validation": { "required": "Title is required" }
       },
       "keywords": {
@@ -60,7 +60,7 @@
   "feed": {
     "title": "feed",
     "empty": {
-      "title": "Subject feed is empty!",
+      "title": "Subject feed is currently empty!",
       "button": "share something"
     }
   }

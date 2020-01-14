@@ -1,7 +1,7 @@
 {
   "button": {
     "save": "mentés",
-    "cancel": "mégsem",
+    "cancel": "mégse",
     "back": "vissza",
     "edit": "szerkesztés",
     "delete": "törlés"
@@ -11,14 +11,14 @@
       "label": "Email",
       "placeholder": "szeretek@tanulni.hu",
       "validation": {
-        "format": "Rossz e-mail formátum",
-        "required": "E-mail megadása kötelező"
+        "format": "Hibás email formátum",
+        "required": "Email megadása kötelező"
       }
     },
     "password": {
       "label": "Jelszó",
       "validation": {
-        "minCharacter": "A jelszó legyen legalább 8 karakter hosszúságú!",
+        "minCharacter": "A jelszónak legalább 8 karakter hosszúságúnak kell lennie!",
         "required": "Jelszó megadása kötelező"
       },
       "confirm": {
@@ -54,24 +54,24 @@
     }
   },
   "meta": {
-    "description": "Cogito egy közösségi média környezetbe ágyazott kollaboratív dokumentumszerkesztő, mely egyaránt kommunikációs és információmenedzsment platformként szolgál."
+    "description": "A Cogito egy közösségi alapú tudástár a legjobb egyetemi jegyzetekkel a leggyorsabb tanulás érdekében."
   },
   "menu": {
     "newsFeed": "hírfolyam",
     "profile": "profil",
     "subjects": "tárgyak",
-    "privacyPolicy": "Adatvédelmi irányelvek",
-    "termsOfUse": "Használati feltételek"
+    "privacyPolicy": "Adatvédelmi nyilatkozat",
+    "termsOfUse": "Szerződési feltételek"
   },
   "pages": {
-    "feed": "Hírek",
-    "profile": "Profil",
+    "feed": "Hírfolyam",
+    "profile": "Profilom",
     "error": {
-      "title": "Elnézést, valamilyen hiba történt",
-      "description": "Megteszünk mindent annak érdekében, hogy kijavítsuk, addig is próbáld meg újratölteni az oldalt!",
+      "title": "Hoppá, valamilyen hiba történt",
+      "description": "Bizonyosodj meg róla, internetkapcsolatod jól működik, amennyiben a hiba a mi oldalunkon keletkezett, úgy megteszünk mindent annak érdekében, hogy kijavítsuk, addig is próbáld meg újratölteni az oldalt!",
       "button": {
-        "tryAgain": "frissítés",
-        "report": "jelentés"
+        "tryAgain": "oldal frissítése",
+        "report": "hiba jelentése"
       }
     }
   }
