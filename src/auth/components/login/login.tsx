@@ -46,6 +46,7 @@ export const Login = () => {
         const redirectPath =
           history.location.state?.from?.pathname ?? socialRoute({ path: 'feed' });
         history.push(redirectPath);
+        window.location.reload(); // TODO: Fix hack when apollo supports websocket reconnection
       }
     } catch (error) {
       errorToast(error);
