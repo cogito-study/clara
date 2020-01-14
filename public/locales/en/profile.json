@@ -4,7 +4,7 @@
       "title": "Change email",
       "current": "Your email address is",
       "new": "New email address",
-      "update": "update email"
+      "update": "change email"
     },
     "password": {
       "title": "Change password",

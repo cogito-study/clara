@@ -8,13 +8,13 @@
     "modal": {
       "title": {
         "label": "Cím",
-        "placeholder": "Info1",
-        "validation": { "required": "A cím mező kötelező" }
+        "placeholder": "Miről szól ez a rész?",
+        "validation": { "required": "Cím megadása kötelező" }
       },
       "description": {
         "label": "Leírás",
-        "placeholder": "Ezek az infók hasznosak lesznek a hallgatóknak..",
-        "validation": { "required": "A részletes leírás mező kötelező" }
+        "placeholder": "Ezek az infók hasznosak lesznek a mindenkinek..",
+        "validation": { "required": "Részletes leírás megadása kötelező" }
       },
       "edit": "Információ szerkesztése",
       "new": "Új információ"
@@ -22,7 +22,7 @@
     "alert": {
       "delete": {
         "title": "Biztos törölni szeretnéd ezt az információt?",
-        "description": "Ezt a döntést nem tudod módosítani utólag."
+        "description": "Ezt a döntést nem tudod visszavonni utólag."
       }
     }
   },
@@ -31,12 +31,12 @@
     "updatedAt": "frissítve {{ since }}",
     "of": "A {{ subject }} tárgy jegyzetei",
     "add": "új jegyzet hozzáadása",
-    "empty": "A jegyzetlista üres!",
+    "empty": "Add hozzá az első jegyzetet!",
     "modal": {
       "title": {
         "label": "Cím",
-        "placeholder": "Menő cím",
-        "validation": { "required": "A cím mező kötelező" }
+        "placeholder": "Jegyzet címe",
+        "validation": { "required": "Cím megadása kötelező" }
       },
       "keywords": {
         "label": "Kulcsszavak",
@@ -44,8 +44,8 @@
         "validation": { "required": "Kulcsszavak megadása kötelező" }
       },
       "number": {
-        "label": "Szám",
-        "validation": { "required": "A szám mező kötelező" }
+        "label": "Sorszám",
+        "validation": { "required": "Sorszám megadása kötelező" }
       },
       "edit": "Jegyzet szerkesztése",
       "new": "Új jegyzet"
@@ -53,14 +53,14 @@
     "alert": {
       "delete": {
         "title": "Biztos törölni szeretnéd ezt a jegyzetet?",
-        "description": "Ezt a döntést nem tudod módosítani utólag."
+        "description": "Ezt a döntést nem tudod visszavonni utólag."
       }
     }
   },
   "feed": {
     "title": "hírek",
     "empty": {
-      "title": "A tárgyhoz nem tartoznak hírek!",
+      "title": "A tárgyhoz még nem tartoznak hírek!",
       "button": "ossz meg valamit"
     }
   }

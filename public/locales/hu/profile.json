@@ -1,10 +1,10 @@
 {
   "change": {
     "email": {
-      "title": "E-mail megváltoztatása",
-      "current": "A jelenlegi e-mail címed",
-      "new": "Új e-mail cím",
-      "update": "e-mail frissítése"
+      "title": "Email megváltoztatása",
+      "current": "A jelenlegi email címed",
+      "new": "Új email cím",
+      "update": "email frissítése"
     },
     "password": {
       "title": "Jelszó megváltoztatása",
