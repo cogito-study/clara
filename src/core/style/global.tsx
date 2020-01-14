@@ -7,11 +7,8 @@ export const GlobalStyles = () => (
     <CSSReset />
     <Global
       styles={(theme) => css`
-        :focus {
+        a:-moz-focusring {
           outline: none;
-        }
-        ::-moz-focus-inner {
-          border: 0;
         }
 
         * {
