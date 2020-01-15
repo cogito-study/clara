@@ -221,6 +221,7 @@ export class QuillEditor {
   }
 
   publishSuggestion() {
+    this.quill.getModule('imageResize').hideOverlay();
     switch (this.editorState) {
       case 'original':
         console.error('Cannot apply suggestion it is not present.');
