@@ -1,9 +1,17 @@
 import Quill from 'quill';
 import Delta from 'quill-delta';
+// import ImageDrop from 'quill-image-drop-module';
 import Module from 'quill/core/module';
+import { ImageResize } from './ImageResize';
 
 const Parchment = Quill.import('parchment');
 const Inline = Quill.import('blots/inline');
+window.Quill = Quill;
+
+console.log(ImageResize);
+
+Quill.register('modules/imageResize', ImageResize);
+// Quill.register('modules/imageDrop', ImageDrop);
 
 class Mark extends Inline {
   static create(value) {
@@ -115,6 +123,8 @@ const options = {
   debug: 'warn',
   scrollingContainer: document.documentElement,
   modules: {
+    imageResize: true,
+    // imageDrop: true,
     toolbar: '#toolbar',
     'text-marking': true,
     keyboard: {
