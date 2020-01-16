@@ -19,6 +19,7 @@ export type SuggestionEventProps = {
 type Props = {
   suggestion: SuggestionData;
   quillEditor?: QuillEditor;
+  position: number;
 } & SuggestionEventProps;
 
 const shouldTextCollapse = (delta: Delta): boolean => {
@@ -35,6 +36,22 @@ const shouldTextCollapse = (delta: Delta): boolean => {
   return deltaLength > 90;
 };
 
+const SuggestionCard = styled(Flex)`
+  background-color: #fff;
+  box-shadow: 3px -3px 12px 4px #0000000f;
+  transition: 0.2s;
+  &:not(:last-child) {
+    margin-bottom: -5rem;
+  }
+  &:hover,
+  &:focus-within {
+    transform: translateX(-4rem);
+    ~ * {
+      transform: translateY(7rem);
+    }
+  }
+`;
+
 const BreakText = styled(Text)`
   word-break: break-all;
 `;
@@ -42,6 +59,7 @@ const BreakText = styled(Text)`
 export const SuggestionItem: FC<Props> = ({
   suggestion,
   quillEditor,
+  position,
   onSuggestionHovered,
   onSuggestionBlurred,
 }) => {
@@ -76,77 +94,82 @@ export const SuggestionItem: FC<Props> = ({
   };
 
   return (
-    <Flex
-      direction="column"
-      align="flex-start"
-      borderWidth={1}
-      borderColor="grey.300"
-      bg="#fff"
-      p={3}
-      width="300px"
-      onMouseEnter={() => onSuggestionHovered(id)}
-      onMouseLeave={() => onSuggestionBlurred(id)}
-    >
-      <Flex align="center">
-        <Avatar name={author} />
-        <Flex direction="column" ml={4} justify="center">
-          <Heading as="h4" size="sm" color="blue.800">
-            {author}
-          </Heading>
-          <Text fontSize={14} pt={1} color="grey.600">
-            {since(createdAt)}
-          </Text>
+    <SuggestionCard position="absolute" top={position} zIndex={showOverflow ? 2 : 1}>
+      <Flex
+        direction="column"
+        align="flex-start"
+        borderWidth={1}
+        borderColor="grey.300"
+        bg="#fff"
+        p={3}
+        width="300px"
+        onMouseDown={() => onSuggestionHovered(id)}
+        onMouseLeave={() => onSuggestionBlurred(id)}
+      >
+        <Flex align="center">
+          <Avatar name={author} />
+          <Flex direction="column" ml={4} justify="center">
+            <Heading as="h4" size="sm" color="blue.800">
+              {author}
+            </Heading>
+            <Text fontSize={14} pt={1} color="grey.600">
+              {since(createdAt)}
+            </Text>
+          </Flex>
+        </Flex>
+        <Text as="i" m={1} fontSize={11}>
+          {t('suggestion.preview')}
+        </Text>
+        <Collapse startingHeight={100} isOpen={showOverflow} my={3} animateOpacity w="full">
+          <PrettifiedSuggestionText delta={delta} original={original ?? new Delta()} />
+        </Collapse>
+        {shouldTextCollapse(delta) && (
+          <Flex w="full" align="center" justify="center">
+            <Button
+              size="sm"
+              variant="ghost"
+              variantColor="blue"
+              color="blue.800"
+              boxShadow="-10px -15px 10px -8px #fff"
+              borderRadius={0}
+              mb={2}
+              onClick={() => setShowOverflow(!showOverflow)}
+            >
+              {showOverflow ? <FiChevronUp color="teal.600" /> : <FiChevronDown />}
+            </Button>
+          </Flex>
+        )}
+        <Flex w="full" justifyContent="flex-end">
+          {hasRejectPermission && (
+            <Button
+              size="sm"
+              variant="outline"
+              variantColor="red"
+              borderRadius={0}
+              mr={2}
+              isLoading={rejectSuggestionLoading}
+              isDisabled={operationLoading}
+              onClick={handleCancelSuggestion}
+            >
+              {t('suggestion.cancel')}
+            </Button>
+          )}
+          {hasApprovePermission && (
+            <Button
+              size="sm"
+              variantColor="teal"
+              color="blue.800"
+              borderRadius={0}
+              isLoading={approveSuggestionLoading}
+              isDisabled={operationLoading}
+              onClick={handleAcceptSuggestion}
+            >
+              {t('suggestion.accept')}
+            </Button>
+          )}
         </Flex>
       </Flex>
-      <Collapse startingHeight={100} isOpen={showOverflow} my={3} animateOpacity w="full">
-        <PrettifiedSuggestionText delta={delta} original={original ?? new Delta()} />
-      </Collapse>
-      {shouldTextCollapse(delta) && (
-        <Flex w="full" align="center" justify="center">
-          <Button
-            size="sm"
-            variant="ghost"
-            variantColor="blue"
-            color="blue.800"
-            boxShadow="-10px -15px 10px -8px #fff"
-            borderRadius={0}
-            mb={2}
-            onClick={() => setShowOverflow(!showOverflow)}
-          >
-            {showOverflow ? <FiChevronUp color="teal.600" /> : <FiChevronDown />}
-          </Button>
-        </Flex>
-      )}
-      <Flex w="full" justifyContent="flex-end">
-        {hasRejectPermission && (
-          <Button
-            size="sm"
-            variant="outline"
-            variantColor="red"
-            borderRadius={0}
-            mr={2}
-            isLoading={rejectSuggestionLoading}
-            isDisabled={operationLoading}
-            onClick={handleCancelSuggestion}
-          >
-            {t('suggestion.cancel')}
-          </Button>
-        )}
-        {hasApprovePermission && (
-          <Button
-            size="sm"
-            variantColor="teal"
-            color="blue.800"
-            borderRadius={0}
-            isLoading={approveSuggestionLoading}
-            isDisabled={operationLoading}
-            onClick={handleAcceptSuggestion}
-          >
-            {t('suggestion.accept')}
-          </Button>
-        )}
-      </Flex>
-    </Flex>
+    </SuggestionCard>
   );
 };
 

@@ -9,7 +9,8 @@
     "insert": "beszúrva",
     "delete": "javasolt szövegrész törlése",
     "accept": "elfogad",
-    "cancel": "elutasít"
+    "cancel": "elutasít",
+    "preview": "Kattints az előnézethez"
   },
   "unsavedChanges": "Vannak még el nem mentett változtatásaid, biztosan kilépsz?"
 }

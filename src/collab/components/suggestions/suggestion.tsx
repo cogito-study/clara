@@ -29,8 +29,6 @@ export const Suggestion: FC<SuggestionProps> = ({ quillEditor }) => {
   useSuggestionUpdate({ setter: setSuggestions });
   useSuggestionReject({ setter: setSuggestions, quillEditor });
 
-  console.log(suggestions);
-
   const handleSuggestionHovered = (id: string) => {
     if (quillEditor) {
       const suggestion = suggestions.find((s) => s.id === id);
