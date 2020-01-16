@@ -58,7 +58,7 @@ export const PickSubjects = ({
         <Fragment>
           <form onSubmit={onSubmit} css={{ width: '100%' }}>
             <Flex direction="column">
-              {data?.majorByToken?.subjects.map(({ id, name }) => (
+              {data?.majorByToken?.subjects.map(({ id, name, department }) => (
                 <Checkbox
                   key={id}
                   name={id}
@@ -68,7 +68,7 @@ export const PickSubjects = ({
                   mt={3}
                   color="grey.800"
                 >
-                  {name}
+                  {name} ({department?.name})
                 </Checkbox>
               ))}
             </Flex>

@@ -3,6 +3,9 @@ query MajorByToken($token: String!, $majorID: ID!) {
     subjects(where: { deletedAt: null }) {
       id
       name
+      department {
+        name
+      }
     }
   }
 }
