@@ -125,8 +125,6 @@ export type CreateNoteHighlightInput = {
 /** Input of create note */
 export type CreateNoteInput = {
   readonly title: Scalars['String'];
-  readonly content: Scalars['String'];
-  readonly contentHTML: Scalars['String'];
   readonly number: Scalars['Int'];
   readonly description: Maybe<Scalars['String']>;
   readonly noteCategory: NoteCategory;
@@ -2328,8 +2326,6 @@ export type UpdateNoteHighlightInput = {
 /** Input of update note */
 export type UpdateNoteInput = {
   readonly title: Maybe<Scalars['String']>;
-  readonly content: Maybe<Scalars['String']>;
-  readonly contentHTML: Maybe<Scalars['String']>;
   readonly number: Maybe<Scalars['Int']>;
   readonly description: Maybe<Scalars['String']>;
   readonly noteCategory: Maybe<NoteCategory>;
