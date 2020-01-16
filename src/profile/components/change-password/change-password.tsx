@@ -74,7 +74,7 @@ export const ChangePassword = ({ userID }: ChangePasswordProps) => {
       >
         <Box maxW={480} size="full">
           <form onSubmit={onSubmit}>
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isInvalid={errors.oldPassword && true}>
                 <FormLabel htmlFor="oldPassword" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.current')}
@@ -89,7 +89,7 @@ export const ChangePassword = ({ userID }: ChangePasswordProps) => {
                 <FormErrorMessage fontSize={14}>{errors.oldPassword?.message}</FormErrorMessage>
               </FormControl>
             </Box>
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isInvalid={errors.password && true}>
                 <FormLabel htmlFor="password" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.new')}
@@ -104,7 +104,7 @@ export const ChangePassword = ({ userID }: ChangePasswordProps) => {
                 <FormErrorMessage fontSize={14}>{errors.password?.message}</FormErrorMessage>
               </FormControl>
             </Box>
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isInvalid={errors.passwordConfirm && true}>
                 <FormLabel htmlFor="passwordConfirm" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.password.confirm')}

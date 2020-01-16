@@ -122,7 +122,7 @@ export const Register = () => {
             </Heading>
 
             <form onSubmit={onSubmit} style={{ width: '100%' }}>
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.firstName && true}>
                   <FormLabel htmlFor="firstName" color="blue.800">
                     {t('core:form.firstName.label')}
@@ -137,7 +137,7 @@ export const Register = () => {
                   <FormErrorMessage fontSize={14}>{errors.firstName?.message}</FormErrorMessage>
                 </FormControl>
               </Box>
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.lastName && true}>
                   <FormLabel htmlFor="lastName" color="blue.800">
                     {t('core:form.lastName.label')}
@@ -152,7 +152,7 @@ export const Register = () => {
                   <FormErrorMessage fontSize={14}>{errors.lastName?.message}</FormErrorMessage>
                 </FormControl>
               </Box>
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.email && true}>
                   <FormLabel htmlFor="email" color="blue.800">
                     {t('core:form.email.label')}
@@ -167,7 +167,7 @@ export const Register = () => {
                   <FormErrorMessage fontSize={14}>{errors.email?.message}</FormErrorMessage>
                 </FormControl>
               </Box>
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.password && true}>
                   <FormLabel htmlFor="password" color="blue.800">
                     {t('core:form.password.label')}
@@ -183,7 +183,7 @@ export const Register = () => {
                 </FormControl>
               </Box>
 
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.passwordConfirm && true}>
                   <FormLabel htmlFor="passwordConfirm" color="blue.800">
                     {t('core:form.password.confirm.label')}
@@ -201,7 +201,7 @@ export const Register = () => {
                 </FormControl>
               </Box>
 
-              <Box h={100}>
+              <Box mb={4}>
                 <FormControl>
                   <FormLabel htmlFor="language" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                     {t('core:form.preferredLanguage.label')}
@@ -222,7 +222,7 @@ export const Register = () => {
                 </FormControl>
               </Box>
 
-              <Box h={80}>
+              <Box mb={4}>
                 <FormControl isRequired isInvalid={errors.legal && true}>
                   <Checkbox name="legal" size="sm" variantColor="teal" ref={register}>
                     <Trans
@@ -250,7 +250,7 @@ export const Register = () => {
               <Button
                 type="submit"
                 isLoading={registerUserLoading}
-                mt={6}
+                mt={2}
                 variantColor="teal"
                 width="100%"
                 borderRadius={0}

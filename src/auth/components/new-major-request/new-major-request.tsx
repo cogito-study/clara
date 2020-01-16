@@ -74,12 +74,12 @@ export const NewMajorRequest = () => {
             {t('newMajorRequest.title')}
           </Heading>
 
-          <Text color="blue.800" mt={4} textAlign="center" lineHeight="tall">
+          <Text color="blue.800" mb={4} textAlign="center" lineHeight="tall">
             {t('newMajorRequest.subtitle')}
           </Text>
 
           <form onSubmit={onSubmit}>
-            <FormControl isRequired mt={5}>
+            <FormControl isRequired mb={4}>
               <FormLabel htmlFor="institute" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.institute.label')}
               </FormLabel>
@@ -92,7 +92,7 @@ export const NewMajorRequest = () => {
               />
             </FormControl>
 
-            <FormControl isRequired mt={4}>
+            <FormControl isRequired mb={4}>
               <FormLabel htmlFor="faculty" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.faculty.label')}
               </FormLabel>
@@ -105,7 +105,7 @@ export const NewMajorRequest = () => {
               />
             </FormControl>
 
-            <FormControl isRequired mt={4}>
+            <FormControl isRequired mb={4}>
               <FormLabel htmlFor="major" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('newMajorRequest.major.label')}
               </FormLabel>
@@ -120,7 +120,7 @@ export const NewMajorRequest = () => {
 
             <Button
               type="submit"
-              mt={8}
+              mt={4}
               isLoading={loading}
               variantColor="teal"
               w="full"

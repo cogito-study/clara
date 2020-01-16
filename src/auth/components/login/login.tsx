@@ -72,7 +72,7 @@ export const Login = () => {
           {t('login.title')}
         </Heading>
         <form onSubmit={onSubmit} style={{ width: '100%' }}>
-          <Box h={100}>
+          <Box mb={4}>
             <FormControl isInvalid={errors.email && true}>
               <FormLabel htmlFor="email" color="blue.800">
                 {t('core:form.email.label')}
@@ -88,7 +88,7 @@ export const Login = () => {
             </FormControl>
           </Box>
 
-          <Box h={118}>
+          <Box mb={4}>
             <FormControl isInvalid={errors.password && true}>
               <FormLabel htmlFor="password" color="blue.800">
                 {t('core:form.password.label')}

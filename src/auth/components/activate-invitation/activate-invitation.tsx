@@ -88,7 +88,7 @@ export const ActivateInvitation = () => {
           <PasswordUserInfo token={token} />
 
           <form onSubmit={onSubmit} style={{ width: '100%' }}>
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isRequired isInvalid={errors.password && true}>
                 <FormLabel htmlFor="password" color="blue.800">
                   {t('core:form.password.label')}
@@ -104,7 +104,7 @@ export const ActivateInvitation = () => {
               </FormControl>
             </Box>
 
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isRequired isInvalid={errors.passwordConfirm && true}>
                 <FormLabel htmlFor="passwordConfirm" color="blue.800">
                   {t('core:form.password.confirm.label')}
@@ -120,7 +120,7 @@ export const ActivateInvitation = () => {
               </FormControl>
             </Box>
 
-            <Box h="52px">
+            <Box mb={4}>
               <FormControl isRequired isInvalid={errors.legal && true}>
                 <Checkbox name="legal" size="sm" variantColor="teal" ref={register}>
                   <Trans
@@ -147,7 +147,7 @@ export const ActivateInvitation = () => {
 
             <Button
               isLoading={loading}
-              mt={6}
+              mt={4}
               variantColor="teal"
               width="100%"
               borderRadius={0}

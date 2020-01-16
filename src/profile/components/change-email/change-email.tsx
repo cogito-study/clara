@@ -78,7 +78,7 @@ export const ChangeEmail = ({ userID, email }: ChangeEmailProps) => {
             </Heading>
           </Flex>
           <form onSubmit={onSubmit} style={{ width: '100%' }}>
-            <Box h="100px">
+            <Box mb={4}>
               <FormControl isInvalid={errors.email && true}>
                 <FormLabel htmlFor="email" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.email.new')}
