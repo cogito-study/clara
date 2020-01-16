@@ -77,6 +77,7 @@ export const SubjectPage = () => {
             justify={['stretch', 'stretch', 'flex-start']}
             width="100%"
             px={[0, 0, 0, 16]}
+            mt={['initial', 'initial', 'initial', 1]}
           >
             <TabLink to={subjectRoute({ path: 'subjects-notes', subjectCode })}>
               {t('notes.title')}
