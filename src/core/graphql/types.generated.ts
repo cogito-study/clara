@@ -616,6 +616,7 @@ export type Major = {
 
 export type MajorSubjectsArgs = {
   where: Maybe<MajorSubjectsWhereInput>;
+  orderBy: Maybe<MajorSubjectsOrderByInput>;
   skip: Maybe<Scalars['Int']>;
   after: Maybe<Scalars['ID']>;
   before: Maybe<Scalars['ID']>;
@@ -666,6 +667,10 @@ export type MajorPermissionWhereInput = {
   readonly OR: Maybe<ReadonlyArray<MajorPermissionWhereInput>>;
   readonly NOT: Maybe<ReadonlyArray<MajorPermissionWhereInput>>;
   readonly object: Maybe<MajorWhereInput>;
+};
+
+export type MajorSubjectsOrderByInput = {
+  readonly name: Maybe<OrderByArg>;
 };
 
 export type MajorSubjectsWhereInput = {

@@ -1,7 +1,8 @@
+import * as Types from '../../../../core/graphql/types.generated';
+
+import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import * as Types from '../../../../core/graphql/types.generated';
 
 export type MajorByTokenQueryVariables = {
   token: Types.Scalars['String'];
@@ -26,7 +27,7 @@ export type MajorByTokenQuery = { readonly __typename?: 'Query' } & {
 export const MajorByTokenDocument = gql`
   query MajorByToken($token: String!, $majorID: ID!) {
     majorByToken(data: { token: $token }, where: { id: $majorID }) {
-      subjects(where: { deletedAt: null }) {
+      subjects(where: { deletedAt: null }, orderBy: { name: asc }) {
         id
         name
         department {
