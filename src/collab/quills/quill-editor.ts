@@ -83,6 +83,7 @@ export class QuillEditor {
   }
 
   approveSuggestion(suggestion: Delta) {
+    this.quill.enable();
     switch (this.editorState) {
       case 'original':
         this.quill.updateContents(suggestion);
@@ -117,6 +118,7 @@ export class QuillEditor {
   }
 
   applyOtherSuggestion(otherSuggestion: SuggestionData) {
+    this.quill.disable();
     switch (this.editorState) {
       case 'original':
         this.quill.updateContents(otherSuggestion.delta);
@@ -161,10 +163,11 @@ export class QuillEditor {
   }
 
   discardOtherSuggestion() {
+    this.quill.enable();
     switch (this.editorState) {
       case 'original':
       case 'mySuggestionApplied':
-        console.error('Cannot discard other Suggestion, it is not present.');
+        console.log('Cannot discard other Suggestion, it is not present.');
         break;
       case 'otherSuggestionAppliedWithMySuggestion':
         this.quill.updateContents(this.otherSuggestion.inverseDelta(this.original.current));

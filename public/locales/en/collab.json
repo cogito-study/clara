@@ -9,7 +9,8 @@
     "insert": "insert",
     "delete": "delete suggested phrases",
     "accept": "accept",
-    "cancel": "reject"
+    "cancel": "reject",
+    "preview": "Click to preview"
   },
   "unsavedChanges": "You have unsaved changes, are you sure you want to leave?"
 }

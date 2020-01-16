@@ -1,33 +1,17 @@
-import { Flex } from '@chakra-ui/core';
-import styled from '@emotion/styled-base';
 import Delta from 'quill-delta';
 import React, { FC } from 'react';
 import { QuillEditor } from '../../quills';
 import { SuggestionData } from './suggestion-data';
 import { SuggestionEventProps, SuggestionItem } from './suggestion-item';
 
-type Props = { suggestions: SuggestionData[]; quillEditor?: QuillEditor } & SuggestionEventProps;
-
-const SuggestionCard = styled(Flex)`
-  z-index: 1;
-  background-color: #fff;
-  box-shadow: 3px -3px 12px 4px #0000000f;
-  transition: 0.2s;
-  &:not(:last-child) {
-    margin-bottom: -5rem;
-  }
-  &:hover,
-  &:focus-within {
-    transform: translateX(-4rem);
-    ~ * {
-      transform: translateY(6rem);
-    }
-  }
-`;
+type Props = {
+  suggestions: SuggestionData[];
+  quillEditor?: QuillEditor;
+} & SuggestionEventProps;
 
 const getDeltaY = (delta: Delta, editor: QuillEditor | undefined) => {
   if (!editor) return 0;
-  if (delta.ops[0] && delta.ops[0].retain) {
+  if (delta?.ops[0]?.retain) {
     const posInDocument = delta.ops[0].retain;
     const { top } = editor.quill.getBounds(posInDocument);
     return top;
@@ -59,9 +43,12 @@ export const SuggestionsContainer: FC<Props> = ({ suggestions, quillEditor, ...r
   return (
     <>
       {sortedSuggestions.map((suggestion, idx) => (
-        <SuggestionCard key={suggestion.id} position="absolute" top={positions[idx]}>
-          <SuggestionItem suggestion={suggestion} {...rest} />
-        </SuggestionCard>
+        <SuggestionItem
+          key={suggestion.id}
+          suggestion={suggestion}
+          {...rest}
+          position={positions[idx]}
+        />
       ))}
     </>
   );
