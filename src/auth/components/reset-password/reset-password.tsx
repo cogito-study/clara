@@ -86,7 +86,7 @@ export const ResetPassword = () => {
           <PasswordUserInfo token={token} />
 
           <form onSubmit={onSubmit} style={{ width: '100%' }}>
-            <Box h={108}>
+            <Box mb={4}>
               <FormControl isRequired isInvalid={errors.password && true}>
                 <FormLabel htmlFor="password" color="blue.800">
                   {t('core:form.password.label')}
@@ -102,7 +102,7 @@ export const ResetPassword = () => {
               </FormControl>
             </Box>
 
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl isRequired isInvalid={errors.passwordConfirm && true}>
                 <FormLabel htmlFor="passwordConfirm" color="blue.800">
                   {t('core:form.password.confirm.label')}
@@ -119,7 +119,8 @@ export const ResetPassword = () => {
             </Box>
 
             <Button
-              mt={6}
+              mt={2}
+              mb={4}
               isLoading={loading}
               variantColor="teal"
               width="100%"

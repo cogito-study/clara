@@ -71,7 +71,7 @@ export const ChangeLanguage = ({ userID }: ChangeLanguageProps) => {
             <Heading as="h3" my={3} color="grey.600" fontSize="md" fontWeight="semibold">
               {t('change.preferredLanguage.current', { language: currentLanguage?.name ?? '' })}
             </Heading>
-            <Box h={100}>
+            <Box mb={4}>
               <FormControl>
                 <FormLabel htmlFor="language" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                   {t('change.preferredLanguage.label')}

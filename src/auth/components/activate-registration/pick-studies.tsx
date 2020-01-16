@@ -68,7 +68,7 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
       ) : (
         <Fragment>
           <form onSubmit={onSubmit} css={{ width: '100%' }}>
-            <FormControl mt={4}>
+            <FormControl mb={4}>
               <FormLabel htmlFor="university" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('onboarding.studies.pickers.university.title')}
               </FormLabel>
@@ -86,7 +86,7 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
               </StyledSelect>
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mb={4}>
               <FormLabel htmlFor="faculty" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('onboarding.studies.pickers.faculty.title')}
               </FormLabel>
@@ -105,7 +105,7 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
               </StyledSelect>
             </FormControl>
 
-            <FormControl mt={4}>
+            <FormControl mb={4}>
               <FormLabel htmlFor="major" color="blue.800" fontSize={['sm', 'sm', 'md']}>
                 {t('onboarding.studies.pickers.major.title')}
               </FormLabel>
@@ -126,7 +126,7 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
 
             <Button
               type="submit"
-              mt={8}
+              mt={4}
               isDisabled={!formState.isValid}
               variantColor="teal"
               width="100%"
