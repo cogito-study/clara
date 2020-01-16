@@ -1,10 +1,11 @@
-import * as Types from '../../../../core/graphql/types.generated';
-
-import { SubjectNoteDataFragment } from './subject-note-data-fragment.generated';
-import gql from 'graphql-tag';
-import { SubjectNoteDataFragmentDoc } from './subject-note-data-fragment.generated';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import * as Types from '../../../../core/graphql/types.generated';
+import {
+  SubjectNoteDataFragment,
+  SubjectNoteDataFragmentDoc,
+} from './subject-note-data-fragment.generated';
 
 export type CreateNoteMutationVariables = {
   subjectID: Types.Scalars['ID'];
@@ -25,8 +26,6 @@ export const CreateNoteDocument = gql`
         title: $title
         description: $description
         number: $number
-        content: "{ops:[]}"
-        contentHTML: ""
         noteCategory: NOTE
       }
     ) {

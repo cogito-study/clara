@@ -5,8 +5,6 @@ mutation CreateNote($subjectID: ID!, $title: String!, $description: String, $num
       title: $title
       description: $description
       number: $number
-      content: "{ops:[]}"
-      contentHTML: ""
       noteCategory: NOTE
     }
   ) {
