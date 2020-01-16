@@ -1,0 +1,6 @@
+query SubjectPage($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    id
+    name
+  }
+}

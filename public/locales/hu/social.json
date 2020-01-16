@@ -1,0 +1,15 @@
+{
+  "post": {
+    "input": {
+      "placeholder": "Ossz meg híreket a tárgyról..."
+    },
+    "share": "megosztás"
+  },
+  "alert": {
+    "delete": {
+      "title": "Biztos törölni szeretnéd ezt a posztot?",
+      "description": "Ezt a döntést nem tudod visszavonni utólag."
+    }
+  },
+  "empty": "Üres hírfolyam. Ossz meg valamit egy tantárgy alatt!"
+}

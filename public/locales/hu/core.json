@@ -1,0 +1,78 @@
+{
+  "button": {
+    "save": "mentés",
+    "cancel": "mégse",
+    "back": "vissza",
+    "edit": "szerkesztés",
+    "delete": "törlés"
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "szeretek@tanulni.hu",
+      "validation": {
+        "format": "Hibás email formátum",
+        "required": "Email megadása kötelező"
+      }
+    },
+    "password": {
+      "label": "Jelszó",
+      "validation": {
+        "minCharacter": "A jelszónak legalább 8 karakter hosszúságúnak kell lennie!",
+        "required": "Jelszó megadása kötelező"
+      },
+      "confirm": {
+        "label": "Jelszó megerősítése",
+        "validation": {
+          "different": "A két jelszó nem egyezik meg!",
+          "required": "Jelszó megerősítése kötelező"
+        }
+      }
+    },
+    "terms": {
+      "label": "Elfogadom az <0>adatkezelési szabályzatot</0> és a <1>szerződési feltételeket</1>.",
+      "validation": {
+        "required": "A felhasználási feltételek elfogadása kötelező."
+      }
+    },
+    "firstName": {
+      "label": "Keresztnév",
+      "placeholder": "János",
+      "validation": {
+        "required": "Keresztnév megadása kötelező"
+      }
+    },
+    "lastName": {
+      "label": "Családnév",
+      "placeholder": "Szabó",
+      "validation": {
+        "required": "Családnév megadása kötelező"
+      }
+    },
+    "preferredLanguage": {
+      "label": "Preferált nyelv"
+    }
+  },
+  "meta": {
+    "description": "A Cogito egy közösségi alapú tudástár a legjobb egyetemi jegyzetekkel a leggyorsabb tanulás érdekében."
+  },
+  "menu": {
+    "newsFeed": "hírfolyam",
+    "profile": "profil",
+    "subjects": "tárgyak",
+    "privacyPolicy": "Adatvédelmi nyilatkozat",
+    "termsOfUse": "Szerződési feltételek"
+  },
+  "pages": {
+    "feed": "Hírfolyam",
+    "profile": "Profilom",
+    "error": {
+      "title": "Hoppá, valamilyen hiba történt",
+      "description": "Bizonyosodj meg róla, internetkapcsolatod jól működik, amennyiben a hiba a mi oldalunkon keletkezett, úgy megteszünk mindent annak érdekében, hogy kijavítsuk, addig is próbáld meg újratölteni az oldalt!",
+      "button": {
+        "tryAgain": "oldal frissítése",
+        "report": "hiba jelentése"
+      }
+    }
+  }
+}

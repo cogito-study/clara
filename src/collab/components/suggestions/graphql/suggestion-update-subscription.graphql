@@ -1,0 +1,5 @@
+subscription SuggestionUpdate($noteID: ID) {
+  updatedSuggestion(where: { id: $noteID }) {
+    ...Suggestion
+  }
+}

@@ -1,0 +1,57 @@
+diff --git a/node_modules/@chakra-ui/core/dist/Icon/index.d.ts b/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
+index 3b1953f..532f146 100644
+--- a/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/Icon/index.d.ts
+@@ -1,17 +1,17 @@
+-import { BoxProps } from "../Box";
+ import * as React from "react";
+-import { Icons } from "../theme/icons";
++import { BoxProps } from "../Box";
+ import { Omit } from "../common-types";
++import { Icons } from "../theme/icons";
+ 
+ interface IIcon {
+   /**
+    * The size of the icon.
+    */
+-  size?: string;
++  size?: string | number;
+   /**
+    * The name of the icon.
+    */
+-  name?: Icons;
++  name?: Icons | string;
+   /**
+    * The color of the icon.
+    */
+diff --git a/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts b/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
+index a9debaa..78b1426 100644
+--- a/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/SimpleGrid/index.d.ts
+@@ -1,5 +1,5 @@
+ import * as React from "react";
+-import { ResponsiveValue, GridProps } from "styled-system";
++import { GridProps, ResponsiveValue } from "styled-system";
+ import { BoxProps } from "../Box";
+ 
+ interface ISimpleGrid {
+@@ -28,3 +28,6 @@ interface ISimpleGrid {
+ type SimpleGridProps = BoxProps & ISimpleGrid;
+ 
+ declare const SimpleGrid: React.FC<SimpleGridProps>;
++
++export default SimpleGrid;
++
+diff --git a/node_modules/@chakra-ui/core/dist/Transition/index.d.ts b/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
+index e7cf3d5..8d9337e 100644
+--- a/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
++++ b/node_modules/@chakra-ui/core/dist/Transition/index.d.ts
+@@ -19,7 +19,7 @@ interface IScale {
+   children: (styles: Object) => React.ReactNode;
+ }
+ 
+-type ScaleProps = IScale & TransitionProps<boolean>;
++type ScaleProps = IScale | TransitionProps<boolean>;
+ export const Scale: React.FC<ScaleProps>;
+ 
+ interface ISlide {

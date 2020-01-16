@@ -1,0 +1,3 @@
+mutation ActivateInvitation($token: String!, $password: String!) {
+  activateInvitation(data: { token: $token, password: $password })
+}

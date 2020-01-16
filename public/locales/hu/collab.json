@@ -1,0 +1,16 @@
+{
+  "button": {
+    "study": "olvasó mód",
+    "suggest": "javaslattevés",
+    "edit": "szerkesztés",
+    "back": "vissza"
+  },
+  "suggestion": {
+    "insert": "beszúrva",
+    "delete": "javasolt szövegrész törlése",
+    "accept": "elfogad",
+    "cancel": "elutasít",
+    "preview": "Kattints az előnézethez"
+  },
+  "unsavedChanges": "Vannak még el nem mentett változtatásaid, biztosan kilépsz?"
+}

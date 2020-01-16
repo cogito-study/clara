@@ -1,0 +1,6 @@
+fragment NoteData on Note {
+  id
+  title
+  content
+  description
+}

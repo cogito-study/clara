@@ -1,0 +1,11 @@
+query MenuData {
+  me {
+    id
+    fullName
+    profilePictureURL
+    subjects {
+      name
+      code
+    }
+  }
+}

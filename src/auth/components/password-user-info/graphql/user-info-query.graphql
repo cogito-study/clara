@@ -1,0 +1,6 @@
+query UserInfo($token: String!) {
+  userInfo(token: $token) {
+    fullName
+    email
+  }
+}

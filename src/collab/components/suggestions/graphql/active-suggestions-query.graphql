@@ -1,0 +1,5 @@
+query ActiveSuggestions($noteID: ID) {
+  activeSuggestions(where: { noteID: $noteID }) {
+    ...Suggestion
+  }
+}

@@ -1,0 +1,11 @@
+query MajorByToken($token: String!, $majorID: ID!) {
+  majorByToken(data: { token: $token }, where: { id: $majorID }) {
+    subjects(where: { deletedAt: null }, orderBy: { name: asc }) {
+      id
+      name
+      department {
+        name
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "button": {
+    "save": "save",
+    "cancel": "cancel",
+    "back": "back",
+    "edit": "edit",
+    "delete": "delete"
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "love@learning.com",
+      "validation": {
+        "format": "Invalid email format",
+        "required": "Email is required"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "validation": {
+        "minCharacter": "The password should be at least 8 characters long!",
+        "required": "Password is required"
+      },
+      "confirm": {
+        "label": "Confirm password",
+        "validation": {
+          "different": "Passwords don't match!",
+          "required": "Password confirmation is required"
+        }
+      }
+    },
+    "terms": {
+      "label": "Accept our <0>privacy policy</0> and <1>terms and conditions</1>.",
+      "validation": {
+        "required": "It's required to accept our terms and privacy policy"
+      }
+    },
+    "firstName": {
+      "label": "First Name",
+      "placeholder": "John",
+      "validation": {
+        "required": "First name is required"
+      }
+    },
+    "lastName": {
+      "label": "Last Name",
+      "placeholder": "Doe",
+      "validation": {
+        "required": "Last name is required"
+      }
+    },
+    "preferredLanguage": {
+      "label": "Preferred language"
+    }
+  },
+  "meta": {
+    "description": "Cogito is a collaborative, social-based repository for the best notes and the fastest learning at your university."
+  },
+  "menu": {
+    "newsFeed": "news feed",
+    "profile": "profile",
+    "subjects": "subjects",
+    "privacyPolicy": "Privacy policy",
+    "termsOfUse": "Terms and agreements"
+  },
+  "pages": {
+    "feed": "News feed",
+    "profile": "My profile",
+    "error": {
+      "title": "Ooops, something went wrong",
+      "description": "Make sure you have a solid internet connection, otherwise, if the problem occurred on our side try reloading the page, we are working hard to fix Cogito for you as soon as possible.",
+      "button": {
+        "tryAgain": "reload page",
+        "report": "report problem"
+      }
+    }
+  }
+}

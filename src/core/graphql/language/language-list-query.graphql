@@ -1,0 +1,5 @@
+query LanguageList {
+  languages {
+    ...Language
+  }
+}

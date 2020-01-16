@@ -1,0 +1,11 @@
+mutation ChangeLanguage($userID: ID!, $languageID: ID!) {
+  changePreferredLanguage(
+    where: { id: $userID }
+    data: { preferredLanguage: { id: $languageID } }
+  ) {
+    id
+    preferredLanguage {
+      id
+    }
+  }
+}

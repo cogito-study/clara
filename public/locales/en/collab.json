@@ -1,0 +1,16 @@
+{
+  "button": {
+    "study": "study",
+    "suggest": "suggest",
+    "edit": "edit",
+    "back": "back"
+  },
+  "suggestion": {
+    "insert": "insert",
+    "delete": "delete suggested phrases",
+    "accept": "accept",
+    "cancel": "reject",
+    "preview": "Click to preview"
+  },
+  "unsavedChanges": "You have unsaved changes, are you sure you want to leave?"
+}

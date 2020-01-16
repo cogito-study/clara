@@ -1,0 +1,5 @@
+subscription SuggestionReject($noteID: ID) {
+  rejectedSuggestion(where: { id: $noteID }) {
+    ...Suggestion
+  }
+}

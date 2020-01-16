@@ -1,0 +1,3 @@
+mutation ValidateToken($token: String!, $type: TokenType!) {
+  validateToken(data: { token: $token, type: $type })
+}

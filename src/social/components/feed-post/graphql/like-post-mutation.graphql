@@ -1,0 +1,7 @@
+mutation LikePost($postID: ID!) {
+  likePost(where: { id: $postID }) {
+    id
+    likesCount
+    hasLikedPost
+  }
+}

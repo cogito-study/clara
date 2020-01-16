@@ -1,0 +1,21 @@
+{
+  "change": {
+    "email": {
+      "title": "Email megváltoztatása",
+      "current": "A jelenlegi email címed",
+      "new": "Új email cím",
+      "update": "email frissítése"
+    },
+    "password": {
+      "title": "Jelszó megváltoztatása",
+      "current": "Jelenlegi jelszó",
+      "new": "Új jelszó",
+      "confirm": "Jelszó megerősítése"
+    },
+    "preferredLanguage": {
+      "title": "Nyelv változtatása",
+      "current": "Jelenlegi nyelv: {{ language }}",
+      "label": "Nyelvek"
+    }
+  }
+}

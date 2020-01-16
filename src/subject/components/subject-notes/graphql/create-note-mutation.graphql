@@ -1,0 +1,13 @@
+mutation CreateNote($subjectID: ID!, $title: String!, $description: String, $number: Int!) {
+  createNote(
+    data: {
+      subject: { id: $subjectID }
+      title: $title
+      description: $description
+      number: $number
+      noteCategory: NOTE
+    }
+  ) {
+    ...SubjectNoteData
+  }
+}

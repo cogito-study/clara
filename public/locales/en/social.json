@@ -1,0 +1,15 @@
+{
+  "post": {
+    "input": {
+      "placeholder": "Share news about this subject..."
+    },
+    "share": "share"
+  },
+  "alert": {
+    "delete": {
+      "title": "Are you sure want to delete this post?",
+      "description": "You can't undo this action afterwards."
+    }
+  },
+  "empty": "News feed is empty!"
+}

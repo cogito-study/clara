@@ -1,0 +1,12 @@
+query SubjectNoteList($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    id
+    permissions
+    notes(where: { deletedAt: null }) {
+      ...SubjectNoteData
+
+      updatedAt
+      permissions
+    }
+  }
+}

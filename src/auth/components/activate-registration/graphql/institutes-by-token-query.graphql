@@ -1,0 +1,14 @@
+query InstitutesByToken($token: String!) {
+  institutesByToken(token: $token) {
+    id
+    name
+    faculties(where: { deletedAt: null }) {
+      id
+      name
+      majors(where: { deletedAt: null }) {
+        id
+        name
+      }
+    }
+  }
+}

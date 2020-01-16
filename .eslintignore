@@ -1,1 +1,3 @@
-/**/__generated/**
+
+src/**/*.stories.tsx
+src/**/*.generated.ts

@@ -1,0 +1,10 @@
+mutation UpdateSubjectInfo($subjectInfoID: ID!, $title: String, $content: String) {
+  updateSubjectInformation(
+    where: { id: $subjectInfoID }
+    data: { title: $title, content: $content }
+  ) {
+    id
+    title
+    content
+  }
+}

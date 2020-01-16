@@ -1,0 +1,21 @@
+query SubjectInfo($subjectCode: String) {
+  subject(where: { code: $subjectCode }) {
+    id
+    code
+    description
+    permissions
+    department {
+      id
+      name
+    }
+    teachers(where: { deletedAt: null }) {
+      fullName
+      email
+      profilePictureURL
+    }
+    informations(where: { deletedAt: null }) {
+      ...SubjectInfoData
+      permissions
+    }
+  }
+}

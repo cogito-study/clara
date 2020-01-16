@@ -1,0 +1,14 @@
+fragment FeedPost on Post {
+  id
+  author {
+    id
+    fullName
+    profilePictureURL
+    position
+  }
+  hasLikedPost
+  permissions
+  content
+  updatedAt
+  likesCount
+}

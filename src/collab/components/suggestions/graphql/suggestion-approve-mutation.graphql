@@ -1,0 +1,5 @@
+mutation ApproveSuggestion($suggestionID: ID!) {
+  approveSuggestion(where: { id: $suggestionID }) {
+    ...Suggestion
+  }
+}

@@ -1,0 +1,7 @@
+mutation CreatePost($content: String!, $subjectID: ID!) {
+  createPost(data: { content: $content, subject: { id: $subjectID } }) {
+    subject {
+      id
+    }
+  }
+}

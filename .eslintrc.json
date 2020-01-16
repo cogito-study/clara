@@ -9,6 +9,7 @@
     }
   },
   "plugins": [
+    "babel",
     "react",
     "@typescript-eslint",
     "react-hooks",
@@ -17,6 +18,9 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "prettier",
     "prettier/@typescript-eslint"
   ],
@@ -26,15 +30,20 @@
     }
   },
   "rules": {
-    "complexity": ["error", 5],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/class-name-casing": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/ban-ts-ignore": "warn",
     "react/display-name": "off",
+    "react/jsx-curly-brace-presence": [
+      "error",
+      "never"
+    ],
     "@typescript-eslint/explicit-member-accessibility": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "import/no-default-export": "error"
   }
 }

@@ -1,0 +1,5 @@
+mutation DeleteNote($id: ID!) {
+  deleteNote(where: { id: $id }) {
+    ...SubjectNoteData
+  }
+}

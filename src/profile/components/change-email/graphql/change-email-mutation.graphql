@@ -1,0 +1,6 @@
+mutation ChangeEmail($userID: ID!, $email: String!) {
+  changeEmail(where: { id: $userID }, data: { email: $email }) {
+    id
+    email
+  }
+}

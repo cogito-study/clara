@@ -1,17 +1,17 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './app/App';
-import { isProduction } from './environment/config';
-import './index.css';
-import * as serviceWorker from './serviceWorker';
+import { App } from './core/app';
+import { isProduction } from './core/environment/config';
+import './core/i18n';
 
 // Allow only error log messages in production mode
-const empty = () => {};
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {};
 if (isProduction) {
-  console.log = empty;
-  console.info = empty;
-  console.debug = empty;
-  console.warn = empty;
+  console.log = noop;
+  console.info = noop;
+  console.debug = noop;
+  console.warn = noop;
 }
 
 ReactDOM.render(
@@ -20,8 +20,3 @@ ReactDOM.render(
   </StrictMode>,
   document.getElementById('root') as HTMLElement,
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();

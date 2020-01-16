@@ -1,0 +1,34 @@
+overwrite: true
+schema: ${REACT_APP_API_URL}
+documents: 'src/**/*.graphql'
+config:
+  avoidOptionals: true
+  immutableTypes: true
+generates:
+  src/core/graphql/types.generated.ts:
+    plugins:
+      - typescript
+    config:
+      maybeValue: T | undefined
+      scalars:
+        DateTime: Date
+        JSON: { [key: string]: any }
+    hooks:
+      afterOneFileWrite:
+        - yarn format
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: core/graphql/types.generated.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    hooks:
+      afterOneFileWrite:
+        - yarn format
+    config:
+      withHOC: false
+      withHooks: true
+      withComponent: false
+      reactApolloVersion: 3
