@@ -1,4 +1,5 @@
 import Quill from 'quill';
+import { imageHandler } from './image/utils';
 import { TextMarking } from './text-marking';
 
 Quill.register('modules/text-marking', TextMarking);
@@ -9,7 +10,12 @@ const options = {
   debug: 'warn',
   scrollingContainer: document.documentElement,
   modules: {
-    toolbar: '#toolbar',
+    toolbar: {
+      container: '#toolbar',
+      handlers: {
+        image: imageHandler,
+      },
+    },
     'text-marking': true,
   },
 };
