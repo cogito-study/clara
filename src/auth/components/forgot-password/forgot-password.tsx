@@ -35,11 +35,10 @@ export const ForgotPassword = () => {
   const onSubmit = handleSubmit(async ({ email }) => {
     try {
       await forgotPassword({ variables: { email } });
+      setSubmitted(true);
     } catch (error) {
       errorToast(error);
     }
-
-    setSubmitted(true);
   });
 
   return (
