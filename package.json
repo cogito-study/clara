@@ -136,5 +136,5 @@
     "storybook": "start-storybook -p 9009 -s public",
     "test": "react-scripts test"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

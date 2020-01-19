@@ -195,6 +195,9 @@ export class QuillEditor {
         break;
       case 'mySuggestionApplied':
         this.mySuggestion = this.mySuggestion.compose(delta);
+        if (this.mySuggestion.ops.length === 0) {
+          this.changeState('original');
+        }
         break;
       case 'otherSuggestionAppliedWithMySuggestion':
       case 'otherSuggestionAppliedWithoutMySuggestion':
