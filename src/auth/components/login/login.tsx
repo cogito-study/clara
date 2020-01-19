@@ -100,10 +100,10 @@ export const Login = () => {
                 ref={register}
                 borderRadius={0}
               />
+              <FormErrorMessage fontSize={14}>{errors.password?.message}</FormErrorMessage>
               <FormHelperText color="teal.700" borderRadius={0} textTransform="lowercase">
                 <Link to={authRoute({ path: 'forgot-password' })}>{t('button.forgot')}</Link>
               </FormHelperText>
-              <FormErrorMessage fontSize={14}>{errors.password?.message}</FormErrorMessage>
             </FormControl>
           </Box>
 
