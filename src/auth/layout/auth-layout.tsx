@@ -32,7 +32,7 @@ export const AuthLayout: FC = ({ children }) => {
             <Button
               key={code}
               size="sm"
-              variant={i18n.language === code ? 'outline' : 'ghost'}
+              variant={i18n.languages[0] === code ? 'outline' : 'ghost'}
               variantColor="teal"
               color="blue.800"
               borderColor="teal.500"
