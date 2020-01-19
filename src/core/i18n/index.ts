@@ -18,6 +18,7 @@ i18n
     fallbackLng: 'en',
     defaultNS: 'core',
     debug: true,
+    load: 'languageOnly',
   });
 
 // eslint-disable-next-line import/no-default-export

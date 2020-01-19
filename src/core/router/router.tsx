@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/core';
 import React, { lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { authRoute } from '../../auth/utils/auth-route';
 import { collabRoute } from '../../collab/utils/collab-route';
 import { profileRoute } from '../../profile/utils/profile-route';
@@ -18,6 +18,11 @@ const Profile = lazy(() => import('../../profile'));
 
 export const Router = () => {
   const { t } = useTranslation('core');
+  const history = useHistory();
+
+  history.listen(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <Box h="100%">
