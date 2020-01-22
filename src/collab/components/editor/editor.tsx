@@ -110,7 +110,7 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
           ]}
           position="absolute"
           top={cursorPosition.top + 150}
-          isLoading={loading}
+          isDisabled={loading}
           zIndex={999}
           bg="#fff"
           shadow="lg"
@@ -118,12 +118,8 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
           rightIcon={FiMinusCircle}
           variantColor="red"
           variant="outline"
-          color="blue.800"
           borderWidth={2}
           borderRadius={0}
-          borderColor="red.400"
-          _disabled={{ bg: '#fff' }}
-          _active={{ bg: '#fff' }}
         >
           cancel
         </Button>
