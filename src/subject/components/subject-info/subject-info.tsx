@@ -123,17 +123,19 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
             department={data?.subject?.department.name}
             code={data?.subject?.code}
           />
-          <Heading
-            mt={[6, 6, 6, 8]}
-            mb={[3, 3, 3, 4]}
-            fontSize={['md', 'lg']}
-            fontWeight="bold"
-            maxWidth="80%"
-            color="blue.700"
-            lineHeight="normal"
-          >
-            {t('info.teachers')}
-          </Heading>
+          {data?.subject?.teachers?.length && (
+            <Heading
+              mt={[6, 6, 6, 8]}
+              mb={[3, 3, 3, 4]}
+              fontSize={['md', 'lg']}
+              fontWeight="bold"
+              maxWidth="80%"
+              color="blue.700"
+              lineHeight="normal"
+            >
+              {t('info.teachers')}
+            </Heading>
+          )}
           {data?.subject?.teachers?.map(({ email, fullName }, index: number) => (
             <SubjectTeacherCard key={index} name={fullName} email={email} />
           ))}
