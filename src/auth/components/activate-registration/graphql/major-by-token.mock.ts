@@ -12,7 +12,10 @@ export const majorMock: MockedResponse = {
         subjects: [
           {
             id: 'sub1',
-            name: 'valami',
+            name: 'Subject 1',
+            department: {
+              name: 'Department of faculty',
+            },
           },
         ],
       },
