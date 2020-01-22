@@ -123,7 +123,7 @@ export const SubjectInfo = ({ subjectCode, id }: SubjectIdentifierProps) => {
             department={data?.subject?.department.name}
             code={data?.subject?.code}
           />
-          {data?.subject?.teachers?.length && (
+          {data?.subject?.teachers?.length !== 0 && (
             <Heading
               mt={[6, 6, 6, 8]}
               mb={[3, 3, 3, 4]}

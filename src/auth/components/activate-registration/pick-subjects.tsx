@@ -74,7 +74,7 @@ export const PickSubjects = ({
                     textTransform="uppercase"
                     fontSize={11}
                     fontWeight="bold"
-                    color="blue.800"
+                    color="grey.600"
                   >
                     {department?.name}
                   </Text>
