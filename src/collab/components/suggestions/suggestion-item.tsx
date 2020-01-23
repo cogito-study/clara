@@ -103,6 +103,7 @@ export const SuggestionItem: FC<Props> = ({
         bg="#fff"
         p={3}
         width="300px"
+        cursor="pointer"
         onMouseDown={() => onSuggestionHovered(id)}
         onMouseLeave={() => onSuggestionBlurred(id)}
       >
@@ -117,9 +118,6 @@ export const SuggestionItem: FC<Props> = ({
             </Text>
           </Flex>
         </Flex>
-        <Text as="i" m={1} fontSize={11}>
-          {t('suggestion.preview')}
-        </Text>
         <Collapse startingHeight={100} isOpen={showOverflow} my={3} animateOpacity w="full">
           <PrettifiedSuggestionText delta={delta} original={original ?? new Delta()} />
         </Collapse>
@@ -139,7 +137,10 @@ export const SuggestionItem: FC<Props> = ({
             </Button>
           </Flex>
         )}
-        <Flex w="full" justifyContent="flex-end">
+        <Flex w="full" justify="flex-end" align="center">
+          <Text as="i" fontSize={12} flex="1" color="blue.800" textTransform="lowercase">
+            {t('suggestion.preview')}
+          </Text>
           {hasRejectPermission && (
             <Button
               size="sm"
