@@ -28,13 +28,13 @@ export const StudyPage: React.FC = () => {
   return (
     <>
       <Head title={data?.note?.title} description={data?.note?.description} />
-      <Flex bg="white">
+      <Flex bg="white" justify="center" mt={[4, 4, 4, 12]}>
         {loading ? (
           <CollabPagePlaceholder />
         ) : (
           <Suspense fallback={<CollabPagePlaceholder />}>
             <StudyHeader subject={data?.note?.subject ?? { name: '', code: '' }} />
-            <Flex direction="column" mt={[4, 4, 4, 12]} align="center" w="100%">
+            <Flex direction="column" align="center" w="100%">
               <Study editor={editor} noteData={data?.note} />
             </Flex>
           </Suspense>

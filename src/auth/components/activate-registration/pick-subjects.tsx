@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Button, Checkbox, Flex, Heading, Spinner } from '@chakra-ui/core';
+import { Button, Checkbox, Flex, Heading, Spinner, Text } from '@chakra-ui/core';
 import { jsx } from '@emotion/core';
 import { Fragment } from 'react';
 import useForm from 'react-hook-form';
@@ -68,7 +68,16 @@ export const PickSubjects = ({
                   mt={3}
                   color="grey.800"
                 >
-                  {name} ({department?.name})
+                  <Text px={1}>{name}</Text>
+                  <Text
+                    px={1}
+                    textTransform="uppercase"
+                    fontSize={11}
+                    fontWeight="bold"
+                    color="grey.600"
+                  >
+                    {department?.name}
+                  </Text>
                 </Checkbox>
               ))}
             </Flex>
