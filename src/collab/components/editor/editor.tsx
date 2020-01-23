@@ -127,8 +127,9 @@ export const Editor: FC<EditorProps> = ({ quillEditor, original, hasMySuggestion
       <Flex direction="column" mt={16} align="center">
         <Heading
           color="grey.900"
-          w="100%"
-          px={[2, 2, 10]}
+          width={['100%', '100%', '90%', '90%', '800px']}
+          maxW="800px"
+          px={[2, 2, 0]}
           mb={2}
           textAlign="start"
           lineHeight="normal"
