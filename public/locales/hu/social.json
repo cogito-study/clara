@@ -1,7 +1,8 @@
 {
   "post": {
     "input": {
-      "placeholder": "Ossz meg híreket a tárgyról..."
+      "placeholder": "Ossz meg híreket a tárgyról...",
+      "comment": "Komment"
     },
     "share": "megosztás"
   },
