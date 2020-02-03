@@ -1,7 +1,8 @@
 {
   "post": {
     "input": {
-      "placeholder": "Share news about this subject..."
+      "placeholder": "Share news about this subject...",
+      "comment": "Comment"
     },
     "share": "share"
   },
