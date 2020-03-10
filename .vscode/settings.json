@@ -11,9 +11,9 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.colorCustomizations": {
-    "statusBar.background": "#00b3e6",
-    "statusBarItem.hoverBackground": "#008bb3",
+    "statusBar.background": "#f9e64f",
+    "statusBarItem.hoverBackground": "#f7df1e",
     "statusBar.foreground": "#15202b"
   },
-  "peacock.color": "#00b3e6",
+  "peacock.color": "#f9e64f",
 }

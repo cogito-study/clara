@@ -43,11 +43,10 @@ export const PickStudies = ({ token, onFormSubmit }: PickStudiesProps) => {
 
   const faculties = data?.institutesByToken
     ?.filter((institute) => institute.id === watch('university'))
-    ?.flatMap((institute) => institute.faculties);
+    ?.find(Boolean)?.faculties;
 
-  const majors = faculties
-    ?.filter((faculty) => faculty.id === watch('faculty'))
-    ?.flatMap((faculty) => faculty.majors);
+  const majors = faculties?.filter((faculty) => faculty.id === watch('faculty'))?.find(Boolean)
+    ?.majors;
 
   return (
     <Flex
