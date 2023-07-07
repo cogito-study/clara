@@ -96,7 +96,7 @@
     "postinstall-postinstall": "2.0.0",
     "prettier": "1.19.1",
     "storybook-react-router": "1.0.8",
-    "stylelint": "11.0.0",
+    "stylelint": "15.10.1",
     "stylelint-config-idiomatic-order": "7.0.3",
     "stylelint-config-prettier": "6.0.0",
     "stylelint-config-recommended": "3.0.0",
